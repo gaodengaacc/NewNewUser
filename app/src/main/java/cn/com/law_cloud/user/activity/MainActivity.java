@@ -56,9 +56,9 @@ public class MainActivity extends BaseActivity {
         mViewPager.setAdapter(new MainPagerAdapter(this, mFragmentManager, fragments));
 
         List<TabItemBean> tabs = new ArrayList<>();
-        tabs.add(new TabItemBean(R.mipmap.ic_launcher, "发现", R.layout.item_main_tab));
-        tabs.add(new TabItemBean(R.mipmap.ic_launcher, "专人翻译", R.layout.item_main_tab));
-        tabs.add(new TabItemBean(R.mipmap.ic_launcher, "我", R.layout.item_main_tab));
+        tabs.add(new TabItemBean(R.mipmap.find_uncheck, "发现", R.layout.item_main_tab));
+        tabs.add(new TabItemBean(R.mipmap.translator_uncheck, "专人翻译", R.layout.item_main_tab));
+        tabs.add(new TabItemBean(R.mipmap.me_uncheck, "我", R.layout.item_main_tab));
 
         for (int i = 0; i < 3; i++) {
             TabLayout.Tab tab = mTab.getTabAt(i);
