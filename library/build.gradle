@@ -1,0 +1,119 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+plugins {
+    id "com.github.dcendents.android-maven" version "1.5"
+    id "com.jfrog.bintray" version "1.7"
+}
+
+repositories {
+    jcenter()
+}
+
+def _group = 'cn.com.law_cloud.library'
+def _version = '0.0.1'
+
+apply plugin: 'com.android.library'
+
+def _versionCode() {
+    return Integer.parseInt(new Date(getGitCommitTime()).format("yyMMddhhmm", TimeZone.getTimeZone("GMT+8")));
+}
+
+def getGitCommitTime() {
+    // maybe cause Exception
+    return 'git show -s --format=%cd HEAD'.execute().text.trim()
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode _versionCode()
+        versionName "${_version}"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:support-v4:25.0.1'
+    testCompile 'junit:junit:4.12'
+}
+
+def siteUrl = 'https://172.16.252.130:8443/summary/Android%2FUser.git'
+def gitUrl = 'https://172.16.252.130:8443/r/Android/User.git'
+
+bintray {
+    user = 'lawcloud'
+    key = '06ee88c4d5b55a25c5e2505ada81f7f1dd8982a1'
+
+    configurations = ['archives']
+    pkg {
+        repo = 'android-library'
+        name = 'android-base-library'
+        userOrg = 'law-cloud'
+        desc = ''
+        websiteUrl = siteUrl
+        issueTrackerUrl = 'this is the init version'
+        licenses = ['Apache-2.0']
+        vcsUrl = gitUrl
+        labels = ['aar', 'android']
+        publicDownloadNumbers = true
+        version {
+            name = "${_version}"
+            desc = "this is the ${_version} version"
+            released = new Date()
+            vcsTag = "${_version}"
+            //attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name "this is the ${_version} version"
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'law-cloud'
+                        name 'lawcloud'
+                        email 'app@law-cloud.com.cn'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
+                }
+            }
+        }
+    }
+}
