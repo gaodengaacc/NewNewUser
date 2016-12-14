@@ -49,9 +49,10 @@ public class MainActivity extends BaseActivity {
         mTab.setupWithViewPager(mViewPager);
         mTab.setTabGravity(TabLayout.GRAVITY_FILL);
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(mDiscoverFragment);
+
         fragments.add(mSpecialistTranslationFragment);
         fragments.add(mUserCenterFragment);
+        fragments.add(mDiscoverFragment);
         mViewPager.setAdapter(new MainPagerAdapter(this, mFragmentManager, fragments));
 
         List<TabItemBean> tabs = new ArrayList<>();
