@@ -1,21 +1,21 @@
-package cn.com.law_cloud.fragment;
+package cn.com.law_cloud.user.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.com.law_cloud.library.R;
+import cn.com.law_cloud.fragment.BaseFragment;
+import cn.com.law_cloud.user.R;
 
-public class BaseFragment extends Fragment {
+public class DiscoverFragment extends BaseFragment {
 
-    public BaseFragment() {
+    public DiscoverFragment() {
         // Required empty public constructor
     }
 
-    public static BaseFragment newInstance() {
-        BaseFragment fragment = new BaseFragment();
+    public static DiscoverFragment newInstance() {
+        DiscoverFragment fragment = new DiscoverFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -32,7 +32,7 @@ public class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_base, container, false);
+        return inflater.inflate(R.layout.fragment_discover, container, false);
     }
 
 }

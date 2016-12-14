@@ -1,6 +1,10 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
     }
 }
 
@@ -16,7 +20,11 @@ repositories {
 def _group = 'cn.com.law_cloud.library'
 def _version = '0.0.1'
 
+group = _group
+version = _version
+
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 def _versionCode() {
     return Integer.parseInt(new Date(getGitCommitTime()).format("yyMMddhhmm", TimeZone.getTimeZone("GMT+8")));
@@ -49,12 +57,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:design:25.0.1'
     testCompile 'junit:junit:4.12'
 }
 
