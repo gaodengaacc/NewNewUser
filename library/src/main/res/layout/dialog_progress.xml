@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/loading_c_bg"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.lyun.widget.DonutProgress
+        android:id="@+id/progress_progress"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        app:donut_background_color="@android:color/transparent"
+        app:donut_finished_color="#2b8aff"
+        app:donut_finished_stroke_width="2dp"
+        app:donut_inner_bottom_text_color="#2b8aff"
+        app:donut_max="100"
+        app:donut_progress="50"
+        app:donut_text_color="#2b8aff"
+        app:donut_progress_start_angle="-90"
+        app:donut_unfinished_color="#f2f2f2"
+        app:donut_unfinished_stroke_width="2dp"/>
+
+    <TextView
+        android:id="@+id/progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="正在上传数据..."
+        android:textColor="#313131"
+        android:textSize="16sp"/>
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<!-- 全局值配置文件 -->
+<resources>
+    <dimen name="global_padding1">1dp</dimen>
+    <dimen name="global_padding2">2dp</dimen>
+    <dimen name="global_padding3">3dp</dimen>
+    <dimen name="global_padding4">4dp</dimen>
+    <dimen name="global_padding5">5dp</dimen>
+    <dimen name="global_padding6">6dp</dimen>
+    <dimen name="global_padding7">7dp</dimen>
+    <dimen name="global_padding8">8dp</dimen>
+    <dimen name="global_padding9">9dp</dimen>
+    <dimen name="global_padding10">10dp</dimen>
+    <dimen name="global_padding11">11dp</dimen>
+    <dimen name="global_padding12">12dp</dimen>
+    <dimen name="global_padding13">13dp</dimen>
+    <dimen name="global_padding14">14dp</dimen>
+    <dimen name="global_padding15">15dp</dimen>
+    <dimen name="global_padding16">16dp</dimen>
+    <dimen name="global_padding17">17dp</dimen>
+    <dimen name="global_padding18">18dp</dimen>
+    <dimen name="global_padding19">19dp</dimen>
+    <dimen name="global_padding20">20dp</dimen>
+
+    <dimen name="global_size_1">1sp</dimen>
+    <dimen name="global_size_2">2sp</dimen>
+    <dimen name="global_size_3">3sp</dimen>
+    <dimen name="global_size_4">4sp</dimen>
+    <dimen name="global_size_5">5sp</dimen>
+    <dimen name="global_size_6">6sp</dimen>
+    <dimen name="global_size_7">7sp</dimen>
+    <dimen name="global_size_8">8sp</dimen>
+    <dimen name="global_size_9">9sp</dimen>
+    <dimen name="global_size_10">10sp</dimen>
+    <dimen name="global_size_11">11sp</dimen>
+    <dimen name="global_size_12">12sp</dimen>
+    <dimen name="global_size_13">13sp</dimen>
+    <dimen name="global_size_14">14sp</dimen>
+    <dimen name="global_size_15">15sp</dimen>
+    <dimen name="global_size_16">16sp</dimen>
+    <dimen name="global_size_17">17sp</dimen>
+    <dimen name="global_size_18">18sp</dimen>
+    <dimen name="global_size_19">19sp</dimen>
+    <dimen name="global_size_20">20sp</dimen>
+</resources>

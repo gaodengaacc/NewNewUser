@@ -7,6 +7,28 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="AppBaseTheme" parent="@style/android:Theme.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:windowTitleSize">48dp</item>
+        <item name="android:windowBackground">@color/bgc4</item>
+    </style>
+    <style name="app_custom_title_bg_style">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="app_custom_title_style">
+        <item name="android:background">@color/bgcB</item>
+        <item name="android:layout_height">@dimen/title_height</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:padding">@dimen/title_padding</item>
+        <item name="android:layout_margin">@dimen/title_margin</item>
+    </style>
+
+    <style name="GlobalTitleTheme" parent="@style/AppBaseTheme">
+        <item name="android:windowTitleSize">48dp</item>
+        <item name="android:windowTitleBackgroundStyle">@style/app_custom_title_bg_style</item>
+        <item name="android:windowTitleStyle">@style/app_custom_title_style</item>
+    </style>
     <!--"我"的界面item -->
     <style name="main_fragment_discover_item">
         <item name="android:layout_width">match_parent</item>
