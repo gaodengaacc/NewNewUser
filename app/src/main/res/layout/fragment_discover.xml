@@ -23,6 +23,7 @@
         android:id="@+id/scrollView_discover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fillViewport="true"
         android:scrollbars="none">
 
         <LinearLayout
@@ -31,6 +32,8 @@
             android:orientation="vertical">
 
             <FrameLayout
+                android:focusableInTouchMode="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="160dp">
 
