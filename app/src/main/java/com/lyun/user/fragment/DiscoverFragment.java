@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -74,7 +75,12 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
         mDiscoverRecyclerViewMemeber.initRecyclerView();
         discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getActivity(), mDiscoverRecyclerViewMemeber);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);//设置布局管理器
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });//设置布局管理器,优化scrollview嵌套recyclerview惯性滑动
         mRecyclerView.setAdapter(discoverRecyclerViewAdapter);
         mScrollView = (ScrollView) view.findViewById(R.id.scrollView_discover);
 //        mScrollView.smoothScrollTo(0, 20);
@@ -88,10 +94,9 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
         padding = (int) (divideWidth(width, 1080, 6) * 9);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager_discover);
         dotLinearLayout = (LinearLayout) view.findViewById(R.id.dotLinearLayout);
-        mViewPager.setOnPageChangeListener(this);
-
         initDots();// 初始化圆点
         initImages();// 初始化图片
+        mViewPager.setOnPageChangeListener(this);
 
 
     }
