@@ -4,7 +4,7 @@
     <data>
         <variable
             name="data"
-            type="cn.com.law_cloud.user.viewmodel.DemoItemViewModel"/>
+            type="com.lyun.user.viewmodel.DemoItemViewModel"/>
     </data>
 
     <LinearLayout android:orientation="vertical"

@@ -5,10 +5,10 @@
     <data>
         <import
             alias="DemoViewModel"
-            type="cn.com.law_cloud.user.viewmodel.DemoViewModel" />
+            type="com.lyun.user.viewmodel.DemoViewModel" />
         <import
             alias="DemoModel"
-            type="cn.com.law_cloud.user.model.DemoModel" />
+            type="com.lyun.user.model.DemoModel" />
 
         <variable
              name="demoViewModel"

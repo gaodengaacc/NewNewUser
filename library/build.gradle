@@ -17,7 +17,7 @@ repositories {
     jcenter()
 }
 
-def _group = 'cn.com.law_cloud.library'
+def _group = 'com.lyun.library'
 def _version = '0.0.1'
 
 group = _group
@@ -55,7 +55,7 @@ android {
         }
     }
     dataBinding{
-       enabled true
+        enabled true
     }
 }
 

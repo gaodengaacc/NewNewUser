@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "cn.com.law_cloud.user"
+        applicationId "com.lyun.user"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
