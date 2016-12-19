@@ -35,11 +35,11 @@ public class DemoActivity extends GlobalTitleBarActivity {
         activityDemoBinding.setDemoModel(demoModel);
         list = new ArrayList<DemoItemViewModel>();
         list.add(new DemoItemViewModel("1"));
-        list.add(new DemoItemViewModel("1"));
-        list.add(new DemoItemViewModel("1"));
-        list.add(new DemoItemViewModel("1"));
-        list.add(new DemoItemViewModel("1"));
-        adapter = new DemoRecycleAdapter(this, list);
+        list.add(new DemoItemViewModel("2"));
+        list.add(new DemoItemViewModel("3"));
+        list.add(new DemoItemViewModel("4"));
+        list.add(new DemoItemViewModel("5"));
+        adapter = new DemoRecycleAdapter(this,list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         activityDemoBinding.demoRecyclerView.setHasFixedSize(true);
