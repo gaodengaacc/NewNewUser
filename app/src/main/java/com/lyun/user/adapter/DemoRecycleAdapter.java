@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.lyun.user.R;
 import com.lyun.user.databinding.ItemDemoBinding;
+import com.lyun.user.model.DemoItemModel;
 import com.lyun.user.viewmodel.DemoItemViewModel;
 
 import java.util.List;
@@ -23,10 +24,11 @@ import java.util.List;
 public class DemoRecycleAdapter extends RecyclerView.Adapter<DemoRecycleAdapter.DemoRecyclerHolder> {
     private LayoutInflater m_layoutInflater;
     private List<DemoItemViewModel> m_demoItemViewModels;
-
+    private DemoItemModel demoItemModel;
     public DemoRecycleAdapter(Context context, List<DemoItemViewModel> demoItemViewModels) {
         m_layoutInflater = LayoutInflater.from(context);
         m_demoItemViewModels = demoItemViewModels;
+        demoItemModel = new DemoItemModel();
     }
 
     @Override
@@ -58,6 +60,8 @@ public class DemoRecycleAdapter extends RecyclerView.Adapter<DemoRecycleAdapter.
         }
 
         public void bind(DemoItemViewModel demoItemViewModel) {
+            demoItemModel.setDemoItemViewModel(demoItemViewModel);
+            demoItemModel.doData();
             m_itemLayoutBinding.setData(demoItemViewModel);
 //            m_itemLayoutBinding.setVariable(BR.data, demoItemViewModel);
 //            m_itemLayoutBinding.executePendingBindings();

@@ -9,7 +9,6 @@
         <import
             alias="DemoModel"
             type="com.lyun.user.model.DemoModel" />
-
         <variable
              name="demoViewModel"
              type="DemoViewModel" />
