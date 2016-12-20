@@ -21,19 +21,8 @@ public class SimpleMessageDialog extends Dialog implements OnClickListener {
     private Context context;
     private String info = "";
     private String tag;
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
     private OnItemClickListener onItemClickListener;
-
     private TextView mTvInfo;
-
     private Button mBtnYes;
     private int mBtnYesVisibility = View.VISIBLE;
     private TextView mDivider;
@@ -54,6 +43,13 @@ public class SimpleMessageDialog extends Dialog implements OnClickListener {
         this.info = info;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

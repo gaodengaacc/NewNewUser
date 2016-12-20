@@ -28,8 +28,6 @@ public class DemoItemViewModel extends BaseObservable {
     }
     @Bindable
     public boolean getIsShow() {
-        if("1".equals(label))
-            isShow = true;
         return isShow;
     }
 

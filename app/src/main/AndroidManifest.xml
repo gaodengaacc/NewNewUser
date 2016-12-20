@@ -3,6 +3,8 @@
     package="com.lyun.user">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".AppApplication"
@@ -20,10 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.DemoActivity"
             android:theme="@style/GlobalTitleTheme" />
+        <activity android:name=".activity.MainActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

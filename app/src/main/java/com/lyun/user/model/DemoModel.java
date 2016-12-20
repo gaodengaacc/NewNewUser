@@ -9,7 +9,7 @@ import com.lyun.utils.ToastUtil;
 /**
  * @author Gordon
  * @since 2016/12/16
- * do()
+ * do(Activity的业务处理)
  */
 
 public class DemoModel {
@@ -26,6 +26,8 @@ public class DemoModel {
     }
 
     public void onUserIconClick(View v) {
+        if(demoViewModel!=null)
+            demoViewModel.setAge(10);
         ToastUtil.show(activity, "点击图片");
     }
 }
