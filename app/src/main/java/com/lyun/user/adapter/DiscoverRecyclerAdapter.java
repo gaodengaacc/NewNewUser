@@ -1,15 +1,20 @@
 package com.lyun.user.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.lyun.user.R;
-import com.lyun.user.entity.DiscoverRecyclerViewMemeber;
+import com.lyun.user.databinding.ItemDiscoverRecyclerviewBinding;
+import com.lyun.user.model.DiscoverFragmentItemModel;
+import com.lyun.user.viewmodel.DiscoverRecyclerItemViewModel;
+import com.lyun.utils.ToastUtil;
+
+import java.util.List;
 
 /**
  * Created by 郑成裕 on 2016/12/16.
@@ -17,49 +22,59 @@ import com.lyun.user.entity.DiscoverRecyclerViewMemeber;
 
 public class DiscoverRecyclerAdapter extends RecyclerView.Adapter<DiscoverRecyclerAdapter.MyViewHolder> {
     private Context mContext;
-    private DiscoverRecyclerViewMemeber mDiscoverRecyclerViewMemeber = new DiscoverRecyclerViewMemeber();
-    private LayoutInflater mLayoutInflater;
 
-    public DiscoverRecyclerAdapter(Context mContext, DiscoverRecyclerViewMemeber mDiscoverRecyclerViewMemeber) {
+    private List<DiscoverRecyclerItemViewModel> listData;
+    private LayoutInflater mLayoutInflater;
+    private DiscoverFragmentItemModel itemModel;
+    public DiscoverRecyclerAdapter(Context mContext, List<DiscoverRecyclerItemViewModel> listData) {
         this.mContext = mContext;
-        this.mDiscoverRecyclerViewMemeber = mDiscoverRecyclerViewMemeber;
+        this.listData = listData;
         mLayoutInflater = LayoutInflater.from(mContext);
+        this.mContext = mContext;
+    }
+
+    public void setListData(List<DiscoverRecyclerItemViewModel> listData) {
+        this.listData = listData;
+        notifyDataSetChanged();
     }
 
     //重写onCreateViewHolder方法，返回一个自定义的ViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
-        View view = mLayoutInflater.inflate(R.layout.item_discover_recyclerview, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
-        return myViewHolder;
+        ItemDiscoverRecyclerviewBinding viewBinding = DataBindingUtil.inflate(mLayoutInflater,R.layout.item_discover_recyclerview, parent, false);
+        return new MyViewHolder(viewBinding.getRoot(),viewBinding);
     }
 
     //填充onCreateViewHolder方法返回的holder中的控件
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.imageView_discoverRecyclerView.setImageResource(mDiscoverRecyclerViewMemeber.imagesId[position]);
-        holder.textView_title_discoverRecyclerView.setText(mDiscoverRecyclerViewMemeber.listTitle.get(position));
-        holder.textView_content_discoverRecyclerView.setText(mDiscoverRecyclerViewMemeber.listContent.get(position));
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ToastUtil.show(mContext,"点击Item");
+//            }
+//        });
+        holder.bind(listData.get(position));
     }
 
 
     @Override
     public int getItemCount() {
-        return mDiscoverRecyclerViewMemeber.listTitle.size();
+        return listData.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView_discoverRecyclerView;
-        TextView textView_title_discoverRecyclerView;
-        TextView textView_content_discoverRecyclerView;
-
-        public MyViewHolder(View itemView) {
+        private ItemDiscoverRecyclerviewBinding viewBinding;
+        public MyViewHolder(View itemView, ViewDataBinding viewDataBinding) {
             super(itemView);
-            imageView_discoverRecyclerView = (ImageView) itemView.findViewById(R.id.imageView_discoverRecyclerView);
-            textView_title_discoverRecyclerView = (TextView) itemView.findViewById(R.id.textView_title_discoverRecyclerView);
-            textView_content_discoverRecyclerView = (TextView) itemView.findViewById(R.id.textView_content_discoverRecyclerView);
+            this.viewBinding = (ItemDiscoverRecyclerviewBinding) viewDataBinding;
+        }
+        private void bind(DiscoverRecyclerItemViewModel viewModel) {
+            itemModel = new DiscoverFragmentItemModel();
+            itemModel.setViewModel(viewModel);
+            itemModel.doData();
+            viewBinding.setItemData(viewModel);
+            viewBinding.setItemModel(itemModel);
         }
     }
 }
