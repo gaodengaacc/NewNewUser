@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:orientation="vertical"
-    tools:context="cn.com.law_cloud.user.fragment.SpecialistTranslationFragment">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,10 +31,10 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:focusableInTouchMode="true"
-                android:focusable="true"
                 android:layout_width="match_parent"
-                android:layout_height="160dp">
+                android:layout_height="160dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPager_discover"
