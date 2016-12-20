@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
+import com.lyun.BaseApplication;
 import com.lyun.utils.ToastUtil;
 import com.lyun.widget.dialog.ProgressBarDialog;
 import com.lyun.widget.refresh.PullToRefreshLayout;

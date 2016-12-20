@@ -1,4 +1,4 @@
-package com.lyun.activity;
+package com.lyun;
 
 import android.content.Context;
 import android.support.multidex.MultiDex;

@@ -1,4 +1,4 @@
-package com.lyun.user.view;
+package com.lyun.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
