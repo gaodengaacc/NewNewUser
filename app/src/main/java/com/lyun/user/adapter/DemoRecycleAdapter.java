@@ -20,7 +20,6 @@ import java.util.List;
  * @since 2016/12/16
  * do()
  */
-
 public class DemoRecycleAdapter extends RecyclerView.Adapter<DemoRecycleAdapter.DemoRecyclerHolder> {
     private LayoutInflater m_layoutInflater;
     private List<DemoItemViewModel> m_demoItemViewModels;
@@ -60,6 +59,7 @@ public class DemoRecycleAdapter extends RecyclerView.Adapter<DemoRecycleAdapter.
         }
 
         public void bind(DemoItemViewModel demoItemViewModel) {
+            demoItemModel = new DemoItemModel();
             demoItemModel.setDemoItemViewModel(demoItemViewModel);
             demoItemModel.doData();
             m_itemLayoutBinding.setData(demoItemViewModel);
