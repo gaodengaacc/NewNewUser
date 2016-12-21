@@ -28,8 +28,12 @@
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.LoginActivity"
-            android:theme="@style/GlobalTitleTheme"/>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/GlobalTitleTheme" />
+        <activity
+            android:name=".activity.ServiceCategoryActivity"
+            android:theme="@style/GlobalTitleTheme"></activity>
     </application>
 
 </manifest>
