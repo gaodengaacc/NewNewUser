@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity {
         }
 
         mTab.addOnTabSelectedListener(onTabSelectedListener);
-        mTab.getTabAt(tabIndex).select();
+        mTab.getTabAt(tabIndex + 1).select();
 
     }
 
