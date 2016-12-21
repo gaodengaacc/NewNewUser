@@ -1,6 +1,7 @@
 package com.lyun.user.api.service;
 
 import com.lyun.api.response.APIResult;
+import com.lyun.user.api.APIConstants;
 import com.lyun.user.api.request.LoginBean;
 import com.lyun.user.api.response.UserInfo;
 
@@ -15,7 +16,7 @@ import retrofit2.http.POST;
 
 public interface AuthService {
 
-    @POST("/api/app-login-service.json")
+    @POST(APIConstants.LOGIN)
     Observable<APIResult<UserInfo>> login(@Body LoginBean body);
 
 }

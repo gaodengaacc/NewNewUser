@@ -37,6 +37,10 @@ public class SplashActivity extends BaseActivity {
             }
         }, sleepTime);
 
+        doAPIDemo();
+    }
+
+    private void doAPIDemo() {
         // 不处理返回结果
         API.auth.login(new LoginBean())
                 .observeOn(Schedulers.io())

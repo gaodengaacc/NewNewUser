@@ -1,15 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?><!-- 全局色值配置文件 ADD BY WANGWEI -->
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- bg-->
     <color name="title_bg1">#22242b</color>
     <color name="common_bg1">#a0b8f0</color>
     <color name="bottom_bg1">#dae3f9</color>
+
     <!-- 黑灰白 -->
     <color name="cblk">#222222</color>
+
     <!-- 蓝 -->
     <color name="cbn">#ceddff</color>
     <color name="cbp">#435e95</color>
     <color name="cbd">#1588ff</color>
+
     <!-- 红橙黄绿 -->
     <color name="crn">#ee524d</color>
     <color name="con">#ff7826</color>
@@ -27,6 +31,7 @@
     <color name="cy2">#fee876</color>
     <color name="lcy">#f8ccb5</color>
     <color name="co2">#ffa178</color>
+
     <!-- 透明色 -->
     <color name="alb10">#FF333333</color>
     <color name="alb8">#cc222222</color>
@@ -37,6 +42,7 @@
     <color name="alw5">#80ffffff</color>
     <color name="alw2">#33ffffff</color>
     <color name="aly9">#e5f7d777</color>
+
     <!-- 背景色 -->
     <color name="bgcw">#ffffff</color>
     <color name="bgc0">#fcfcfc</color>
@@ -46,7 +52,6 @@
     <color name="bgc4">#d9d9d9</color>
     <color name="bgc5">#22242b</color>
     <color name="bgcB">#000000</color>
-
 
     <!-- 分割线 -->
     <color name="lcn">#d9d9d9</color>
