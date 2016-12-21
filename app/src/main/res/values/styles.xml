@@ -1,17 +1,24 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="LibTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
+
+    <style name="AppBaseTheme" parent="LibBaseTheme"></style>
+
+    <style name="AppTheme.NoTitle" parent="LibTheme.NoTitle"></style>
+
+    <style name="AppTheme.NoTitle.FullScreen" parent="LibTheme.NoTitle.FullScreen"></style>
+
+    <style name="GlobalTitleTheme" parent="@style/AppTheme.NoTitle">
         <item name="android:windowTitleSize">48dp</item>
-        <item name="android:windowBackground">@color/bgc4</item>
+        <item name="android:windowTitleBackgroundStyle">@style/app_custom_title_bg_style</item>
+        <item name="android:windowTitleStyle">@style/app_custom_title_style</item>
     </style>
+
     <style name="app_custom_title_bg_style">
         <item name="android:background">@android:color/transparent</item>
     </style>
@@ -24,11 +31,6 @@
         <item name="android:layout_margin">@dimen/title_margin</item>
     </style>
 
-    <style name="GlobalTitleTheme" parent="@style/AppBaseTheme">
-        <item name="android:windowTitleSize">48dp</item>
-        <item name="android:windowTitleBackgroundStyle">@style/app_custom_title_bg_style</item>
-        <item name="android:windowTitleStyle">@style/app_custom_title_style</item>
-    </style>
     <!--"我"的界面item -->
     <style name="main_fragment_discover_item">
         <item name="android:layout_width">match_parent</item>

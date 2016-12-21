@@ -6,9 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lyun.fragment.BaseFragment;
 import com.lyun.user.R;
 
-public class SpecialistTranslationFragment extends Fragment {
+public class SpecialistTranslationFragment extends BaseFragment {
 
     public SpecialistTranslationFragment() {
         // Required empty public constructor

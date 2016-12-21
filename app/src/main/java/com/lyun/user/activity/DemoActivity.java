@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.lyun.activity.BaseActivity;
 import com.lyun.user.R;
 import com.lyun.user.adapter.DemoRecycleAdapter;
 import com.lyun.user.databinding.ActivityDemoBinding;
@@ -15,7 +16,7 @@ import com.lyun.user.viewmodel.DemoViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DemoActivity extends GlobalTitleBarActivity {
+public class DemoActivity extends BaseActivity {
     private DemoViewModel demoViewModel;
     private DemoRecycleAdapter adapter;
     private List<DemoItemViewModel> list;
@@ -47,18 +48,4 @@ public class DemoActivity extends GlobalTitleBarActivity {
         activityDemoBinding.demoRecyclerView.setAdapter(adapter);
     }
 
-    @Override
-    protected void onBackClick(View view) {
-        finish();
-    }
-
-    @Override
-    protected void onTitleClick(View view) {
-
-    }
-
-    @Override
-    protected void onFunctionClick(View view) {
-        demoViewModel.setAge(100);
-    }
 }

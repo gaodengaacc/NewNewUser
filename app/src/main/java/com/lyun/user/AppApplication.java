@@ -5,12 +5,12 @@ import android.app.Activity;
 import com.lyun.BaseApplication;
 import com.lyun.user.api.API;
 import com.lyun.utils.CrashUtil;
+import com.lyun.utils.L;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * @author 赵尉尉
  * @date 2016/12/20
  */
@@ -24,8 +24,10 @@ public class AppApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        // 显示log
+        L.display(true);
         // 初始化接口
-        API.init("https://lyt.law-cloud.com.cn:8444");
+        API.init(Constants.API_BASE_URL);
         // createCrash();
     }
 
