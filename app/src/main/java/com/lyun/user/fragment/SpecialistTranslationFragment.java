@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lyun.user.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SpecialistTranslationFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.imageView_change)
@@ -45,11 +46,9 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_specialist_translation, container, false);
-        imageViewChange = (ImageView) view.findViewById(R.id.imageView_change);
-        imageViewWayChange = (ImageView) view.findViewById(R.id.imageView_way_change);
-        textViewTitleChange = (TextView) view.findViewById(R.id.textView_title_change);
+        ButterKnife.bind(this, view);
+
         imageViewChange.setOnClickListener(this);
-        imageViewWayChange.setOnClickListener(this);
         return view;
     }
 
@@ -64,14 +63,12 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
                     mCommunicationMode = true;
                 } else {
                     imageViewChange.setImageResource(R.mipmap.call_picture);
-                    imageViewWayChange.setImageResource(R.mipmap.picture_dial_normal);
+                    imageViewWayChange.setImageResource(R.drawable.image_picture_selector);
                     textViewTitleChange.setText("图文翻译");
                     mCommunicationMode = false;
                 }
                 break;
-            case R.id.imageView_way_change:
-//                ToastUtil.show(getActivity(),"点击");
-                break;
+
         }
     }
 }
