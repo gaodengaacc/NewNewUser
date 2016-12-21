@@ -32,7 +32,6 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
 
     private boolean mCommunicationMode = false;
     private int requestCode = 0;
-    String stringServiceCategory = "";
 
     public SpecialistTranslationFragment() {
         // Required empty public constructor
