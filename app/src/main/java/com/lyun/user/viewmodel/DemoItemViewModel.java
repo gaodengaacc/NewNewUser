@@ -4,13 +4,14 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.lyun.user.BR;
+import com.lyun.viewmodel.BaseViewModel;
 
 /**
  * @author Gordon
  * @since 2016/12/16
  * do()
  */
-public class DemoItemViewModel extends BaseObservable {
+public class DemoItemViewModel extends BaseViewModel {
     private String label;
     private boolean isShow;
 

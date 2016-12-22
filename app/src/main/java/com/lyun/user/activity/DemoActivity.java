@@ -30,8 +30,8 @@ public class DemoActivity extends BaseActivity {
         demoViewModel.setUsername("zhangsan");
         demoViewModel.setNickname("张三");
         demoViewModel.setUserIcon("http://img2.cache.netease.com/auto/2016/7/28/201607282215432cd8a.jpg");
-        DemoModel demoModel = new DemoModel(this);
-        demoModel.setDemoViewModel(demoViewModel);
+        DemoModel demoModel = new DemoModel(this,demoViewModel);
+        //这里绑定数据
         activityDemoBinding.setDemoViewModel(demoViewModel);
         activityDemoBinding.setDemoModel(demoModel);
         list = new ArrayList<DemoItemViewModel>();
@@ -40,7 +40,7 @@ public class DemoActivity extends BaseActivity {
         list.add(new DemoItemViewModel("3"));
         list.add(new DemoItemViewModel("4"));
         list.add(new DemoItemViewModel("5"));
-        adapter = new DemoRecycleAdapter(this,list);
+        adapter = new DemoRecycleAdapter(this,list,R.layout.item_demo);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         activityDemoBinding.demoRecyclerView.setHasFixedSize(true);

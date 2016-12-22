@@ -5,6 +5,9 @@
         <variable
             name="data"
             type="com.lyun.user.viewmodel.DemoItemViewModel"/>
+        <variable
+            name="model"
+            type="com.lyun.user.model.DemoItemModel"/>
     </data>
 
     <LinearLayout android:orientation="vertical"
