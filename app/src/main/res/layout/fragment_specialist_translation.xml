@@ -64,6 +64,7 @@
             android:weightSum="5">
 
             <LinearLayout
+                android:id="@+id/linearLayout_language"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -72,6 +73,7 @@
                 android:weightSum="3">
 
                 <TextView
+                    android:id="@+id/textView_language1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -87,6 +89,7 @@
                     android:src="@mipmap/change_new" />
 
                 <TextView
+                    android:id="@+id/textView_language2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
