@@ -4,12 +4,13 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.lyun.user.BR;
+import com.lyun.viewmodel.BaseViewModel;
 
 /**
  * Created by 郑成裕 on 2016/12/16.
  */
 
-public class DiscoverRecyclerItemViewModel extends BaseObservable {
+public class DiscoverRecyclerItemViewModel extends BaseViewModel {
 
     private String listTitle;
     private String listContent;

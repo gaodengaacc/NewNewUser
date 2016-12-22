@@ -4,9 +4,10 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.lyun.user.BR;
+import com.lyun.viewmodel.BaseViewModel;
 
 
-public class DemoViewModel extends BaseObservable {
+public class DemoViewModel extends BaseViewModel {
     private String username;
     private String nickname;
     private int age;

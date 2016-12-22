@@ -20,6 +20,7 @@ import com.lyun.user.adapter.DiscoverViewPagerAdapter;
 import com.lyun.user.databinding.FragmentDiscoverBinding;
 import com.lyun.user.viewmodel.DiscoverRecyclerItemViewModel;
 import com.lyun.user.model.DiscoverFragmentModel;
+import com.lyun.viewmodel.BaseViewModel;
 
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        discoverFragmentModel = new DiscoverFragmentModel(this);
+        discoverFragmentModel = new DiscoverFragmentModel(this,new BaseViewModel());
         FragmentDiscoverBinding discoverBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_discover, container, false);
         mRecyclerView = discoverBinding.recyclerViewDiscover;
         mViewPager = discoverBinding.viewPagerDiscover;
@@ -73,7 +74,7 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
         View view = discoverBinding.getRoot();
         initViewPager(view);
         List<DiscoverRecyclerItemViewModel> listData= discoverFragmentModel.initData();
-        discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getActivity(), listData);
+        discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getActivity(), listData,R.layout.item_discover_recyclerview);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1) {
             @Override
             public boolean canScrollVertically() {
@@ -81,6 +82,7 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
             }
         });//设置布局管理器,优化scrollview嵌套recyclerview惯性滑动
         mRecyclerView.setAdapter(discoverRecyclerViewAdapter);
+        discoverFragmentModel.init();
         return view;
     }
     private void initViewPager(View view) {
