@@ -1,19 +1,24 @@
 package com.lyun.user.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCategoryActivity;
-import com.lyun.user.dialog.LanguageChoiceDialog;
+import com.lyun.user.dialog.LanguageChoicePopupWindow;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +51,6 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
 
     private boolean mCommunicationMode = false;
     private int requestCode = 0;
-    private LanguageChoiceDialog languageChoiceDialog;
 
     public SpecialistTranslationFragment() {
         // Required empty public constructor
@@ -80,36 +84,42 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.linearLayout_language:
-                languageChoiceDialog = new LanguageChoiceDialog(getActivity());
+//                languageChoiceDialog = new LanguageChoiceDialog(getActivity());
+//                languageChoiceDialog.show();
+//                languageChoiceDialog.setChooseListener(new LanguageChoiceDialog.ChooseListener() {
+//                    @Override
+//                    public void onClick(String language1, String language2) {
+//                        textViewLanguage1.setText(language1);
+//                        textViewLanguage2.setText(language2);
+//                    }
+//                });
+                LanguageChoicePopupWindow languageChoicePopupWindow = new LanguageChoicePopupWindow(getActivity(), linearLayoutLanguage.getWidth());
+                WindowManager.LayoutParams layoutParams = getActivity().getWindow().getAttributes();
+                layoutParams.alpha = 0.5f;//透明度
+                getActivity().getWindow().setAttributes(layoutParams);
 
-//                Window dialogWindow = languageChoiceDialog.getWindow();
-//                WindowManager.LayoutParams layoutParams = dialogWindow.getAttributes();
-//                dialogWindow.setGravity(Gravity.LEFT | Gravity.TOP);
-//                float a = linearLayoutLanguage.getY();
-//                int b = linearLayoutLanguage.getHeight();
-//                int c = relativeLayoutTitle.getHeight();
-//                int d = textViewRemind.getHeight();
-//                int e = viewBlank.getHeight();
-//                ToastUtil.show(getActivity(), "" + a);
-
-//                layoutParams.x = 100;
-//                layoutParams.y = b + c + d + e;
-//                layoutParams.height = 600;
-//                dialogWindow.setAttributes(layoutParams);
-                languageChoiceDialog.show();
-                languageChoiceDialog.setChooseListener(new LanguageChoiceDialog.ChooseListener() {
+                languageChoicePopupWindow.showAsDropDown(linearLayoutLanguage, 0, 0, Gravity.CENTER_HORIZONTAL);//设置显示在该控件的下方
+//                languageChoicePopupWindow.showAtLocation(linearLayoutLanguage, Gravity.CENTER, 0, 0);
+                languageChoicePopupWindow.setChooseListener(new LanguageChoicePopupWindow.ChooseListener() {
                     @Override
                     public void onClick(String language1, String language2) {
                         textViewLanguage1.setText(language1);
                         textViewLanguage2.setText(language2);
                     }
                 });
-
-
+                languageChoicePopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        WindowManager.LayoutParams layoutParams = getActivity().getWindow().getAttributes();
+                        layoutParams.alpha = 1f;
+                        getActivity().getWindow().setAttributes(layoutParams);
+                    }
+                });
                 break;
             case R.id.relativeLayout_category:
                 Intent intent = new Intent();

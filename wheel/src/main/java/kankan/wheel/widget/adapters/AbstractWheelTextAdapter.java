@@ -93,7 +93,7 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
      * @param itemResource the resource ID for a layout file containing a TextView to use when instantiating items views
      */
     protected AbstractWheelTextAdapter(Context context, int itemResource) {
-        this(context, itemResource, NO_RESOURCE);
+        this(context, itemResource, NO_RESOURCE, 0, maxsize, minsize);
     }
 
     /**
@@ -232,13 +232,20 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
                 convertView = getView(itemResourceId, parent);
             }
             TextView textView = getTextView(convertView, itemTextResourceId);
+            if (!arrayList.contains(textView)) {
+                arrayList.add(textView);
+            }
             if (textView != null) {
                 CharSequence text = getItemText(index);
                 if (text == null) {
                     text = "";
                 }
                 textView.setText(text);
-
+                if (index == currentIndex) {
+                    textView.setTextSize(maxsize);
+                } else {
+                    textView.setTextSize(minsize);
+                }
                 if (itemResourceId == TEXT_VIEW_ITEM_RESOURCE) {
                     configureTextView(textView);
                 }
