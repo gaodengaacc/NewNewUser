@@ -10,6 +10,10 @@ buildscript {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 def _group = 'com.lyun.library'
 def _version = '0.0.1'
 
@@ -70,6 +74,9 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'com.facebook.fresco:fresco:1.0.0'
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter:1.1.0'
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.1.0'
 }
 
 apply from: "bintrayUpload.gradle"
