@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#00000000"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:id="@+id/linearLayout_languageChoice"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="260dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#ffffff"
+        android:background="@drawable/btn_done_bg"
         android:orientation="horizontal"
+        android:paddingBottom="20dp"
         android:weightSum="3">
 
         <kankan.wheel.widget.WheelView
@@ -37,7 +39,6 @@
                 android:text="完成"
                 android:textColor="#00b8ee" />
         </LinearLayout>
-
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/wheelView_language_choice2"

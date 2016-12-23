@@ -37,6 +37,12 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
     TextView textViewLanguage1;
     @BindView(R.id.textView_language2)
     TextView textViewLanguage2;
+    @BindView(R.id.relativeLayout_title)
+    RelativeLayout relativeLayoutTitle;
+    @BindView(R.id.textView_remind)
+    TextView textViewRemind;
+    @BindView(R.id.view_blank)
+    View viewBlank;
 
     private boolean mCommunicationMode = false;
     private int requestCode = 0;
@@ -79,6 +85,21 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
         switch (view.getId()) {
             case R.id.linearLayout_language:
                 languageChoiceDialog = new LanguageChoiceDialog(getActivity());
+
+//                Window dialogWindow = languageChoiceDialog.getWindow();
+//                WindowManager.LayoutParams layoutParams = dialogWindow.getAttributes();
+//                dialogWindow.setGravity(Gravity.LEFT | Gravity.TOP);
+//                float a = linearLayoutLanguage.getY();
+//                int b = linearLayoutLanguage.getHeight();
+//                int c = relativeLayoutTitle.getHeight();
+//                int d = textViewRemind.getHeight();
+//                int e = viewBlank.getHeight();
+//                ToastUtil.show(getActivity(), "" + a);
+
+//                layoutParams.x = 100;
+//                layoutParams.y = b + c + d + e;
+//                layoutParams.height = 600;
+//                dialogWindow.setAttributes(layoutParams);
                 languageChoiceDialog.show();
                 languageChoiceDialog.setChooseListener(new LanguageChoiceDialog.ChooseListener() {
                     @Override

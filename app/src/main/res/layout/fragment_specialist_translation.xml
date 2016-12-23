@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/relativeLayout_title"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
@@ -44,14 +45,17 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/textView_remind"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@mipmap/main_shake_bg"
             android:gravity="center"
             android:text="摇一摇, 获得免费试用机会"
-            android:textColor="#8e5e00" />
+            android:textColor="#8e5e00"
+            android:visibility="visible" />
 
         <View
+            android:id="@+id/view_blank"
             android:layout_width="match_parent"
             android:layout_height="60dp"></View>
 
