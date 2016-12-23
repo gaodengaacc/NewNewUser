@@ -1,9 +1,12 @@
 package com.lyun.user.model;
 
+import android.content.Context;
 import android.view.View;
 
+import com.lyun.model.BaseModel;
 import com.lyun.user.viewmodel.DiscoverRecyclerItemViewModel;
 import com.lyun.utils.ToastUtil;
+import com.lyun.viewmodel.BaseViewModel;
 
 /**
  * @author Gordon
@@ -11,15 +14,19 @@ import com.lyun.utils.ToastUtil;
  * do(item业务处理)
  */
 
-public class DiscoverFragmentItemModel {
-    public void setViewModel(DiscoverRecyclerItemViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
-
+public class DiscoverFragmentItemModel extends BaseModel {
     private DiscoverRecyclerItemViewModel viewModel;
-    public DiscoverFragmentItemModel(){
+
+    public DiscoverFragmentItemModel(Context context, BaseViewModel viewModel) {
+        super(context, viewModel);
+        this.viewModel = (DiscoverRecyclerItemViewModel) viewModel;
+    }
+
+    @Override
+    public void init() {
 
     }
+
     public void doData(){
 
     }

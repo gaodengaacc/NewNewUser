@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCategoryActivity;
+import com.lyun.user.dialog.LanguageChoiceDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,10 +31,16 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
     RelativeLayout relativeLayoutCategory;
     @BindView(R.id.textView_serviceCategory)
     TextView textViewServiceCategory;
+    @BindView(R.id.linearLayout_language)
+    LinearLayout linearLayoutLanguage;
+    @BindView(R.id.textView_language1)
+    TextView textViewLanguage1;
+    @BindView(R.id.textView_language2)
+    TextView textViewLanguage2;
 
     private boolean mCommunicationMode = false;
     private int requestCode = 0;
-    String stringServiceCategory = "";
+    private LanguageChoiceDialog languageChoiceDialog;
 
     public SpecialistTranslationFragment() {
         // Required empty public constructor
@@ -61,12 +69,27 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
 
         imageViewChange.setOnClickListener(this);
         relativeLayoutCategory.setOnClickListener(this);
+        linearLayoutLanguage.setOnClickListener(this);
+
         return view;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.linearLayout_language:
+                languageChoiceDialog = new LanguageChoiceDialog(getActivity());
+                languageChoiceDialog.show();
+                languageChoiceDialog.setChooseListener(new LanguageChoiceDialog.ChooseListener() {
+                    @Override
+                    public void onClick(String language1, String language2) {
+                        textViewLanguage1.setText(language1);
+                        textViewLanguage2.setText(language2);
+                    }
+                });
+
+
+                break;
             case R.id.relativeLayout_category:
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), ServiceCategoryActivity.class);
