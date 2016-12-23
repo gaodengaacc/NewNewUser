@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/linearLayout_languageChoice"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="300dp"
         android:background="@drawable/btn_done_bg"
         android:orientation="horizontal"
         android:paddingBottom="15dp"
