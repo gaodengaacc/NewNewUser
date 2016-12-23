@@ -1,16 +1,24 @@
 package com.lyun.user.activity;
 
-import android.os.Bundle;
+import android.support.annotation.NonNull;
 
-import com.lyun.activity.BaseActivity;
+import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.user.R;
+import com.lyun.user.databinding.ActivityLoginBinding;
+import com.lyun.user.viewmodel.LoginViewModel;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, LoginViewModel> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    protected int getBodyLayoutId() {
+        return R.layout.activity_login;
+    }
+
+    @NonNull
+    @Override
+    protected LoginViewModel createBodyViewModel() {
+        LoginViewModel model = new LoginViewModel(this, getTitleViewDataBinding().getMvvm());
+        return model;
     }
 
 }
