@@ -2,11 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-      <import type="com.lyun.user.model.DiscoverFragmentModel">
-      </import>
+     <import type="com.lyun.user.viewmodel.DiscoverFragmentViewModel"></import>
         <variable
-            name="model"
-            type="DiscoverFragmentModel"></variable>
+            name="viewModel"
+            type="DiscoverFragmentViewModel"></variable>
     </data>
 <LinearLayout
     android:layout_width="match_parent"
@@ -146,7 +145,7 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center_horizontal"
                         android:src="@mipmap/more_discover"
-                        android:onClick="@{model.moreBtnCLick}"/>
+                        android:onClick="@{viewModel.moreBtnCLick}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -164,6 +163,9 @@
                 android:id="@+id/recyclerView_discover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:adapter="@{viewModel.adapter}"
+                app:notifyData ="@{viewModel.notifyData}"
+                app:isScroll="@{false}"
                 android:divider="#00000000"></android.support.v7.widget.RecyclerView>
 
         </LinearLayout>

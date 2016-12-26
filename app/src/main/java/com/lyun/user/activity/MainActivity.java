@@ -1,6 +1,7 @@
 package com.lyun.user.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.widget.CheckBox;
 
 import com.lyun.activity.BaseActivity;
+import com.lyun.library.mvvm.view.activity.MvvmActivity;
+import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.MainPagerAdapter;
 import com.lyun.user.entity.TabItemBean;
@@ -70,7 +73,6 @@ public class MainActivity extends BaseActivity {
         mTab.getTabAt(tabIndex + 1).select();//进入APP后显示的“专人翻译”
 
     }
-
 
     private int tabIndex = 0;
 

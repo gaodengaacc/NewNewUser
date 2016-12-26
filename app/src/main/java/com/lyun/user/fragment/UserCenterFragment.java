@@ -2,7 +2,6 @@ package com.lyun.user.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 
 import com.lyun.fragment.BaseFragment;
 import com.lyun.user.R;
-import com.lyun.user.activity.DemoActivity;
 import com.lyun.user.activity.LoginActivity;
 
 import butterknife.BindView;

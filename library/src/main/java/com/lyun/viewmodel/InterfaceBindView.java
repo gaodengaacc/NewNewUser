@@ -2,6 +2,8 @@ package com.lyun.viewmodel;
 
 import android.databinding.ViewDataBinding;
 
+import com.lyun.library.mvvm.viewmodel.ViewModel;
+
 /**
  * @author Gordon
  * @since 2016/12/21
@@ -9,5 +11,5 @@ import android.databinding.ViewDataBinding;
  */
 
 public interface InterfaceBindView {
-    void viewBind(BaseViewModel baseViewModel, ViewDataBinding viewDataBinding);
+    void viewBind(ViewModel baseViewModel, ViewDataBinding viewDataBinding,int position);
 }

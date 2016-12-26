@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="text"
+            type="java.lang.String"/>
+    </data>
 
-<LinearLayout
+    <LinearLayout
     android:id="@+id/custom_progress_root_view"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
     android:gravity="center_horizontal"
     android:layout_height="wrap_content"
     android:background="@drawable/no_border_round_corner_white_bg"
@@ -25,8 +30,9 @@
         android:layout_marginBottom="8.0dip"
         android:gravity="center"
         android:maxWidth="240dp"
-        android:text="加载中..."
+        android:text="@{text}"
         android:visibility="visible"
         />
 
 </LinearLayout>
+</layout>

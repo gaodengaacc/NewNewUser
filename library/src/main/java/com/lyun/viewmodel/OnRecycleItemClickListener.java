@@ -2,6 +2,8 @@ package com.lyun.viewmodel;
 
 import android.view.View;
 
+import com.lyun.library.mvvm.viewmodel.ViewModel;
+
 import java.util.List;
 
 /**
@@ -11,5 +13,5 @@ import java.util.List;
  */
 
 public interface OnRecycleItemClickListener {
-        void onItemClick(View view, List<BaseViewModel> viewModels, int position);
+        void onItemClick(View view, List<ViewModel> viewModels, int position);
 }

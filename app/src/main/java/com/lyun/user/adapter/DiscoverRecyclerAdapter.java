@@ -4,8 +4,9 @@ import android.content.Context;
 import android.databinding.ViewDataBinding;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
+import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.databinding.ItemDiscoverRecyclerviewBinding;
-import com.lyun.user.model.DiscoverFragmentItemModel;
+import com.lyun.user.fragment.DiscoverFragment;
 import com.lyun.user.viewmodel.DiscoverRecyclerItemViewModel;
 import com.lyun.viewmodel.BaseViewModel;
 
@@ -16,18 +17,16 @@ import java.util.List;
  */
 
 public class DiscoverRecyclerAdapter extends BaseRecyclerAdapter {
-    private DiscoverFragmentItemModel itemModel;
 
     public DiscoverRecyclerAdapter(Context mContext, List listData, int layoutId) {
         super(mContext, listData, layoutId);
     }
     @Override
-    public void viewBind(BaseViewModel baseViewModel, ViewDataBinding viewDataBinding) {
-        itemModel = new DiscoverFragmentItemModel(context, baseViewModel);
-        itemModel.doData();
+    public void viewBind(ViewModel baseViewModel, ViewDataBinding viewDataBinding,int position) {
+        DiscoverRecyclerItemViewModel itemModel = (DiscoverRecyclerItemViewModel) baseViewModel;
+        itemModel.init(position);
         ItemDiscoverRecyclerviewBinding binding = (ItemDiscoverRecyclerviewBinding) viewDataBinding;
-        binding.setItemData((DiscoverRecyclerItemViewModel) baseViewModel);
-        binding.setItemModel(itemModel);
+        binding.setItemData(itemModel);
     }
 
 }

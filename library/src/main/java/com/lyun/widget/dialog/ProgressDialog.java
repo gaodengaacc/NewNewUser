@@ -2,13 +2,16 @@ package com.lyun.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Window;
-import android.widget.TextView;
 
 import com.lyun.library.R;
-import com.lyun.widget.DonutProgress;
+import com.lyun.library.databinding.DialogProgressBinding;
+import com.lyun.viewmodel.ProgressDialogViewModel;
 
 /**
  * 进度对话框
@@ -19,15 +22,7 @@ import com.lyun.widget.DonutProgress;
 public class ProgressDialog extends Dialog {
 
     private Context context;
-
-    private DonutProgress mDonutProgress;
-    private TextView mTextView;
-
-    private long mMaxProgress = 100;
-    private long mProgress = 0;
-
-    private String mText = "正在上传数据...";
-
+    private ProgressDialogViewModel viewModel;
     public ProgressDialog(Context context) {
         super(context, R.style.dialog);
         this.context = context;
@@ -39,33 +34,21 @@ public class ProgressDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         Window window = getWindow();
         window.setGravity(Gravity.CENTER); // 此处可以设置dialog显示的位置
-        setContentView(R.layout.dialog_progress);
-
+        DialogProgressBinding viewBinding =  DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_progress,null,false);
+        viewModel = new ProgressDialogViewModel(this.getContext());
+        viewBinding.setViewModel(viewModel);
+        setContentView(viewBinding.getRoot());
         // 点击Dialog外部消失
         setCanceledOnTouchOutside(false);
-
-        mDonutProgress = (DonutProgress) findViewById(R.id.progress_progress);
-        mTextView = (TextView) findViewById(R.id.progress_text);
-
-        setProgress(mProgress);
-        mTextView.setText(mText);
     }
-
-    public void setMaxProgress(long max) {
-        mMaxProgress = max;
-    }
-
-    public void setProgress(long progress) {
-        if (mDonutProgress != null) {
-            mDonutProgress.setProgress((int) (100 * progress / mMaxProgress));
-        }
-        mProgress = progress;
+   public void setMaxProgress(int maxProgress){
+       viewModel.maxProgress.set(maxProgress);
+   }
+    public void setProgress(int progress) {
+        viewModel.progress.set(progress);
     }
 
     public void setText(String text) {
-        if (mTextView != null) {
-            mTextView.setText(text);
-        }
-        mText = text;
+        viewModel.text.set(text);
     }
 }

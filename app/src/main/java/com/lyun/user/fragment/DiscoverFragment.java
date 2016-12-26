@@ -1,9 +1,9 @@
 package com.lyun.user.fragment;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,18 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.lyun.fragment.BaseFragment;
 import com.lyun.user.R;
 import com.lyun.user.adapter.DiscoverRecyclerAdapter;
 import com.lyun.user.adapter.DiscoverViewPagerAdapter;
 import com.lyun.user.databinding.FragmentDiscoverBinding;
-import com.lyun.user.viewmodel.DiscoverRecyclerItemViewModel;
-import com.lyun.user.model.DiscoverFragmentModel;
-import com.lyun.viewmodel.BaseViewModel;
+import com.lyun.user.viewmodel.DiscoverFragmentViewModel;
 
-import java.util.List;
-
-public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
+public class DiscoverFragment extends MvvmFragment<FragmentDiscoverBinding, DiscoverFragmentViewModel> implements ViewPager.OnPageChangeListener {
     ViewPager mViewPager;
     LinearLayout dotLinearLayout;//圆点布局
     RecyclerView mRecyclerView;
@@ -39,7 +34,7 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
     private ImageView[][] mImageViews;
 
     private DiscoverRecyclerAdapter discoverRecyclerViewAdapter;
-    private DiscoverFragmentModel discoverFragmentModel; //业务处理类
+    private DiscoverFragmentViewModel discoverFragmentViewModel;
     public DiscoverFragment() {
         // Required empty public constructor
     }
@@ -50,45 +45,35 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
         fragment.setArguments(args);
         return fragment;
     }
-
-    public DiscoverRecyclerAdapter getDiscoverRecyclerViewAdapter() {
-        return discoverRecyclerViewAdapter;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        discoverFragmentModel = new DiscoverFragmentModel(this,new BaseViewModel());
-        FragmentDiscoverBinding discoverBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_discover, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        discoverFragmentViewModel = getFragmentViewModel();
+        FragmentDiscoverBinding discoverBinding = getFragmentViewDataBinding();
         mRecyclerView = discoverBinding.recyclerViewDiscover;
         mViewPager = discoverBinding.viewPagerDiscover;
         dotLinearLayout = discoverBinding.dotLinearLayout;
-        discoverBinding.setModel(discoverFragmentModel);
-        View view = discoverBinding.getRoot();
-        initViewPager(view);
-        List<DiscoverRecyclerItemViewModel> listData= discoverFragmentModel.initData();
-        discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getActivity(), listData,R.layout.item_discover_recyclerview);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });//设置布局管理器,优化scrollview嵌套recyclerview惯性滑动
-        mRecyclerView.setAdapter(discoverRecyclerViewAdapter);
-        discoverFragmentModel.init();
+        initViewPager();
+        discoverFragmentViewModel.init();
         return view;
     }
-    private void initViewPager(View view) {
+
+    @NonNull
+    @Override
+    protected DiscoverFragmentViewModel createViewModel() {
+        return new DiscoverFragmentViewModel(this.getContext());
+    }
+
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.fragment_discover;
+    }
+
+    private void initViewPager() {
         width = getResources().getDisplayMetrics().widthPixels;//获取手机屏幕大小
-        newWidth = (int) (discoverFragmentModel.divideWidth(width, 1080, 6) * 17);
-        padding = (int) (discoverFragmentModel.divideWidth(width, 1080, 6) * 9);
+        newWidth = (int) (discoverFragmentViewModel.divideWidth(width, 1080, 6) * 17);
+        padding = (int) (discoverFragmentViewModel.divideWidth(width, 1080, 6) * 9);
         initDots();// 初始化圆点
         initImages();// 初始化图片
         mViewPager.setOnPageChangeListener(this);

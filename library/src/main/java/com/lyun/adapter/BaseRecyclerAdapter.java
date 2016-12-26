@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.viewmodel.BaseViewModel;
 import com.lyun.viewmodel.InterfaceBindView;
 import com.lyun.viewmodel.OnRecycleItemClickListener;
@@ -22,13 +23,13 @@ import java.util.List;
 
 public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseRecyclerHolder> implements InterfaceBindView {
     public LayoutInflater layoutInflater;
-    public List<BaseViewModel> baseViewModels;
+    public List<ViewModel> baseViewModels;
     public Context context;
     public int layoutId;
 
     private OnRecycleItemClickListener itemClickListener;
 
-    public BaseRecyclerAdapter(Context context, List<BaseViewModel> baseViewModels, int layoutId) {
+    public BaseRecyclerAdapter(Context context, List<ViewModel> baseViewModels, int layoutId) {
         this.context = context;
         this.baseViewModels = baseViewModels;
         layoutInflater = LayoutInflater.from(context);
@@ -44,20 +45,22 @@ public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseRecyc
 
     @Override
     public void onBindViewHolder(BaseRecyclerHolder holder, final int position) {
-        viewBind(baseViewModels.get(position), holder.getViewDataBinding());
-        if(itemClickListener!=null){
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                      itemClickListener.onItemClick(v,baseViewModels,position);
-                }
-            });
+        if(baseViewModels!=null){
+            viewBind(baseViewModels.get(position), holder.getViewDataBinding(),position);
+            if(itemClickListener!=null){
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemClickListener.onItemClick(v,baseViewModels,position);
+                    }
+                });
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return baseViewModels.size();
+        return baseViewModels==null ? 0:baseViewModels.size();
     }
 
     public class BaseRecyclerHolder extends RecyclerView.ViewHolder {

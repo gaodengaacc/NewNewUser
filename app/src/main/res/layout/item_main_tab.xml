@@ -8,6 +8,6 @@
     android:drawablePadding="2dp"
     android:drawableTop="@mipmap/ic_launcher"
     android:gravity="center"
-    android:padding="5dp"
+    android:padding="2dp"
     android:textColor="@drawable/text_color_selector"
     android:textSize="12sp" />

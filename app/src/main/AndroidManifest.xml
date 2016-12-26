@@ -23,9 +23,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.DemoActivity"
-            android:theme="@style/GlobalTitleTheme" />
-        <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme" />
         <activity

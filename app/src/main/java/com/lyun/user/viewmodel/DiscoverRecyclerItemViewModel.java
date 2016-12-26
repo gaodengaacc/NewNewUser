@@ -1,58 +1,38 @@
 package com.lyun.user.viewmodel;
 
+import android.content.Context;
+import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
+import android.view.View;
 
+import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.BR;
+import com.lyun.user.fragment.DiscoverFragment;
+import com.lyun.utils.ToastUtil;
 import com.lyun.viewmodel.BaseViewModel;
 
 /**
  * Created by 郑成裕 on 2016/12/16.
  */
 
-public class DiscoverRecyclerItemViewModel extends BaseViewModel {
+public class DiscoverRecyclerItemViewModel extends ViewModel {
+    public final ObservableField<String> listTitle = new ObservableField<>();
+    public final ObservableField<String> listContent = new ObservableField<>();
+    public final ObservableInt imageId = new ObservableInt();
 
-    private String listTitle;
-    private String listContent;
-    private int imageId;
-
-    public DiscoverRecyclerItemViewModel() {
-
+    public DiscoverRecyclerItemViewModel(Context context) {
+        super(context);
     }
+   public DiscoverRecyclerItemViewModel(Context context,String listTitle,String listContent,int imageId){
+       super(context);
+       this.listTitle.set(listTitle);
+       this.listContent.set(listContent);
+       this.imageId.set(imageId);
 
-    public DiscoverRecyclerItemViewModel(String listTitle, String listContent, int imageId) {
-        this.listContent = listContent;
-        this.listTitle = listTitle;
-        this.imageId = imageId;
-    }
-
-    @Bindable
-    public String getListTitle() {
-        return listTitle;
-    }
-
-    public void setListTitle(String listTitle) {
-        this.listTitle = listTitle;
-        notifyPropertyChanged(BR.listTitle);
-    }
-
-    @Bindable
-    public String getListContent() {
-        return listContent;
-
-    }
-
-    public void setListContent(String listContent) {
-        this.listContent = listContent;
-        notifyPropertyChanged(BR.listContent);
-    }
-
-    @Bindable
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-        notifyPropertyChanged(BR.imageId);
+   }
+    public void init(int position){
+        listTitle.set(listTitle.get()+position);
     }
 }

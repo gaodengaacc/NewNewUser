@@ -5,13 +5,9 @@
         <import
             type="com.lyun.user.viewmodel.DiscoverRecyclerItemViewModel">
         </import>
-        <import type="com.lyun.user.model.DiscoverFragmentItemModel"></import>
         <variable
             name="itemData"
             type="DiscoverRecyclerItemViewModel"></variable>
-        <variable
-            name="itemModel"
-            type="DiscoverFragmentItemModel"></variable>
     </data>
 <LinearLayout
     android:layout_width="match_parent"

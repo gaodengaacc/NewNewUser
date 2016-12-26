@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.lyun.viewmodel.SimpleDialogViewModel"></import>
+        <variable
+            name="viewModel"
+            type="SimpleDialogViewModel"></variable>
+    </data>
+<LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/no_border_round_corner_white_bg"
@@ -12,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:maxWidth="200dp"
-        android:text="提示信息！"
+        android:text="@{viewModel.contentText}"
         android:textColor="#6c6666"
         android:textSize="16sp" />
 
@@ -35,15 +42,18 @@
             android:layout_weight="1"
             android:background="@null"
             android:padding="10dp"
-            android:text="取消"
+            android:text="@{viewModel.btnCancelText}"
             android:textColor="@color/cbp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="@{viewModel.btnCancelVisible}"
+            android:onClick="@{viewModel.onCancelClick}"/>
 
         <TextView
             android:id="@+id/simple_message_btn_divider"
             android:layout_width="1px"
             android:layout_height="fill_parent"
-            android:background="#cccccc" />
+            android:background="#cccccc"
+            android:visibility="@{viewModel.dividerVisible}"/>
 
         <Button
             android:id="@+id/simple_message_btn_yes"
@@ -52,9 +62,12 @@
             android:layout_weight="1"
             android:background="@null"
             android:padding="10dp"
-            android:text="确定"
+            android:text="@{viewModel.btnOkText}"
             android:textColor="@color/cbp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="@{viewModel.btnOkVisible}"
+            android:onClick="@{viewModel.onOkClick}"/>
     </LinearLayout>
 
 </LinearLayout>
+</layout>
