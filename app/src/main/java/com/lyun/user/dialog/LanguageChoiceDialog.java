@@ -166,6 +166,12 @@
 //            //设置默认为第一个
 //            currentPosition = 0;
 //            currentContent = listLanguageChoice.get(0);
+
+//            String currentText1 = (String) languageTextAdapter.getItemText(wheelViewLanguageChoice1.getCurrentItem());
+//            String currentText2 = (String) languageTextAdapter.getItemText(wheelViewLanguageChoice2.getCurrentItem());
+//
+//            language1 = currentText1;
+//            language2 = currentText2;
 //        }
 //    }
 //

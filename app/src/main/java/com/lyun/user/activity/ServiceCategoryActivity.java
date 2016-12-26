@@ -12,6 +12,7 @@ import com.lyun.user.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by 郑成裕 on 2016/12/21.
@@ -84,13 +85,6 @@ public class ServiceCategoryActivity extends BaseActivity implements View.OnClic
             imageViewUrgency.setVisibility(View.VISIBLE);
         }
 
-        imageViewBack.setOnClickListener(this);
-        relativeLayoutNormalService.setOnClickListener(this);
-        relativeLayoutTravel.setOnClickListener(this);
-        relativeLayoutHotel.setOnClickListener(this);
-        relativeLayoutShopping.setOnClickListener(this);
-        relativeLayoutEat.setOnClickListener(this);
-        relativeLayoutUrgency.setOnClickListener(this);
     }
 
     private void initImageView() {
@@ -103,6 +97,7 @@ public class ServiceCategoryActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
+    @OnClick({R.id.imageView_back, R.id.relativeLayout_normalService, R.id.relativeLayout_travel, R.id.relativeLayout_hotel, R.id.relativeLayout_shopping, R.id.relativeLayout_eat, R.id.relativeLayout_urgency})
     public void onClick(View view) {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();

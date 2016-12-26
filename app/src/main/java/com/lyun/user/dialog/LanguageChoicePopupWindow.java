@@ -147,7 +147,7 @@ public class LanguageChoicePopupWindow extends PopupWindow implements View.OnCli
 
         setContentView(view);
 
-        setWidth(width);
+        setWidth(width);//设置宽度
         setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         ColorDrawable dw = new ColorDrawable(0x00000000);
         setBackgroundDrawable(dw);
