@@ -89,22 +89,12 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.linearLayout_language:
-//                languageChoiceDialog = new LanguageChoiceDialog(getActivity());
-//                languageChoiceDialog.show();
-//                languageChoiceDialog.setChooseListener(new LanguageChoiceDialog.ChooseListener() {
-//                    @Override
-//                    public void onClick(String language1, String language2) {
-//                        textViewLanguage1.setText(language1);
-//                        textViewLanguage2.setText(language2);
-//                    }
-//                });
                 LanguageChoicePopupWindow languageChoicePopupWindow = new LanguageChoicePopupWindow(getActivity(), linearLayoutLanguage.getWidth());
                 WindowManager.LayoutParams layoutParams = getActivity().getWindow().getAttributes();
                 layoutParams.alpha = 0.5f;//透明度
                 getActivity().getWindow().setAttributes(layoutParams);
 
                 languageChoicePopupWindow.showAsDropDown(linearLayoutLanguage, 0, 0, Gravity.CENTER_HORIZONTAL);//设置显示在该控件的下方
-//                languageChoicePopupWindow.showAtLocation(linearLayoutLanguage, Gravity.CENTER, 0, 0);
                 languageChoicePopupWindow.setChooseListener(new LanguageChoicePopupWindow.ChooseListener() {
                     @Override
                     public void onClick(String language1, String language2) {
@@ -123,7 +113,9 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
                 break;
             case R.id.relativeLayout_category:
                 Intent intent = new Intent();
+
                 intent.setClass(getActivity(), ServiceCategoryActivity.class);
+                intent.putExtra("languageCategory", textViewServiceCategory.getText().toString());
                 startActivityForResult(intent, requestCode);
                 break;
             case R.id.imageView_change:
@@ -139,7 +131,6 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
                     mCommunicationMode = false;
                 }
                 break;
-
         }
     }
 

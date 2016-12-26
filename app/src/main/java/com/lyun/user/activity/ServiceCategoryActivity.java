@@ -57,6 +57,8 @@ public class ServiceCategoryActivity extends BaseActivity implements View.OnClic
     @BindView(R.id.imageView_urgency)
     ImageView imageViewUrgency;
 
+    Intent intent1;
+    String languageCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,22 @@ public class ServiceCategoryActivity extends BaseActivity implements View.OnClic
         ButterKnife.bind(this);
 
         initImageView();//初始化choise图标
+
+        intent1 = this.getIntent();
+        languageCategory = intent1.getStringExtra("languageCategory");
+        if (languageCategory.equals(textViewNormalService.getText().toString())) {
+            imageViewNormalService.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewTravel.getText().toString())) {
+            imageViewTravel.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewHotel.getText().toString())) {
+            imageViewHotel.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewShopping.getText().toString())) {
+            imageViewShopping.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewEat.getText().toString())) {
+            imageViewEat.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewUrgency.getText().toString())) {
+            imageViewUrgency.setVisibility(View.VISIBLE);
+        }
 
         imageViewBack.setOnClickListener(this);
         relativeLayoutNormalService.setOnClickListener(this);

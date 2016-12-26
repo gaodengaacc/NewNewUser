@@ -75,12 +75,12 @@
 //
 //        wheelViewLanguageChoice1.setViewAdapter(languageTextAdapter);
 //        wheelViewLanguageChoice1.setVisibleItems(5);
-//        wheelViewLanguageChoice1.setCurrentItem(5);
+//        wheelViewLanguageChoice1.setCurrentItem(0);
 //        wheelViewLanguageChoice1.setCyclic(true);//设置循环
 //
 //        wheelViewLanguageChoice2.setViewAdapter(languageTextAdapter);
 //        wheelViewLanguageChoice2.setVisibleItems(5);
-//        wheelViewLanguageChoice2.setCurrentItem(5);
+//        wheelViewLanguageChoice2.setCurrentItem(0);
 //        wheelViewLanguageChoice2.setCyclic(true);
 //
 //        textViewDone.setOnClickListener(this);
