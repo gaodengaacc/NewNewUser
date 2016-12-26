@@ -40,6 +40,7 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
 
     private DiscoverRecyclerAdapter discoverRecyclerViewAdapter;
     private DiscoverFragmentModel discoverFragmentModel; //业务处理类
+
     public DiscoverFragment() {
         // Required empty public constructor
     }
@@ -65,16 +66,16 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        discoverFragmentModel = new DiscoverFragmentModel(this,new BaseViewModel());
-        FragmentDiscoverBinding discoverBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_discover, container, false);
+        discoverFragmentModel = new DiscoverFragmentModel(this, new BaseViewModel());
+        FragmentDiscoverBinding discoverBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_discover, container, false);
         mRecyclerView = discoverBinding.recyclerViewDiscover;
         mViewPager = discoverBinding.viewPagerDiscover;
         dotLinearLayout = discoverBinding.dotLinearLayout;
         discoverBinding.setModel(discoverFragmentModel);
         View view = discoverBinding.getRoot();
         initViewPager(view);
-        List<DiscoverRecyclerItemViewModel> listData= discoverFragmentModel.initData();
-        discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getActivity(), listData,R.layout.item_discover_recyclerview);
+        List<DiscoverRecyclerItemViewModel> listData = discoverFragmentModel.initData();
+        discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getActivity(), listData, R.layout.item_discover_recyclerview);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1) {
             @Override
             public boolean canScrollVertically() {
@@ -85,6 +86,7 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
         discoverFragmentModel.init();
         return view;
     }
+
     private void initViewPager(View view) {
         width = getResources().getDisplayMetrics().widthPixels;//获取手机屏幕大小
         newWidth = (int) (discoverFragmentModel.divideWidth(width, 1080, 6) * 17);

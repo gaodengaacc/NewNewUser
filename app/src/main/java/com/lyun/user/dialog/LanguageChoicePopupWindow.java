@@ -67,8 +67,6 @@ public class LanguageChoicePopupWindow extends PopupWindow implements View.OnCli
 
 
     private void initData() {
-
-
         languageTextAdapter = new LanguageTextAdapter(context, listLanguageChoice, 0, maxTextSize, minTextSize);
         wheelViewLanguageChoice1.addChangingListener(new OnWheelChangedListener() {
             @Override
@@ -196,12 +194,16 @@ public class LanguageChoicePopupWindow extends PopupWindow implements View.OnCli
         switch (view.getId()) {
             case R.id.textView_done:
                 if (chooseListener != null) {
-                    chooseListener.onClick(language1, language2);
+                    if (language1.equals(language2)) {//判断母语和目标语言不能相同
+                        chooseListener.onClick(language1, language2);
+                    } else {
+                        chooseListener.onClick(language1, language2);
+                        dismiss();
+                    }
                 }
-                dismiss();
                 break;
         }
-        dismiss();
+//        dismiss();
 
     }
 
