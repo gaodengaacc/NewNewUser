@@ -3,6 +3,8 @@
     package="com.lyun.library">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         <activity android:name="com.lyun.activity.BaseActivity" />
         <activity android:name=".mvvm.view.activity.GeneralToolbarActivity" />
         <activity android:name=".mvvm.view.activity.MvvmActivity" />
-        <activity android:name=".mvvm.view.activity.DiyTitleActivity"></activity>
+        <activity android:name=".mvvm.view.activity.DiyTitleActivity" />
     </application>
 
 </manifest>

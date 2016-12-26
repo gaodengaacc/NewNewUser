@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lyun.BaseApplication;
 import com.lyun.library.R;
+import com.squareup.leakcanary.RefWatcher;
 
 public class BaseFragment extends Fragment {
 
@@ -35,4 +37,11 @@ public class BaseFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_base, container, false);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // LeakCanary
+        RefWatcher refWatcher = BaseApplication.getRefWatcher();
+        refWatcher.watch(this);
+    }
 }
