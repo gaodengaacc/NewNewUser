@@ -7,7 +7,7 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.DiscoverRecyclerAdapter;
 import com.lyun.utils.ToastUtil;
-import com.lyun.viewmodel.OnRecycleItemClickListener;
+import com.lyun.library.mvvm.OnRecycleItemClickListener;
 import com.lyun.widget.dialog.ProgressDialog;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class DiscoverFragmentViewModel extends ViewModel {
 
 //        discoverFragment.getDiscoverRecyclerViewAdapter().setItemClickListener(new OnRecycleItemClickListener() {
 //            @Override
-//            public void onItemClick(View view, List<BaseViewModel> viewModels, int position) {
+//            public void onItemClick(View view, List<ViewModel> viewModels, int position) {
 //                ToastUtil.show(context, "点击Item" + position);
 //                DiscoverRecyclerItemViewModel itemModel = (DiscoverRecyclerItemViewModel) viewModels.get(position);
 //                itemModel.setListTitle("点击Item" + position);

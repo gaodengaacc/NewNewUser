@@ -3,9 +3,7 @@ package com.lyun.user.viewmodel;
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;

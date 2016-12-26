@@ -1,12 +1,9 @@
-package com.lyun.viewmodel;
+package com.lyun.library.mvvm.viewmodel;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.view.View;
 
-import com.lyun.library.BR;
 import com.lyun.widget.dialog.SimpleMessageDialog;
 
 /**
@@ -14,8 +11,7 @@ import com.lyun.widget.dialog.SimpleMessageDialog;
  * @since 2016/12/22
  * do(SimpleDialogViewModel类)
  */
-
-public class SimpleDialogViewModel extends BaseViewModel {
+public class SimpleDialogViewModel extends ViewModel {
     public final ObservableField<String>  contentText = new ObservableField<>();
     public final ObservableField<String> btnCancelText = new ObservableField<>();
     public final ObservableField<String> btnOkText = new ObservableField<>();

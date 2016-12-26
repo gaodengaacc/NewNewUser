@@ -1,4 +1,4 @@
-package com.lyun.viewmodel;
+package com.lyun.library.mvvm.bindingadapter.donutprogress;
 
 import android.databinding.BindingAdapter;
 
@@ -10,7 +10,7 @@ import com.lyun.widget.DonutProgress;
  * do()
  */
 
-public class MBindAdapterHandler {
+public class ViewBindAdapter {
     @BindingAdapter("donut_max")
     public static void setMaxProgress(DonutProgress donutProgress,int progress) {
         donutProgress.setMax(progress);

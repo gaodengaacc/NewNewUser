@@ -3,7 +3,6 @@ package com.lyun.widget.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,7 +10,7 @@ import android.view.Window;
 
 import com.lyun.library.R;
 import com.lyun.library.databinding.DialogProgressBinding;
-import com.lyun.viewmodel.ProgressDialogViewModel;
+import com.lyun.library.mvvm.viewmodel.ProgressDialogViewModel;
 
 /**
  * 进度对话框

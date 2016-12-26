@@ -11,8 +11,8 @@ import android.view.View;
 import com.lyun.library.BR;
 import com.lyun.library.R;
 import com.lyun.library.databinding.ActivityDiyTitleBinding;
-import com.lyun.library.mvvm.viewmodel.DiyTitleViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.library.mvvm.viewmodel.DiyTitleViewModel;
 
 public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extends ViewDataBinding, TVM extends ViewModel, CVM extends ViewModel>
         extends MvvmActivity<ActivityDiyTitleBinding, DiyTitleViewModel>

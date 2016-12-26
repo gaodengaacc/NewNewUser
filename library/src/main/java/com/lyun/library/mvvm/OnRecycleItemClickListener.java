@@ -1,4 +1,4 @@
-package com.lyun.viewmodel;
+package com.lyun.library.mvvm;
 
 import android.view.View;
 

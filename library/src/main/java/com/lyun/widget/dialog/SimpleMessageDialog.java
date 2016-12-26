@@ -10,7 +10,7 @@ import android.view.Window;
 
 import com.lyun.library.R;
 import com.lyun.library.databinding.DialogSimpleMessageBinding;
-import com.lyun.viewmodel.SimpleDialogViewModel;
+import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 
 /**
  * @author 赵尉尉
