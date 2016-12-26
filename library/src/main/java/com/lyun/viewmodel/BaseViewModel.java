@@ -1,12 +1,9 @@
 package com.lyun.viewmodel;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.databinding.BaseObservable;
 
-import com.lyun.fragment.BaseFragment;
-import com.lyun.model.BaseModel;
+import com.lyun.library.mvvm.model.Model;
 
 /**
  * @author Gordon
@@ -16,11 +13,11 @@ import com.lyun.model.BaseModel;
 
 public abstract class BaseViewModel extends BaseObservable{
     protected Context context;
-    protected BaseModel model;
+    protected Model model;
     public BaseViewModel(Context context){
         this.context = context;
     }
-    private void setModel(BaseModel model){
+    private void setModel(Model model){
         this.model = model;
     }
 }

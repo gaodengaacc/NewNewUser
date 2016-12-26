@@ -27,25 +27,25 @@
     <declare-styleable name="RecyclerView" parent="AdapterView">
         <attr name="notifyData" format="reference" />
         <attr name="isScroll" format="reference" />
-    <!-- require boolean value to decide whether requestFocus for view. -->
-    <attr name="requestFocus" format="boolean" />
-    <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
-    <attr name="itemView" format="reference" />
-    <!-- require List<ViewModel> bind to ItemView to presentation.-->
-    <attr name="items" format="reference" />
-    <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
-    <attr name="adapter" format="reference" />
+        <!-- require boolean value to decide whether requestFocus for view. -->
+        <attr name="requestFocus" format="boolean" />
+        <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
+        <attr name="itemView" format="reference" />
+        <!-- require List<BaseViewModel> bind to ItemView to presentation.-->
+        <attr name="items" format="reference" />
+        <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
+        <attr name="adapter" format="reference" />
 
-    <attr name="onScrollChangeCommand" format="reference" />
-    <attr name="onScrollStateChangedCommand" format="reference" />
-    <attr name="uri" format="string" />
-    <attr name="onTouchCommand" format="reference" />
+        <attr name="onScrollChangeCommand" format="reference" />
+        <attr name="onScrollStateChangedCommand" format="reference" />
+        <attr name="uri" format="string" />
+        <attr name="onTouchCommand" format="reference" />
 
-    <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
-    <attr name="clickCommand" format="reference" />
-    <!-- require ReplyCommand<Boolean> {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view focus change event.
-     ReplyCommand would has params which means if view hasFocus.-->
-    <attr name="onFocusChangeCommand" format="reference" />
+        <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
+        <attr name="clickCommand" format="reference" />
+        <!-- require ReplyCommand<Boolean> {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view focus change event.
+         ReplyCommand would has params which means if view hasFocus.-->
+        <attr name="onFocusChangeCommand" format="reference" />
     </declare-styleable>
     <declare-styleable name="View">
 
@@ -62,7 +62,7 @@
     <declare-styleable name="AdapterView">
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView" />
-        <!-- require List<ViewModel> bind to ItemView to presentation.-->
+        <!-- require List<BaseViewModel> bind to ItemView to presentation.-->
         <attr name="items" />
         <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
         <attr name="adapter" />
@@ -112,7 +112,7 @@
         <attr name="clickCommand" />
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView" />
-        <!-- require List<ViewModel> bind to ItemView to presentation.-->
+        <!-- require List<BaseViewModel> bind to ItemView to presentation.-->
         <attr name="viewModels" format="reference" />
 
     </declare-styleable>
@@ -124,7 +124,7 @@
     <declare-styleable name="ViewPager">
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView" />
-        <!-- require List<ViewModel> bind to ItemView to presentation.-->
+        <!-- require List<BaseViewModel> bind to ItemView to presentation.-->
         <attr name="items" />
         <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
         <attr name="adapter" />
