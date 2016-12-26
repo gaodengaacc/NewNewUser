@@ -7,6 +7,7 @@ import android.databinding.ObservableField;
 import android.databinding.ViewDataBinding;
 import android.view.View;
 
+import com.lyun.BaseApplication;
 import com.lyun.library.mvvm.model.Model;
 
 /**

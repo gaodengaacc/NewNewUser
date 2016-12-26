@@ -7,6 +7,7 @@ import com.lyun.user.api.API;
 import com.lyun.utils.CrashUtil;
 import com.lyun.utils.L;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,28 +18,20 @@ import java.util.List;
 
 public class AppApplication extends BaseApplication {
 
-    private static AppApplication instance;
     private List<Activity> mList = new LinkedList<Activity>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
         // 显示log
         L.display(true);
         // 初始化接口
         API.init(Constants.API_BASE_URL);
-        // createCrash();
     }
 
-    //添加app崩溃日志，保存到手机上
-    private void createCrash() {
-        CrashUtil crashUtil = CrashUtil.getInstance();
-        crashUtil.init(this);
-    }
-
-    public static AppApplication getInstance() {
-        return instance;
+    @Override
+    protected String getStorageHomeDirName() {
+        return "law-cloud/user";
     }
 
     //添加创建的Activity

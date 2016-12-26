@@ -10,6 +10,7 @@ import com.lyun.BaseApplication;
 import com.lyun.utils.ToastUtil;
 import com.lyun.widget.dialog.ProgressBarDialog;
 import com.lyun.widget.refresh.PullToRefreshLayout;
+import com.squareup.leakcanary.RefWatcher;
 
 
 /**
@@ -20,14 +21,12 @@ import com.lyun.widget.refresh.PullToRefreshLayout;
  */
 public class BaseActivity extends FragmentActivity  {
 
-    protected BaseApplication application;
     protected ProgressBarDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        application = (BaseApplication) getApplication();
         initViews();
     }
 
@@ -123,5 +122,9 @@ public class BaseActivity extends FragmentActivity  {
     protected void onDestroy() {
         super.onDestroy();
         progressBar = null;
+        // LeakCanary
+        RefWatcher refWatcher = BaseApplication.getRefWatcher();
+        refWatcher.watch(this);
     }
+
 }
