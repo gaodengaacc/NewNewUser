@@ -12,6 +12,7 @@ import com.lyun.user.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by 郑成裕 on 2016/12/21.
@@ -57,6 +58,8 @@ public class ServiceCategoryActivity extends BaseActivity implements View.OnClic
     @BindView(R.id.imageView_urgency)
     ImageView imageViewUrgency;
 
+    Intent intent1;
+    String languageCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +69,22 @@ public class ServiceCategoryActivity extends BaseActivity implements View.OnClic
 
         initImageView();//初始化choise图标
 
-        imageViewBack.setOnClickListener(this);
-        relativeLayoutNormalService.setOnClickListener(this);
-        relativeLayoutTravel.setOnClickListener(this);
-        relativeLayoutHotel.setOnClickListener(this);
-        relativeLayoutShopping.setOnClickListener(this);
-        relativeLayoutEat.setOnClickListener(this);
-        relativeLayoutUrgency.setOnClickListener(this);
+        intent1 = this.getIntent();
+        languageCategory = intent1.getStringExtra("languageCategory");
+        if (languageCategory.equals(textViewNormalService.getText().toString())) {
+            imageViewNormalService.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewTravel.getText().toString())) {
+            imageViewTravel.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewHotel.getText().toString())) {
+            imageViewHotel.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewShopping.getText().toString())) {
+            imageViewShopping.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewEat.getText().toString())) {
+            imageViewEat.setVisibility(View.VISIBLE);
+        } else if (languageCategory.equals(textViewUrgency.getText().toString())) {
+            imageViewUrgency.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void initImageView() {
@@ -85,6 +97,7 @@ public class ServiceCategoryActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
+    @OnClick({R.id.imageView_back, R.id.relativeLayout_normalService, R.id.relativeLayout_travel, R.id.relativeLayout_hotel, R.id.relativeLayout_shopping, R.id.relativeLayout_eat, R.id.relativeLayout_urgency})
     public void onClick(View view) {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();

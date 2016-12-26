@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity {
         }
 
         mTab.addOnTabSelectedListener(onTabSelectedListener);
-        mTab.getTabAt(tabIndex + 1).select();
+        mTab.getTabAt(tabIndex + 1).select();//进入APP后显示的“专人翻译”
 
     }
 

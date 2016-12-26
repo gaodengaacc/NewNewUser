@@ -22,6 +22,7 @@ import com.lyun.user.dialog.LanguageChoicePopupWindow;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -77,34 +78,21 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
         View view = inflater.inflate(R.layout.fragment_specialist_translation, container, false);
         ButterKnife.bind(this, view);
 
-        imageViewChange.setOnClickListener(this);
-        relativeLayoutCategory.setOnClickListener(this);
-        linearLayoutLanguage.setOnClickListener(this);
-
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @OnClick({R.id.linearLayout_language, R.id.relativeLayout_category, R.id.imageView_change})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.linearLayout_language:
-//                languageChoiceDialog = new LanguageChoiceDialog(getActivity());
-//                languageChoiceDialog.show();
-//                languageChoiceDialog.setChooseListener(new LanguageChoiceDialog.ChooseListener() {
-//                    @Override
-//                    public void onClick(String language1, String language2) {
-//                        textViewLanguage1.setText(language1);
-//                        textViewLanguage2.setText(language2);
-//                    }
-//                });
-                LanguageChoicePopupWindow languageChoicePopupWindow = new LanguageChoicePopupWindow(getActivity(), linearLayoutLanguage.getWidth());
+                LanguageChoicePopupWindow languageChoicePopupWindow = new LanguageChoicePopupWindow(getActivity(), linearLayoutLanguage.getWidth());//获取控件宽度
                 WindowManager.LayoutParams layoutParams = getActivity().getWindow().getAttributes();
                 layoutParams.alpha = 0.5f;//透明度
                 getActivity().getWindow().setAttributes(layoutParams);
 
                 languageChoicePopupWindow.showAsDropDown(linearLayoutLanguage, 0, 0, Gravity.CENTER_HORIZONTAL);//设置显示在该控件的下方
-//                languageChoicePopupWindow.showAtLocation(linearLayoutLanguage, Gravity.CENTER, 0, 0);
                 languageChoicePopupWindow.setChooseListener(new LanguageChoicePopupWindow.ChooseListener() {
                     @Override
                     public void onClick(String language1, String language2) {
@@ -123,7 +111,9 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
                 break;
             case R.id.relativeLayout_category:
                 Intent intent = new Intent();
+
                 intent.setClass(getActivity(), ServiceCategoryActivity.class);
+                intent.putExtra("languageCategory", textViewServiceCategory.getText().toString());//传递服务类别
                 startActivityForResult(intent, requestCode);
                 break;
             case R.id.imageView_change:
@@ -139,12 +129,11 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
                     mCommunicationMode = false;
                 }
                 break;
-
         }
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {//接收从serviceactivity中返回的数据
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0 && resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
