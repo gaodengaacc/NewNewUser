@@ -6,7 +6,7 @@
 
         <variable
             name="mvvm"
-            type="com.lyun.library.mvvm.model.Model" />
+            type="com.lyun.library.mvvm.model.BaseModel" />
     </data>
 
     <RelativeLayout

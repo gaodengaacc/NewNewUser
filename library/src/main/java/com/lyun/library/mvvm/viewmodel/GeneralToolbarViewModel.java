@@ -5,7 +5,7 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.view.View;
 
-import com.lyun.library.mvvm.model.Model;
+import com.lyun.library.mvvm.model.BaseModel;
 
 /**
  * Created by ZHAOWEIWEI on 2016/12/21.
@@ -34,7 +34,7 @@ public class GeneralToolbarViewModel extends ViewModel {
 
     }
 
-    public static class ToobarModel extends Model {
+    public static class ToobarModel extends BaseModel {
 
     }
 }
