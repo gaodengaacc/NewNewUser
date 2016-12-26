@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCategoryActivity;
@@ -96,8 +97,13 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
                 languageChoicePopupWindow.setChooseListener(new LanguageChoicePopupWindow.ChooseListener() {
                     @Override
                     public void onClick(String language1, String language2) {
-                        textViewLanguage1.setText(language1);
-                        textViewLanguage2.setText(language2);
+                        if (language1.equals(language2)) {
+                            Toast.makeText(getActivity().getApplicationContext(), "母语和目标语言不能相同", Toast.LENGTH_SHORT).show();
+                        } else {
+                            textViewLanguage1.setText(language1);
+                            textViewLanguage2.setText(language2);
+                        }
+
                     }
                 });
                 languageChoicePopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
