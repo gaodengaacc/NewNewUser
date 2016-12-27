@@ -1,4 +1,4 @@
-package com.lyun.user.fragment;
+package com.lyun.library.mvvm.view.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.lyun.fragment.BaseFragment;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
-import com.lyun.user.BR;
+import com.lyun.library.BR;
 
 /**
  * @author Gordon
