@@ -27,7 +27,12 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.LoginActivity"
-            android:theme="@style/GlobalTitleTheme" />
+            android:theme="@style/GlobalTitleTheme">
+            <intent-filter>
+                <action android:name="com.lyun.user.intent.action.LOGIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.ServiceCategoryActivity"
             android:theme="@style/GlobalTitleTheme"></activity>

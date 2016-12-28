@@ -19,7 +19,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
 
 /**
  * @author Gordon
@@ -70,6 +69,7 @@ public class CrashUtil implements UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+        L.e(TAG, ex);
         if (!handleException(ex) && mDefaultHandler != null) {
             //如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
@@ -77,7 +77,7 @@ public class CrashUtil implements UncaughtExceptionHandler {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                Log.e(TAG, "error : ", e);
+                L.e(TAG, "error : ", e);
             }
             //退出程序
             android.os.Process.killProcess(android.os.Process.myPid());
@@ -121,16 +121,16 @@ public class CrashUtil implements UncaughtExceptionHandler {
 //				infos.put("Android Device Display",display.getHeight()+"*"+display.getWidth());
             }
         } catch (NameNotFoundException e) {
-            Log.e(TAG, "an error occured when collect package info", e);
+            L.e(TAG, "an error occured when collect package info", e);
         }
         Field[] fields = Build.class.getDeclaredFields();
         for (Field field : fields) {
             try {
                 field.setAccessible(true);
                 infos.put(field.getName(), field.get(null).toString());
-                Log.d(TAG, field.getName() + " : " + field.get(null));
+                L.d(TAG, field.getName() + " : " + field.get(null));
             } catch (Exception e) {
-                Log.e(TAG, "an error occured when collect crash info", e);
+                L.e(TAG, "an error occured when collect crash info", e);
             }
         }
     }
@@ -162,21 +162,20 @@ public class CrashUtil implements UncaughtExceptionHandler {
         String result = writer.toString();
         sb.append(result);
         try {
-            long timestamp = System.currentTimeMillis();
             String time = formatter.format(new Date());
-            String fileName = "crash-" + time + "-" + timestamp + ".log";
+            String fileName = "crash-" + time + ".log";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 File dir = new File(PATH);
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-                FileOutputStream fos = new FileOutputStream(PATH + fileName);
+                FileOutputStream fos = new FileOutputStream(dir.getAbsolutePath() + "/" + fileName);
                 fos.write(sb.toString().getBytes());
                 fos.close();
             }
             return fileName;
         } catch (Exception e) {
-            Log.e(TAG, "an error occured while writing file...", e);
+            L.e(TAG, "an error occured while writing file...", e);
         }
         return null;
     }
