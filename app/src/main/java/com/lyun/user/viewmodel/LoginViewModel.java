@@ -1,6 +1,7 @@
 package com.lyun.user.viewmodel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.ObservableField;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,7 @@ public class LoginViewModel extends ViewModel {
         toolbarViewModel.onBackClick.set(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finishActivity();
+                getActivity().startActivity(new Intent("com.lyun.user.intent.action.LOGIN"));
             }
         });
     }
@@ -35,6 +36,7 @@ public class LoginViewModel extends ViewModel {
         @Override
         public void onClick(View view) {
             button.set(new LoginModel().getButtonText());
+            getToast().show(button.get());
         }
     };
 
