@@ -18,14 +18,16 @@ public class DiscoverRecyclerItemViewModel extends ViewModel {
     public DiscoverRecyclerItemViewModel(Context context) {
         super(context);
     }
-   public DiscoverRecyclerItemViewModel(Context context,String listTitle,String listContent,int imageId){
-       super(context);
-       this.listTitle.set(listTitle);
-       this.listContent.set(listContent);
-       this.imageId.set(imageId);
 
-   }
-    public void init(int position){
-        listTitle.set(listTitle.get()+position);
+    public DiscoverRecyclerItemViewModel(Context context, String listTitle, String listContent, int imageId) {
+        super(context);
+        this.listTitle.set(listTitle);
+        this.listContent.set(listContent);
+        this.imageId.set(imageId);
+
+    }
+
+    public void init(int position) {
+        listTitle.set(listTitle.get() + position);
     }
 }

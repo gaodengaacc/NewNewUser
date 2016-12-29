@@ -1,24 +1,20 @@
 package com.lyun.user.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.lyun.fragment.BaseFragment;
+import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
-import com.lyun.user.activity.LoginActivity;
+import com.lyun.user.databinding.FragmentUserCenterBinding;
+import com.lyun.user.viewmodel.UserCenterFragmentViewModel;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, UserCenterFragmentViewModel> {
 
-public class UserCenterFragment extends BaseFragment {
 
-    @BindView(R.id.user_avatar)
-    ImageView mAvatar;
+    private UserCenterFragmentViewModel userCenterFragmentViewModel;
 
     public UserCenterFragment() {
         // Required empty public constructor
@@ -42,13 +38,21 @@ public class UserCenterFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_center, container, false);
-        ButterKnife.bind(this, view);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        userCenterFragmentViewModel = getFragmentViewModel();
+        FragmentUserCenterBinding userCenterBinding = getFragmentViewDataBinding();
         return view;
     }
 
-    @OnClick(R.id.user_avatar)
-    public void onClick() {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+    @NonNull
+    @Override
+    protected UserCenterFragmentViewModel createViewModel() {
+        return new UserCenterFragmentViewModel(this.getContext());
     }
+
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.fragment_user_center;
+    }
+
 }

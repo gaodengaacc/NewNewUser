@@ -35,6 +35,7 @@ public class DiscoverFragment extends MvvmFragment<FragmentDiscoverBinding, Disc
 
     private DiscoverRecyclerAdapter discoverRecyclerViewAdapter;
     private DiscoverFragmentViewModel discoverFragmentViewModel;
+
     public DiscoverFragment() {
         // Required empty public constructor
     }
@@ -45,6 +46,7 @@ public class DiscoverFragment extends MvvmFragment<FragmentDiscoverBinding, Disc
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

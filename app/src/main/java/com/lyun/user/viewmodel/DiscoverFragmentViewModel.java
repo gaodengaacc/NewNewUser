@@ -1,7 +1,9 @@
 package com.lyun.user.viewmodel;
+
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.view.View;
+
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
@@ -9,9 +11,11 @@ import com.lyun.user.adapter.DiscoverRecyclerAdapter;
 import com.lyun.utils.ToastUtil;
 import com.lyun.library.mvvm.OnRecycleItemClickListener;
 import com.lyun.widget.dialog.ProgressDialog;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * @author Gordon
  * @since 2016/12/23
@@ -22,18 +26,19 @@ public class DiscoverFragmentViewModel extends ViewModel {
     public final ObservableField<List<DiscoverRecyclerItemViewModel>> notifyData = new ObservableField<>();
     public final ObservableField<BaseRecyclerAdapter> adapter = new ObservableField<>();
     private ProgressDialog progressDialog;
+
     public DiscoverFragmentViewModel(Context context) {
         super(context);
     }
 
     public void initData() {
         List<DiscoverRecyclerItemViewModel> list = new ArrayList<DiscoverRecyclerItemViewModel>();
-        DiscoverRecyclerAdapter discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getContext(), list,R.layout.item_discover_recyclerview);
+        DiscoverRecyclerAdapter discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getContext(), list, R.layout.item_discover_recyclerview);
         discoverRecyclerViewAdapter.setItemClickListener(new OnRecycleItemClickListener() {
             @Override
             public void onItemClick(View view, List<ViewModel> viewModels, int position) {
                 DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) viewModels.get(position);
-                ToastUtil.show(getContext(),itemViewModel.listTitle.get()+position);
+                ToastUtil.show(getContext(), itemViewModel.listTitle.get() + position);
 //                activityFinish.set(true);
             }
         });
