@@ -3,8 +3,8 @@ package com.lyun.user.fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCategoryActivity;
+import com.lyun.user.databinding.FragmentSpecialistTranslationBinding;
 import com.lyun.user.dialog.LanguageChoicePopupWindow;
+import com.lyun.user.viewmodel.SpecialistTranslationFragmentViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +30,7 @@ import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
 
-public class SpecialistTranslationFragment extends Fragment implements View.OnClickListener {
+public class SpecialistTranslationFragment extends MvvmFragment<FragmentSpecialistTranslationBinding, SpecialistTranslationFragmentViewModel> implements View.OnClickListener {
     @BindView(R.id.imageView_change)
     ImageView imageViewChange;
     @BindView(R.id.textView_title_change)
@@ -51,8 +54,8 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
     @BindView(R.id.view_blank)
     View viewBlank;
 
-    private boolean mCommunicationMode = false;
     private int requestCode = 0;
+    private SpecialistTranslationFragmentViewModel specialistTranslationFragmentViewModel;
 
     public SpecialistTranslationFragment() {
         // Required empty public constructor
@@ -76,11 +79,25 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_specialist_translation, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        specialistTranslationFragmentViewModel = getFragmentViewModel();
+        FragmentSpecialistTranslationBinding fragmentSpecialistTranslationBinding = getFragmentViewDataBinding();
         ButterKnife.bind(this, view);
-
+        specialistTranslationFragmentViewModel.initData();
         return view;
     }
+
+    @NonNull
+    @Override
+    protected SpecialistTranslationFragmentViewModel createViewModel() {
+        return new SpecialistTranslationFragmentViewModel(this.getContext());
+    }
+
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.fragment_specialist_translation;
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @OnClick({R.id.linearLayout_language, R.id.relativeLayout_category, R.id.imageView_change})
@@ -121,19 +138,6 @@ public class SpecialistTranslationFragment extends Fragment implements View.OnCl
                 intent.setClass(getActivity(), ServiceCategoryActivity.class);
                 intent.putExtra("languageCategory", textViewServiceCategory.getText().toString());//传递服务类别
                 startActivityForResult(intent, requestCode);
-                break;
-            case R.id.imageView_change:
-                if (!mCommunicationMode) {
-                    imageViewChange.setImageResource(R.mipmap.call_phone);
-                    imageViewWayChange.setImageResource(R.drawable.image_call_selector);
-                    textViewTitleChange.setText("语音呼叫");
-                    mCommunicationMode = true;
-                } else {
-                    imageViewChange.setImageResource(R.mipmap.call_picture);
-                    imageViewWayChange.setImageResource(R.drawable.image_picture_selector);
-                    textViewTitleChange.setText("图文翻译");
-                    mCommunicationMode = false;
-                }
                 break;
         }
     }

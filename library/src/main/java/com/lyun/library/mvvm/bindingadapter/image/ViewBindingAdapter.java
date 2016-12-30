@@ -32,6 +32,10 @@ public final class ViewBindingAdapter {
         }
     }
 
+    @BindingAdapter("imageSrc")
+    public static void setImageSrc(ImageView imageView, int resid) {
+        imageView.setImageResource(resid);
+    }
 
     @BindingAdapter(value = {"uri", "placeholderImageRes", "request_width", "request_height", "onSuccessCommand", "onFailureCommand"}, requireAll = false)
     public static void loadImage(final ImageView imageView, String uri,
