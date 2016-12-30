@@ -42,7 +42,7 @@ public class APIClient {
                 // 忽略SSL验证
                 .sslSocketFactory(getSSLSocketFactory(), getTrustManager())
                 .hostnameVerifier(getHostnameVerifier())
-                //.addInterceptor(new HeadInterceptor())
+                //.addInterceptor(new LogInterceptor())
                 .build();
 
         // 初始化Retrofit

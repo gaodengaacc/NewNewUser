@@ -44,12 +44,12 @@ public class TipsToast extends Toast {
 	public void setIcon(int iconResId) {
 		if (getView() == null) {
 			throw new RuntimeException(
-					"This Toast was not created with Toast.makeText()");
+					"This ObservableToast was not created with ObservableToast.makeText()");
 		}
 		ImageView iv = (ImageView) getView().findViewById(R.id.tips_icon);
 		if (iv == null) {
 			throw new RuntimeException(
-					"This Toast was not created with Toast.makeText()");
+					"This ObservableToast was not created with ObservableToast.makeText()");
 		}
 		iv.setImageResource(iconResId);
 	}
@@ -58,12 +58,12 @@ public class TipsToast extends Toast {
 	public void setText(CharSequence s) {
 		if (getView() == null) {
 			throw new RuntimeException(
-					"This Toast was not created with Toast.makeText()");
+					"This ObservableToast was not created with ObservableToast.makeText()");
 		}
 		TextView tv = (TextView) getView().findViewById(R.id.tips_msg);
 		if (tv == null) {
 			throw new RuntimeException(
-					"This Toast was not created with Toast.makeText()");
+					"This ObservableToast was not created with ObservableToast.makeText()");
 		}
 		tv.setText(s);
 	}

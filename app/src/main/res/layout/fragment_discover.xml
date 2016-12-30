@@ -164,8 +164,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adapter="@{viewModel.adapter}"
+                app:notifyData ="@{viewModel.notifyData}"
                 app:isScroll="@{false}"
-                app:notifyData="@{viewModel.notifyData}"
                 android:divider="#00000000"></android.support.v7.widget.RecyclerView>
 
         </LinearLayout>

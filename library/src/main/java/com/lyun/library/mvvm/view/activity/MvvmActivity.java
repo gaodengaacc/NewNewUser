@@ -6,9 +6,13 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.lyun.activity.BaseActivity;
 import com.lyun.library.BR;
+import com.lyun.library.mvvm.observable.ObservableActivity;
+import com.lyun.library.mvvm.observable.ObservableToast;
+import com.lyun.library.mvvm.observable.PropertyChangedCallback;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 
 public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewModel> extends BaseActivity {
@@ -37,11 +41,21 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     }
 
     protected <T extends ViewModel> T registerViewModel(T viewModel) {
-        viewModel.activityFinish.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        viewModel.getActivity().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableActivity>() {
             @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                mActivityViewModel.activityFinish.set(false);
-                finish();
+            public void callback(ObservableActivity observable, int fieldId) {
+                if (fieldId == BR.finish) {
+                    setResult(observable.getFinish().get().getResultCode(), observable.getFinish().get().getIntent());
+                    finish();
+                } else if (fieldId == BR.startActivity) {
+                    startActivity(observable.getStartActivity().get());
+                }
+            }
+        });
+        viewModel.getToast().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableToast>() {
+            @Override
+            public void callback(ObservableToast observable, int fieldId) {
+                Toast.makeText(getApplicationContext(), observable.getText(), observable.getDuration()).show();
             }
         });
         return viewModel;
@@ -60,4 +74,5 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     protected VDB getActivityViewDataBinding() {
         return mActivityViewDataBinding;
     }
+
 }
