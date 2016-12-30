@@ -10,17 +10,8 @@ import com.lyun.api.request.BaseRequest;
 
 public class LoginBean extends BaseRequest {
 
-    /**
-     * password : e10adc3949ba59abbe56e057f20f883e
-     * userName : 13838502074
-     * userType : 0
-     * appId : 1001
-     */
-
-    private String password = "e10adc3949ba59abbe56e057f20f883e";
-    private String userName = "13838502074";
-    private int userType = 0;
-    private int appId = 1001;
+    private String password;
+    private String name;
 
     public String getPassword() {
         return password;
@@ -30,27 +21,12 @@ public class LoginBean extends BaseRequest {
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getUserType() {
-        return userType;
-    }
-
-    public void setUserType(int userType) {
-        this.userType = userType;
-    }
-
-    public int getAppId() {
-        return appId;
-    }
-
-    public void setAppId(int appId) {
-        this.appId = appId;
-    }
 }

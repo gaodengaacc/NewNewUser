@@ -2,6 +2,8 @@ package com.lyun.api;
 
 import com.lyun.http.APIClient;
 
+import okhttp3.Interceptor;
+
 /**
  * API的基类，包含一个创建接口实例的方法{@link #create(Class)}
  *
@@ -17,6 +19,16 @@ public class APIBase {
      */
     public static void init(String baseUrl) {
         APIClient.init(baseUrl);
+    }
+
+    /**
+     * 初始化API
+     *
+     * @param baseUrl
+     * @param interceptor
+     */
+    public static void init(String baseUrl, Interceptor interceptor) {
+        APIClient.init(baseUrl, interceptor);
     }
 
     /**

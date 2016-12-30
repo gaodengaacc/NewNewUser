@@ -1,9 +1,9 @@
 package com.lyun.library.mvvm.observable;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import com.lyun.library.BR;
@@ -14,12 +14,12 @@ import com.lyun.library.BR;
 
 public class ObservableActivity extends BaseObservable {
 
-    private ObservableBoolean finish = new ObservableBoolean();
+    private ObservableField<Result> finish = new ObservableField<>();
     private ObservableField<Intent> startActivity = new ObservableField();
     private ObservableField<Intent> startActivityForResult = new ObservableField<>();
 
     public void finish() {
-        finish.set(!finish.get());
+        finish.set(Result.defult());
         notifyPropertyChanged(BR.finish);
     }
 
@@ -33,7 +33,7 @@ public class ObservableActivity extends BaseObservable {
 //    }
 
     @Bindable
-    public ObservableBoolean getFinish() {
+    public ObservableField<Result> getFinish() {
         return finish;
     }
 
@@ -44,5 +44,40 @@ public class ObservableActivity extends BaseObservable {
 
     public synchronized void addOnPropertyChangedCallback(PropertyChangedCallback<ObservableActivity> callback) {
         super.addOnPropertyChangedCallback(callback);
+    }
+
+    public static class Result {
+
+        private int resultCode;
+        private Intent intent;
+
+        public Result(int resultCode, Intent intent) {
+            this.resultCode = resultCode;
+            this.intent = intent;
+        }
+
+        public Result(int resultCode) {
+            this.resultCode = resultCode;
+        }
+
+        public int getResultCode() {
+            return resultCode;
+        }
+
+        public void setResultCode(int resultCode) {
+            this.resultCode = resultCode;
+        }
+
+        public Intent getIntent() {
+            return intent;
+        }
+
+        public void setIntent(Intent intent) {
+            this.intent = intent;
+        }
+
+        public static Result defult() {
+            return new Result(Activity.RESULT_OK);
+        }
     }
 }

@@ -20,6 +20,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
@@ -36,13 +37,13 @@ public class APIClient {
     private APIClient() {
     }
 
-    private APIClient(String baseUrl) {
+    private APIClient(String baseUrl, Interceptor interceptor) {
         // 初始化OkHttpClient
         mOkHttpClient = new OkHttpClient.Builder()
                 // 忽略SSL验证
                 .sslSocketFactory(getSSLSocketFactory(), getTrustManager())
                 .hostnameVerifier(getHostnameVerifier())
-                //.addInterceptor(new HeadInterceptor())
+                .addInterceptor(interceptor)
                 .build();
 
         // 初始化Retrofit
@@ -61,10 +62,21 @@ public class APIClient {
      * @return
      */
     public static APIClient init(String baseUrl) {
+        return init(baseUrl, null);
+    }
+
+    /**
+     * 初始化APIClient
+     *
+     * @param baseUrl
+     * @param interceptor
+     * @return
+     */
+    public static APIClient init(String baseUrl, Interceptor interceptor) {
         if (mInstance == null) {
             synchronized (APIClient.class) {
                 if (mInstance == null) {
-                    mInstance = new APIClient(baseUrl);
+                    mInstance = new APIClient(baseUrl, interceptor);
                 }
             }
         }
