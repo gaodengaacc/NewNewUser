@@ -1,5 +1,6 @@
 package com.lyun.library.mvvm.view.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -11,8 +12,8 @@ import android.view.View;
 import com.lyun.library.BR;
 import com.lyun.library.R;
 import com.lyun.library.databinding.ActivityDiyTitleBinding;
-import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.library.mvvm.viewmodel.DiyTitleViewModel;
+import com.lyun.library.mvvm.viewmodel.ViewModel;
 
 public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extends ViewDataBinding, TVM extends ViewModel, CVM extends ViewModel>
         extends MvvmActivity<ActivityDiyTitleBinding, DiyTitleViewModel>
@@ -20,6 +21,9 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
 
     protected TVDB mTitleViewDataBinding;
     protected CVDB mBodyViewDataBinding;
+    protected TVM mTitleViewModel;
+    protected CVM mBodyViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,12 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
         return new DiyTitleViewModel(this);
     }
 
+    @NonNull
+    @Override
+    protected ViewModel getActivityResultViewModel() {
+        return mBodyViewModel;
+    }
+
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_diy_title;
@@ -67,11 +77,13 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
     @Override
     public void onInflate(ViewStubCompat stub, View inflated) {
         if (stub.getLayoutResource() == getTitleLayoutId()) {
+            mTitleViewModel = createTitleViewModel();
             mTitleViewDataBinding = DataBindingUtil.bind(inflated);
-            mTitleViewDataBinding.setVariable(BR.mvvm, registerViewModel(createTitleViewModel()));
+            mTitleViewDataBinding.setVariable(BR.mvvm, registerViewModel(mTitleViewModel));
         } else if (stub.getLayoutResource() == getBodyLayoutId()) {
+            mBodyViewModel = createBodyViewModel();
             mBodyViewDataBinding = DataBindingUtil.bind(inflated);
-            mBodyViewDataBinding.setVariable(BR.mvvm, registerViewModel(createBodyViewModel()));
+            mBodyViewDataBinding.setVariable(BR.mvvm, registerViewModel(mBodyViewModel));
         }
     }
 
@@ -82,4 +94,5 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
     protected TVDB getBodyViewDataBinding() {
         return mTitleViewDataBinding;
     }
+
 }

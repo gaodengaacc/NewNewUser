@@ -1,7 +1,7 @@
 package com.lyun.library.mvvm.view.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -20,6 +20,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     private VDB mActivityViewDataBinding;
     protected VM mActivityViewModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +35,16 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
         super.onDestroy();
         destroyViewDataBinding(mActivityViewDataBinding);
     }
-
     protected void destroyViewDataBinding(ViewDataBinding viewDataBinding) {
         viewDataBinding.unbind();
         viewDataBinding.executePendingBindings();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getActivityResultViewModel().onActivityResult(requestCode, resultCode, data);
+    }
     protected <T extends ViewModel> T registerViewModel(T viewModel) {
         viewModel.getActivity().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableActivity>() {
             @Override
@@ -49,7 +54,10 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
                     finish();
                 } else if (fieldId == BR.startActivity) {
                     startActivity(observable.getStartActivity().get());
+                } else if (fieldId == BR.startActivityForResult) {
+                    startActivityForResult(observable.getStartActivityForResult().get().getIntent(), observable.getStartActivityForResult().get().getRequestCode());
                 }
+
             }
         });
         viewModel.getToast().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableToast>() {
@@ -64,6 +72,8 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     @NonNull
     protected abstract VM createViewModel();
 
+    @NonNull
+    protected abstract ViewModel getActivityResultViewModel();
     @LayoutRes
     protected abstract int getContentLayoutId();
 

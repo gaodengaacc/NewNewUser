@@ -1,9 +1,12 @@
 package com.lyun.library.mvvm.viewmodel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
+import android.support.annotation.NonNull;
 
+import com.android.annotations.Nullable;
 import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.observable.ObservableToast;
 
@@ -44,5 +47,7 @@ public abstract class ViewModel extends BaseObservable {
     public ObservableToast getToast() {
         return mObservableToast;
     }
+    public  void onActivityResult(int requestCode, int resultCode, Intent data){
+    };
 
 }

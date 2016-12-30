@@ -101,7 +101,7 @@ public class ServiceCategoryActivity extends BaseActivity implements View.OnClic
     public void onClick(View view) {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
-        intent.setClass(ServiceCategoryActivity.this, MainActivity.class);
+//        intent.setClass(ServiceCategoryActivity.this, MainActivity.class);
 
         switch (view.getId()) {
 

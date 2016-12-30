@@ -1,6 +1,7 @@
 package com.lyun.library.mvvm.observable;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -16,6 +17,7 @@ public class ObservableActivity extends BaseObservable {
 
     private ObservableField<Result> finish = new ObservableField<>();
     private ObservableField<Intent> startActivity = new ObservableField();
+    private ObservableField<Request> startActivityForResult = new ObservableField();
 
     public void finish() {
         finish.set(Result.defult());
@@ -26,6 +28,10 @@ public class ObservableActivity extends BaseObservable {
         startActivity.set(intent);
         notifyPropertyChanged(BR.startActivity);
     }
+    public void startActivityForResult(Request request) {
+        startActivityForResult.set(request);
+        notifyPropertyChanged(BR.startActivityForResult);
+    }
 
     @Bindable
     public ObservableField<Result> getFinish() {
@@ -35,6 +41,10 @@ public class ObservableActivity extends BaseObservable {
     @Bindable
     public ObservableField<Intent> getStartActivity() {
         return startActivity;
+    }
+    @Bindable
+    public ObservableField<Request> getStartActivityForResult() {
+        return startActivityForResult;
     }
 
     public synchronized void addOnPropertyChangedCallback(PropertyChangedCallback<ObservableActivity> callback) {
@@ -73,6 +83,35 @@ public class ObservableActivity extends BaseObservable {
 
         public static Result defult() {
             return new Result(Activity.RESULT_OK);
+        }
+    }
+    public static class Request {
+        private int requestCode;
+        private Intent intent;
+        public int getRequestCode() {
+            return requestCode;
+        }
+
+        public void setRequestCode(int requestCode) {
+            this.requestCode = requestCode;
+        }
+
+        public Intent getIntent() {
+            return intent;
+        }
+
+        public void setIntent(Intent intent) {
+            this.intent = intent;
+        }
+
+
+        public Request(int requestCode, Intent intent) {
+            this.requestCode = requestCode;
+            this.intent = intent;
+        }
+
+        public Request(int requestCode) {
+            this.requestCode = requestCode;
         }
     }
 }
