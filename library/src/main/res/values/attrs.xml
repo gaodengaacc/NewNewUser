@@ -27,6 +27,9 @@
     <declare-styleable name="RecyclerView" parent="AdapterView">
         <attr name="notifyData" format="reference" />
         <attr name="isScroll" format="reference" />
+        <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
+        <!--<attr name="onItemClickCommand" format="reference"/>-->
+        <attr name="onItemLongClickCommand" format="reference"/>
         <!-- require boolean value to decide whether requestFocus for view. -->
         <attr name="requestFocus" format="boolean" />
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
@@ -40,9 +43,6 @@
         <attr name="onScrollStateChangedCommand" format="reference" />
         <attr name="uri" format="string" />
         <attr name="onTouchCommand" format="reference" />
-
-        <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
-        <attr name="clickCommand" format="reference" />
         <!-- require ReplyCommand<Boolean> {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view focus change event.
          ReplyCommand would has params which means if view hasFocus.-->
         <attr name="onFocusChangeCommand" format="reference" />
@@ -93,7 +93,7 @@
 
 
     <declare-styleable name="ImageView">
-        <attr name="clickCommand" />
+        <attr name="clickCommand" format="reference"/>
         <!--  load bitmap from uri(string type) -->
         <attr name="uri" />
         <!--width for ResizeOptions (use Fresco to load bitmap). -->

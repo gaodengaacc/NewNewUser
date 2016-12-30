@@ -32,25 +32,5 @@ public class BindAdapterHandler {
         Context context = imageView.getContext();
         GlideUtils.showImage(context,imageView,resid);
     }
-    //RecyclerView
-    @BindingAdapter("notifyData")
-    public static void setNotifyData(RecyclerView recyclerView, List<DiscoverRecyclerItemViewModel> data) {
-        BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
-        if(data!=null)
-        adapter.setListData(data);
-    }
-    @BindingAdapter("adapter")
-    public static void setAdapter(RecyclerView recyclerView,BaseRecyclerAdapter adapter){
-        if(adapter!=null)
-        recyclerView.setAdapter(adapter);
-    }
-    @BindingAdapter("isScroll")
-    public static void setIsScroll(RecyclerView recyclerView, final boolean isScroll){
-        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 1) {
-            @Override
-            public boolean canScrollVertically() {
-                return isScroll;
-            }
-        });//设置布局管理器,优化scrollview嵌套recyclerview惯性滑动
-    }
+
 }

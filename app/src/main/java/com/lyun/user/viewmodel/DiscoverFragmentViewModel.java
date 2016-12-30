@@ -1,14 +1,18 @@
 package com.lyun.user.viewmodel;
+
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.view.View;
+
 import com.lyun.adapter.BaseRecyclerAdapter;
+import com.lyun.library.mvvm.bindingadapter.recyclerview.ViewBindingAdapter;
+import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.command.consumer.Consumer0;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.DiscoverRecyclerAdapter;
-import com.lyun.utils.ToastUtil;
-import com.lyun.library.mvvm.OnRecycleItemClickListener;
 import com.lyun.widget.dialog.ProgressDialog;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +23,7 @@ import java.util.List;
  */
 
 public class DiscoverFragmentViewModel extends ViewModel {
-    public final ObservableField<List<DiscoverRecyclerItemViewModel>> notifyData = new ObservableField<>();
+    public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>();
     public final ObservableField<BaseRecyclerAdapter> adapter = new ObservableField<>();
     private ProgressDialog progressDialog;
     public DiscoverFragmentViewModel(Context context) {
@@ -29,16 +33,21 @@ public class DiscoverFragmentViewModel extends ViewModel {
     public void initData() {
         List<DiscoverRecyclerItemViewModel> list = new ArrayList<DiscoverRecyclerItemViewModel>();
         DiscoverRecyclerAdapter discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getContext(), list,R.layout.item_discover_recyclerview);
-        discoverRecyclerViewAdapter.setItemClickListener(new OnRecycleItemClickListener() {
-            @Override
-            public void onItemClick(View view, List<ViewModel> viewModels, int position) {
-                DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) viewModels.get(position);
-                ToastUtil.show(getContext(),itemViewModel.listTitle.get()+position);
-//                activityFinish.set(true);
-            }
-        });
+//        discoverRecyclerViewAdapter.setItemClickListener(new OnRecycleItemClickListener() {
+//                @Override
+//                public void onItemClick(View view, List<ViewModel> viewModels, int position) {
+//                    DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) viewModels.get(position);
+//                    ToastUtil.show(getContext(),itemViewModel.listTitle.get()+position);
+////                activityFinish.set(true);
+//                }
+//        });
         adapter.set(discoverRecyclerViewAdapter);
     }
+
+    //  public  ReplyCommand<ViewBindingAdapter.ClickListenerData> onItemClickCommand = new ReplyCommand<ViewBindingAdapter.ClickListenerData>((data) ->{
+////      DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) data.list.get(data.position);
+////      ToastUtil.show(getContext(),itemViewModel.listTitle.get()+data.position);
+//  });
 
     public double divideWidth(int screenWidth, int picWidth, int retainValue) {
         BigDecimal screenBD = new BigDecimal(Double.toString(screenWidth));
@@ -48,7 +57,7 @@ public class DiscoverFragmentViewModel extends ViewModel {
     }
 
     public void moreBtnCLick(View view) {
-        List<DiscoverRecyclerItemViewModel> list = new ArrayList<DiscoverRecyclerItemViewModel>();
+        List<ViewModel> list = new ArrayList<ViewModel>();
         int[] imagesId = new int[]{R.mipmap.image1, R.mipmap.image2, R.mipmap.image3};
         for (int i = 0; i < 3; i++) {
             DiscoverRecyclerItemViewModel viewModel = new DiscoverRecyclerItemViewModel(getContext(), "新数据", "在英国可以感受西方文化,她,迷人又多面!", imagesId[i]);

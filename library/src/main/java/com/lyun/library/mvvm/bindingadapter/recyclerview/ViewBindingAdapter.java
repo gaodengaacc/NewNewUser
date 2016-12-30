@@ -1,11 +1,17 @@
 package com.lyun.library.mvvm.bindingadapter.recyclerview;
 
 import android.databinding.BindingAdapter;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.lyun.adapter.BaseRecyclerAdapter;
+import com.lyun.library.mvvm.OnRecycleItemClickListener;
 import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.viewmodel.ViewModel;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.functions.Consumer;
@@ -48,6 +54,49 @@ public class ViewBindingAdapter {
 
     }
 
+    @BindingAdapter({"notifyData"})
+    public static void setNotifyData(RecyclerView recyclerView, List<ViewModel> data) {
+        BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
+        if (data != null)
+            adapter.setListData(data);
+    }
+
+    @BindingAdapter("adapter")
+    public static void setAdapter(RecyclerView recyclerView, BaseRecyclerAdapter adapter) {
+        if (adapter != null)
+            recyclerView.setAdapter(adapter);
+    }
+
+    @BindingAdapter("isScroll")
+    public static void setIsScroll(RecyclerView recyclerView, final boolean isScroll) {
+        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 1) {
+            @Override
+            public boolean canScrollVertically() {
+                return isScroll;
+            }
+        });//设置布局管理器,优化scrollview嵌套recyclerview惯性滑动
+    }
+    @BindingAdapter("onItemClickCommand")
+    public static void setOnItemClickListener(RecyclerView recyclerView, final ReplyCommand<ClickListenerData> clickCommand) {
+      BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
+        adapter.setItemClickListener(new OnRecycleItemClickListener() {
+            @Override
+            public void onItemClick(View view, List<ViewModel> viewModels, int position) {
+                  clickCommand.execute(new ClickListenerData(viewModels,position));
+            }
+        });
+    }
+    @BindingAdapter("onItemLongClickCommand")
+    public static void setOnItemLongClickListener(RecyclerView recyclerView,final ReplyCommand<ClickListenerData> longClickCommand) {
+        BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
+        adapter.setItemClickListener(new OnRecycleItemClickListener() {
+            @Override
+            public void onItemClick(View view, List<ViewModel> viewModels, int position) {
+                longClickCommand.execute(new ClickListenerData(viewModels,position));
+            }
+        });
+
+    }
     public static class OnScrollListener extends RecyclerView.OnScrollListener {
 
         private PublishSubject<Integer> methodInvoke = PublishSubject.create();
@@ -95,6 +144,14 @@ public class ViewBindingAdapter {
             this.scrollX = scrollX;
             this.scrollY = scrollY;
             this.state = state;
+        }
+    }
+    public static class ClickListenerData{
+        public List<ViewModel> list;
+        public int position;
+        public ClickListenerData(List<ViewModel> list,int position) {
+            this.list = list;
+            this.position = position;
         }
     }
 }
