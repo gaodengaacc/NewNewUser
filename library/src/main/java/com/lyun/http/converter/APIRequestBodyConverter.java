@@ -41,10 +41,7 @@ public class APIRequestBodyConverter<T> implements Converter<T, RequestBody> {
         JsonWriter jsonWriter = gson.newJsonWriter(writer);
         adapter.write(jsonWriter, value);
         jsonWriter.close();
-        return new MultipartBody.Builder()
-                .addFormDataPart("data", buffer.readString(UTF_8))
-                .setType(MEDIA_TYPE)
-                .build();
+        return RequestBody.create(MediaType.parse("application/json"), buffer.readString(UTF_8));
     }
 
 }

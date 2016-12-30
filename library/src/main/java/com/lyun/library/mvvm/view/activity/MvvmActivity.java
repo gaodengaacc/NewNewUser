@@ -45,6 +45,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
             @Override
             public void callback(ObservableActivity observable, int fieldId) {
                 if (fieldId == BR.finish) {
+                    setResult(observable.getFinish().get().getResultCode(), observable.getFinish().get().getIntent());
                     finish();
                 } else if (fieldId == BR.startActivity) {
                     startActivity(observable.getStartActivity().get());

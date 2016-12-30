@@ -7,6 +7,6 @@ package com.lyun.user.api;
 
 public class APIConstants {
 
-    public static final String LOGIN = "app-login-service.json";
+    public static final String LOGIN = "login/";
 
 }
