@@ -210,6 +210,7 @@
                 <TextView
                     style="@style/main_fragment_discover_item"
                     android:drawableLeft="@mipmap/translator"
+                    android:onClick="@{viewModel.collectTranslatorTextViewClick}"
                     android:text="已收藏译员" />
 
                 <View

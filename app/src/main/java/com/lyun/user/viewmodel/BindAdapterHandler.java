@@ -6,10 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
 import com.lyun.adapter.BaseRecyclerAdapter;
-import com.lyun.user.viewmodel.DiscoverRecyclerItemViewModel;
 import com.lyun.utils.GlideUtils;
 
 import java.util.List;
@@ -32,6 +29,7 @@ public class BindAdapterHandler {
         Context context = imageView.getContext();
         GlideUtils.showImage(context,imageView,resid);
     }
+
     //RecyclerView
     @BindingAdapter("notifyData")
     public static void setNotifyData(RecyclerView recyclerView, List<DiscoverRecyclerItemViewModel> data) {

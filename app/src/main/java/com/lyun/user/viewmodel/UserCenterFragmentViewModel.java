@@ -12,12 +12,18 @@ import com.lyun.user.activity.LoginActivity;
  */
 
 public class UserCenterFragmentViewModel extends ViewModel {
+    private Intent intent = new Intent();
+
     public UserCenterFragmentViewModel(Context context) {
         super(context);
     }
 
     public void userAvatarImageViewClick(View view) {
-        Intent intent = new Intent();
+        intent.setClass(getContext(), LoginActivity.class);
+        getContext().startActivity(intent);
+    }
+
+    public void collectTranslatorTextViewClick(View view) {
         intent.setClass(getContext(), LoginActivity.class);
         getContext().startActivity(intent);
     }

@@ -16,6 +16,7 @@ public class ObservableActivity extends BaseObservable {
 
     private ObservableBoolean finish = new ObservableBoolean();
     private ObservableField<Intent> startActivity = new ObservableField();
+    private ObservableField<Intent> startActivityForResult = new ObservableField<>();
 
     public void finish() {
         finish.set(!finish.get());
@@ -26,6 +27,10 @@ public class ObservableActivity extends BaseObservable {
         startActivity.set(intent);
         notifyPropertyChanged(BR.startActivity);
     }
+
+//    public void startActivityForResult(Intent intent, int requestCode) {
+//
+//    }
 
     @Bindable
     public ObservableBoolean getFinish() {
