@@ -35,6 +35,7 @@ public class LoginViewModel extends ViewModel {
 //                ObservableActivity.Request request = new ObservableActivity.Request(REQUEST_CODE,intent);
 //                getActivity().startActivityForResult(request);
                 getActivity().finish();
+//                finishActivity();
             }
         });
     }

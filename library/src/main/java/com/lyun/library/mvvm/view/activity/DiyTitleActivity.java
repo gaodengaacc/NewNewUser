@@ -53,7 +53,7 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
 
     @NonNull
     @Override
-    protected ViewModel getActivityResultViewModel() {
+    protected CVM getBodyViewModel() {
         return mBodyViewModel;
     }
 
@@ -91,8 +91,8 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
         return mTitleViewDataBinding;
     }
 
-    protected TVDB getBodyViewDataBinding() {
-        return mTitleViewDataBinding;
+    protected CVDB getBodyViewDataBinding() {
+        return mBodyViewDataBinding;
     }
 
 }

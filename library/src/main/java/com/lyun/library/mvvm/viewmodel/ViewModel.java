@@ -3,10 +3,7 @@ package com.lyun.library.mvvm.viewmodel;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
-import android.databinding.ObservableBoolean;
-import android.support.annotation.NonNull;
 
-import com.android.annotations.Nullable;
 import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.observable.ObservableToast;
 
@@ -34,11 +31,11 @@ public abstract class ViewModel extends BaseObservable {
         return mContext;
     }
 
-    public final ObservableBoolean activityFinish = new ObservableBoolean(false);
-
-    public void finishActivity() {
-        activityFinish.set(true);
-    }
+//    public final ObservableBoolean activityFinish = new ObservableBoolean(false);
+//
+//    public void finishActivity() {
+//        activityFinish.set(true);
+//    }
 
     public ObservableActivity getActivity() {
         return mObservableActivity;
@@ -49,5 +46,18 @@ public abstract class ViewModel extends BaseObservable {
     }
     public  void onActivityResult(int requestCode, int resultCode, Intent data){
     };
+    public void onResume(){
 
+    }
+    public void onPause(){
+
+    }
+    public void onStop(){
+
+    }
+    public void onDestroy(){
+    }
+    public void onDestroyView(){
+
+    }
 }

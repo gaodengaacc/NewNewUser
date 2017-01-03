@@ -1,4 +1,4 @@
-package com.lyun.user.entity;
+package com.lyun.entity;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
