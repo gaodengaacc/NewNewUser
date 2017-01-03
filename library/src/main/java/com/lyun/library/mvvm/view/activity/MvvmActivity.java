@@ -31,9 +31,40 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onResume();
+        if (mActivityViewModel != null)
+            mActivityViewModel.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onStop();
+        if (mActivityViewModel != null)
+            mActivityViewModel.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onPause();
+        if (mActivityViewModel != null)
+            mActivityViewModel.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         destroyViewDataBinding(mActivityViewDataBinding);
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onDestroy();
+        if (mActivityViewModel != null)
+            mActivityViewModel.onDestroy();
     }
     protected void destroyViewDataBinding(ViewDataBinding viewDataBinding) {
         viewDataBinding.unbind();
@@ -43,7 +74,10 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        getActivityResultViewModel().onActivityResult(requestCode, resultCode, data);
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onActivityResult(requestCode, resultCode, data);
+        if (mActivityViewModel != null)
+            mActivityViewModel.onActivityResult(requestCode, resultCode, data);
     }
     protected <T extends ViewModel> T registerViewModel(T viewModel) {
         viewModel.getActivity().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableActivity>() {
@@ -73,7 +107,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     protected abstract VM createViewModel();
 
     @NonNull
-    protected abstract ViewModel getActivityResultViewModel();
+    protected abstract ViewModel getBodyViewModel();
     @LayoutRes
     protected abstract int getContentLayoutId();
 

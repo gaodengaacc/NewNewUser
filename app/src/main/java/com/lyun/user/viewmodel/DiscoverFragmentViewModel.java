@@ -1,15 +1,17 @@
 package com.lyun.user.viewmodel;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.ObservableField;
 import android.view.View;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
-import com.lyun.library.mvvm.bindingadapter.recyclerview.ViewBindingAdapter;
-import com.lyun.library.mvvm.command.ReplyCommand;
-import com.lyun.library.mvvm.command.consumer.Consumer0;
+import com.lyun.library.mvvm.OnRecycleItemClickListener;
+import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
+import com.lyun.user.activity.ServiceCategoryActivity;
 import com.lyun.user.adapter.DiscoverRecyclerAdapter;
 import com.lyun.widget.dialog.ProgressDialog;
 
@@ -26,20 +28,25 @@ public class DiscoverFragmentViewModel extends ViewModel {
     public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>();
     public final ObservableField<BaseRecyclerAdapter> adapter = new ObservableField<>();
     private ProgressDialog progressDialog;
+    private final int REQUEST_CODE = 1000;
     public DiscoverFragmentViewModel(Context context) {
         super(context);
     }
+
 
     public void initData() {
         List<DiscoverRecyclerItemViewModel> list = new ArrayList<DiscoverRecyclerItemViewModel>();
         DiscoverRecyclerAdapter discoverRecyclerViewAdapter = new DiscoverRecyclerAdapter(getContext(), list,R.layout.item_discover_recyclerview);
 //        discoverRecyclerViewAdapter.setItemClickListener(new OnRecycleItemClickListener() {
-//                @Override
-//                public void onItemClick(View view, List<ViewModel> viewModels, int position) {
-//                    DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) viewModels.get(position);
-//                    ToastUtil.show(getContext(),itemViewModel.listTitle.get()+position);
+//            @Override
+//            public void onItemClick(View view, List<ViewModel> viewModels, int position) {
+//                DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) viewModels.get(position);
+//                getToast().show(itemViewModel.listTitle.get() + position);
+//                ObservableActivity.Request request = new ObservableActivity.Request(REQUEST_CODE, new Intent(getContext(), ServiceCategoryActivity.class)
+//                                                                                                    .putExtra("languageCategory", "普通服务"));
+//                getActivity().startActivityForResult(request);
 ////                activityFinish.set(true);
-//                }
+//            }
 //        });
         adapter.set(discoverRecyclerViewAdapter);
     }
@@ -86,5 +93,13 @@ public class DiscoverFragmentViewModel extends ViewModel {
 
 //            }
 //        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            getToast().show("返回成功");
+        }
     }
 }
