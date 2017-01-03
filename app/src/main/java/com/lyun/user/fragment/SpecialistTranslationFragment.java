@@ -1,6 +1,5 @@
 package com.lyun.user.fragment;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
-import com.lyun.user.activity.ServiceCategoryActivity;
 import com.lyun.user.databinding.FragmentSpecialistTranslationBinding;
 import com.lyun.user.dialog.LanguageChoicePopupWindow;
 import com.lyun.user.viewmodel.SpecialistTranslationFragmentViewModel;
@@ -27,8 +25,6 @@ import com.lyun.user.viewmodel.SpecialistTranslationFragmentViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.app.Activity.RESULT_OK;
 
 public class SpecialistTranslationFragment extends MvvmFragment<FragmentSpecialistTranslationBinding, SpecialistTranslationFragmentViewModel> implements View.OnClickListener {
     @BindView(R.id.imageView_change)
@@ -132,24 +128,24 @@ public class SpecialistTranslationFragment extends MvvmFragment<FragmentSpeciali
                     }
                 });
                 break;
-            case R.id.relativeLayout_category:
-                Intent intent = new Intent();
-
-                intent.setClass(getActivity(), ServiceCategoryActivity.class);
-                intent.putExtra("languageCategory", textViewServiceCategory.getText().toString());//传递服务类别
-                startActivityForResult(intent, requestCode);
-                break;
+//            case R.id.relativeLayout_category:
+//                Intent intent = new Intent();
+//
+//                intent.setClass(getActivity(), ServiceCategoryActivity.class);
+//                intent.putExtra("languageCategory", textViewServiceCategory.getText().toString());//传递服务类别
+//                startActivityForResult(intent, requestCode);
+//                break;
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {//接收从serviceactivity中返回的数据
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            if (!(bundle.equals("")) && !(bundle == null)) {
-                textViewServiceCategory.setText(bundle.getString("category"));
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {//接收从serviceactivity中返回的数据
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 0 && resultCode == RESULT_OK) {
+//            Bundle bundle = data.getExtras();
+//            if (!(bundle.equals("")) && !(bundle == null)) {
+//                textViewServiceCategory.setText(bundle.getString("category"));
+//            }
+//        }
+//    }
 }

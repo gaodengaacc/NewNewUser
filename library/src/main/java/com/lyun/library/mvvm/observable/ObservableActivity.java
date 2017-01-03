@@ -1,7 +1,6 @@
 package com.lyun.library.mvvm.observable;
 
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -28,6 +27,7 @@ public class ObservableActivity extends BaseObservable {
         startActivity.set(intent);
         notifyPropertyChanged(BR.startActivity);
     }
+
     public void startActivityForResult(Request request) {
         startActivityForResult.set(request);
         notifyPropertyChanged(BR.startActivityForResult);
@@ -42,6 +42,7 @@ public class ObservableActivity extends BaseObservable {
     public ObservableField<Intent> getStartActivity() {
         return startActivity;
     }
+
     @Bindable
     public ObservableField<Request> getStartActivityForResult() {
         return startActivityForResult;
@@ -85,9 +86,11 @@ public class ObservableActivity extends BaseObservable {
             return new Result(Activity.RESULT_OK);
         }
     }
+
     public static class Request {
         private int requestCode;
         private Intent intent;
+
         public int getRequestCode() {
             return requestCode;
         }

@@ -36,6 +36,31 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         textViewCategoryChange.set("普通服务");
     }
 
+    public void languageLinearLayoutClick(View view) {
+//        LanguageChoicePopupWindow languageChoicePopupWindow = new LanguageChoicePopupWindow(getActivity(), linearLayoutLanguage.getWidth());//获取控件宽度
+    }
+
+    public void categoryRelativeLayoutClick(View view) {
+//        Intent intent = new Intent(getContext(), ServiceCategoryActivity.class);
+
+//        intent.putExtra("languageCategory", textViewCategoryChange.getText().toString());//传递服务类别
+        ObservableActivity.Request request = new ObservableActivity.Request(REQUEST_CODE, new Intent(getContext(), ServiceCategoryActivity.class)
+                .putExtra("languageCategory", textViewCategoryChange.get().toString()));
+        getActivity().startActivityForResult(request);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            if (!(bundle.equals("")) && !(bundle == null)) {
+                textViewCategoryChange.set(bundle.getString("category"));
+            }
+        }
+    }
+
     public void modelChangeImageViewClick(View view) {
         if (!mCommunicationModel) {
             modelChange.set(R.mipmap.call_phone);
@@ -47,25 +72,6 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
             imageViewModelChange.set(R.drawable.image_picture_selector);
             textViewModelChange.set("图文翻译");
             mCommunicationModel = false;
-        }
-    }
-
-    public void categoryRelativeLayoutClick(View view) {
-        Intent intent = new Intent(getContext(), ServiceCategoryActivity.class);
-
-//        intent.putExtra("languageCategory", textViewCategoryChange.getText().toString());//传递服务类别
-        ObservableActivity.Request request = new ObservableActivity.Request(REQUEST_CODE, intent);
-        getActivity().startActivityForResult(request);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            if (!(bundle.equals("")) && !(bundle == null)) {
-                textViewCategoryChange.set(bundle.getString("category"));
-            }
         }
     }
 }

@@ -144,7 +144,8 @@
                             android:id="@+id/relativeLayout_category"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:onClick="@{viewModel.categoryRelativeLayoutClick}">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -162,7 +163,7 @@
                                 android:layout_marginRight="20dp"
                                 android:drawablePadding="10dp"
                                 android:drawableRight="@mipmap/right"
-                                android:text="普通服务" />
+                                android:text="@{viewModel.textViewCategoryChange}" />
                         </RelativeLayout>
 
                         <View
