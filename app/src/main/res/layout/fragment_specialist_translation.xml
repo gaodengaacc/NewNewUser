@@ -84,8 +84,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/select_lan_bg"
+                    android:onClick="@{viewModel.languageLinearLayoutClick}"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:weightSum="3"
+                    app:globalLayoutListener="@{viewModel.listener}">
 
                     <TextView
                         android:id="@+id/textView_language1"
@@ -93,7 +95,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="英文"
+                        android:text="@{viewModel.textViewLanguage1}"
                         android:textColor="#ffffff" />
 
                     <ImageView
@@ -109,7 +111,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="中文"
+                        android:text="@{viewModel.textViewLanguage2}"
                         android:textColor="#ffffff" />
                 </LinearLayout>
 

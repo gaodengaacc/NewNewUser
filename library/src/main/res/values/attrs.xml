@@ -25,11 +25,12 @@
         <attr name="donut_progress_start_angle" format="integer" />
     </declare-styleable>
     <declare-styleable name="RecyclerView" parent="AdapterView">
+
         <attr name="notifyData" format="reference" />
         <attr name="isScroll" format="reference" />
         <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
         <!--<attr name="onItemClickCommand" format="reference"/>-->
-        <attr name="onItemLongClickCommand" format="reference"/>
+        <attr name="onItemLongClickCommand" format="reference" />
         <!-- require boolean value to decide whether requestFocus for view. -->
         <attr name="requestFocus" format="boolean" />
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
@@ -56,6 +57,7 @@
         <attr name="onFocusChangeCommand" />
         <!-- require ReplyCommand<MotionEvent> -->
         <attr name="onTouchCommand" />
+
     </declare-styleable>
 
 
@@ -93,10 +95,10 @@
 
 
     <declare-styleable name="ImageView">
-        <attr name="clickCommand" format="reference"/>
+        <attr name="clickCommand" format="reference" />
         <!--  load bitmap from uri(string type) -->
         <attr name="uri" />
-        <attr name="imageSrc" format="integer"/>
+        <attr name="imageSrc" format="integer" />
         <!--width for ResizeOptions (use Fresco to load bitmap). -->
         <attr name="request_width" format="integer" />
         <!--height for ResizeOptions (use Fresco to load bitmap). -->
@@ -128,7 +130,7 @@
         <!-- require List<ViewModel> bind to ItemView to presentation.-->
         <attr name="items" />
         <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
-        <attr name="adapter"/>
+        <attr name="adapter" />
         <!-- require PageTitles<T>-->
         <attr name="pageTitles" format="reference" />
         <!--require ReplyCommand<ViewPagerDataWrapper> -->
@@ -166,7 +168,11 @@
     </declare-styleable>
     <declare-styleable name="TabLayout">
         <attr name="viewPage" format="reference"></attr>
-        <attr name="tabSelectListener" format="reference"/>
-        <attr name="initTab" format="reference"/>
+        <attr name="tabSelectListener" format="reference" />
+        <attr name="initTab" format="reference" />
     </declare-styleable>
+    <declare-styleable name="LinearLayout">
+        <attr name="globalLayoutListener" format="reference"></attr>
+    </declare-styleable>
+
 </resources>
