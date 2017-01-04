@@ -10,7 +10,6 @@ import android.widget.Button;
 import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
-import com.lyun.user.activity.MainActivity;
 import com.lyun.user.activity.ServiceCategoryActivity;
 import com.lyun.user.model.LoginModel;
 

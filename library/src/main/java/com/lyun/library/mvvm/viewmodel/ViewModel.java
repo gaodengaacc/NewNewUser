@@ -13,29 +13,21 @@ import com.lyun.library.mvvm.observable.ObservableToast;
 
 public abstract class ViewModel extends BaseObservable {
 
+    @Deprecated
     private Context mContext;
 
     protected final ObservableActivity mObservableActivity = new ObservableActivity();
     protected final ObservableToast mObservableToast = new ObservableToast();
 
-    private ViewModel() {
-        super();
-    }
-
+    @Deprecated
     public ViewModel(Context context) {
-        this();
         this.mContext = context;
     }
 
+    @Deprecated
     public Context getContext() {
         return mContext;
     }
-
-//    public final ObservableBoolean activityFinish = new ObservableBoolean(false);
-//
-//    public void finishActivity() {
-//        activityFinish.set(true);
-//    }
 
     public ObservableActivity getActivity() {
         return mObservableActivity;
@@ -44,20 +36,26 @@ public abstract class ViewModel extends BaseObservable {
     public ObservableToast getToast() {
         return mObservableToast;
     }
-    public  void onActivityResult(int requestCode, int resultCode, Intent data){
-    };
-    public void onResume(){
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    }
+
+    public void onResume() {
 
     }
-    public void onPause(){
+
+    public void onPause() {
 
     }
-    public void onStop(){
+
+    public void onStop() {
 
     }
-    public void onDestroy(){
+
+    public void onDestroy() {
     }
-    public void onDestroyView(){
+
+    public void onDestroyView() {
 
     }
 }

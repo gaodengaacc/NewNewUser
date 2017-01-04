@@ -20,16 +20,17 @@ public class LogInterceptor implements Interceptor {
     private Gson gson;
 
     public LogInterceptor() {
-        gson = new GsonBuilder().setPrettyPrinting().create();
+        gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        System.out.println("\n");
-        System.out.println("-= Request Body =-");
-        System.out.println(prettyJson(bodyToString(chain.request())));
         Response response = chain.proceed(chain.request());
-        System.out.println("-= Response Body =-");
+        System.out.println("\n");
+        System.out.println(chain.request().method() + " " +chain.request().url());
+        System.out.println("-----------------= Request =-----------------");
+        System.out.println(prettyJson(bodyToString(chain.request())));
+        System.out.println("-----------------= Response =-----------------");
         System.out.println(prettyJson(response.body().string()));
         System.out.println("\n");
         return response;

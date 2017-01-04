@@ -7,15 +7,15 @@ package com.lyun.api.response;
 
 public class APIResult<T> {
 
-    private int status;
+    private String status;
     private String describe;
     private T content;
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

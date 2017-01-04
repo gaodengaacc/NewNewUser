@@ -3,6 +3,7 @@ package com.lyun.user;
 import android.app.Activity;
 
 import com.lyun.BaseApplication;
+import com.lyun.http.LogInterceptor;
 import com.lyun.user.api.API;
 import com.lyun.utils.CrashUtil;
 import com.lyun.utils.L;
@@ -24,9 +25,13 @@ public class AppApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         // 显示log
-        L.display(true);
+        L.display(BuildConfig.DEBUG);
         // 初始化接口
-        API.init(Constants.API_BASE_URL);
+        if (BuildConfig.DEBUG) {
+            API.init(Constants.API_BASE_URL, new LogInterceptor());
+        } else {
+            API.init(Constants.API_BASE_URL);
+        }
     }
 
     @Override

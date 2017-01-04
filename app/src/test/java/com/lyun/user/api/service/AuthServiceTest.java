@@ -4,6 +4,7 @@ import com.lyun.api.response.APIResult;
 import com.lyun.http.LogInterceptor;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.LoginBean;
+import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.api.response.UserInfo;
 
 import org.junit.Assert;
@@ -21,26 +22,21 @@ public class AuthServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        API.init("http://172.16.252.148:8080/lawcloudpeoplecenter/api/", new LogInterceptor());
+        API.init("http://172.16.132.49:8080/lawcloudpeoplecenter/api/app/", new LogInterceptor());
         authService = API.auth;
     }
 
     @Test
     public void login() throws Exception {
         LoginBean bean = new LoginBean();
-        bean.setName("15958331916");
-        bean.setPassword("e10adc3949ba59abbe56e057f20f88e");
+        bean.setName("13838502074");
+        bean.setPassword("e10adc3949ba59abbe56e057f20f883e");
         authService
                 .login(bean)
-                .subscribe(new Consumer<APIResult<UserInfo>>() {
+                .subscribe(new Consumer<APIResult<LoginResponse>>() {
                     @Override
-                    public void accept(APIResult<UserInfo> userInfoAPIResult) throws Exception {
+                    public void accept(APIResult<LoginResponse> userInfoAPIResult) throws Exception {
                         Assert.assertNotNull(userInfoAPIResult);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Assert.assertNull(throwable);
                     }
                 });
     }

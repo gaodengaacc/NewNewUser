@@ -24,7 +24,7 @@
             android:id="@+id/title_container"
             android:layout_width="fill_parent"
             android:layout_height="44dp"
-            android:background="@android:color/white"
+            android:background="?attr/colorPrimary"
             android:elevation="10dp"
             android:orientation="vertical">
 
@@ -40,7 +40,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="@{mvvm.back}"
-                android:textColor="#666666"
+                android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:minWidth="48dp"
                 android:singleLine="true"
                 android:text="@{mvvm.title}"
-                android:textColor="#666666"
+                android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
             <TextView
@@ -69,7 +69,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="@{mvvm.fuction}"
-                android:textColor="#666666"
+                android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
             <TextView

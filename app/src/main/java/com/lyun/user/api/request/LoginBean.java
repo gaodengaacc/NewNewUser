@@ -3,7 +3,6 @@ package com.lyun.user.api.request;
 import com.lyun.api.request.BaseRequest;
 
 /**
- *
  * @author 赵尉尉
  * @date 2016/12/20
  */
@@ -28,5 +27,4 @@ public class LoginBean extends BaseRequest {
     public void setName(String name) {
         this.name = name;
     }
-
 }
