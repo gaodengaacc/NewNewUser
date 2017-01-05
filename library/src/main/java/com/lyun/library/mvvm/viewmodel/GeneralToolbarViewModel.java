@@ -28,7 +28,7 @@ public class GeneralToolbarViewModel extends ViewModel {
         public ToolbarViewModel(Context context) {
             super(context);
             title.set("标题");
-            dividerVisibility.set(View.VISIBLE);
+            dividerVisibility.set(View.INVISIBLE);
         }
 
     }

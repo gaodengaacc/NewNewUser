@@ -4,14 +4,14 @@ import android.databinding.BindingAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.command.RelayCommand;
 
 public class ViewBindingAdapter {
     @BindingAdapter(value = {"onPageScrolledCommand", "onPageSelectedCommand", "onPageScrollStateChangedCommand"}, requireAll = false)
     public static void onScrollChangeCommand(final ViewPager viewPager,
-                                             final ReplyCommand<ViewPagerDataWrapper> onPageScrolledCommand,
-                                             final ReplyCommand<Integer> onPageSelectedCommand,
-                                             final ReplyCommand<Integer> onPageScrollStateChangedCommand) {
+                                             final RelayCommand<ViewPagerDataWrapper> onPageScrolledCommand,
+                                             final RelayCommand<Integer> onPageSelectedCommand,
+                                             final RelayCommand<Integer> onPageScrollStateChangedCommand) {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             private int state;
 

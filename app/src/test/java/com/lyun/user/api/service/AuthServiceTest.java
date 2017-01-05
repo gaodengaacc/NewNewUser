@@ -28,9 +28,7 @@ public class AuthServiceTest {
 
     @Test
     public void login() throws Exception {
-        LoginBean bean = new LoginBean();
-        bean.setName("13838502074");
-        bean.setPassword("e10adc3949ba59abbe56e057f20f883e");
+        LoginBean bean = new LoginBean("13838502074", "e10adc3949ba59abbe56e057f20f883e");
         authService
                 .login(bean)
                 .subscribe(new Consumer<APIResult<LoginResponse>>() {

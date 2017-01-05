@@ -17,7 +17,7 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
     @NonNull
     @Override
     protected LoginViewModel createBodyViewModel() {
-        LoginViewModel model = new LoginViewModel(this, getTitleViewDataBinding().getMvvm());
+        LoginViewModel model = new LoginViewModel(getTitleViewDataBinding().getMvvm());
         return model;
     }
 

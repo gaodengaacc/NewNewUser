@@ -12,7 +12,7 @@ public class ResponseCommand<T, R> {
     private Function0<Boolean> canExecute0;
 
     /**
-     * like {@link ReplyCommand},but ResponseCommand can return result when command has executed!
+     * like {@link RelayCommand},but ResponseCommand can return result when command has executed!
      *
      * @param execute function to execute when event occur.
      */

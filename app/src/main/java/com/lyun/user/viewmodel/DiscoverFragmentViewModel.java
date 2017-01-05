@@ -51,7 +51,7 @@ public class DiscoverFragmentViewModel extends ViewModel {
         adapter.set(discoverRecyclerViewAdapter);
     }
 
-    //  public  ReplyCommand<ViewBindingAdapter.ClickListenerData> onItemClickCommand = new ReplyCommand<ViewBindingAdapter.ClickListenerData>((data) ->{
+    //  public  RelayCommand<ViewBindingAdapter.ClickListenerData> onItemClickCommand = new RelayCommand<ViewBindingAdapter.ClickListenerData>((data) ->{
 ////      DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) data.list.get(data.position);
 ////      ToastUtil.show(getContext(),itemViewModel.listTitle.get()+data.position);
 //  });

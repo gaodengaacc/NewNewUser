@@ -5,13 +5,13 @@ import android.support.v4.widget.NestedScrollView;
 import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
-import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.command.RelayCommand;
 
 public final class ViewBindingAdapter {
 
     @SuppressWarnings("unchecked")
     @BindingAdapter({"onScrollChangeCommand"})
-    public static void onScrollChangeCommand(final NestedScrollView nestedScrollView, final ReplyCommand<NestScrollDataWrapper> onScrollChangeCommand) {
+    public static void onScrollChangeCommand(final NestedScrollView nestedScrollView, final RelayCommand<NestScrollDataWrapper> onScrollChangeCommand) {
         nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -24,7 +24,7 @@ public final class ViewBindingAdapter {
 
     @SuppressWarnings("unchecked")
     @BindingAdapter({"onScrollChangeCommand"})
-    public static void onScrollChangeCommand(final ScrollView scrollView, final ReplyCommand<ScrollDataWrapper> onScrollChangeCommand) {
+    public static void onScrollChangeCommand(final ScrollView scrollView, final RelayCommand<ScrollDataWrapper> onScrollChangeCommand) {
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {

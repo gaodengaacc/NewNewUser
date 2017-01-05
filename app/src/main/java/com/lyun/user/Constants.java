@@ -9,7 +9,7 @@ package com.lyun.user;
 public class Constants {
 
     public static final String HOST = BuildConfig.HOST;
-    public static final String MODULE = "/lawcloudpeoplecenter/api/";
+    public static final String MODULE = "/lawcloudpeoplecenter/api/app/";
     public static final String API_BASE_URL = HOST + MODULE;
 
 }

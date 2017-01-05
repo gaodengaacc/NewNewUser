@@ -1,13 +1,9 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="LibTheme">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <style name="AppBaseTheme" parent="LibTheme"></style>
 
-    <style name="AppBaseTheme" parent="LibBaseTheme"></style>
+    <style name="AppTheme" parent="AppBaseTheme">
+    </style>
 
     <style name="AppTheme.NoTitle" parent="LibTheme.NoTitle"></style>
 

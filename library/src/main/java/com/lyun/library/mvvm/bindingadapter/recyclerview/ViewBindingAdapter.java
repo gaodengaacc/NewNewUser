@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.OnRecycleItemClickListener;
-import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 
 import java.util.List;
@@ -21,8 +21,8 @@ public class ViewBindingAdapter {
 
     @BindingAdapter(value = {"onScrollChangeCommand", "onScrollStateChangedCommand"}, requireAll = false)
     public static void onScrollChangeCommand(final RecyclerView recyclerView,
-                                             final ReplyCommand<ScrollDataWrapper> onScrollChangeCommand,
-                                             final ReplyCommand<Integer> onScrollStateChangedCommand) {
+                                             final RelayCommand<ScrollDataWrapper> onScrollChangeCommand,
+                                             final RelayCommand<Integer> onScrollStateChangedCommand) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private int state;
 
@@ -48,7 +48,7 @@ public class ViewBindingAdapter {
 
     @SuppressWarnings("unchecked")
     @BindingAdapter({"onLoadMoreCommand"})
-    public static void onLoadMoreCommand(final RecyclerView recyclerView, final ReplyCommand<Integer> onLoadMoreCommand) {
+    public static void onLoadMoreCommand(final RecyclerView recyclerView, final RelayCommand<Integer> onLoadMoreCommand) {
         RecyclerView.OnScrollListener listener = new OnScrollListener(onLoadMoreCommand);
         recyclerView.addOnScrollListener(listener);
 
@@ -77,7 +77,7 @@ public class ViewBindingAdapter {
         });//设置布局管理器,优化scrollview嵌套recyclerview惯性滑动
     }
     @BindingAdapter("onItemClickCommand")
-    public static void setOnItemClickListener(RecyclerView recyclerView, final ReplyCommand<ClickListenerData> clickCommand) {
+    public static void setOnItemClickListener(RecyclerView recyclerView, final RelayCommand<ClickListenerData> clickCommand) {
       BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
         adapter.setItemClickListener(new OnRecycleItemClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class ViewBindingAdapter {
         });
     }
     @BindingAdapter("onItemLongClickCommand")
-    public static void setOnItemLongClickListener(RecyclerView recyclerView,final ReplyCommand<ClickListenerData> longClickCommand) {
+    public static void setOnItemLongClickListener(RecyclerView recyclerView,final RelayCommand<ClickListenerData> longClickCommand) {
         BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
         adapter.setItemClickListener(new OnRecycleItemClickListener() {
             @Override
@@ -101,9 +101,9 @@ public class ViewBindingAdapter {
 
         private PublishSubject<Integer> methodInvoke = PublishSubject.create();
 
-        private ReplyCommand<Integer> onLoadMoreCommand;
+        private RelayCommand<Integer> onLoadMoreCommand;
 
-        public OnScrollListener(ReplyCommand<Integer> onLoadMoreCommand) {
+        public OnScrollListener(RelayCommand<Integer> onLoadMoreCommand) {
             this.onLoadMoreCommand = onLoadMoreCommand;
             methodInvoke.throttleFirst(1, TimeUnit.SECONDS)
                     .subscribe(new Consumer<Integer>() {
