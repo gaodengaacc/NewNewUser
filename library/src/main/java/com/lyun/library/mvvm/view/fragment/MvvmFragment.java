@@ -43,7 +43,7 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
         mFragmentViewDataBinding = DataBindingUtil.inflate(inflater, getContentLayoutId(), container, false);
         mFragmentViewModel = createViewModel();
         registerViewModel(mFragmentViewModel);
-        mFragmentViewDataBinding.setVariable(BR.viewModel,mFragmentViewModel);
+        mFragmentViewDataBinding.setVariable(BR.mvvm,mFragmentViewModel);
         return mFragmentViewDataBinding.getRoot();
     }
 

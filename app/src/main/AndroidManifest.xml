@@ -41,7 +41,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activity.UserSettingActivity"
+            android:theme="@style/GlobalTitleTheme">
+            <intent-filter>
+                <action android:name="com.lyun.user.intent.action.USER_SETTING" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

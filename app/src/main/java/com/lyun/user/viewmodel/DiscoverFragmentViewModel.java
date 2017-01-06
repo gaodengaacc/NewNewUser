@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.OnRecycleItemClickListener;
+import com.lyun.library.mvvm.bindingadapter.recyclerview.ViewBindingAdapter;
+import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
@@ -27,6 +29,7 @@ import java.util.List;
 public class DiscoverFragmentViewModel extends ViewModel {
     public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>();
     public final ObservableField<BaseRecyclerAdapter> adapter = new ObservableField<>();
+    public final ObservableField<RelayCommand> listenerObservableField = new ObservableField<>();
     private ProgressDialog progressDialog;
     private final int REQUEST_CODE = 1000;
     public DiscoverFragmentViewModel(Context context) {
@@ -49,12 +52,27 @@ public class DiscoverFragmentViewModel extends ViewModel {
 //            }
 //        });
         adapter.set(discoverRecyclerViewAdapter);
+//        replyCommandObservableField.set(onItemClickCommand);
+        listenerObservableField.set(onItemClickCommand);
     }
 
-    //  public  RelayCommand<ViewBindingAdapter.ClickListenerData> onItemClickCommand = new RelayCommand<ViewBindingAdapter.ClickListenerData>((data) ->{
-////      DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) data.list.get(data.position);
-////      ToastUtil.show(getContext(),itemViewModel.listTitle.get()+data.position);
-//  });
+    public RelayCommand<ViewBindingAdapter.ClickListenerData> onItemClickCommand = new RelayCommand<ViewBindingAdapter.ClickListenerData>((data) -> {
+        DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) data.list.get(data.position);
+        getToast().show(itemViewModel.listTitle.get() + data.position);
+        ObservableActivity.Request request = new ObservableActivity.Request(REQUEST_CODE, new Intent(getContext(), ServiceCategoryActivity.class)
+                                                                                             .putExtra("languageCategory", "普通服务"));
+        getActivity().startActivityForResult(request);
+    });
+//  public  OnRecycleItemClickListener listener = new OnRecycleItemClickListener() {
+//    @Override
+//    public void onItemClick(View view, List<ViewModel> viewModels, int position) {
+//        DiscoverRecyclerItemViewModel itemViewModel = (DiscoverRecyclerItemViewModel) viewModels.get(position);
+//        getToast().show(itemViewModel.listTitle.get() + position);
+//        ObservableActivity.Request request = new ObservableActivity.Request(REQUEST_CODE, new Intent(getContext(), ServiceCategoryActivity.class)
+//                                                                                             .putExtra("languageCategory", "普通服务"));
+//        getActivity().startActivityForResult(request);
+//    }
+//};
 
     public double divideWidth(int screenWidth, int picWidth, int retainValue) {
         BigDecimal screenBD = new BigDecimal(Double.toString(screenWidth));

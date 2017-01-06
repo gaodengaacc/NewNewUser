@@ -27,7 +27,7 @@ public class ViewBindAdapter {
 
     @BindingAdapter("initTab")
     public static void initTab(TabLayout tabLayout, TabData data) {
-        if (data != null && data.getTabs() != null) {
+        if (data.getTabs() != null){
             for (int i = 0; i < data.getTabs().size(); i++) {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
                 tab.setCustomView(data.getTabs().get(i).getTabView(tabLayout.getContext()));

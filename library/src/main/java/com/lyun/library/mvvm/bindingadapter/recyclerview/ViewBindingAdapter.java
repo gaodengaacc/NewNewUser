@@ -51,7 +51,6 @@ public class ViewBindingAdapter {
     public static void onLoadMoreCommand(final RecyclerView recyclerView, final RelayCommand<Integer> onLoadMoreCommand) {
         RecyclerView.OnScrollListener listener = new OnScrollListener(onLoadMoreCommand);
         recyclerView.addOnScrollListener(listener);
-
     }
 
     @BindingAdapter({"notifyData"})
@@ -79,12 +78,15 @@ public class ViewBindingAdapter {
     @BindingAdapter("onItemClickCommand")
     public static void setOnItemClickListener(RecyclerView recyclerView, final RelayCommand<ClickListenerData> clickCommand) {
       BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
-        adapter.setItemClickListener(new OnRecycleItemClickListener() {
+        if (adapter != null)
+        adapter.setItemClickListener(
+                new OnRecycleItemClickListener() {
             @Override
             public void onItemClick(View view, List<ViewModel> viewModels, int position) {
                   clickCommand.execute(new ClickListenerData(viewModels,position));
             }
-        });
+        }
+        );
     }
     @BindingAdapter("onItemLongClickCommand")
     public static void setOnItemLongClickListener(RecyclerView recyclerView,final RelayCommand<ClickListenerData> longClickCommand) {

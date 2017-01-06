@@ -6,7 +6,7 @@
         <import type="com.lyun.user.viewmodel.SpecialistTranslationFragmentViewModel"></import>
 
         <variable
-            name="viewModel"
+            name="mvvm"
             type="SpecialistTranslationFragmentViewModel"></variable>
     </data>
 
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:text="@{viewModel.textViewModelChange}"
+                    android:text="@{mvvm.textViewModelChange}"
                     android:textColor="#000000"
                     android:textSize="25sp" />
 
@@ -84,10 +84,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@mipmap/select_lan_bg"
-                    android:onClick="@{viewModel.languageLinearLayoutClick}"
+                    android:onClick="@{mvvm.languageLinearLayoutClick}"
                     android:orientation="horizontal"
                     android:weightSum="3"
-                    app:globalLayoutListener="@{viewModel.listener}">
+                    app:globalLayoutListener="@{mvvm.listener}">
 
                     <TextView
                         android:id="@+id/textView_language1"
@@ -95,7 +95,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@{viewModel.textViewLanguage1}"
+                        android:text="@{mvvm.textViewLanguage1}"
                         android:textColor="#ffffff" />
 
                     <ImageView
@@ -111,7 +111,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@{viewModel.textViewLanguage2}"
+                        android:text="@{mvvm.textViewLanguage2}"
                         android:textColor="#ffffff" />
                 </LinearLayout>
 
@@ -147,7 +147,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:onClick="@{viewModel.categoryRelativeLayoutClick}">
+                            android:onClick="@{mvvm.categoryRelativeLayoutClick}">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -164,8 +164,8 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginRight="20dp"
                                 android:drawablePadding="10dp"
-                                android:drawableRight="@mipmap/right"
-                                android:text="@{viewModel.textViewCategoryChange}" />
+                                android:drawableRight="@mipmap/item_right_icon"
+                                android:text="@{mvvm.textViewCategoryChange}" />
                         </RelativeLayout>
 
                         <View
@@ -192,8 +192,8 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginRight="30dp"
-                                android:onClick="@{viewModel.modelChangeImageViewClick}"
-                                app:imageSrc="@{viewModel.modelChange}" />
+                                android:onClick="@{mvvm.modelChangeImageViewClick}"
+                                app:imageSrc="@{mvvm.modelChange}" />
                         </RelativeLayout>
 
                         <View
@@ -220,7 +220,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginRight="20dp"
                                 android:drawablePadding="10dp"
-                                android:drawableRight="@mipmap/right"
+                                android:drawableRight="@mipmap/item_right_icon"
                                 android:text="登录后查看" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -243,7 +243,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:clickable="true"
-                app:imageSrc="@{viewModel.imageViewModelChange}" />
+                app:imageSrc="@{mvvm.imageViewModelChange}" />
         </RelativeLayout>
 
     </LinearLayout>

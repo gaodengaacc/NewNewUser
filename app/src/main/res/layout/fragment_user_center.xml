@@ -5,39 +5,15 @@
         <import type="com.lyun.user.viewmodel.UserCenterFragmentViewModel"></import>
 
         <variable
-            name="viewModel"
+            name="mvvm"
             type="UserCenterFragmentViewModel"></variable>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/bgc1"
         android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@mipmap/usercenter_top">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="昵称"
-                android:textColor="#ffffff"
-                android:textSize="19sp" />
-
-            <ImageView
-                android:layout_width="19dp"
-                android:layout_height="19dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/seting" />
-        </RelativeLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,234 +24,175 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:background="@mipmap/usercenter_bg"
-                    android:gravity="center"
+                    android:layout_height="150dp"
+                    android:background="@color/colorPrimary"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/user_avatar"
+                        android:id="@+id/user_center_settting"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/user_setting_icon"
+                        android:onClick="@{mvvm.onViewClick}"/>
+
+                    <ImageView
+                        android:id="@+id/user_center_avatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:onClick="@{viewModel.userAvatarImageViewClick}"
-                        android:src="@mipmap/user_icon" />
-                </LinearLayout>
+                        android:onClick="@{mvvm.onViewClick}"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:src="@mipmap/user_default_avatar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/user_center_avatar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:text="你是谁的"
+                        android:textColor="@color/tcw" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:orientation="horizontal"
+                    android:background="@color/bgcw"
                     android:weightSum="3">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:weightSum="2">
+                        android:layout_weight="1">
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:padding="2dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:id="@+id/user_center_min"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:gravity="center_horizontal"
-                                android:text="0 分钟"
-                                android:textColor="#333333" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:padding="2dp">
+                                android:layout_centerHorizontal="true"
+                                android:text="@{mvvm.userTime}"
+                                android:textColor="@color/tc1" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="top"
-                                android:gravity="center_horizontal"
+                                android:layout_centerHorizontal="true"
+                                android:textColor="@color/tc2"
+                                android:layout_below="@+id/user_center_min"
+                                android:layout_marginTop="5dp"
                                 android:text="使用时长" />
-                        </LinearLayout>
-
-                    </LinearLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
 
                     <View
                         android:layout_width="1px"
                         android:layout_height="match_parent"
-                        android:background="#d9d9d9" />
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/lc1" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:weightSum="2">
+                        android:layout_weight="1">
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:padding="2dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:id="@+id/user_center_time"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:gravity="center_horizontal"
-                                android:text="0 次"
-                                android:textColor="#333333" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:padding="2dp">
+                                android:layout_centerHorizontal="true"
+                                android:text="@{mvvm.userNum}"
+                                android:textColor="@color/tc1" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="top"
-                                android:gravity="center_horizontal"
+                                android:layout_centerHorizontal="true"
+                                android:textColor="@color/tc2"
+                                android:layout_below="@+id/user_center_time"
+                                android:layout_marginTop="5dp"
                                 android:text="总呼叫" />
-                        </LinearLayout>
-
-                    </LinearLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
 
                     <View
                         android:layout_width="1px"
                         android:layout_height="match_parent"
-                        android:background="#d9d9d9" />
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/lc1" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:weightSum="2">
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:padding="2dp">
-
-                            <TextView
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:gravity="center_horizontal"
-                                android:text="0 种"
-                                android:textColor="#333333" />
-                        </LinearLayout>
+                                android:layout_centerInParent="true">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"
-                            android:padding="2dp">
+                                <TextView
+                                    android:id="@+id/user_center_type"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="@{mvvm.userLanguage}"
+                                    android:textColor="@color/tc1" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="top"
-                                android:gravity="center_horizontal"
-                                android:text="接触语言" />
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:textColor="@color/tc2"
+                                    android:layout_below="@+id/user_center_type"
+                                    android:layout_marginTop="5dp"
+                                    android:text="接触语种" />
+                            </RelativeLayout>
+                        </RelativeLayout>
 
                     </LinearLayout>
-                </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#d9d9d9"
-                    android:paddingLeft="15dp" />
 
                 <TextView
                     style="@style/main_fragment_discover_item"
-                    android:drawableLeft="@mipmap/translator"
-                    android:onClick="@{viewModel.collectTranslatorTextViewClick}"
-                    android:text="已收藏译员" />
-
-                <View
+                    android:id="@+id/user_center_wallet"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@mipmap/user_wallet_icon"
+                    android:onClick="@{mvvm.onViewClick}"
+                    android:text="钱包" />
+                <Button
+                    android:id="@+id/user_center_exit"
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#d9d9d9" />
-
-                <TextView
-                    style="@style/main_fragment_discover_item"
-                    android:drawableLeft="@mipmap/chat_record_list_new"
-                    android:text="通话记录" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#d9d9d9"
-                    android:paddingLeft="15dp" />
-
-                <TextView
-                    style="@style/main_fragment_discover_item"
-                    android:drawableLeft="@mipmap/taocan"
-                    android:text="我的套餐" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#d9d9d9" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/main_fragment_discover_item"
-                        android:drawableLeft="@mipmap/goumai"
-                        android:text="购买套餐" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="18dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="120dp"
-                        android:src="@mipmap/hot" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#d9d9d9" />
-
-                <TextView
-                    style="@style/main_fragment_discover_item"
-                    android:drawableLeft="@mipmap/tma"
-                    android:text="优惠码" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#d9d9d9" />
-
-                <TextView
-                    style="@style/main_fragment_discover_item"
-                    android:drawableLeft="@mipmap/usercenter_chatting_bus_tcode"
-                    android:text="商家活动优惠" />
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="66dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="退出登录"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:onClick="@{mvvm.onViewClick}"
+                    android:visibility="@{mvvm.exitVisible}"
+                    android:background="@drawable/bg_no_border_round_corner"/>
             </LinearLayout>
+
         </ScrollView>
 
     </LinearLayout>

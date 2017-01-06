@@ -150,7 +150,6 @@ public class LanguageChoicePopupWindow extends PopupWindow implements View.OnCli
         ColorDrawable dw = new ColorDrawable(0x00000000);
         setBackgroundDrawable(dw);
         setFocusable(true);
-
     }
 
     /**

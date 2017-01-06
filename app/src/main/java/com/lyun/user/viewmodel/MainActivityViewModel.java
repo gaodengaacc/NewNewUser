@@ -32,18 +32,17 @@ public class MainActivityViewModel extends ViewModel {
     public final ObservableField<PagerAdapter> viewPageAdapter = new ObservableField<>();
     public final ObservableField<TabLayout.OnTabSelectedListener> tabListener = new ObservableField<>();
     public final ObservableField<ViewBindAdapter.TabData> tabData = new ObservableField<>();
+    public final ObservableField<Boolean> showWidow = new ObservableField<>();
     private FragmentManager mFragmentManager;
     private DiscoverFragment mDiscoverFragment;
     private SpecialistTranslationFragment mSpecialistTranslationFragment;
     private UserCenterFragment mUserCenterFragment;
     private int tabIndex = 0;
-
-    public void setFragmentManager(FragmentManager mFragmentManager) {
-        this.mFragmentManager = mFragmentManager;
-    }
-
-    public MainActivityViewModel(Context context) {
+    public MainActivityViewModel(Context context,ViewPager viewPager,FragmentManager mFragmentManager) {
         super(context);
+        this.viewPage.set(viewPager);
+        this.mFragmentManager = mFragmentManager;
+        init();
     }
 
     public void init() {
