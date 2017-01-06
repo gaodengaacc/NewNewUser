@@ -50,8 +50,6 @@ public class SpecialistTranslationFragment extends MvvmFragment<FragmentSpeciali
         specialistTranslationFragmentViewModel = getFragmentViewModel();
         fragmentSpecialistTranslationBinding = getFragmentViewDataBinding();
 
-        specialistTranslationFragmentViewModel.initData();
-
         addObservableViewModel(specialistTranslationFragmentViewModel);
 
         return view;

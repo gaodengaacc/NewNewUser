@@ -36,7 +36,9 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     int linearLayoutWidth;//控件宽度
 
     public SpecialistTranslationFragmentViewModel(Context context) {
+
         super(context);
+        initData();
     }
 
     public void initData() {
@@ -91,10 +93,12 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            if (!(bundle.equals("")) && !(bundle == null)) {
-                textViewCategoryChange.set(bundle.getString("category"));
-            }
+           if (!(data==null)&&!(data.equals(""))){
+               Bundle bundle = data.getExtras();
+               if (!(bundle.equals("")) && !(bundle == null)) {
+                   textViewCategoryChange.set(bundle.getString("category"));
+               }
+           }
         }
     }
 

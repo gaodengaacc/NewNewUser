@@ -1,5 +1,6 @@
 package com.lyun.user.activity;
 
+import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.lyun.activity.BaseActivity;
+import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 
 import butterknife.BindView;
@@ -22,7 +24,7 @@ import butterknife.ButterKnife;
  * @since 2015/5/13 16:24
  */
 @SuppressWarnings("deprecation")
-public abstract class GlobalTitleBarActivity extends BaseActivity {
+public abstract class GlobalTitleBarActivity<A extends ViewDataBinding, S extends ViewModel> extends BaseActivity {
 
     /**
      * 标题栏返回按钮

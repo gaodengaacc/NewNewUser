@@ -65,6 +65,7 @@ public class MainActivityViewModel extends ViewModel {
         tabData.setIndex(tabIndex);
         this.tabData.set(tabData);
     }
+
     private TabLayout.OnTabSelectedListener onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {

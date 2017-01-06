@@ -71,6 +71,5 @@ public final class ViewBindingAdapter {
             }, UiThreadImmediateExecutorService.getInstance());
         }
     }
-
 }
 
