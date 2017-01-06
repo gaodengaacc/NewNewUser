@@ -4,7 +4,7 @@
     <data>
      <import type="com.lyun.user.viewmodel.DiscoverFragmentViewModel"></import>
         <variable
-            name="viewModel"
+            name="mvvm"
             type="DiscoverFragmentViewModel"></variable>
     </data>
 <LinearLayout
@@ -145,7 +145,7 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center_horizontal"
                         android:src="@mipmap/more_discover"
-                        android:onClick="@{viewModel.moreBtnCLick}"/>
+                        android:onClick="@{mvvm.moreBtnCLick}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -158,19 +158,18 @@
                 </LinearLayout>
 
             </LinearLayout>
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView_discover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:adapter="@{viewModel.adapter}"
-                app:notifyData ="@{viewModel.notifyData}"
                 app:isScroll="@{false}"
+                app:notifyData ="@{mvvm.notifyData}"
+                app:adapter="@{mvvm.adapter}"
+                app:onItemClickCommand="@{mvvm.listenerObservableField}"
                 android:divider="#00000000"></android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>
 </layout>

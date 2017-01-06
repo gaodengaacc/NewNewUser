@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'im.fir.plugin.gradle'
+apply plugin: 'me.tatarka.retrolambda'
 
 def buildTime() {
     return new Date().format("yyMMddHHmmss", TimeZone.getTimeZone("GMT+8"))
@@ -58,22 +59,6 @@ android {
     }
 
     buildTypes {
-        alpha {
-            debuggable true
-            signingConfig signingConfigs.release
-
-            versionNameSuffix = " alpha-${getGitCommitHash()}"
-            applicationIdSuffix = 'alpha'
-
-            buildConfigField "String", "HOST", '"https://lyt-stg.law-cloud.com.cn:8444"'
-            buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
-            buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
-
-            manifestPlaceholders.putAll([
-                    app_icon          : "@drawable/ic_alpha_launcher",
-                    UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
-                    BaiduMobAd_STAT_ID: "ac161ce77e"])
-        }
         debug {
             debuggable true
             shrinkResources false
@@ -109,6 +94,22 @@ android {
                     app_icon          : "@drawable/ic_launcher",
                     UMENG_APP_KEY     : "55a45f2967e58e1f1400529a",
                     BaiduMobAd_STAT_ID: "dc2fb90b27"])
+        }
+        alpha {
+            debuggable true
+            signingConfig signingConfigs.release
+
+            versionNameSuffix = " alpha-${getGitCommitHash()}"
+            applicationIdSuffix = 'alpha'
+
+            buildConfigField "String", "HOST", '"https://lyt-stg.law-cloud.com.cn:8444"'
+            buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
+            buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
+
+            manifestPlaceholders.putAll([
+                    app_icon          : "@drawable/ic_alpha_launcher",
+                    UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
+                    BaiduMobAd_STAT_ID: "ac161ce77e"])
         }
     }
 
@@ -155,6 +156,10 @@ android {
                 output.outputFile = new File(path, fileName)
             }
         }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 

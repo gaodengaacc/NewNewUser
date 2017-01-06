@@ -14,42 +14,19 @@ import com.lyun.user.viewmodel.MainActivityViewModel;
 import com.lyun.user.viewmodel.UserCenterFragmentViewModel;
 
 public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, UserCenterFragmentViewModel> {
-
-
-    private UserCenterFragmentViewModel userCenterFragmentViewModel;
-
     public UserCenterFragment() {
         // Required empty public constructor
     }
-
     public static UserCenterFragment newInstance() {
         UserCenterFragment fragment = new UserCenterFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        userCenterFragmentViewModel = getFragmentViewModel();
-        FragmentUserCenterBinding userCenterBinding = getFragmentViewDataBinding();
-        return view;
-    }
-
     @NonNull
     @Override
     protected UserCenterFragmentViewModel createViewModel() {
-        return new UserCenterFragmentViewModel(this.getContext());
+        return new UserCenterFragmentViewModel();
     }
 
     @Override

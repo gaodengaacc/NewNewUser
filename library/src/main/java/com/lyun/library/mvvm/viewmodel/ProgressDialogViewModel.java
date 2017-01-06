@@ -2,6 +2,7 @@ package com.lyun.library.mvvm.viewmodel;
 
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 
 /**
  * @author Gordon
@@ -10,8 +11,8 @@ import android.databinding.ObservableField;
  */
 public class ProgressDialogViewModel extends ViewModel {
     public final ObservableField<String> text = new ObservableField<>();
-    public final ObservableField<Integer> maxProgress = new ObservableField<>();
-    public final ObservableField<Integer> progress = new ObservableField<>();
+    public final ObservableInt maxProgress = new ObservableInt();
+    public final ObservableInt progress = new ObservableInt();
     public ProgressDialogViewModel(Context context) {
         super(context);
         text.set("正在上传数据...");

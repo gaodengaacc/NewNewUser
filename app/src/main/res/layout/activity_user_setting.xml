@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.UserSettingViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="UserSettingViewModel"></variable>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgc1"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/main_fragment_discover_item"
+            android:layout_marginTop="3dp"
+            android:drawableLeft="@mipmap/setting_change_passward_icon"
+            android:onClick="@{mvvm.changePassWardOnClick}"
+            android:text="修改密码" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                style="@style/main_fragment_discover_item"
+                android:drawableLeft="@mipmap/setting_app_version_icon"
+                android:clickable="true"
+                android:text="版本信息" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:text="@{mvvm.appVersion}"
+                android:textColor="@color/tc1"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

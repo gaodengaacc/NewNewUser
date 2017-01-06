@@ -1,5 +1,6 @@
 package com.lyun.library.mvvm.bindingadapter.image;
 
+import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.utils.GlideUtils;
 
 /**
  * Created by kelin on 16-3-24.
@@ -35,6 +37,16 @@ public final class ViewBindingAdapter {
     @BindingAdapter("imageSrc")
     public static void setImageSrc(ImageView imageView, int resid) {
         imageView.setImageResource(resid);
+    }
+    @BindingAdapter("imageUrl")
+    public static void setImageUrl(ImageView imageView, String url) {
+        Context context = imageView.getContext();
+        GlideUtils.showImage(context,imageView,url);
+    }
+    @BindingAdapter("imageUrl")
+    public static void setImageUrl(ImageView imageView, int resid) {
+        Context context = imageView.getContext();
+        GlideUtils.showImage(context,imageView,resid);
     }
 
     @BindingAdapter(value = {"uri", "placeholderImageRes", "request_width", "request_height", "onSuccessCommand", "onFailureCommand"}, requireAll = false)

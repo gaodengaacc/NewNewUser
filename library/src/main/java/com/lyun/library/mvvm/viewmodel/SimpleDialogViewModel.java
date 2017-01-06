@@ -2,6 +2,7 @@ package com.lyun.library.mvvm.viewmodel;
 
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.view.View;
 
 import com.lyun.widget.dialog.SimpleMessageDialog;
@@ -15,9 +16,9 @@ public class SimpleDialogViewModel extends ViewModel {
     public final ObservableField<String>  contentText = new ObservableField<>();
     public final ObservableField<String> btnCancelText = new ObservableField<>();
     public final ObservableField<String> btnOkText = new ObservableField<>();
-    public final ObservableField<Integer> btnCancelVisible = new ObservableField<>();
-    public final ObservableField<Integer> btnOkVisible = new ObservableField<>();
-    public final ObservableField<Integer> dividerVisible = new ObservableField<>();
+    public final ObservableInt btnCancelVisible = new ObservableInt();
+    public final ObservableInt btnOkVisible = new ObservableInt();
+    public final ObservableInt dividerVisible = new ObservableInt();
     private SimpleMessageDialog.OnItemClickListener onItemClickListener;
 
     public SimpleDialogViewModel(Context context) {
