@@ -4,13 +4,13 @@ import android.databinding.BindingAdapter;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.command.ResponseCommand;
 
 public final class ViewBindingAdapter {
 
     @BindingAdapter({"clickCommand"})
-    public static void clickCommand(View view, final ReplyCommand clickCommand) {
+    public static void clickCommand(View view, final RelayCommand clickCommand) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,7 +32,7 @@ public final class ViewBindingAdapter {
     }
 
     @BindingAdapter({"onFocusChangeCommand"})
-    public static void onFocusChangeCommand(View view, final ReplyCommand<Boolean> onFocusChangeCommand) {
+    public static void onFocusChangeCommand(View view, final RelayCommand<Boolean> onFocusChangeCommand) {
         view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

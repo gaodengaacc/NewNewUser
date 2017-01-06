@@ -6,7 +6,7 @@ import android.text.TextWatcher;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.command.RelayCommand;
 
 public final class ViewBindingAdapter {
 
@@ -29,9 +29,9 @@ public final class ViewBindingAdapter {
 
     @android.databinding.BindingAdapter(value = {"beforeTextChangedCommand", "onTextChangedCommand", "afterTextChangedCommand"}, requireAll = false)
     public static void editTextCommand(EditText editText,
-                                       final ReplyCommand<TextChangeDataWrapper> beforeTextChangedCommand,
-                                       final ReplyCommand<TextChangeDataWrapper> onTextChangedCommand,
-                                       final ReplyCommand<String> afterTextChangedCommand) {
+                                       final RelayCommand<TextChangeDataWrapper> beforeTextChangedCommand,
+                                       final RelayCommand<TextChangeDataWrapper> onTextChangedCommand,
+                                       final RelayCommand<String> afterTextChangedCommand) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

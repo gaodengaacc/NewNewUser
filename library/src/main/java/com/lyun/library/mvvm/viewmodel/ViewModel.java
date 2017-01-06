@@ -19,6 +19,9 @@ public abstract class ViewModel extends BaseObservable {
     protected final ObservableActivity mObservableActivity = new ObservableActivity();
     protected final ObservableToast mObservableToast = new ObservableToast();
 
+    public ViewModel() {
+    }
+
     @Deprecated
     public ViewModel(Context context) {
         this.mContext = context;

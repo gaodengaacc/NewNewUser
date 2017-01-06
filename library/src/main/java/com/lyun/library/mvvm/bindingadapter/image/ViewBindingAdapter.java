@@ -18,7 +18,7 @@ import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
 import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.command.RelayCommand;
 
 /**
  * Created by kelin on 16-3-24.
@@ -41,8 +41,8 @@ public final class ViewBindingAdapter {
     public static void loadImage(final ImageView imageView, String uri,
                                  @DrawableRes int placeholderImageRes,
                                  int width, int height,
-                                 final ReplyCommand<Bitmap> onSuccessCommand,
-                                 final ReplyCommand<DataSource<CloseableReference<CloseableImage>>> onFailureCommand) {
+                                 final RelayCommand<Bitmap> onSuccessCommand,
+                                 final RelayCommand<DataSource<CloseableReference<CloseableImage>>> onFailureCommand) {
         imageView.setImageResource(placeholderImageRes);
         if (!TextUtils.isEmpty(uri)) {
             ImagePipeline imagePipeline = Fresco.getImagePipeline();

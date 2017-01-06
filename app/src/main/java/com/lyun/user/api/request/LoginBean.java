@@ -12,6 +12,11 @@ public class LoginBean extends BaseRequest {
     private String password;
     private String name;
 
+    public LoginBean(String name, String password) {
+        this.password = password;
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
     }

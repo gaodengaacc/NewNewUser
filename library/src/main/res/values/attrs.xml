@@ -28,7 +28,7 @@
 
         <attr name="notifyData" format="reference" />
         <attr name="isScroll" format="reference" />
-        <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
+        <!-- require RelayCommand {@link com.kelin.mvvmlight.command.RelayCommand } to deal with view click event. -->
         <!--<attr name="onItemClickCommand" format="reference"/>-->
         <attr name="onItemLongClickCommand" format="reference" />
         <!-- require boolean value to decide whether requestFocus for view. -->
@@ -44,18 +44,18 @@
         <attr name="onScrollStateChangedCommand" format="reference" />
         <attr name="uri" format="string" />
         <attr name="onTouchCommand" format="reference" />
-        <!-- require ReplyCommand<Boolean> {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view focus change event.
-         ReplyCommand would has params which means if view hasFocus.-->
+        <!-- require RelayCommand<Boolean> {@link com.kelin.mvvmlight.command.RelayCommand } to deal with view focus change event.
+         RelayCommand would has params which means if view hasFocus.-->
         <attr name="onFocusChangeCommand" format="reference" />
     </declare-styleable>
     <declare-styleable name="View">
 
-        <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
+        <!-- require RelayCommand {@link com.kelin.mvvmlight.command.RelayCommand } to deal with view click event. -->
         <attr name="clickCommand" />
-        <!-- require ReplyCommand<Boolean> {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view focus change event.
-         ReplyCommand would has params which means if view hasFocus.-->
+        <!-- require RelayCommand<Boolean> {@link com.kelin.mvvmlight.command.RelayCommand } to deal with view focus change event.
+         RelayCommand would has params which means if view hasFocus.-->
         <attr name="onFocusChangeCommand" />
-        <!-- require ReplyCommand<MotionEvent> -->
+        <!-- require RelayCommand<MotionEvent> -->
         <attr name="onTouchCommand" />
 
     </declare-styleable>
@@ -71,11 +71,11 @@
         <attr name="dropDownItemView" format="reference" />
         <attr name="itemIds" format="reference" />
         <attr name="itemIsEnabled" format="reference" />
-        <!-- require ReplyCommand<Integer> -->
+        <!-- require RelayCommand<Integer> -->
         <attr name="onScrollStateChangedCommand" />
-        <!-- require ReplyCommand<ListViewScrollDataWrapper> -->
+        <!-- require RelayCommand<ListViewScrollDataWrapper> -->
         <attr name="onScrollChangeCommand" />
-        <!-- require ReplyCommand<Integer> count of list items-->
+        <!-- require RelayCommand<Integer> count of list items-->
         <attr name="onLoadMoreCommand" format="reference" />
 
 
@@ -85,11 +85,11 @@
         <attr name="clickCommand" />
         <!-- require boolean value to decide whether requestFocus for view. -->
         <attr name="requestFocus" />
-        <!--require ReplyCommand<TextChangeDataWrapper> -->
+        <!--require RelayCommand<TextChangeDataWrapper> -->
         <attr name="beforeTextChangedCommand" format="reference" />
-        <!--require ReplyCommand<TextChangeDataWrapper> -->
+        <!--require RelayCommand<TextChangeDataWrapper> -->
         <attr name="onTextChangedCommand" format="reference" />
-        <!--require ReplyCommand<String> -->
+        <!--require RelayCommand<String> -->
         <attr name="afterTextChangedCommand" format="reference" />
     </declare-styleable>
 
@@ -104,9 +104,9 @@
         <!--height for ResizeOptions (use Fresco to load bitmap). -->
         <attr name="request_height" format="integer" />
         <attr name="placeholderImageRes" format="reference|color" />
-        <!--  require ReplyCommand<Bitmap> See {@link @link com.kelin.mvvmlight.command.ReplyCommand} -->
+        <!--  require RelayCommand<Bitmap> See {@link @link com.kelin.mvvmlight.command.RelayCommand} -->
         <attr name="onSuccessCommand" format="reference" />
-        <!--require ReplyCommand<CloseableReference<CloseableImage>> See {@link com.kelin.mvvmlight.command.ReplyCommand} -->
+        <!--require RelayCommand<CloseableReference<CloseableImage>> See {@link com.kelin.mvvmlight.command.RelayCommand} -->
         <attr name="onFailureCommand" format="reference" />
 
     </declare-styleable>
@@ -120,7 +120,7 @@
 
     </declare-styleable>
     <declare-styleable name="ListView" parent="AdapterView">
-        <!--require ReplyCommand<Integer> integer mean to position where is clicked! -->
+        <!--require RelayCommand<Integer> integer mean to position where is clicked! -->
         <attr name="onItemClickCommand" format="reference" />
     </declare-styleable>
 
@@ -133,17 +133,17 @@
         <attr name="adapter" />
         <!-- require PageTitles<T>-->
         <attr name="pageTitles" format="reference" />
-        <!--require ReplyCommand<ViewPagerDataWrapper> -->
+        <!--require RelayCommand<ViewPagerDataWrapper> -->
         <attr name="onPageScrolledCommand" format="reference" />
-        <!--require ReplyCommand<Integer> -->
+        <!--require RelayCommand<Integer> -->
         <attr name="onPageSelectedCommand" format="reference" />
-        <!--require ReplyCommand<Integer> -->
+        <!--require RelayCommand<Integer> -->
         <attr name="onPageScrollStateChangedCommand" format="reference" />
 
     </declare-styleable>
 
     <declare-styleable name="NestedScrollView">
-        <!-- require ReplyCommand<NestScrollDataWrapper> -->
+        <!-- require RelayCommand<NestScrollDataWrapper> -->
         <attr name="onScrollChangeCommand" />
     </declare-styleable>
 
@@ -153,7 +153,7 @@
     </declare-styleable>
 
     <declare-styleable name="ScrollView">
-        <!-- require ReplyCommand<ScrollDataWrapper> -->
+        <!-- require RelayCommand<ScrollDataWrapper> -->
         <attr name="onScrollChangeCommand" />
     </declare-styleable>
 

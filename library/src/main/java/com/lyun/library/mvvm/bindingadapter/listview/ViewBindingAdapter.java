@@ -6,7 +6,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.lyun.library.mvvm.command.ReplyCommand;
+import com.lyun.library.mvvm.command.RelayCommand;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,8 +18,8 @@ public final class ViewBindingAdapter {
     @SuppressWarnings("unchecked")
     @BindingAdapter(value = {"onScrollChangeCommand", "onScrollStateChangedCommand"}, requireAll = false)
     public static void onScrollChangeCommand(final ListView listView,
-                                             final ReplyCommand<ListViewScrollDataWrapper> onScrollChangeCommand,
-                                             final ReplyCommand<Integer> onScrollStateChangedCommand) {
+                                             final RelayCommand<ListViewScrollDataWrapper> onScrollChangeCommand,
+                                             final RelayCommand<Integer> onScrollStateChangedCommand) {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             private int scrollState;
 
@@ -43,7 +43,7 @@ public final class ViewBindingAdapter {
 
 
     @BindingAdapter(value = {"onItemClickCommand"}, requireAll = false)
-    public static void onItemClickCommand(final ListView listView, final ReplyCommand<Integer> onItemClickCommand) {
+    public static void onItemClickCommand(final ListView listView, final RelayCommand<Integer> onItemClickCommand) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -56,17 +56,17 @@ public final class ViewBindingAdapter {
 
 
     @BindingAdapter({"onLoadMoreCommand"})
-    public static void onLoadMoreCommand(final ListView listView, final ReplyCommand<Integer> onLoadMoreCommand) {
+    public static void onLoadMoreCommand(final ListView listView, final RelayCommand<Integer> onLoadMoreCommand) {
         listView.setOnScrollListener(new OnScrollListener(listView, onLoadMoreCommand));
 
     }
 
     public static class OnScrollListener implements AbsListView.OnScrollListener {
         private PublishSubject<Integer> methodInvoke = PublishSubject.create();
-        private ReplyCommand<Integer> onLoadMoreCommand;
+        private RelayCommand<Integer> onLoadMoreCommand;
         private ListView listView;
 
-        public OnScrollListener(ListView listView, ReplyCommand<Integer> onLoadMoreCommand) {
+        public OnScrollListener(ListView listView, RelayCommand<Integer> onLoadMoreCommand) {
             this.onLoadMoreCommand = onLoadMoreCommand;
             this.listView = listView;
             methodInvoke.throttleFirst(1, TimeUnit.SECONDS)
