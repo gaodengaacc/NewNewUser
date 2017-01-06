@@ -25,8 +25,8 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class SpecialistTranslationFragmentViewModel extends ViewModel {
-    public final ObservableField<Integer> imageViewModelChange = new ObservableField<>();
-    public final ObservableField<Integer> modelChange = new ObservableField<>();
+    public final ObservableInt imageViewModelChange = new ObservableInt();
+    public final ObservableInt modelChange = new ObservableInt();
     public final ObservableField<String> textViewModelChange = new ObservableField<>();
     private boolean mCommunicationModel = false;
     public final ObservableField<String> textViewCategoryChange = new ObservableField<>();//服务类型

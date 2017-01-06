@@ -6,7 +6,7 @@
         <import type="com.lyun.user.viewmodel.SpecialistTranslationFragmentViewModel"></import>
 
         <variable
-            name="viewModel"
+            name="mvvm"
             type="SpecialistTranslationFragmentViewModel"></variable>
     </data>
 
@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <TextView
                 android:id="@+id/textView_title_change"
                 android:layout_width="wrap_content"
@@ -28,7 +27,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="60dp"
                 android:layout_marginTop="50dp"
-                android:text="@{viewModel.textViewModelChange}"
+                android:text="@{mvvm.textViewModelChange}"
                 android:textColor="#000000"
                 android:textSize="30sp" />
 
@@ -76,13 +75,10 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="26dp" />
-
-                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="26dp"
                             android:gravity="center"
                             android:text="我的语言"
                             android:textColor="#bdbdbd"
@@ -108,14 +104,12 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="26dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="26dp"
                             android:gravity="center"
                             android:text="目标语言"
                             android:textColor="#ffffff"
@@ -138,17 +132,15 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:onClick="@{viewModel.languagePickerLinearLayoutClick}"
+                        android:onClick="@{mvvm.languagePickerLinearLayoutClick}"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="26dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="26dp"
                             android:gravity="center"
                             android:text="目标语言"
                             android:textColor="#bdbdbd"
@@ -189,7 +181,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="61dp"
                         android:text="语音呼叫"
-                        android:textColor="@{viewModel.textViewColor1}"
+                        android:textColor="@{mvvm.textViewColor1}"
                         android:textSize="12sp" />
 
                     <ImageView
@@ -197,8 +189,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:onClick="@{viewModel.modelChangeImageViewClick}"
-                        app:imageSrc="@{viewModel.modelChange}" />
+                        android:onClick="@{mvvm.modelChangeImageViewClick}"
+                        app:imageSrc="@{mvvm.modelChange}" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -207,7 +199,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="61dp"
                         android:text="图文翻译"
-                        android:textColor="@{viewModel.textViewColor2}"
+                        android:textColor="@{mvvm.textViewColor2}"
                         android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>
@@ -225,11 +217,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
-                app:imageSrc="@{viewModel.imageViewModelChange}" />
+                app:imageSrc="@{mvvm.imageViewModelChange}" />
         </RelativeLayout>
-
-
     </LinearLayout>
-
-
 </layout>
