@@ -143,7 +143,7 @@ public class LanguageChoicePopupWindow extends PopupWindow implements View.OnCli
         textViewDone.setOnClickListener(this);
         linearLayoutLanguageChoice.setOnClickListener(this);
 
-        setContentView(view);
+        setContentView(view);//////////
 
         setWidth(width);//设置宽度
         setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);

@@ -55,7 +55,7 @@ public class ServiceCategoryActivityViewModel extends ViewModel {
         }
     }
 
-    public void initData() {
+    public void initData() {//初始化勾选图标
         visibilityNormalService.set(View.INVISIBLE);
         visibilityTravel.set(View.INVISIBLE);
         visibilityHotel.set(View.INVISIBLE);

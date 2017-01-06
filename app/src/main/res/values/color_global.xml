@@ -4,6 +4,7 @@
     <color name="title_bg1">#22242b</color>
     <color name="common_bg1">#a0b8f0</color>
     <color name="bottom_bg1">#dae3f9</color>
+    <color name="wheelview_bg">#f0f0f0</color>
     <!-- 黑灰白 -->
     <color name="cblk">#222222</color>
     <!-- 蓝 -->
@@ -63,4 +64,6 @@
     <color name="tc5">#9e9e9e</color>
     <color name="tc6">#c3c7c9</color>
     <color name="tc7">#eeeeee</color>
+    <color name="tc8">#40d12d</color>
+    <color name="tc9">#ffb900</color>
 </resources>

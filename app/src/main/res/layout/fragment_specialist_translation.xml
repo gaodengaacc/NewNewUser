@@ -13,238 +13,221 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="3">
+        android:background="@mipmap/bg_fragment_specialist_translation"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textView_title_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="50dp"
+                android:text="@{viewModel.textViewModelChange}"
+                android:textColor="#000000"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="@mipmap/main_top_bg_new"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/relativeLayout_title"
-                android:layout_width="match_parent"
-                android:layout_height="48dp">
-
-                <TextView
-                    android:id="@+id/textView_title_change"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:text="@{viewModel.textViewModelChange}"
-                    android:textColor="#000000"
-                    android:textSize="25sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="65dp"
-                    android:src="@mipmap/shake_phone" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
-                    android:src="@mipmap/chat_records" />
-            </RelativeLayout>
-
             <TextView
-                android:id="@+id/textView_remind"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@mipmap/main_shake_bg"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_fragment_specialist_translation"
                 android:gravity="center"
-                android:text="摇一摇, 获得免费试用机会"
-                android:textColor="#8e5e00"
-                android:visibility="visible" />
+                android:text="律译通"
+                android:textColor="#00abfa"
+                android:textSize="18sp" />
 
             <View
-                android:id="@+id/view_blank"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"></View>
+                android:layout_height="1px"
+                android:background="#ebebeb"></View>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:weightSum="5">
+                android:layout_height="157dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/linearLayout_language"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@mipmap/select_lan_bg"
-                    android:onClick="@{viewModel.languageLinearLayoutClick}"
+                    android:layout_height="106dp"
+                    android:background="#ffffff"
                     android:orientation="horizontal"
-                    android:weightSum="3"
-                    app:globalLayoutListener="@{viewModel.listener}">
-
-                    <TextView
-                        android:id="@+id/textView_language1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@{viewModel.textViewLanguage1}"
-                        android:textColor="#ffffff" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.96"
-                        android:padding="15dp"
-                        android:src="@mipmap/change_new" />
-
-                    <TextView
-                        android:id="@+id/textView_language2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@{viewModel.textViewLanguage2}"
-                        android:textColor="#ffffff" />
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="4"
-                    android:background="@mipmap/package_info"
-                    android:orientation="vertical">
+                    android:weightSum="3">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:orientation="vertical"
-                        android:weightSum="4">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
+                            android:layout_height="26dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:gravity="center"
-                            android:text="译员充足, 响应神速"
-                            android:textColor="#70ab2a" />
+                            android:text="我的语言"
+                            android:textColor="#bdbdbd"
+                            android:textSize="12sp" />
 
-                        <View
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#55d9d9d9" />
+                            android:layout_height="11dp" />
 
-                        <RelativeLayout
-                            android:id="@+id/relativeLayout_category"
+                        <TextView
+                            android:id="@+id/textView_language1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="汉语"
+                            android:textColor="#333333"
+                            android:textSize="30sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:onClick="@{viewModel.categoryRelativeLayoutClick}">
+                            android:layout_height="26dp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="15dp"
-                                android:text="服务类别" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:text="目标语言"
+                            android:textColor="#ffffff"
+                            android:textSize="12sp" />
 
-                            <TextView
-                                android:id="@+id/textView_serviceCategory"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="20dp"
-                                android:drawablePadding="10dp"
-                                android:drawableRight="@mipmap/right"
-                                android:text="@{viewModel.textViewCategoryChange}" />
-                        </RelativeLayout>
-
-                        <View
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#55d9d9d9" />
+                            android:layout_height="15dp" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="15dp"
-                                android:text="图文/语音" />
-
-                            <ImageView
-                                android:id="@+id/imageView_change"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="30dp"
-                                android:onClick="@{viewModel.modelChangeImageViewClick}"
-                                app:imageSrc="@{viewModel.modelChange}" />
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#55d9d9d9" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="15dp"
-                                android:text="支付方式" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="20dp"
-                                android:drawablePadding="10dp"
-                                android:drawableRight="@mipmap/right"
-                                android:text="登录后查看" />
-                        </RelativeLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/selector_fragment_specialist_translation" />
                     </LinearLayout>
 
 
+                    <LinearLayout
+                        android:id="@+id/linearLayout_languagePicker"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="@{viewModel.languagePickerLinearLayoutClick}"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:text="目标语言"
+                            android:textColor="#bdbdbd"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="英语"
+                            android:textColor="#00abfa"
+                            android:textSize="30sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="#ffffff">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="#ebebeb"></View>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/imageView_model_change"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="61dp"
+                        android:text="语音呼叫"
+                        android:textColor="@{viewModel.textViewColor1}"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView_model_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:onClick="@{viewModel.modelChangeImageViewClick}"
+                        app:imageSrc="@{viewModel.modelChange}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/imageView_model_change"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="61dp"
+                        android:text="图文翻译"
+                        android:textColor="@{viewModel.textViewColor2}"
+                        android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>
+
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@mipmap/main_bottom_bg_new">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imageView_way_change"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:clickable="true"
+                android:layout_marginBottom="20dp"
                 app:imageSrc="@{viewModel.imageViewModelChange}" />
         </RelativeLayout>
+
 
     </LinearLayout>
 

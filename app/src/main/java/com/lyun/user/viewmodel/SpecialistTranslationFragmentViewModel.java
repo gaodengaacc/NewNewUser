@@ -3,6 +3,8 @@ package com.lyun.user.viewmodel;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -14,6 +16,7 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCategoryActivity;
 import com.lyun.user.dialog.LanguageChoicePopupWindow;
+import com.lyun.user.dialog.LanguagePickerDialog;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -33,6 +36,9 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public final ObservableField<String> textViewLanguage1 = new ObservableField<>();
     public final ObservableField<String> textViewLanguage2 = new ObservableField<>();
     public final ObservableField<ViewTreeObserver.OnGlobalLayoutListener> linearLayoutListener = new ObservableField<>();
+
+    public final ObservableInt textViewColor1 = new ObservableInt();
+    public final ObservableInt textViewColor2 = new ObservableInt();
     int linearLayoutWidth;//控件宽度
 
     public SpecialistTranslationFragmentViewModel(Context context) {
@@ -42,13 +48,15 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     }
 
     public void initData() {
-        modelChange.set(R.mipmap.call_phone);
-        imageViewModelChange.set(R.drawable.image_call_selector);
+        modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
+        imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
         textViewModelChange.set("语音呼叫");
-        textViewCategoryChange.set("普通服务");
-        showPopupWindow.set(true);
-        textViewLanguage1.set("中文");
-        textViewLanguage2.set("英文");
+        textViewColor1.set(Color.parseColor("#40d12d"));
+        textViewColor2.set(Color.parseColor("#333333"));
+//        textViewCategoryChange.set("普通服务");
+//        showPopupWindow.set(true);
+//        textViewLanguage1.set("中文");
+//        textViewLanguage2.set("英文");
     }
 
     //获取linearlayout的宽度
@@ -79,6 +87,11 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         }
     }
 
+    public void languagePickerLinearLayoutClick(View view) {
+        LanguagePickerDialog languagePickerDialog = new LanguagePickerDialog(getContext());
+        languagePickerDialog.show();
+    }
+
     public void categoryRelativeLayoutClick(View view) {
 //        Intent intent = new Intent(getContext(), ServiceCategoryActivity.class);
 
@@ -93,25 +106,29 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-           if (!(data==null)&&!(data.equals(""))){
-               Bundle bundle = data.getExtras();
-               if (!(bundle.equals("")) && !(bundle == null)) {
-                   textViewCategoryChange.set(bundle.getString("category"));
-               }
-           }
+            if (!(data == null) && !(data.equals(""))) {
+                Bundle bundle = data.getExtras();
+                if (!(bundle.equals("")) && !(bundle == null)) {
+                    textViewCategoryChange.set(bundle.getString("category"));
+                }
+            }
         }
     }
 
     public void modelChangeImageViewClick(View view) {
         if (!mCommunicationModel) {
-            modelChange.set(R.mipmap.call_phone);
-            imageViewModelChange.set(R.drawable.image_call_selector);
+            modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
+            imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
             textViewModelChange.set("语音呼叫");
+            textViewColor1.set(Color.parseColor("#40d12d"));
+            textViewColor2.set(Color.parseColor("#333333"));
             mCommunicationModel = true;
         } else {
-            modelChange.set(R.mipmap.call_picture);
-            imageViewModelChange.set(R.drawable.image_picture_selector);
+            modelChange.set(R.mipmap.radio_brown_fragment_specialist_translation);
+            imageViewModelChange.set(R.mipmap.picture_fragment_specialist_translation);
             textViewModelChange.set("图文翻译");
+            textViewColor1.set(Color.parseColor("#333333"));
+            textViewColor2.set(Color.parseColor("#ffb900"));
             mCommunicationModel = false;
         }
     }
