@@ -38,6 +38,8 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 getActivity().startActivity(intent);
                 break;
             case R.id.user_center_avatar:
+                intent = new Intent("com.lyun.user.intent.action.LOGIN");
+                getActivity().startActivity(intent);
                 break;
             case R.id.user_center_wallet:
                 break;

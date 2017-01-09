@@ -1,13 +1,15 @@
 package com.lyun.user.viewmodel;
 
 import android.databinding.ObservableField;
-import android.view.View;
 
 import com.lyun.library.mvvm.command.RelayCommand;
-import com.lyun.library.mvvm.command.consumer.Consumer0;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.library.mvvm.watchdog.WatchThis;
 import com.lyun.user.model.LoginModel;
+import com.lyun.utils.L;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by ZHAOWEIWEI on 2016/12/21.
@@ -20,19 +22,19 @@ public class LoginViewModel extends ViewModel {
 
     public LoginViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
         toolbarViewModel.title.set("登录");
-        toolbarViewModel.onBackClick.set(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        toolbarViewModel.onBackClick.set(view -> getActivity().finish());
     }
 
-    public RelayCommand onLoginButtonClick = new RelayCommand(new Consumer0() {
-        @Override
-        public void accept() throws Exception {
-            new LoginModel().login(username.get(), password.get());
-        }
+    @WatchThis
+    public final ObservableField<String> onLoginSuccess = new ObservableField<>();
+
+    public RelayCommand onLoginButtonClick = new RelayCommand(() -> {
+        new LoginModel().login(username.get(), password.get())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(loginResponseAPIResult -> onLoginSuccess.notifyChange(), throwable -> {
+                    onLoginSuccess.notifyChange();
+                    L.e("tag", throwable);
+                });
     });
 
 }

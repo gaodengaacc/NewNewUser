@@ -6,6 +6,7 @@ import android.databinding.BaseObservable;
 
 import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.observable.ObservableToast;
+import com.lyun.library.mvvm.watchdog.Watchdog;
 
 /**
  * Created by ZHAOWEIWEI on 2016/12/21.
@@ -38,6 +39,13 @@ public abstract class ViewModel extends BaseObservable {
 
     public ObservableToast getToast() {
         return mObservableToast;
+    }
+
+    public void setPropertyChangeListener(Object beNotified) {
+        Watchdog.newBuilder()
+                .watch(this)
+                .notify(beNotified)
+                .build();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

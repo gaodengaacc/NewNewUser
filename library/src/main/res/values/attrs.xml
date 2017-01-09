@@ -35,7 +35,7 @@
         <attr name="requestFocus" format="boolean" />
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView" format="reference" />
-        <!-- require List<ViewModel> bind to ItemView to presentation.-->
+        <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
         <attr name="items" format="reference" />
         <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
 
@@ -63,7 +63,7 @@
     <declare-styleable name="AdapterView">
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView" />
-        <!-- require List<ViewModel> bind to ItemView to presentation.-->
+        <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
         <attr name="items" />
         <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
         <attr name="adapter" />
@@ -114,7 +114,7 @@
         <attr name="clickCommand" />
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView" />
-        <!-- require List<ViewModel> bind to ItemView to presentation.-->
+        <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
         <attr name="viewModels" format="reference" />
 
     </declare-styleable>
@@ -126,7 +126,7 @@
     <declare-styleable name="ViewPager">
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView" />
-        <!-- require List<ViewModel> bind to ItemView to presentation.-->
+        <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
         <attr name="items" />
         <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
         <attr name="adapter"/>

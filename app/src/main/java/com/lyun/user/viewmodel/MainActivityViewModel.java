@@ -50,12 +50,12 @@ public class MainActivityViewModel extends ViewModel {
         mSpecialistTranslationFragment = SpecialistTranslationFragment.newInstance();
         mUserCenterFragment = UserCenterFragment.newInstance();
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(mDiscoverFragment);
+        //fragments.add(mDiscoverFragment);
         fragments.add(mSpecialistTranslationFragment);
         fragments.add(mUserCenterFragment);
         viewPageAdapter.set(new MainPagerAdapter(getContext(), mFragmentManager, fragments));
         List<TabItemBean> tabs = new ArrayList<>();
-        tabs.add(new TabItemBean(R.drawable.btn_find_selector, "发现", R.layout.item_main_tab));
+        //tabs.add(new TabItemBean(R.drawable.btn_find_selector, "发现", R.layout.item_main_tab));
         tabs.add(new TabItemBean(R.drawable.btn_translator_selector, "专人翻译", R.layout.item_main_tab));
         tabs.add(new TabItemBean(R.drawable.btn_me_selector, "我", R.layout.item_main_tab));
         tabListener.set(onTabSelectedListener);

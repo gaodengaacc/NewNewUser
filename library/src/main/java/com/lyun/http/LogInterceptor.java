@@ -9,6 +9,7 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okio.Buffer;
 
 /**
@@ -27,13 +28,16 @@ public class LogInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Response response = chain.proceed(chain.request());
         System.out.println("\n");
-        System.out.println(chain.request().method() + " " +chain.request().url());
+        System.out.println(chain.request().method() + " " + chain.request().url());
         System.out.println("-----------------= Request =-----------------");
         System.out.println(prettyJson(bodyToString(chain.request())));
         System.out.println("-----------------= Response =-----------------");
-        System.out.println(prettyJson(response.body().string()));
+        String bodyString = response.body().string();
+        System.out.println(prettyJson(bodyString));
         System.out.println("\n");
-        return response;
+        return response.newBuilder()
+                .body(ResponseBody.create(response.body().contentType(), bodyString))
+                .build();
     }
 
     private String bodyToString(Request request) {
