@@ -1,7 +1,5 @@
 package com.lyun.user.activity;
 
-import android.databinding.Observable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
@@ -15,8 +13,9 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
     @NonNull
     @Override
     protected MainActivityViewModel createViewModel() {
-        return new MainActivityViewModel(this,getActivityViewDataBinding().mainContainer,getSupportFragmentManager());
+        return new MainActivityViewModel(this, getActivityViewDataBinding().mainContainer, getSupportFragmentManager());
     }
+
     @NonNull
     @Override
     protected ViewModel getBodyViewModel() {
