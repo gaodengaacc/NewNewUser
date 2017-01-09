@@ -37,8 +37,8 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public final ObservableField<String> textViewLanguage2 = new ObservableField<>();
     public final ObservableField<ViewTreeObserver.OnGlobalLayoutListener> linearLayoutListener = new ObservableField<>();
 
-    public final ObservableInt textViewColor1 = new ObservableInt();
-    public final ObservableInt textViewColor2 = new ObservableInt();
+    public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
+    public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     int linearLayoutWidth;//控件宽度
 
     public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();
@@ -62,6 +62,35 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
 //        textViewLanguage2.set("英文");
     }
 
+    public void languagePickerLinearLayoutClick(View view) {//选取目标语言
+        LanguagePickerDialog languagePickerDialog = new LanguagePickerDialog(getContext());
+        languagePickerDialog.show();
+        languagePickerDialog.setPickLanguage(new LanguagePickerDialog.PickLanguage() {
+            @Override
+            public void onClick(String language) {
+                textViewTargetLanguage.set(language);
+            }
+        });
+    }
+
+    public void modelChangeImageViewClick(View view) {//选择翻译模式，语言或者图文
+        if (!mCommunicationModel) {
+            modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
+            imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
+            textViewModelChange.set("语音呼叫");
+            textViewColor1.set(Color.parseColor("#40d12d"));
+            textViewColor2.set(Color.parseColor("#333333"));
+            mCommunicationModel = true;
+        } else {
+            modelChange.set(R.mipmap.radio_brown_fragment_specialist_translation);
+            imageViewModelChange.set(R.mipmap.picture_fragment_specialist_translation);
+            textViewModelChange.set("图文翻译");
+            textViewColor1.set(Color.parseColor("#333333"));
+            textViewColor2.set(Color.parseColor("#ffb900"));
+            mCommunicationModel = false;
+        }
+    }
+
     //获取linearlayout的宽度
     public ViewBindingAdapter.GetWidthListener listener = new ViewBindingAdapter.GetWidthListener() {
         @Override
@@ -69,7 +98,6 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
             linearLayoutWidth = width;
         }
     };
-    //选取母语和要翻译的语言
     public LanguageChoicePopupWindow.ChooseListener chooseListener = new LanguageChoicePopupWindow.ChooseListener() {
         @Override
         public void onClick(String language1, String language2) {
@@ -88,17 +116,6 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         } else {
             showPopupWindow.set(true);
         }
-    }
-
-    public void languagePickerLinearLayoutClick(View view) {
-        LanguagePickerDialog languagePickerDialog = new LanguagePickerDialog(getContext());
-        languagePickerDialog.show();
-        languagePickerDialog.setPickLanguage(new LanguagePickerDialog.PickLanguage() {
-            @Override
-            public void onClick(String language) {
-                textViewTargetLanguage.set(language);
-            }
-        });
     }
 
     public void categoryRelativeLayoutClick(View view) {
@@ -124,21 +141,5 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         }
     }
 
-    public void modelChangeImageViewClick(View view) {//选择翻译模式，语言或者图文
-        if (!mCommunicationModel) {
-            modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
-            imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
-            textViewModelChange.set("语音呼叫");
-            textViewColor1.set(Color.parseColor("#40d12d"));
-            textViewColor2.set(Color.parseColor("#333333"));
-            mCommunicationModel = true;
-        } else {
-            modelChange.set(R.mipmap.radio_brown_fragment_specialist_translation);
-            imageViewModelChange.set(R.mipmap.picture_fragment_specialist_translation);
-            textViewModelChange.set("图文翻译");
-            textViewColor1.set(Color.parseColor("#333333"));
-            textViewColor2.set(Color.parseColor("#ffb900"));
-            mCommunicationModel = false;
-        }
-    }
+
 }

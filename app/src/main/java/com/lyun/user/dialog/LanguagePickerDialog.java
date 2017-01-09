@@ -26,6 +26,7 @@ import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.AbstractWheelTextAdapter;
 
 /**
+ * 目标语言选择Dialog
  * Created by 郑成裕 on 2017/1/6.
  */
 
@@ -118,14 +119,14 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
     }
 
     private void initListData() {
-        listLanguagePicker.add("英文");
-        listLanguagePicker.add("日文");
-        listLanguagePicker.add("法文");
-        listLanguagePicker.add("德文");
-        listLanguagePicker.add("俄文");
-        listLanguagePicker.add("韩文");
+        listLanguagePicker.add("英语");
+        listLanguagePicker.add("日语");
+        listLanguagePicker.add("法语");
+        listLanguagePicker.add("德语");
+        listLanguagePicker.add("俄语");
+        listLanguagePicker.add("韩语");
         listLanguagePicker.add("意大利语");
-        listLanguagePicker.add("西班牙文");
+        listLanguagePicker.add("西班牙语");
         listLanguagePicker.add("葡萄牙语");
         listLanguagePicker.add("泰语");
 
