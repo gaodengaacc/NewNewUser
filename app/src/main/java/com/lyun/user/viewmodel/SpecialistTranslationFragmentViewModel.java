@@ -41,6 +41,8 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public final ObservableInt textViewColor2 = new ObservableInt();
     int linearLayoutWidth;//控件宽度
 
+    public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();
+
     public SpecialistTranslationFragmentViewModel(Context context) {
 
         super(context);
@@ -53,6 +55,7 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         textViewModelChange.set("语音呼叫");
         textViewColor1.set(Color.parseColor("#40d12d"));
         textViewColor2.set(Color.parseColor("#333333"));
+        textViewTargetLanguage.set("英语");
 //        textViewCategoryChange.set("普通服务");
 //        showPopupWindow.set(true);
 //        textViewLanguage1.set("中文");
@@ -90,6 +93,12 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public void languagePickerLinearLayoutClick(View view) {
         LanguagePickerDialog languagePickerDialog = new LanguagePickerDialog(getContext());
         languagePickerDialog.show();
+        languagePickerDialog.setPickLanguage(new LanguagePickerDialog.PickLanguage() {
+            @Override
+            public void onClick(String language) {
+                textViewTargetLanguage.set(language);
+            }
+        });
     }
 
     public void categoryRelativeLayoutClick(View view) {
@@ -115,7 +124,7 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         }
     }
 
-    public void modelChangeImageViewClick(View view) {
+    public void modelChangeImageViewClick(View view) {//选择翻译模式，语言或者图文
         if (!mCommunicationModel) {
             modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
             imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);

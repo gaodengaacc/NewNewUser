@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;
@@ -28,9 +29,11 @@ import kankan.wheel.widget.adapters.AbstractWheelTextAdapter;
  * Created by 郑成裕 on 2017/1/6.
  */
 
-public class LanguagePickerDialog extends Dialog {
+public class LanguagePickerDialog extends Dialog implements View.OnClickListener {
     @BindView(R.id.wheelView_language_picker)
     WheelView wheelViewLanguagePicker;
+    @BindView(R.id.textView_completed)
+    TextView textViewCompleted;
 
     private Context context;
 
@@ -47,6 +50,8 @@ public class LanguagePickerDialog extends Dialog {
 
     //已选择的语种
     private String language;
+
+    private PickLanguage pickLanguage;
 
     public LanguagePickerDialog(@NonNull Context context) {
         super(context, R.style.dialog);
@@ -103,10 +108,11 @@ public class LanguagePickerDialog extends Dialog {
         });
         initListData();//设置选项值
         wheelViewLanguagePicker.setViewAdapter(languageTextAdapter);
-        wheelViewLanguagePicker.setVisibleItems(4);
+        wheelViewLanguagePicker.setVisibleItems(3);
         wheelViewLanguagePicker.setCurrentItem(0);
         wheelViewLanguagePicker.setCyclic(true);//设置循环
-        wheelViewLanguagePicker.setWheelBackground(R.mipmap.bg_wheel_divider);//设置选中时背景
+        wheelViewLanguagePicker.setWheelForeground(R.mipmap.bg_wheel_divider);//设置选中时背景
+        wheelViewLanguagePicker.setWheelBackground(R.drawable.bg_wheel_view);
 
 
     }
@@ -154,6 +160,27 @@ public class LanguagePickerDialog extends Dialog {
                 textView.setTextSize(minTextSize);
             }
         }
+    }
+
+    @Override
+    @OnClick(R.id.textView_completed)
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.textView_completed:
+                if (pickLanguage != null) {
+                    pickLanguage.onClick(language);
+                    dismiss();
+                }
+                break;
+        }
+    }
+
+    public interface PickLanguage {
+        public void onClick(String language);
+    }
+
+    public void setPickLanguage(PickLanguage pickLanguage) {
+        this.pickLanguage = pickLanguage;
     }
 
     //选择场景
