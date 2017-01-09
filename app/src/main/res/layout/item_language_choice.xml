@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="18dp"
+    android:background="#f0f0f0"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -9,7 +10,6 @@
         android:id="@+id/tempValue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f0f0f0"
         android:gravity="center"
         android:textColor="#333333" />
 
