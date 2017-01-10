@@ -97,7 +97,7 @@ public class SpecialistTranslationFragment extends MvvmFragment<FragmentSpeciali
         });
     }
 
-    public void backgroundAlpha(float bgAlpha) {
+    public void backgroundAlpha(float bgAlpha) {//设置背景明暗
         WindowManager.LayoutParams layoutParams = getActivity().getWindow().getAttributes();
         layoutParams.alpha = bgAlpha;
         getActivity().getWindow().setAttributes(layoutParams);

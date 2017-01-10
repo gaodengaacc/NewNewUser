@@ -129,7 +129,6 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
         listLanguagePicker.add("西班牙语");
         listLanguagePicker.add("葡萄牙语");
         listLanguagePicker.add("泰语");
-
     }
 
     private void setDataOne(ArrayList<Object> listLanguagePicker) {

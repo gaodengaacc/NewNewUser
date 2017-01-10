@@ -66,6 +66,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
         if (mActivityViewModel != null)
             mActivityViewModel.onDestroy();
     }
+
     protected void destroyViewDataBinding(ViewDataBinding viewDataBinding) {
         viewDataBinding.unbind();
         viewDataBinding.executePendingBindings();
@@ -79,6 +80,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
         if (mActivityViewModel != null)
             mActivityViewModel.onActivityResult(requestCode, resultCode, data);
     }
+
     protected <T extends ViewModel> T registerViewModel(T viewModel) {
         viewModel.getActivity().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableActivity>() {
             @Override
@@ -108,6 +110,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
 
     @NonNull
     protected abstract ViewModel getBodyViewModel();
+
     @LayoutRes
     protected abstract int getContentLayoutId();
 

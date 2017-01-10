@@ -22,10 +22,12 @@ public class ObservableActivity extends BaseObservable {
         finish.set(Result.defult());
         notifyPropertyChanged(BR.finish);
     }
+
     public void finish(Result result) {
         finish.set(result);
         notifyPropertyChanged(BR.finish);
     }
+
     public void startActivity(Intent intent) {
         startActivity.set(intent);
         notifyPropertyChanged(BR.startActivity);
