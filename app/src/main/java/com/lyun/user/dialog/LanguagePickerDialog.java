@@ -77,8 +77,8 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
         setCanceledOnTouchOutside(true);
 
         ButterKnife.bind(this);
-        setDataOne(listLanguagePicker);
         initData();
+        setDataOne(listLanguagePicker);
 
 
     }
