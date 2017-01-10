@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.WalletMainViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="WalletMainViewModel"></variable>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgc1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/main_fragment_discover_item"
+                android:drawableLeft="@mipmap/wallet_main_unuser_time_icon"
+                android:drawableRight="@null"
+                android:text="剩余使用" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:text="@{mvvm.unUserTime}"
+                android:textColor="@color/tc1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="15dp"
+            android:layout_height="1px"
+            android:background="@color/bgcw" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/main_fragment_discover_item"
+                android:drawableLeft="@mipmap/wallet_main_balance_icon"
+                android:drawableRight="@null"
+                android:text="余额" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:text="@{mvvm.balance}"
+                android:textColor="@color/tc1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+          <View
+              android:layout_width="3dp"
+              android:layout_height="12dp"
+              android:layout_marginLeft="15dp"
+              android:paddingTop="2dp"
+              android:layout_gravity="center_vertical"
+              android:background="@color/colorPrimary"/>
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="5dp"
+             android:textSize="13sp"
+             android:textColor="@color/tc2"
+             android:layout_gravity="center_vertical"
+             android:gravity="center_vertical"
+             android:text="记录"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#00000000"
+            app:layout="@{mvvm.recyclerViewRelayCommand}"
+            app:notifyData="@{mvvm.notifyData}"
+            app:adapter="@{mvvm.recorderAdapter}">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</layout>

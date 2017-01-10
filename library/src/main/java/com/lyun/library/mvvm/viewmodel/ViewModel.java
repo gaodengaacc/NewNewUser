@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 
 import com.lyun.library.mvvm.observable.ObservableActivity;
+import com.lyun.library.mvvm.observable.ObservableProgressDialog;
 import com.lyun.library.mvvm.observable.ObservableToast;
 import com.lyun.library.mvvm.watchdog.Watchdog;
 
@@ -19,7 +20,7 @@ public abstract class ViewModel extends BaseObservable {
 
     protected final ObservableActivity mObservableActivity = new ObservableActivity();
     protected final ObservableToast mObservableToast = new ObservableToast();
-
+    protected final ObservableProgressDialog mObservableProgressDialog = new ObservableProgressDialog();
     public ViewModel() {
     }
 
@@ -48,6 +49,9 @@ public abstract class ViewModel extends BaseObservable {
                 .build();
     }
 
+    public ObservableProgressDialog getProgressDialog(){
+        return mObservableProgressDialog;
+    }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 

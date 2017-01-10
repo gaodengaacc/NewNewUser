@@ -53,6 +53,11 @@ public class ViewBindingAdapter {
         recyclerView.addOnScrollListener(listener);
     }
 
+    @BindingAdapter({"layout"})
+    public static void setLayoutManage(RecyclerView recyclerView, RelayCommand<RecyclerView> layoutRelayCommand) {
+        layoutRelayCommand.execute(recyclerView);
+    }
+
     @BindingAdapter({"notifyData"})
     public static void setNotifyData(RecyclerView recyclerView, List<ViewModel> data) {
         BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
@@ -81,20 +86,21 @@ public class ViewBindingAdapter {
         if (adapter != null)
         adapter.setItemClickListener(
                 new OnRecycleItemClickListener() {
-            @Override
-            public void onItemClick(View view, List<ViewModel> viewModels, int position) {
-                  clickCommand.execute(new ClickListenerData(viewModels,position));
-            }
-        }
+
+                    @Override
+                    public void onItemClick(View view, List viewModels, int position) {
+                        clickCommand.execute(new ClickListenerData(viewModels, position));
+                    }
+                }
         );
     }
     @BindingAdapter("onItemLongClickCommand")
     public static void setOnItemLongClickListener(RecyclerView recyclerView,final RelayCommand<ClickListenerData> longClickCommand) {
         BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
-        adapter.setItemClickListener(new OnRecycleItemClickListener() {
+        adapter.setItemLongClickListener(new OnRecycleItemClickListener() {
             @Override
-            public void onItemClick(View view, List<ViewModel> viewModels, int position) {
-                longClickCommand.execute(new ClickListenerData(viewModels,position));
+            public void onItemClick(View view, List viewModels, int position) {
+                longClickCommand.execute(new ClickListenerData(viewModels, position));
             }
         });
 

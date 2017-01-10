@@ -61,7 +61,8 @@
     <color name="tc1">#333333</color>
     <color name="tc2">#666666</color>
     <color name="tc3">#b2b2b2</color>
-    <color name="tc5">#9e9e9e</color>
+    <color name="tc4">#9e9e9e</color>
+    <color name="tc5">#999999</color>
     <color name="tc6">#c3c7c9</color>
     <color name="tc7">#eeeeee</color>
     <color name="tc8">#40d12d</color>

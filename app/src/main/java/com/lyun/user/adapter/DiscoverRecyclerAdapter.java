@@ -14,17 +14,15 @@ import java.util.List;
  * Created by 郑成裕 on 2016/12/16.
  */
 
-public class DiscoverRecyclerAdapter extends BaseRecyclerAdapter {
+public class DiscoverRecyclerAdapter extends BaseRecyclerAdapter<ItemDiscoverRecyclerviewBinding,DiscoverRecyclerItemViewModel> {
 
     public DiscoverRecyclerAdapter(Context mContext, List listData, int layoutId) {
         super(mContext, listData, layoutId);
     }
-    @Override
-    public void viewBind(ViewModel viewModel, ViewDataBinding viewDataBinding, int position) {
-        DiscoverRecyclerItemViewModel itemModel = (DiscoverRecyclerItemViewModel) viewModel;
-        itemModel.init(position);
-        ItemDiscoverRecyclerviewBinding binding = (ItemDiscoverRecyclerviewBinding) viewDataBinding;
-        binding.setItemData(itemModel);
-    }
 
+    @Override
+    public void viewBind(DiscoverRecyclerItemViewModel viewModel, ItemDiscoverRecyclerviewBinding viewDataBinding, int position) {
+        viewModel.init(position);
+        viewDataBinding.setItemData(viewModel);
+    }
 }

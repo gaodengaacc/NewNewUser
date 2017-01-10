@@ -2,7 +2,6 @@ package com.lyun.library.mvvm.view.fragment;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -13,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.lyun.fragment.BaseFragment;
+import com.lyun.library.BR;
 import com.lyun.library.mvvm.observable.ObservableActivity;
+import com.lyun.library.mvvm.observable.ObservableProgressDialog;
 import com.lyun.library.mvvm.observable.ObservableToast;
 import com.lyun.library.mvvm.observable.PropertyChangedCallback;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
-import com.lyun.library.BR;
+import com.lyun.widget.dialog.ProgressBarDialog;
 
 /**
  * @author Gordon
@@ -29,12 +30,13 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
 
     private VDB mFragmentViewDataBinding;
     protected VM mFragmentViewModel;
-
+    protected ProgressBarDialog dialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+        dialog = new ProgressBarDialog(getContext());
     }
 
     @Override
@@ -75,6 +77,9 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
     public void onDestroy() {
         super.onDestroy();
         destroyViewDataBinding(mFragmentViewDataBinding);
+        if(dialog!=null){
+            dialog = null;
+        }
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -106,6 +111,18 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
             @Override
             public void callback(ObservableToast observable, int fieldId) {
                 Toast.makeText(getContext(), observable.getText(), observable.getDuration()).show();
+            }
+        });
+        viewModel.getProgressDialog().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableProgressDialog>() {
+            @Override
+            public void callback(ObservableProgressDialog observable, int fieldId) {
+                if (observable.isShow()) {
+                    if (observable.getText() != null)
+                        dialog.setMessage(observable.getText());
+                    dialog.show();
+                }else {
+                    dialog.dismiss();
+                }
             }
         });
         return viewModel;

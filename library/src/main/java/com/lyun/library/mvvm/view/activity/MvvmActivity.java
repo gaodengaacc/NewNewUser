@@ -11,15 +11,17 @@ import android.widget.Toast;
 import com.lyun.activity.BaseActivity;
 import com.lyun.library.BR;
 import com.lyun.library.mvvm.observable.ObservableActivity;
+import com.lyun.library.mvvm.observable.ObservableProgressDialog;
 import com.lyun.library.mvvm.observable.ObservableToast;
 import com.lyun.library.mvvm.observable.PropertyChangedCallback;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.widget.dialog.ProgressBarDialog;
 
 public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewModel> extends BaseActivity {
 
     private VDB mActivityViewDataBinding;
     protected VM mActivityViewModel;
-
+    protected ProgressBarDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
         mActivityViewModel = createViewModel();
         registerViewModel(mActivityViewModel);
         mActivityViewDataBinding.setVariable(BR.mvvm, mActivityViewModel);
+        dialog = new ProgressBarDialog(this);
     }
 
     @Override
@@ -100,6 +103,18 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
             @Override
             public void callback(ObservableToast observable, int fieldId) {
                 Toast.makeText(getApplicationContext(), observable.getText(), observable.getDuration()).show();
+            }
+        });
+        viewModel.getProgressDialog().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableProgressDialog>() {
+            @Override
+            public void callback(ObservableProgressDialog observable, int fieldId) {
+                if (observable.isShow()) {
+                    if (observable.getText() != null)
+                        dialog.setMessage(observable.getText());
+                    dialog.show();
+                }else {
+                    dialog.dismiss();
+                }
             }
         });
         return viewModel;

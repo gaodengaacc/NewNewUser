@@ -51,6 +51,7 @@ public class DiscoverFragmentViewModel extends ViewModel {
 ////                activityFinish.set(true);
 //            }
 //        });
+
         adapter.set(discoverRecyclerViewAdapter);
 //        replyCommandObservableField.set(onItemClickCommand);
         listenerObservableField.set(onItemClickCommand);

@@ -10,6 +10,6 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
  * do(Item的数据判断接口)
  */
 
-public interface InterfaceBindView {
-    void viewBind(ViewModel viewModel, ViewDataBinding viewDataBinding, int position);
+public interface InterfaceBindView<DB extends ViewDataBinding,VM extends ViewModel> {
+    void viewBind(VM viewModel, DB viewDataBinding, int position);
 }

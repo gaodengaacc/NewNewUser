@@ -49,6 +49,22 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.WalletMainActivity"
+            android:theme="@style/GlobalTitleTheme">
+            <intent-filter>
+                <action android:name="com.lyun.user.intent.action.WALLET_MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.WalletChargeActivity"
+            android:theme="@style/GlobalTitleTheme">
+            <intent-filter>
+                <action android:name="com.lyun.user.intent.action.WALLET_CHARGE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.lyun.library.mvvm.bindingadapter.TabLayout;
+package com.lyun.library.mvvm.bindingadapter.tablayout;
 
 import android.databinding.BindingAdapter;
 import android.support.design.widget.TabLayout;

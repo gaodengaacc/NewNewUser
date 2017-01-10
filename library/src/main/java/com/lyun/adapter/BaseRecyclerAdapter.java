@@ -20,32 +20,31 @@ import java.util.List;
  * do()
  */
 
-public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseRecyclerHolder> implements InterfaceBindView {
+public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends ViewModel> extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseRecyclerHolder> implements InterfaceBindView<DB,VM> {
     public LayoutInflater layoutInflater;
-    public List<ViewModel> viewModels;
+    public List<VM> viewModels;
     public Context context;
     public int layoutId;
 
     private OnRecycleItemClickListener itemClickListener;
+    private OnRecycleItemClickListener itemLongClickListener;
 
-    public BaseRecyclerAdapter(Context context, List<ViewModel> viewModels, int layoutId) {
+    public BaseRecyclerAdapter(Context context, List<VM> viewModels, int layoutId) {
         this.context = context;
         this.viewModels = viewModels;
         layoutInflater = LayoutInflater.from(context);
         this.layoutId = layoutId;
-
     }
-
     @Override
     public BaseRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewDataBinding dataBinding = DataBindingUtil.inflate(layoutInflater, layoutId, parent, false);
-        return new BaseRecyclerHolder(dataBinding.getRoot(), dataBinding);
+        DB dataBinding = DataBindingUtil.inflate(layoutInflater, layoutId, parent, false);
+        return new BaseRecyclerHolder<DB>(dataBinding.getRoot(), dataBinding);
     }
 
     @Override
     public void onBindViewHolder(BaseRecyclerHolder holder, final int position) {
         if(viewModels !=null){
-            viewBind(viewModels.get(position), holder.getViewDataBinding(),position);
+            viewBind(viewModels.get(position), (DB) holder.getViewDataBinding(),position);
             if(itemClickListener!=null){
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -54,23 +53,30 @@ public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseRecyc
                     }
                 });
             }
+            if(itemLongClickListener!=null)
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    itemLongClickListener.onItemClick(v, viewModels,position);
+                    return false;
+                }
+            });
         }
     }
-
     @Override
     public int getItemCount() {
         return viewModels ==null ? 0: viewModels.size();
     }
 
-    public class BaseRecyclerHolder extends RecyclerView.ViewHolder {
+    public class BaseRecyclerHolder<DB extends ViewDataBinding> extends RecyclerView.ViewHolder {
 
-        public ViewDataBinding getViewDataBinding() {
+        public DB getViewDataBinding() {
             return viewDataBinding;
         }
 
-        private ViewDataBinding viewDataBinding;
+        private DB viewDataBinding;
 
-        public BaseRecyclerHolder(View itemView, ViewDataBinding dataBinding) {
+        public BaseRecyclerHolder(View itemView, DB dataBinding) {
             super(itemView);
             this.viewDataBinding = dataBinding;
         }
@@ -80,7 +86,9 @@ public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseRecyc
     public void setItemClickListener(OnRecycleItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
-
+    public void setItemLongClickListener(OnRecycleItemClickListener itemLongClickListener) {
+        this.itemLongClickListener = itemLongClickListener;
+    }
     public void setListData(List listData) {
         this.viewModels = listData;
         notifyDataSetChanged();

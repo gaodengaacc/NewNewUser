@@ -28,6 +28,7 @@
         <attr name="adapter" format="reference" />
         <attr name="notifyData" format="reference" />
         <attr name="isScroll" format="reference" />
+        <attr name="layout" format="reference" />
         <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
         <attr name="onItemClickCommand" />
         <attr name="onItemLongClickCommand" format="reference" />

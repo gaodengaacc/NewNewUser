@@ -12,6 +12,6 @@ import java.util.List;
  * do(RecycleView Item点击接口)
  */
 
-public interface OnRecycleItemClickListener {
-        void onItemClick(View view, List<ViewModel> viewModels, int position);
+public interface OnRecycleItemClickListener<VM extends ViewModel> {
+        void onItemClick(View view, List<VM> viewModels, int position);
 }

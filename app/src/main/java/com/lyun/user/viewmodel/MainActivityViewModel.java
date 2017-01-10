@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.CheckBox;
 
 import com.lyun.entity.TabItemBean;
-import com.lyun.library.mvvm.bindingadapter.TabLayout.ViewBindAdapter;
+import com.lyun.library.mvvm.bindingadapter.tablayout.ViewBindAdapter;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.MainPagerAdapter;
@@ -70,7 +70,7 @@ public class MainActivityViewModel extends ViewModel {
         public void onTabSelected(TabLayout.Tab tab) {
             try {
                 ((CheckBox) tab.getCustomView()).setChecked(true);
-                tabIndex = tab.getPosition();
+                 tabIndex = tab.getPosition();
             } catch (Exception e) {
 
             }
