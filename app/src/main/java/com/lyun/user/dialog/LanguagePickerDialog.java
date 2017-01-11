@@ -3,17 +3,21 @@ package com.lyun.user.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.lyun.user.R;
+import com.lyun.user.adapter.LanguageTextAdapter;
+import com.lyun.user.databinding.DialogLanguagePickerBinding;
+import com.lyun.user.viewmodel.LanguagePickerDialogViewModel;
 
 import java.util.ArrayList;
 
@@ -23,7 +27,6 @@ import butterknife.OnClick;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.AbstractWheelTextAdapter;
 
 /**
  * 目标语言选择Dialog
@@ -66,7 +69,13 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
         Window window = getWindow();
         window.setGravity(Gravity.BOTTOM);//设置dialog显示位置
 //        window.setWindowAnimations(R.style.bottom_menu_animation);
-        setContentView(R.layout.dialog_language_picker);
+
+        DialogLanguagePickerBinding viewBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_language_picker, null, false);
+        LanguagePickerDialogViewModel viewModel = new LanguagePickerDialogViewModel(context);
+        viewBinding.setMvvm(viewModel);
+        // 设置LanguagePickerDialog的View
+        this.setContentView(viewBinding.getRoot());
+
         //宽度全屏
         WindowManager windowManager = ((Activity) context).getWindowManager();
         Display display = windowManager.getDefaultDisplay();
@@ -109,12 +118,11 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
         });
         initListData();//设置选项值
         wheelViewLanguagePicker.setViewAdapter(languageTextAdapter);
-        wheelViewLanguagePicker.setVisibleItems(3);
+        wheelViewLanguagePicker.setVisibleItems(7);
         wheelViewLanguagePicker.setCurrentItem(0);
         wheelViewLanguagePicker.setCyclic(true);//设置循环
         wheelViewLanguagePicker.setWheelForeground(R.mipmap.bg_wheel_divider);//设置选中时背景
-        wheelViewLanguagePicker.setWheelBackground(R.drawable.bg_wheel_view);
-
+        wheelViewLanguagePicker.setBackgroundResource(R.drawable.bg_wheel_view);
 
     }
 
@@ -147,7 +155,7 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
      * @param curriteItemText
      * @param adapter
      */
-    public void setTextviewSize(String curriteItemText, LanguagePickerDialog.LanguageTextAdapter adapter) {
+    public void setTextviewSize(String curriteItemText, LanguageTextAdapter adapter) {
         ArrayList<View> arrayList = adapter.getTextViews();
         int size = arrayList.size();
         String currentText;
@@ -183,30 +191,5 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
         this.pickLanguage = pickLanguage;
     }
 
-    //选择场景
-    private class LanguageTextAdapter extends AbstractWheelTextAdapter {
-        ArrayList<Object> list;
 
-        protected LanguageTextAdapter(Context context, ArrayList<Object> list, int currentItem, int maxsize, int minsize) {
-            super(context, R.layout.item_language_choice, NO_RESOURCE, currentItem, maxsize, minsize);
-            this.list = list;
-            setItemTextResource(R.id.tempValue);
-        }
-
-        @Override
-        public View getItem(int index, View convertView, ViewGroup parent) {
-            View view = super.getItem(index, convertView, parent);
-            return view;
-        }
-
-        @Override
-        protected CharSequence getItemText(int index) {
-            return list.get(index) + "";
-        }
-
-        @Override
-        public int getItemsCount() {
-            return list.size();
-        }
-    }
 }

@@ -38,7 +38,8 @@ public class MainActivityViewModel extends ViewModel {
     private SpecialistTranslationFragment mSpecialistTranslationFragment;
     private UserCenterFragment mUserCenterFragment;
     private int tabIndex = 0;
-    public MainActivityViewModel(Context context,ViewPager viewPager,FragmentManager mFragmentManager) {
+
+    public MainActivityViewModel(Context context, ViewPager viewPager, FragmentManager mFragmentManager) {
         super(context);
         this.viewPage.set(viewPager);
         this.mFragmentManager = mFragmentManager;
@@ -70,7 +71,7 @@ public class MainActivityViewModel extends ViewModel {
         public void onTabSelected(TabLayout.Tab tab) {
             try {
                 ((CheckBox) tab.getCustomView()).setChecked(true);
-                 tabIndex = tab.getPosition();
+                tabIndex = tab.getPosition();
             } catch (Exception e) {
 
             }
