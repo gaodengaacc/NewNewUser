@@ -1,7 +1,6 @@
 package com.lyun.library.mvvm.bindingadapter.viewpager;
 
 import android.databinding.BindingAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.lyun.library.mvvm.command.RelayCommand;
@@ -41,8 +40,8 @@ public class ViewBindingAdapter {
     }
 
     @BindingAdapter("adapter")
-    public static void setAdapter(ViewPager viewPage, PagerAdapter adapter) {
-        viewPage.setAdapter(adapter);
+    public static void setAdapter(ViewPager viewPage, RelayCommand<ViewPager> relayCommand) {
+        relayCommand.execute(viewPage);
     }
     public static class ViewPagerDataWrapper {
         public float positionOffset;

@@ -5,6 +5,7 @@
     <color name="common_bg1">#a0b8f0</color>
     <color name="bottom_bg1">#dae3f9</color>
     <color name="wheelview_bg">#f0f0f0</color>
+    <color name="status_bg">#4CC5FE</color>
     <!-- 黑灰白 -->
     <color name="cblk">#222222</color>
     <!-- 蓝 -->

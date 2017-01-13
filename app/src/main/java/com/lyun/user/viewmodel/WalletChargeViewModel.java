@@ -17,7 +17,7 @@ import com.lyun.user.R;
 
 public class WalletChargeViewModel extends ViewModel {
     public WalletChargeViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
-        toolbarViewModel.title.set("充值");
+        toolbarViewModel.title.set("购买");
         toolbarViewModel.onBackClick.set(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

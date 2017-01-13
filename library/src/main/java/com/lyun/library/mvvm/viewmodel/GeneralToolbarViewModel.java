@@ -4,8 +4,10 @@ import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.lyun.library.R;
+import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.model.Model;
 
 import java.lang.ref.Reference;
@@ -33,10 +35,12 @@ public class GeneralToolbarViewModel extends ViewModel {
         public final ObservableField<View.OnClickListener> onBackClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionLeftClick = new ObservableField<>();
-        public ToolbarViewModel(Context context) {
+        public final ObservableInt statusBarHeight = new ObservableInt();
+        public ToolbarViewModel(Context context,int statusBarHeight) {
             super(context);
             title.set("标题");
             dividerVisibility.set(View.INVISIBLE);
+            this.statusBarHeight.set(statusBarHeight);
         }
 
     }
