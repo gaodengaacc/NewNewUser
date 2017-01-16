@@ -41,7 +41,7 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     int linearLayoutWidth;//控件宽度
 
-    public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();
+    public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();//目标语言
 
     public SpecialistTranslationFragmentViewModel(Context context) {
 
