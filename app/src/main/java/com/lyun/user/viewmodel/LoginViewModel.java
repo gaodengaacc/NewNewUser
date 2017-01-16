@@ -1,5 +1,6 @@
 package com.lyun.user.viewmodel;
 
+import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
 import com.lyun.library.mvvm.command.RelayCommand;
@@ -27,7 +28,9 @@ public class LoginViewModel extends ViewModel {
     }
 
     @WatchThis
-    public final ObservableField<String> onLoginSuccess = new ObservableField<>();
+    public final BaseObservable onNavigationRegister = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onLoginSuccess = new BaseObservable();
 
     public RelayCommand onLoginButtonClick = new RelayCommand(() -> {
         new LoginModel().login(username.get(), password.get())
@@ -36,6 +39,10 @@ public class LoginViewModel extends ViewModel {
                     onLoginSuccess.notifyChange();
                     L.e("tag", throwable);
                 });
+    });
+
+    public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
+        onNavigationRegister.notifyChange();
     });
 
 }

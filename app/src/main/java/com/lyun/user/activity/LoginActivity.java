@@ -1,6 +1,7 @@
 package com.lyun.user.activity;
 
-import android.databinding.ObservableField;
+import android.content.Intent;
+import android.databinding.BaseObservable;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -9,7 +10,6 @@ import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityLoginBinding;
 import com.lyun.user.viewmodel.LoginViewModel;
 import com.lyun.user.viewmodel.watchdog.ILoginViewModelCallbacks;
-import com.lyun.utils.L;
 
 public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, LoginViewModel> implements ILoginViewModelCallbacks {
 
@@ -26,9 +26,13 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
         return model;
     }
 
-    public void onLoginSuccess(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(this, "登录成功啦！", Toast.LENGTH_LONG).show();
-        L.e("tag", "登录成功啦！");
+    @Override
+    public void onNavigationRegister(BaseObservable observableField, int fieldId) {
+        startActivity(new Intent(this, RegisterVerifyPhoneActivity.class));
     }
 
+    @Override
+    public void onLoginSuccess(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "登录成功", Toast.LENGTH_LONG).show();
+    }
 }

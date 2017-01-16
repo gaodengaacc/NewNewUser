@@ -1,7 +1,6 @@
 package com.lyun.library.mvvm.view.activity;
 
 import android.databinding.ViewDataBinding;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.ViewStubCompat;
 
@@ -15,13 +14,6 @@ public abstract class GeneralToolbarActivity<VDB extends ViewDataBinding, VM ext
         implements ViewStubCompat.OnInflateListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
-
-    @Override
     protected int getTitleLayoutId() {
         return R.layout.toolbar_general;
     }
@@ -33,9 +25,11 @@ public abstract class GeneralToolbarActivity<VDB extends ViewDataBinding, VM ext
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             //根据资源ID获取响应的尺寸值
-            statusBarHeight= getResources().getDimensionPixelSize(resourceId);
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
         }
-        return new GeneralToolbarViewModel.ToolbarViewModel(this,statusBarHeight);
+        GeneralToolbarViewModel.ToolbarViewModel viewModel = new GeneralToolbarViewModel.ToolbarViewModel(this, statusBarHeight);
+        viewModel.setPropertyChangeListener(this);
+        return viewModel;
     }
 
 }

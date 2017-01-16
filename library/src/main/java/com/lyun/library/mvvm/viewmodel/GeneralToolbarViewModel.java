@@ -10,6 +10,8 @@ import com.lyun.library.R;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.model.Model;
 
+import net.funol.databinding.watchdog.annotations.WatchThis;
+
 import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
 

@@ -22,6 +22,7 @@ public abstract class ViewModel extends BaseObservable {
     protected final ObservableActivity mObservableActivity = new ObservableActivity();
     protected final ObservableToast mObservableToast = new ObservableToast();
     protected final ObservableProgressDialog mObservableProgressDialog = new ObservableProgressDialog();
+
     public ViewModel() {
     }
 
@@ -43,16 +44,18 @@ public abstract class ViewModel extends BaseObservable {
         return mObservableToast;
     }
 
-    public void setPropertyChangeListener(Object beNotified) {
+    public <T extends ViewModel> T setPropertyChangeListener(Object beNotified) {
         Watchdog.newBuilder()
                 .watch(this)
                 .notify(beNotified)
                 .build();
+        return (T) this;
     }
 
-    public ObservableProgressDialog getProgressDialog(){
+    public ObservableProgressDialog getProgressDialog() {
         return mObservableProgressDialog;
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 

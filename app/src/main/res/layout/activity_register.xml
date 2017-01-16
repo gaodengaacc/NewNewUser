@@ -7,8 +7,9 @@
 
         <variable
             name="mvvm"
-            type="com.lyun.user.viewmodel.LoginViewModel" />
+            type="com.lyun.user.viewmodel.RegisterViewModel" />
     </data>
+
 
     <LinearLayout
         android:id="@+id/activity_layout_root"
@@ -16,7 +17,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="4"
-        tools:context="com.lyun.user.activity.LoginActivity">
+        tools:context="com.lyun.user.activity.RegisterActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,10 +49,9 @@
                 android:background="@drawable/no_border_round_corner_white_bg"
                 android:drawableLeft="@mipmap/ic_phone_small"
                 android:drawablePadding="5dp"
-                android:hint="手机号"
+                android:hint="请输入昵称"
                 android:maxLines="1"
                 android:padding="10dp"
-                android:text="@={mvvm.username}"
                 android:textSize="14sp" />
 
             <EditText
@@ -67,7 +67,21 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="10dp"
-                android:text="@={mvvm.password}"
+                android:textSize="14sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/no_border_round_corner_white_bg"
+                android:drawableLeft="@mipmap/ic_password_small"
+                android:drawablePadding="5dp"
+                android:hint="确认密码"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="10dp"
                 android:textSize="14sp" />
 
             <Button
@@ -78,36 +92,37 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_no_border_round_corner"
-                android:text="登  录"
+                android:text="注  册"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
-                app:clickCommand="@{mvvm.onLoginButtonClick}" />
+                android:textSize="16sp" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp">
+                android:layout_marginRight="40dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="快速注册"
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="12sp"
-                    app:clickCommand="@{mvvm.onRegisterButtonClick}" />
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:text="点击注册即表示同意"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:padding="5dp"
-                    android:text="忘记密码？"
-                    android:textColor="?attr/colorPrimary"
+                    android:text="《注册协议和隐私政策》"
+                    android:textColor="#333333"
                     android:textSize="12sp" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
