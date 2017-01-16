@@ -14,6 +14,7 @@ import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.observable.ObservableProgressDialog;
 import com.lyun.library.mvvm.observable.ObservableToast;
 import com.lyun.library.mvvm.observable.PropertyChangedCallback;
+import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.widget.dialog.ProgressBarDialog;
 
@@ -21,7 +22,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
 
     private VDB mActivityViewDataBinding;
     protected VM mActivityViewModel;
-    protected ProgressBarDialog dialog;
+    protected ProgressBarDialogViewModel dialogViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
         mActivityViewModel = createViewModel();
         registerViewModel(mActivityViewModel);
         mActivityViewDataBinding.setVariable(BR.mvvm, mActivityViewModel);
-        dialog = new ProgressBarDialog(this);
+        dialogViewModel = new ProgressBarDialogViewModel(this);
     }
 
     @Override
@@ -110,10 +111,10 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
             public void callback(ObservableProgressDialog observable, int fieldId) {
                 if (observable.isShow()) {
                     if (observable.getText() != null)
-                        dialog.setMessage(observable.getText());
-                    dialog.show();
+                        dialogViewModel.setMessage(observable.getText());
+                    dialogViewModel.show();
                 }else {
-                    dialog.dismiss();
+                    dialogViewModel.dismiss();
                 }
             }
         });

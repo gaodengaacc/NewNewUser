@@ -17,6 +17,7 @@ import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.observable.ObservableProgressDialog;
 import com.lyun.library.mvvm.observable.ObservableToast;
 import com.lyun.library.mvvm.observable.PropertyChangedCallback;
+import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.widget.dialog.ProgressBarDialog;
 
@@ -30,13 +31,13 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
 
     private VDB mFragmentViewDataBinding;
     protected VM mFragmentViewModel;
-    protected ProgressBarDialog dialog;
+    protected ProgressBarDialogViewModel dialogViewModel;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
-        dialog = new ProgressBarDialog(getContext());
+        dialogViewModel = new ProgressBarDialogViewModel(getContext());
     }
 
     @Override
@@ -77,8 +78,8 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
     public void onDestroy() {
         super.onDestroy();
         destroyViewDataBinding(mFragmentViewDataBinding);
-        if(dialog!=null){
-            dialog = null;
+        if(dialogViewModel!=null){
+            dialogViewModel = null;
         }
     }
     @Override
@@ -118,10 +119,10 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
             public void callback(ObservableProgressDialog observable, int fieldId) {
                 if (observable.isShow()) {
                     if (observable.getText() != null)
-                        dialog.setMessage(observable.getText());
-                    dialog.show();
+                        dialogViewModel.setMessage(observable.getText());
+                    dialogViewModel.show();
                 }else {
-                    dialog.dismiss();
+                    dialogViewModel.dismiss();
                 }
             }
         });

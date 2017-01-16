@@ -19,12 +19,7 @@ public class UserSettingViewModel extends ViewModel {
 
     public UserSettingViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
         toolbarViewModel.title.set("设置");
-        toolbarViewModel.onBackClick.set(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               getActivity().finish();
-            }
-        });
+        toolbarViewModel.onBackClick.set((v) ->getActivity().finish());
         init();
     }
 
