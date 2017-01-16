@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -20,8 +21,8 @@
             style="@style/main_fragment_discover_item"
             android:layout_marginTop="5dp"
             android:drawableLeft="@mipmap/setting_change_passward_icon"
-            android:onClick="@{mvvm.changePassWardOnClick}"
-            android:text="修改密码" />
+            android:text="修改密码"
+            app:clickCommand="@{mvvm.onModifyPasswordButtonClick}" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,8 +31,8 @@
 
             <TextView
                 style="@style/main_fragment_discover_item"
-                android:drawableLeft="@mipmap/setting_app_version_icon"
                 android:clickable="true"
+                android:drawableLeft="@mipmap/setting_app_version_icon"
                 android:text="版本信息" />
 
             <TextView

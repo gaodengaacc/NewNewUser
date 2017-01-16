@@ -1,12 +1,15 @@
 package com.lyun.user.viewmodel;
 
-import android.content.Context;
+import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.view.View;
 
 import com.lyun.library.BuildConfig;
+import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+
+import net.funol.databinding.watchdog.annotations.WatchThis;
 
 /**
  * @author Gordon
@@ -15,16 +18,10 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
  */
 
 public class UserSettingViewModel extends ViewModel {
+
     public final ObservableField<String> appVersion = new ObservableField<>();
 
-    public UserSettingViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
-        toolbarViewModel.title.set("设置");
-        toolbarViewModel.onBackClick.set(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               getActivity().finish();
-            }
-        });
+    public UserSettingViewModel() {
         init();
     }
 
@@ -32,8 +29,11 @@ public class UserSettingViewModel extends ViewModel {
         appVersion.set(BuildConfig.VERSION_NAME);
     }
 
-    public void changePassWardOnClick(View view){
+    @WatchThis
+    public final BaseObservable onNavigationModifyPassword = new BaseObservable();
 
-    }
+    public RelayCommand onModifyPasswordButtonClick = new RelayCommand(() -> {
+        onNavigationModifyPassword.notifyChange();
+    });
 
 }
