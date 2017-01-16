@@ -76,7 +76,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/no_border_round_corner_white_bg"
-                android:drawableLeft="@mipmap/ic_password_small"
+                android:drawableLeft="@mipmap/ic_re_password"
                 android:drawablePadding="5dp"
                 android:hint="确认密码"
                 android:inputType="textPassword"
