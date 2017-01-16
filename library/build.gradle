@@ -22,6 +22,7 @@ version = _version
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.neenbedankt.android-apt'
 
 def _versionCode() {
     return Integer.parseInt(new Date(getGitCommitTime()).format("yyMMddhhmm", TimeZone.getTimeZone("GMT+8")));
@@ -78,6 +79,10 @@ dependencies {
     compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter:1.1.0'
     compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.1.0'
     provided 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //watchdog
+    compile 'net.funol.databinding.watchdog:annotations:1.0.0'
+    compile 'net.funol.databinding.watchdog:watchdog:1.0.0'
+    apt 'net.funol.databinding.watchdog:compiler:1.0.0'
 }
 
 apply from: "bintrayUpload.gradle"

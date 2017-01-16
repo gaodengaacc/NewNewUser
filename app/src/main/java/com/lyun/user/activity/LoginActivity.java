@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
-import com.lyun.library.mvvm.watchdog.NotifyThis;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityLoginBinding;
 import com.lyun.user.viewmodel.LoginViewModel;
+import com.lyun.user.viewmodel.watchdog.ILoginViewModelCallbacks;
 import com.lyun.utils.L;
 
-public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, LoginViewModel> {
+public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, LoginViewModel> implements ILoginViewModelCallbacks {
 
     @Override
     protected int getBodyLayoutId() {
@@ -26,8 +26,7 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
         return model;
     }
 
-    @NotifyThis
-    public void onLoginSuccess(ObservableField<String> observableField,int fieldId) {
+    public void onLoginSuccess(ObservableField<String> observableField, int fieldId) {
         Toast.makeText(this, "登录成功啦！", Toast.LENGTH_LONG).show();
         L.e("tag", "登录成功啦！");
     }

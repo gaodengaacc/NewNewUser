@@ -7,7 +7,8 @@ import android.databinding.BaseObservable;
 import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.observable.ObservableProgressDialog;
 import com.lyun.library.mvvm.observable.ObservableToast;
-import com.lyun.library.mvvm.watchdog.Watchdog;
+
+import net.funol.databinding.watchdog.Watchdog;
 
 /**
  * Created by ZHAOWEIWEI on 2016/12/21.

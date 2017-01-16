@@ -5,9 +5,10 @@ import android.databinding.ObservableField;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
-import com.lyun.library.mvvm.watchdog.WatchThis;
 import com.lyun.user.model.LoginModel;
 import com.lyun.utils.L;
+
+import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
