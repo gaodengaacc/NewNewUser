@@ -22,13 +22,10 @@ public class LoginViewModel extends ViewModel {
     public final ObservableField<String> username = new ObservableField<>("");
     public final ObservableField<String> password = new ObservableField<>("");
 
-    public LoginViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
-        toolbarViewModel.title.set("登录");
-        toolbarViewModel.onBackClick.set(view -> getActivity().finish());
-    }
-
     @WatchThis
     public final BaseObservable onNavigationRegister = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onNavigationFindPassword = new BaseObservable();
     @WatchThis
     public final BaseObservable onLoginSuccess = new BaseObservable();
 
@@ -43,6 +40,10 @@ public class LoginViewModel extends ViewModel {
 
     public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
         onNavigationRegister.notifyChange();
+    });
+
+    public RelayCommand onFindPasswordButtonClick = new RelayCommand(() -> {
+        onNavigationFindPassword.notifyChange();
     });
 
 }

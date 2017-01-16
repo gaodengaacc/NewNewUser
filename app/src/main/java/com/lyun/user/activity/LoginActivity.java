@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
+import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityLoginBinding;
 import com.lyun.user.viewmodel.LoginViewModel;
@@ -20,15 +21,28 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
 
     @NonNull
     @Override
+    protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
+        GeneralToolbarViewModel.ToolbarViewModel viewModel = super.createTitleViewModel();
+        viewModel.setPropertyChangeListener(this);
+        viewModel.title.set("登录");
+        viewModel.onBackClick.set(view -> finish());
+        return viewModel;
+    }
+
+    @NonNull
+    @Override
     protected LoginViewModel createBodyViewModel() {
-        LoginViewModel model = new LoginViewModel(getTitleViewDataBinding().getMvvm());
-        model.setPropertyChangeListener(this);
-        return model;
+        return new LoginViewModel().setPropertyChangeListener(this);
     }
 
     @Override
     public void onNavigationRegister(BaseObservable observableField, int fieldId) {
         startActivity(new Intent(this, RegisterVerifyPhoneActivity.class));
+    }
+
+    @Override
+    public void onNavigationFindPassword(BaseObservable observableField, int fieldId) {
+        startActivity(new Intent(this, FindPasswordActivity.class));
     }
 
     @Override
