@@ -13,7 +13,7 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
     @NonNull
     @Override
     protected MainActivityViewModel createViewModel() {
-        return new MainActivityViewModel(this, getActivityViewDataBinding().mainContainer, getSupportFragmentManager());
+        return new MainActivityViewModel(getActivityViewDataBinding().mainContainer, getSupportFragmentManager());
     }
 
     @NonNull

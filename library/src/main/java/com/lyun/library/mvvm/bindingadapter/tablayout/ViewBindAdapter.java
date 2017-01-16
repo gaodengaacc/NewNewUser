@@ -32,7 +32,7 @@ public class ViewBindAdapter {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
                 tab.setCustomView(data.getTabs().get(i).getTabView(tabLayout.getContext()));
             }
-            tabLayout.getTabAt(data.getIndex() + 1).select();//进入APP后显示的“专人翻译”
+            tabLayout.getTabAt(data.getIndex()).select();//进入APP后显示的“专人翻译”
         }
     }
 

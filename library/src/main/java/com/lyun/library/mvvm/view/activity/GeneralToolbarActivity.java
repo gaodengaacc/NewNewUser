@@ -18,6 +18,7 @@ public abstract class GeneralToolbarActivity<VDB extends ViewDataBinding, VM ext
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -28,7 +29,13 @@ public abstract class GeneralToolbarActivity<VDB extends ViewDataBinding, VM ext
     @NonNull
     @Override
     protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
-        return new GeneralToolbarViewModel.ToolbarViewModel(this);
+        int statusBarHeight = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight= getResources().getDimensionPixelSize(resourceId);
+        }
+        return new GeneralToolbarViewModel.ToolbarViewModel(this,statusBarHeight);
     }
 
 }

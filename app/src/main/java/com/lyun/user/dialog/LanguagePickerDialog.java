@@ -69,13 +69,12 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
         Window window = getWindow();
         window.setGravity(Gravity.BOTTOM);//设置dialog显示位置
 //        window.setWindowAnimations(R.style.bottom_menu_animation);
-
-        DialogLanguagePickerBinding viewBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_language_picker, null, false);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        DialogLanguagePickerBinding viewBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_language_picker, null, false);
         LanguagePickerDialogViewModel viewModel = new LanguagePickerDialogViewModel(context);
         viewBinding.setMvvm(viewModel);
         // 设置LanguagePickerDialog的View
         this.setContentView(viewBinding.getRoot());
-
         //宽度全屏
         WindowManager windowManager = ((Activity) context).getWindowManager();
         Display display = windowManager.getDefaultDisplay();
@@ -84,7 +83,6 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
         getWindow().setAttributes(layoutParams);
         //点击dialog外部消失
         setCanceledOnTouchOutside(true);
-
         ButterKnife.bind(this);
         initData();
         setDataOne(listLanguagePicker);
@@ -118,7 +116,7 @@ public class LanguagePickerDialog extends Dialog implements View.OnClickListener
         });
         initListData();//设置选项值
         wheelViewLanguagePicker.setViewAdapter(languageTextAdapter);
-        wheelViewLanguagePicker.setVisibleItems(7);
+        wheelViewLanguagePicker.setVisibleItems(7);//设置显示数目
         wheelViewLanguagePicker.setCurrentItem(0);
         wheelViewLanguagePicker.setCyclic(true);//设置循环
         wheelViewLanguagePicker.setWheelForeground(R.mipmap.bg_wheel_divider);//设置选中时背景

@@ -103,7 +103,7 @@
                                 android:gravity="center"
                                 android:text="汉语"
                                 android:textColor="#333333"
-                                android:textSize="28sp" />
+                                android:textSize="22sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -168,7 +168,7 @@
                                 android:gravity="center"
                                 android:text="@{mvvm.textViewTargetLanguage}"
                                 android:textColor="#00abfa"
-                                android:textSize="28sp" />
+                                android:textSize="22sp" />
                         </LinearLayout>
 
                     </LinearLayout>

@@ -26,10 +26,16 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
+                    android:paddingBottom="15dp"
                     android:orientation="horizontal">
-
+                    <RelativeLayout
+                        android:id="@+id/layout_height_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_alignParentTop="true"
+                        android:visibility="@{mvvm.topVisible}"></RelativeLayout>
                     <ImageView
                         android:id="@+id/user_center_settting"
                         android:layout_width="wrap_content"
@@ -38,6 +44,7 @@
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="15dp"
                         android:src="@mipmap/user_setting_icon"
+                        android:layout_below="@+id/layout_height_top"
                         android:onClick="@{mvvm.onViewClick}"/>
 
                     <ImageView
@@ -47,6 +54,7 @@
                         android:onClick="@{mvvm.onViewClick}"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
+                        android:layout_below="@+id/layout_height_top"
                         android:src="@mipmap/user_default_avatar" />
 
                     <TextView

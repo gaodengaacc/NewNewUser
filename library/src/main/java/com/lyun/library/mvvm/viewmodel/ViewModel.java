@@ -69,6 +69,7 @@ public abstract class ViewModel extends BaseObservable {
     }
 
     public void onDestroy() {
+        mContext = null;
     }
 
     public void onDestroyView() {

@@ -3,6 +3,7 @@ package com.lyun.user.viewmodel;
 import android.content.Intent;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.os.Build;
 import android.view.View;
 
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -18,6 +19,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public final ObservableField<String> userNum = new ObservableField<>();//使用次数
     public final ObservableField<String> userLanguage = new ObservableField<>();//接触语种
     public final ObservableInt exitVisible = new ObservableInt();//退出登录按钮的显示
+    public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
     private Intent intent;
     public UserCenterFragmentViewModel(){
         init();
@@ -28,6 +30,11 @@ public class UserCenterFragmentViewModel extends ViewModel {
         userNum.set("20 次");
         userLanguage.set("5 种");
         exitVisible.set(View.VISIBLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+           topVisible.set(View.VISIBLE);
+        }else {
+            topVisible.set(View.GONE);
+        }
     }
     public void onViewClick(View view) {
         switch (view.getId()){

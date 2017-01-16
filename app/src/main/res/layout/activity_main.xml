@@ -36,6 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/main_tab"
-            app:adapter="@{mvvm.viewPageAdapter}"></android.support.v4.view.ViewPager>
+            app:adapter="@{mvvm.relayCommandViewPage}"></android.support.v4.view.ViewPager>
     </RelativeLayout>
 </layout>
