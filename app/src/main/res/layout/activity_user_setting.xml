@@ -31,7 +31,7 @@
 
             <TextView
                 style="@style/main_fragment_discover_item"
-                android:clickable="true"
+                android:clickable="false"
                 android:drawableLeft="@mipmap/setting_app_version_icon"
                 android:text="版本信息" />
 

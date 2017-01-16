@@ -101,18 +101,6 @@ public class BaseActivity extends FragmentActivity  {
             progressBar.show();
         }
     }
-
-    public void setCancelListener(ProgressBarDialog.LoadingCancelCallBack cancelListener) {
-        progressBar.setLoadingCancel(cancelListener);
-    }
-
-    public void show(String loadingText) {
-        if (progressBar != null && !progressBar.isShowing()) {
-            progressBar.show();
-            progressBar.setMessage(loadingText);
-        }
-    }
-
     public void dismiss() {
         if (progressBar != null && progressBar.isShowing()) {
             progressBar.dismiss();

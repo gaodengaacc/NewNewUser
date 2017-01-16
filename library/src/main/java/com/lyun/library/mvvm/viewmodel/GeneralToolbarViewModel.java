@@ -37,12 +37,10 @@ public class GeneralToolbarViewModel extends ViewModel {
         public final ObservableField<View.OnClickListener> onBackClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionLeftClick = new ObservableField<>();
-        public final ObservableInt statusBarHeight = new ObservableInt();
-        public ToolbarViewModel(Context context,int statusBarHeight) {
+        public ToolbarViewModel(Context context) {
             super(context);
             title.set("标题");
             dividerVisibility.set(View.INVISIBLE);
-            this.statusBarHeight.set(statusBarHeight);
         }
 
     }

@@ -35,16 +35,11 @@ public class WalletMainViewModel extends ViewModel {
     public WalletMainViewModel(Context context,GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
         super(context);
         toolbarViewModel.title.set("钱包");
-        toolbarViewModel.onBackClick.set(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        toolbarViewModel.onBackClick.set((v)->getActivity().finish());
         toolbarViewModel.functionImage.set(R.mipmap.wallet_main_function_des_icon);
         toolbarViewModel.functionLeftImage.set(R.mipmap.wallet_main_function_charge_icon);
-        toolbarViewModel.onFunctionLeftClick.set(onFunctionLeftListener);
-        toolbarViewModel.onFunctionClick.set(onFunctionListener);
+        toolbarViewModel.onFunctionClick.set((v)->showPop(v));
+        toolbarViewModel.onFunctionLeftClick.set((v)->getActivity().startActivity(new Intent("com.lyun.user.intent.action.WALLET_CHARGE")));
         init();
     }
 
@@ -66,29 +61,10 @@ public class WalletMainViewModel extends ViewModel {
     public RelayCommand<RecyclerView> recyclerViewRelayCommand = new RelayCommand<RecyclerView>(recyclerView -> {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
     });
-    private View.OnClickListener onFunctionListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-//          getActivity().startActivity(new Intent("com.lyun.user.intent.action.WALLET_CHARGE"));
-            showPop(v);
-        }
-    };
-    private View.OnClickListener onFunctionLeftListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-             getActivity().startActivity(new Intent("com.lyun.user.intent.action.WALLET_CHARGE"));
-        }
-    };
-
     private void showPop(View v) {
         activityBg.set(false);
         WalletMainPopWindow popWindow = new WalletMainPopWindow(v.getContext());
-        popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                activityBg.set(true);
-            }
-        });
+        popWindow.setOnDismissListener(()->activityBg.set(true));
         popWindow.showAsDropDown(v);
     }
 }

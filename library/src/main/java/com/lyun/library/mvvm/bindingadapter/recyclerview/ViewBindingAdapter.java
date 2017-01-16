@@ -53,7 +53,7 @@ public class ViewBindingAdapter {
         recyclerView.addOnScrollListener(listener);
     }
 
-    @BindingAdapter({"layout"})
+    @BindingAdapter({"layoutManager"})
     public static void setLayoutManage(RecyclerView recyclerView, RelayCommand<RecyclerView> layoutRelayCommand) {
         layoutRelayCommand.execute(recyclerView);
     }
