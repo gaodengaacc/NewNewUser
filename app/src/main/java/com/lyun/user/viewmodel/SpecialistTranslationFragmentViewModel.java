@@ -8,14 +8,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.Toast;
 
 import com.lyun.library.mvvm.bindingadapter.linearlayout.ViewBindingAdapter;
 import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCategoryActivity;
-import com.lyun.user.dialog.LanguageChoicePopupWindow;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -70,8 +68,6 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
             }
         });
         languagePickerDialogViewModel.show();
-
-
     }
 
     public void modelChangeImageViewClick(View view) {//选择翻译模式，语言或者图文
@@ -97,17 +93,6 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         @Override
         public void getWidthListening(int width) {
             linearLayoutWidth = width;
-        }
-    };
-    public LanguageChoicePopupWindow.ChooseListener chooseListener = new LanguageChoicePopupWindow.ChooseListener() {
-        @Override
-        public void onClick(String language1, String language2) {
-            if (language1.equals(language2)) {
-                Toast.makeText(getContext(), "母语和目标语言不能相同", Toast.LENGTH_SHORT).show();
-            } else {
-                textViewLanguage1.set(language1);
-                textViewLanguage2.set(language2);
-            }
         }
     };
 
