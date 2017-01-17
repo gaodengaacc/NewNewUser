@@ -17,6 +17,7 @@ import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 public class ProgressBarDialog extends Dialog {
     private Context context;
     private ProgressBarDialogViewModel viewModel;
+
     public ProgressBarDialog(Context context) {
         super(context, R.style.dialog_theme);
         this.context = context;
@@ -49,7 +50,7 @@ public class ProgressBarDialog extends Dialog {
         IncludeDialogProgressbarBinding viewBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.include_dialog_progressbar, null, false);
         if (viewModel != null)
             viewBinding.setMvvm(viewModel);
-         this.setContentView(viewBinding.getRoot());
+        this.setContentView(viewBinding.getRoot());
     }
 
 
@@ -65,7 +66,6 @@ public class ProgressBarDialog extends Dialog {
     public void dismiss() {
         super.dismiss();
     }
-
 
 
 }

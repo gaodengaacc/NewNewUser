@@ -24,7 +24,6 @@ import android.database.DataSetObserver;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.GradientDrawable.Orientation;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,8 +47,8 @@ public class WheelView extends View {
     /**
      * Top and bottom shadows colors
      */
-    private int[] SHADOWS_COLORS = new int[]{0xffffffff,
-            0x00ffffff, 0x00ffffff};
+    private int[] SHADOWS_COLORS = new int[]{0xfff0f0f0,
+            0x00ffffff, 0x000000ff};
 
     /**
      * Top and bottom items offset (to hide that)
@@ -59,7 +58,7 @@ public class WheelView extends View {
     /**
      * Left and right padding value
      */
-    private static final int PADDING = 10;
+    private static final int PADDING = 0;
 
     /**
      * Default count of visible items
@@ -510,11 +509,11 @@ public class WheelView extends View {
         }
 
         if (topShadow == null) {
-            topShadow = new GradientDrawable(Orientation.TOP_BOTTOM, SHADOWS_COLORS);
+            topShadow = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, SHADOWS_COLORS);
         }
 
         if (bottomShadow == null) {
-            bottomShadow = new GradientDrawable(Orientation.BOTTOM_TOP, SHADOWS_COLORS);
+            bottomShadow = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, SHADOWS_COLORS);
         }
 
         setBackgroundResource(wheelBackground);

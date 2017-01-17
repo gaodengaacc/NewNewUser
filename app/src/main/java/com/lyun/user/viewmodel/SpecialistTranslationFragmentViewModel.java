@@ -16,7 +16,6 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCategoryActivity;
 import com.lyun.user.dialog.LanguageChoicePopupWindow;
-import com.lyun.user.dialog.LanguagePickerDialog;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -63,14 +62,16 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     }
 
     public void languagePickerLinearLayoutClick(View view) {//选取目标语言
-        LanguagePickerDialog languagePickerDialog = new LanguagePickerDialog(getContext());
-        languagePickerDialog.show();
-        languagePickerDialog.setPickLanguage(new LanguagePickerDialog.PickLanguage() {
+        LanguagePickerDialogViewModel languagePickerDialogViewModel = new LanguagePickerDialogViewModel(getContext());
+        languagePickerDialogViewModel.setPickLanguage(new LanguagePickerDialogViewModel.PickLanguage() {
             @Override
-            public void onClick(String language) {
+            public void onPick(String language) {
                 textViewTargetLanguage.set(language);
             }
         });
+        languagePickerDialogViewModel.show();
+
+
     }
 
     public void modelChangeImageViewClick(View view) {//选择翻译模式，语言或者图文

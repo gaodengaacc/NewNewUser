@@ -95,10 +95,10 @@
 
 
     <declare-styleable name="ImageView">
-        <attr name="clickCommand" format="reference"/>
+        <attr name="clickCommand" format="reference" />
         <!--  load bitmap from uri(string type) -->
         <attr name="uri" />
-        <attr name="imageSrc" format="integer"/>
+        <attr name="imageSrc" format="integer" />
         <!--width for ResizeOptions (use Fresco to load bitmap). -->
         <attr name="request_width" format="integer" />
         <!--height for ResizeOptions (use Fresco to load bitmap). -->
@@ -130,7 +130,7 @@
         <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
         <attr name="items" />
         <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
-        <attr name="adapter"/>
+        <attr name="adapter" />
         <!-- require PageTitles<T>-->
         <attr name="pageTitles" format="reference" />
         <!--require ReplyCommand<ViewPagerDataWrapper> -->
@@ -168,7 +168,16 @@
     </declare-styleable>
     <declare-styleable name="TabLayout">
         <attr name="viewPage" format="reference"></attr>
-        <attr name="tabSelectListener" format="reference"/>
-        <attr name="initTab" format="reference"/>
+        <attr name="tabSelectListener" format="reference" />
+        <attr name="initTab" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="WheelView">
+        <attr name="ChangingListener" format="reference"></attr>
+        <attr name="ScrollingListener" format="reference"></attr>
+        <attr name="WheelViewAdapter" format="reference"></attr>
+        <attr name="VisibleItems" format="reference"></attr>
+        <attr name="CurrentItem" format="reference"></attr>
+        <attr name="Cyclic" format="reference"></attr>
+        <attr name="WheelForeground" format="reference"></attr>
     </declare-styleable>
 </resources>

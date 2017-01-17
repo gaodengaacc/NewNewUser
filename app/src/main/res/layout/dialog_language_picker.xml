@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -37,6 +38,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
+                android:onClick="@{mvvm.textViewDone}"
                 android:text="完成"
                 android:textColor="#00abfa"
                 android:textSize="12sp" />
@@ -44,14 +46,21 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="30dp" />
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/wheelView_language_picker"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
-            android:background="#f0f0f0"></kankan.wheel.widget.WheelView>
+            android:background="#f0f0f0"
+            app:ChangingListener="@{mvvm.changedListener}"
+            app:CurrentItem="@{mvvm.currentItem}"
+            app:Cyclic="@{mvvm.isCyclic}"
+            app:ScrollingListener="@{mvvm.scrollListener}"
+            app:VisibleItems="@{mvvm.visibleItem}"
+            app:WheelForeground="@{mvvm.foreground}"
+            app:WheelViewAdapter="@{mvvm.adapter}"></kankan.wheel.widget.WheelView>
     </LinearLayout>
 
 </layout>
