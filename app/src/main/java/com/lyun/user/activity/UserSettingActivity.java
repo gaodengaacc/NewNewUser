@@ -3,11 +3,9 @@ package com.lyun.user.activity;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
-import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityUserSettingBinding;
 import com.lyun.user.viewmodel.UserSettingViewModel;
@@ -21,6 +19,7 @@ import com.lyun.user.viewmodel.watchdog.IUserSettingViewModelCallbacks;
 
 public class UserSettingActivity extends GeneralToolbarActivity<ActivityUserSettingBinding, UserSettingViewModel>
         implements IUserSettingViewModelCallbacks {
+
     @Override
     protected int getBodyLayoutId() {
         return R.layout.activity_user_setting;

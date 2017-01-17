@@ -12,7 +12,8 @@ import com.lyun.user.databinding.ActivityLoginBinding;
 import com.lyun.user.viewmodel.LoginViewModel;
 import com.lyun.user.viewmodel.watchdog.ILoginViewModelCallbacks;
 
-public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, LoginViewModel> implements ILoginViewModelCallbacks {
+public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, LoginViewModel>
+        implements ILoginViewModelCallbacks {
 
     @Override
     protected int getBodyLayoutId() {

@@ -1,28 +1,15 @@
 package com.lyun.library.mvvm.viewmodel;
 
-import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.lyun.library.R;
-import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.model.Model;
-
-import net.funol.databinding.watchdog.annotations.WatchThis;
-
-import java.lang.ref.Reference;
-import java.lang.ref.SoftReference;
 
 /**
  * Created by ZHAOWEIWEI on 2016/12/21.
  */
 public class GeneralToolbarViewModel extends ViewModel {
-
-    public GeneralToolbarViewModel(Context context) {
-        super(context);
-    }
 
     public static class ToolbarViewModel extends ViewModel {
 
@@ -34,11 +21,12 @@ public class GeneralToolbarViewModel extends ViewModel {
         public final ObservableInt  functionImage = new ObservableInt();
         public final ObservableInt functionLeftVisibility = new ObservableInt();
         public final ObservableInt dividerVisibility = new ObservableInt();
+
         public final ObservableField<View.OnClickListener> onBackClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionLeftClick = new ObservableField<>();
-        public ToolbarViewModel(Context context) {
-            super(context);
+
+        public ToolbarViewModel() {
             title.set("标题");
             dividerVisibility.set(View.INVISIBLE);
         }

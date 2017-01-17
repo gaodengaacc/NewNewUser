@@ -16,7 +16,6 @@ import com.lyun.library.mvvm.observable.ObservableToast;
 import com.lyun.library.mvvm.observable.PropertyChangedCallback;
 import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
-import com.lyun.widget.dialog.ProgressBarDialog;
 
 public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewModel> extends BaseActivity {
 
@@ -85,6 +84,7 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
             mActivityViewModel.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Deprecated
     protected <T extends ViewModel> T registerViewModel(T viewModel) {
         viewModel.getActivity().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableActivity>() {
             @Override
@@ -97,7 +97,6 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
                 } else if (fieldId == BR.startActivityForResult) {
                     startActivityForResult(observable.getStartActivityForResult().get().getIntent(), observable.getStartActivityForResult().get().getRequestCode());
                 }
-
             }
         });
         viewModel.getToast().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableToast>() {

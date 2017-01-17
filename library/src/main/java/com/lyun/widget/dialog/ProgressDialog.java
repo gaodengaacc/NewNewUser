@@ -22,6 +22,7 @@ public class ProgressDialog extends Dialog {
 
     private Context context;
     private ProgressDialogViewModel viewModel;
+
     public ProgressDialog(Context context) {
         super(context, R.style.dialog);
         this.context = context;
@@ -33,16 +34,18 @@ public class ProgressDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         Window window = getWindow();
         window.setGravity(Gravity.CENTER); // 此处可以设置dialog显示的位置
-        DialogProgressBinding viewBinding =  DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.dialog_progress,null,false);
-        viewModel = new ProgressDialogViewModel(this.getContext());
+        DialogProgressBinding viewBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_progress, null, false);
+        viewModel = new ProgressDialogViewModel();
         viewBinding.setViewModel(viewModel);
         setContentView(viewBinding.getRoot());
         // 点击Dialog外部消失
         setCanceledOnTouchOutside(false);
     }
-   public void setMaxProgress(int maxProgress){
-       viewModel.maxProgress.set(maxProgress);
-   }
+
+    public void setMaxProgress(int maxProgress) {
+        viewModel.maxProgress.set(maxProgress);
+    }
+
     public void setProgress(int progress) {
         viewModel.progress.set(progress);
     }

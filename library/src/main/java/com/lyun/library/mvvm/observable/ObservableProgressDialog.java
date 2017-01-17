@@ -9,6 +9,7 @@ import android.databinding.BaseObservable;
  */
 
 public class ObservableProgressDialog extends BaseObservable {
+
     protected String text;
     protected boolean isShow;
 

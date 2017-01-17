@@ -13,6 +13,7 @@ import com.lyun.widget.dialog.ProgressBarDialog;
  */
 
 public class ProgressBarDialogViewModel extends ViewModel {
+
     public final ObservableField<String> progressText = new ObservableField<>();
     public final ObservableBoolean isShow = new ObservableBoolean();
     private LoadingCancelCallBack loadingCancel;

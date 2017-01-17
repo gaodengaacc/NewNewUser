@@ -1,6 +1,5 @@
 package com.lyun.library.mvvm.view.activity;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
     protected CVDB mBodyViewDataBinding;
     protected TVM mTitleViewModel;
     protected CVM mBodyViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
     @NonNull
     @Override
     protected DiyTitleViewModel createViewModel() {
-        return new DiyTitleViewModel(this);
+        return new DiyTitleViewModel().setPropertyChangeListener(this);
     }
 
     @NonNull

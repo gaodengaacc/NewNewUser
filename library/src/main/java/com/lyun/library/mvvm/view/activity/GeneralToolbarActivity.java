@@ -1,7 +1,6 @@
 package com.lyun.library.mvvm.view.activity;
 
 import android.databinding.ViewDataBinding;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.ViewStubCompat;
 
@@ -22,8 +21,7 @@ public abstract class GeneralToolbarActivity<VDB extends ViewDataBinding, VM ext
     @NonNull
     @Override
     protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
-
-        return new GeneralToolbarViewModel.ToolbarViewModel(this);
+        return new GeneralToolbarViewModel.ToolbarViewModel().setPropertyChangeListener(this);
     }
 
 }

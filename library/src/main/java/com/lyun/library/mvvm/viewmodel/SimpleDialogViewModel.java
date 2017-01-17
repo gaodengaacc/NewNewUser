@@ -13,12 +13,15 @@ import com.lyun.widget.dialog.SimpleMessageDialog;
  * do(SimpleDialogViewModel类)
  */
 public class SimpleDialogViewModel extends ViewModel {
+
     public final ObservableField<String>  contentText = new ObservableField<>();
     public final ObservableField<String> btnCancelText = new ObservableField<>();
     public final ObservableField<String> btnOkText = new ObservableField<>();
+
     public final ObservableInt btnCancelVisible = new ObservableInt();
     public final ObservableInt btnOkVisible = new ObservableInt();
     public final ObservableInt dividerVisible = new ObservableInt();
+
     private SimpleMessageDialog.OnItemClickListener onItemClickListener;
 
     public SimpleDialogViewModel(Context context) {
