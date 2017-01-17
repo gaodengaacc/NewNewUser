@@ -7,7 +7,7 @@
         <import type="com.lyun.library.mvvm.viewmodel.ProgressDialogViewModel"></import>
 
         <variable
-            name="viewModel"
+            name="mvvm"
             type="ProgressDialogViewModel"></variable>
     </data>
 
@@ -26,8 +26,8 @@
             app:donut_finished_color="#2b8aff"
             app:donut_finished_stroke_width="2dp"
             app:donut_inner_bottom_text_color="#2b8aff"
-            app:donut_max="@{viewModel.maxProgress}"
-            app:donut_progress="@{viewModel.progress}"
+            app:donut_max="@{mvvm.maxProgress}"
+            app:donut_progress="@{mvvm.progress}"
             app:donut_progress_start_angle="-90"
             app:donut_text_color="#2b8aff"
             app:donut_unfinished_color="#f2f2f2"
@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:padding="5dp"
-            android:text="@{viewModel.text}"
+            android:text="@{mvvm.text}"
             android:textColor="#313131"
             android:textSize="16sp" />
     </LinearLayout>

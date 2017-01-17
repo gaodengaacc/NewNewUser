@@ -6,7 +6,7 @@
         <import type="com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel"></import>
 
         <variable
-            name="viewModel"
+            name="mvvm"
             type="SimpleDialogViewModel"></variable>
     </data>
 
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:maxWidth="200dp"
-            android:text="@{viewModel.contentText}"
+            android:text="@{mvvm.contentText}"
             android:textColor="#6c6666"
             android:textSize="16sp" />
 
@@ -45,19 +45,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
-                android:onClick="@{viewModel.onCancelClick}"
+                android:onClick="@{mvvm.onCancelClick}"
                 android:padding="10dp"
-                android:text="@{viewModel.btnCancelText}"
+                android:text="@{mvvm.btnCancelText}"
                 android:textColor="@color/cbp"
                 android:textSize="14sp"
-                android:visibility="@{viewModel.btnCancelVisible}" />
+                android:visibility="@{mvvm.btnCancelVisible}" />
 
             <TextView
                 android:id="@+id/simple_message_btn_divider"
                 android:layout_width="1px"
                 android:layout_height="fill_parent"
                 android:background="#cccccc"
-                android:visibility="@{viewModel.dividerVisible}" />
+                android:visibility="@{mvvm.dividerVisible}" />
 
             <Button
                 android:id="@+id/simple_message_btn_yes"
@@ -65,12 +65,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
-                android:onClick="@{viewModel.onOkClick}"
+                android:onClick="@{mvvm.onOkClick}"
                 android:padding="10dp"
-                android:text="@{viewModel.btnOkText}"
+                android:text="@{mvvm.btnOkText}"
                 android:textColor="@color/cbp"
                 android:textSize="14sp"
-                android:visibility="@{viewModel.btnOkVisible}" />
+                android:visibility="@{mvvm.btnOkVisible}" />
         </LinearLayout>
 
     </LinearLayout>

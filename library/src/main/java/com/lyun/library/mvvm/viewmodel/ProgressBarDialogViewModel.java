@@ -1,7 +1,6 @@
 package com.lyun.library.mvvm.viewmodel;
 
 import android.content.Context;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import com.lyun.widget.dialog.ProgressBarDialog;
@@ -12,16 +11,14 @@ import com.lyun.widget.dialog.ProgressBarDialog;
  * do()
  */
 
-public class ProgressBarDialogViewModel extends ViewModel {
+public class ProgressBarDialogViewModel extends DialogViewModel {
     public final ObservableField<String> progressText = new ObservableField<>();
-    public final ObservableBoolean isShow = new ObservableBoolean();
     private LoadingCancelCallBack loadingCancel;
-
     public ProgressBarDialogViewModel(Context context, String text) {
         super(context);
         progressText.set(text);
         init();
-        ProgressBarDialog dialog = new ProgressBarDialog(getContext(), this);
+        new ProgressBarDialog(getContext(), this);
     }
 
     private void init() {
@@ -31,7 +28,7 @@ public class ProgressBarDialogViewModel extends ViewModel {
     public ProgressBarDialogViewModel(Context context) {
         super(context);
         init();
-        ProgressBarDialog dialog = new ProgressBarDialog(getContext(), this);
+        new ProgressBarDialog(getContext(), this);
     }
 
     public interface LoadingCancelCallBack {
@@ -45,13 +42,8 @@ public class ProgressBarDialogViewModel extends ViewModel {
     public void setMessage(String message) {
         progressText.set(message);
     }
-
-    public void show() {
-        if (getContext() != null) {
-            isShow.set(true);
-        }
-    }
     public void dismiss(){
+        super.dismiss();
        if(loadingCancel!=null)
            loadingCancel.loadCancel();
         isShow.set(false);
