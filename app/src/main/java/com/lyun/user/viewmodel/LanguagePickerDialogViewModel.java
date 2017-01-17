@@ -55,15 +55,6 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
         new LanguagePickerDialog(getContext(), this);
     }
 
-
-//    public LanguagePickerDialogViewModel(Context context) {
-//        super(context);
-//
-//        initData();
-//        setDataOne(listLanguagePicker);
-//        LanguagePickerDialog languagePickerDialog = new LanguagePickerDialog(getContext(), this);
-//    }
-
     private void initData() {
         languageTextAdapter = new LanguageTextAdapter(getContext(), listLanguagePicker, 0, maxTextSize, minTextSize);
 
