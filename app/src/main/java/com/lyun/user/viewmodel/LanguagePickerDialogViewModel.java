@@ -7,14 +7,13 @@ import android.databinding.ObservableInt;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.library.mvvm.viewmodel.DialogViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.LanguageTextAdapter;
 import com.lyun.user.dialog.LanguagePickerDialog;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;
@@ -23,7 +22,7 @@ import kankan.wheel.widget.WheelView;
  * Created by 郑成裕 on 2017/1/11.
  */
 
-public class LanguagePickerDialogViewModel extends ViewModel {
+public class LanguagePickerDialogViewModel extends DialogViewModel {
     public final ObservableField<OnWheelChangedListener> changedListener = new ObservableField<>();
     public final ObservableField<OnWheelScrollListener> scrollListener = new ObservableField<>();
     public final ObservableField<LanguageTextAdapter> adapter = new ObservableField<>();
@@ -49,13 +48,21 @@ public class LanguagePickerDialogViewModel extends ViewModel {
 
     private PickLanguage pickLanguage;
 
-
     public LanguagePickerDialogViewModel(Context context) {
         super(context);
-        LanguagePickerDialog languagePickerDialog = new LanguagePickerDialog(getContext(), this);
         initData();
         setDataOne(listLanguagePicker);
+        new LanguagePickerDialog(getContext(), this);
     }
+
+
+//    public LanguagePickerDialogViewModel(Context context) {
+//        super(context);
+//
+//        initData();
+//        setDataOne(listLanguagePicker);
+//        LanguagePickerDialog languagePickerDialog = new LanguagePickerDialog(getContext(), this);
+//    }
 
     private void initData() {
         languageTextAdapter = new LanguageTextAdapter(getContext(), listLanguagePicker, 0, maxTextSize, minTextSize);
@@ -153,13 +160,4 @@ public class LanguagePickerDialogViewModel extends ViewModel {
         this.pickLanguage = pickLanguage;
     }
 
-    public void show() {
-        if (getContext() != null) {
-            isShow.set(true);
-        }
-    }
-
-    public void dismiss() {
-        isShow.set(false);
-    }
 }

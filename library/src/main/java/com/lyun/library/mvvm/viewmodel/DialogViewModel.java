@@ -25,7 +25,6 @@ public class DialogViewModel extends ViewModel {
             isShow.notifyChange();
         }
     }
-
     public void dismiss() {
         isDismiss.notifyChange();
     }

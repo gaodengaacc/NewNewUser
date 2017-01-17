@@ -1,21 +1,14 @@
 package com.lyun.user.viewmodel;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.lyun.library.mvvm.bindingadapter.linearlayout.ViewBindingAdapter;
-import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
-import com.lyun.user.activity.ServiceCategoryActivity;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by 郑成裕 on 2016/12/30.
@@ -33,9 +26,9 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
 
     public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
-    int linearLayoutWidth;//控件宽度
-
     public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();//目标语言
+
+    LanguagePickerDialogViewModel languagePickerDialogViewModel;
 
     public SpecialistTranslationFragmentViewModel(Context context) {
 
@@ -53,7 +46,10 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     }
 
     public void languagePickerLinearLayoutClick(View view) {//选取目标语言
-        LanguagePickerDialogViewModel languagePickerDialogViewModel = new LanguagePickerDialogViewModel(getContext());
+        if (languagePickerDialogViewModel == null) {
+            languagePickerDialogViewModel = new LanguagePickerDialogViewModel(getContext());
+        }
+
         languagePickerDialogViewModel.setPickLanguage(new LanguagePickerDialogViewModel.PickLanguage() {
             @Override
             public void onPick(String language) {
@@ -78,45 +74,6 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
             textViewColor1.set(Color.parseColor("#333333"));
             textViewColor2.set(Color.parseColor("#ffb900"));
             mCommunicationModel = false;
-        }
-    }
-
-    //获取linearlayout的宽度
-    public ViewBindingAdapter.GetWidthListener listener = new ViewBindingAdapter.GetWidthListener() {
-        @Override
-        public void getWidthListening(int width) {
-            linearLayoutWidth = width;
-        }
-    };
-
-    public void languageLinearLayoutClick(View view) {
-        if (showPopupWindow.get() == true) {
-            showPopupWindow.set(false);
-        } else {
-            showPopupWindow.set(true);
-        }
-    }
-
-    public void categoryRelativeLayoutClick(View view) {
-//        Intent intent = new Intent(getContext(), ServiceCategoryActivity.class);
-
-//        intent.putExtra("languageCategory", textViewCategoryChange.getText().toString());//传递服务类别
-        ObservableActivity.Request request = new ObservableActivity.Request(REQUEST_CODE, new Intent(getContext(), ServiceCategoryActivity.class)
-                .putExtra("languageCategory", textViewCategoryChange.get().toString()));
-        getActivity().startActivityForResult(request);
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            if (!(data == null) && !(data.equals(""))) {
-                Bundle bundle = data.getExtras();
-                if (!(bundle.equals("")) && !(bundle == null)) {
-                    textViewCategoryChange.set(bundle.getString("category"));
-                }
-            }
         }
     }
 }
