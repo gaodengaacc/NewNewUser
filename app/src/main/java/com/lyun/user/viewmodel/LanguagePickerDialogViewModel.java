@@ -24,9 +24,6 @@ import kankan.wheel.widget.WheelView;
  */
 
 public class LanguagePickerDialogViewModel extends ViewModel {
-    @BindView(R.id.textView_completed)
-    TextView textViewCompleted;
-
     public final ObservableField<OnWheelChangedListener> changedListener = new ObservableField<>();
     public final ObservableField<OnWheelScrollListener> scrollListener = new ObservableField<>();
     public final ObservableField<LanguageTextAdapter> adapter = new ObservableField<>();
