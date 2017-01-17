@@ -29,9 +29,6 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public final ObservableField<String> textViewCategoryChange = new ObservableField<>();//服务类型
     public final ObservableField<Boolean> showPopupWindow = new ObservableField<>();
     private final int REQUEST_CODE = 10000;
-
-    public final ObservableField<String> textViewLanguage1 = new ObservableField<>();
-    public final ObservableField<String> textViewLanguage2 = new ObservableField<>();
     public final ObservableField<ViewTreeObserver.OnGlobalLayoutListener> linearLayoutListener = new ObservableField<>();
 
     public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
@@ -53,10 +50,6 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         textViewColor1.set(Color.parseColor("#40d12d"));
         textViewColor2.set(Color.parseColor("#333333"));
         textViewTargetLanguage.set("英语");
-//        textViewCategoryChange.set("普通服务");
-//        showPopupWindow.set(true);
-//        textViewLanguage1.set("中文");
-//        textViewLanguage2.set("英文");
     }
 
     public void languagePickerLinearLayoutClick(View view) {//选取目标语言
@@ -126,6 +119,4 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
             }
         }
     }
-
-
 }
