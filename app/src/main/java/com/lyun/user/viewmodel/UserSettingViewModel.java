@@ -24,7 +24,6 @@ public class UserSettingViewModel extends ViewModel {
     public UserSettingViewModel() {
         init();
     }
-
     private void init() {
         appVersion.set(BuildConfig.VERSION_NAME);
     }

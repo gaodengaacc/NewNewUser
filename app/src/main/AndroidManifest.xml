@@ -35,15 +35,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ServiceCategoryActivity"
-            android:theme="@style/GlobalTitleTheme">
-            <intent-filter>
-                <action android:name="com.lyun.user.intent.action.SERVICE_CATEGORY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".activity.UserSettingActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>

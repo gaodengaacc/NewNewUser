@@ -16,22 +16,19 @@
         android:background="@mipmap/bg_fragment_specialist_translation"
         android:orientation="vertical">
 
-        <RelativeLayout
+
+        <TextView
+            android:id="@+id/textView_title_change"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="60dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="@{mvvm.textViewModelChange}"
+            android:textColor="#000000"
+            android:textSize="30sp" />
 
-            <TextView
-                android:id="@+id/textView_title_change"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="60dp"
-                android:layout_marginTop="50dp"
-                android:text="@{mvvm.textViewModelChange}"
-                android:textColor="#000000"
-                android:textSize="30sp" />
-
-        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -71,19 +68,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="106dp"
                         android:orientation="horizontal"
-                        android:weightSum="3">
+                        android:weightSum="5">
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginLeft="5dp"
                                 android:layout_marginTop="26dp"
                                 android:gravity="center"
                                 android:text="我的语言"
@@ -99,56 +95,36 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginLeft="5dp"
                                 android:gravity="center"
                                 android:text="汉语"
                                 android:textColor="#333333"
-                                android:textSize="22sp" />
+                                android:textSize="28sp" />
                         </LinearLayout>
 
-                        <LinearLayout
+
+                        <ImageView
+                            android:id="@+id/imageView"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
                             android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="26dp"
-                                android:gravity="center"
-                                android:text="目标语言"
-                                android:textColor="#ffffff"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:src="@mipmap/selector_fragment_specialist_translation" />
-                        </LinearLayout>
+                            android:src="@mipmap/selector_fragment_specialist_translation" />
 
 
                         <LinearLayout
                             android:id="@+id/linearLayout_languagePicker"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:onClick="@{mvvm.languagePickerLinearLayoutClick}"
                             android:orientation="vertical">
 
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginRight="5dp"
                                 android:layout_marginTop="26dp"
                                 android:gravity="center"
                                 android:text="目标语言"
@@ -164,11 +140,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginRight="5dp"
                                 android:gravity="center"
                                 android:text="@{mvvm.textViewTargetLanguage}"
                                 android:textColor="#00abfa"
-                                android:textSize="22sp" />
+                                android:textSize="28sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -214,10 +189,8 @@
                             android:textSize="12sp" />
                     </RelativeLayout>
                 </LinearLayout>
-
             </LinearLayout>
         </RelativeLayout>
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -232,5 +205,6 @@
                 android:layout_marginBottom="20dp"
                 app:imageSrc="@{mvvm.imageViewModelChange}" />
         </RelativeLayout>
+
     </LinearLayout>
 </layout>

@@ -1,11 +1,14 @@
 package com.lyun.user.viewmodel;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Build;
 import android.view.View;
 
+import com.lyun.library.mvvm.viewmodel.ProgressDialogViewModel;
+import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 
@@ -21,7 +24,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public final ObservableInt exitVisible = new ObservableInt();//退出登录按钮的显示
     public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
     private Intent intent;
-    public UserCenterFragmentViewModel(){
+    public UserCenterFragmentViewModel() {
         init();
     }
     private void init() {
@@ -54,16 +57,31 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 exit();
                 break;
             case R.id.user_center_name:
-                login();
+                login(view);
                 break;
             default:
                 break;
         }
-
     }
 
-    private void login() {
+    private void login(View view) {
         getActivity().startActivity(new Intent("com.lyun.user.intent.action.LOGIN"));
+//        if (viewModel == null)
+//            viewModel = new SimpleDialogViewModel(view.getContext());
+//        viewModel.setYesBtnText("是");
+//        viewModel.setCancelBtnText("否");
+//        viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
+//            @Override
+//            public void OnYesClick(View view) {
+//                getToast().show("yes");
+//            }
+//
+//            @Override
+//            public void OnCancelClick(View view) {
+//              getToast().show("no");
+//            }
+//        });
+//        viewModel.show();
     }
 
     private void exit() {

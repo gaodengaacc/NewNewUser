@@ -28,7 +28,6 @@ public class BaseActivity extends FragmentActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        initViews();
     }
 
     public void onResume() {
@@ -89,22 +88,6 @@ public class BaseActivity extends FragmentActivity  {
             intent.putExtras(pBundle);
         }
         startActivity(intent);
-    }
-
-    protected void initViews() {
-        progressBar = new ProgressBarDialog(this);
-        progressBar.setCanceledOnTouchOutside(false);
-    }
-
-    public void show() {
-        if (progressBar != null && !progressBar.isShowing()) {
-            progressBar.show();
-        }
-    }
-    public void dismiss() {
-        if (progressBar != null && progressBar.isShowing()) {
-            progressBar.dismiss();
-        }
     }
 
     @Override
