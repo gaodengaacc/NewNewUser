@@ -1,6 +1,5 @@
 package com.lyun.user.viewmodel;
 
-import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.graphics.Color;
@@ -30,9 +29,7 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
 
     LanguagePickerDialogViewModel languagePickerDialogViewModel;
 
-    public SpecialistTranslationFragmentViewModel(Context context) {
-
-        super(context);
+    public SpecialistTranslationFragmentViewModel() {
         initData();
     }
 
@@ -47,15 +44,10 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
 
     public void languagePickerLinearLayoutClick(View view) {//选取目标语言
         if (languagePickerDialogViewModel == null) {
-            languagePickerDialogViewModel = new LanguagePickerDialogViewModel(getContext());
+            languagePickerDialogViewModel = new LanguagePickerDialogViewModel(view.getContext());
         }
 
-        languagePickerDialogViewModel.setPickLanguage(new LanguagePickerDialogViewModel.PickLanguage() {
-            @Override
-            public void onPick(String language) {
-                textViewTargetLanguage.set(language);
-            }
-        });
+        languagePickerDialogViewModel.setPickLanguage(language -> textViewTargetLanguage.set(language));
         languagePickerDialogViewModel.show();
     }
 

@@ -19,7 +19,6 @@ import com.lyun.library.mvvm.observable.ObservableToast;
 import com.lyun.library.mvvm.observable.PropertyChangedCallback;
 import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
-import com.lyun.widget.dialog.ProgressBarDialog;
 
 /**
  * @author Gordon
@@ -92,7 +91,7 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
         viewDataBinding.unbind();
         viewDataBinding.executePendingBindings();
     }
-
+    @Deprecated
     protected <T extends ViewModel> T registerViewModel(final T viewModel) {
         viewModel.getActivity().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableActivity>() {
             @Override

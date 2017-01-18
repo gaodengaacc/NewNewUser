@@ -1,6 +1,5 @@
 package com.lyun.adapter;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.library.mvvm.InterfaceBindView;
 import com.lyun.library.mvvm.OnRecycleItemClickListener;
+import com.lyun.library.mvvm.viewmodel.ViewModel;
 
 import java.util.List;
 
@@ -21,23 +20,19 @@ import java.util.List;
  */
 
 public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends ViewModel> extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseRecyclerHolder> implements InterfaceBindView<DB,VM> {
-    public LayoutInflater layoutInflater;
     public List<VM> viewModels;
-    public Context context;
     public int layoutId;
 
     private OnRecycleItemClickListener itemClickListener;
     private OnRecycleItemClickListener itemLongClickListener;
 
-    public BaseRecyclerAdapter(Context context, List<VM> viewModels, int layoutId) {
-        this.context = context;
+    public BaseRecyclerAdapter(List<VM> viewModels, int layoutId) {
         this.viewModels = viewModels;
-        layoutInflater = LayoutInflater.from(context);
         this.layoutId = layoutId;
     }
     @Override
     public BaseRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        DB dataBinding = DataBindingUtil.inflate(layoutInflater, layoutId, parent, false);
+        DB dataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), layoutId, parent, false);
         return new BaseRecyclerHolder<DB>(dataBinding.getRoot(), dataBinding);
     }
 

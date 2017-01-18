@@ -33,7 +33,7 @@ public class SpecialistTranslationFragment extends MvvmFragment<FragmentSpeciali
     @NonNull
     @Override
     protected SpecialistTranslationFragmentViewModel createViewModel() {
-        return new SpecialistTranslationFragmentViewModel(this.getContext());
+        return new SpecialistTranslationFragmentViewModel();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.lyun.user.viewmodel;
 
-import android.content.Context;
 import android.databinding.ObservableField;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -29,9 +28,7 @@ public class MainActivityViewModel extends ViewModel {
     public final ObservableField<RelayCommand> relayCommandViewPage = new ObservableField<>();
     public final ObservableField<TabLayout.OnTabSelectedListener> tabListener = new ObservableField<>();
     public final ObservableField<ViewBindAdapter.TabData> tabData = new ObservableField<>();
-//    public final ObservableField<Boolean> showWidow = new ObservableField<>();
     private FragmentManager mFragmentManager;
-    private int tabIndex = 0;
     private List<Fragment> fragments;
     public MainActivityViewModel(ViewPager viewPager,FragmentManager mFragmentManager) {
         this.viewPage.set(viewPager);
@@ -52,11 +49,11 @@ public class MainActivityViewModel extends ViewModel {
         tabListener.set(onTabSelectedListener);
         ViewBindAdapter.TabData tabData = new ViewBindAdapter.TabData();
         tabData.setTabs(tabs);
-        tabData.setIndex(tabIndex);
+        tabData.setIndex(0);
         this.tabData.set(tabData);
     }
 
-    RelayCommand<ViewPager> relayCommand = new RelayCommand<ViewPager>((viewPage) -> {
+    RelayCommand<ViewPager> relayCommand = new RelayCommand<>((viewPage) -> {
         viewPage.setAdapter(new MainPagerAdapter(viewPage.getContext(), mFragmentManager, fragments));
     });
     //设置监听底部按钮
@@ -65,7 +62,6 @@ public class MainActivityViewModel extends ViewModel {
         public void onTabSelected(TabLayout.Tab tab) {
             try {
                 ((CheckBox) tab.getCustomView()).setChecked(true);
-                 tabIndex = tab.getPosition();
             } catch (Exception e) {
 
             }
@@ -84,7 +80,6 @@ public class MainActivityViewModel extends ViewModel {
         public void onTabReselected(TabLayout.Tab tab) {
             try {
                 ((CheckBox) tab.getCustomView()).setChecked(true);
-                tabIndex = tab.getPosition();
             } catch (Exception e) {
 
             }
