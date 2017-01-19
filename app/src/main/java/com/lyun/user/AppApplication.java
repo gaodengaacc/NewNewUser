@@ -2,13 +2,13 @@ package com.lyun.user;
 
 import android.app.Activity;
 
+import com.lyun.ApplicationDelegate;
 import com.lyun.BaseApplication;
 import com.lyun.http.LogInterceptor;
 import com.lyun.user.api.API;
-import com.lyun.utils.CrashUtil;
+import com.lyun.user.im.NimApplicationDelegate;
 import com.lyun.utils.L;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +32,13 @@ public class AppApplication extends BaseApplication {
         } else {
             API.init(Constants.API_BASE_URL);
         }
+    }
+
+    @Override
+    protected List<ApplicationDelegate> getDelegates() {
+        List<ApplicationDelegate> delegates = super.getDelegates();
+        delegates.add(new NimApplicationDelegate(this));
+        return delegates;
     }
 
     @Override

@@ -63,7 +63,9 @@
         </activity>
         <activity android:name=".activity.RegisterVerifyPhoneActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.FindPasswordActivity"></activity>
+        <activity android:name=".activity.FindPasswordActivity" />
+        <activity android:name=".im.activity.ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

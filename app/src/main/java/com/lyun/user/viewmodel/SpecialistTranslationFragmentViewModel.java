@@ -1,20 +1,25 @@
 package com.lyun.user.viewmodel;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
+
+import net.funol.databinding.watchdog.annotations.WatchThis;
 
 /**
  * Created by 郑成裕 on 2016/12/30.
  */
 
 public class SpecialistTranslationFragmentViewModel extends ViewModel {
+
     public final ObservableInt imageViewModelChange = new ObservableInt();
     public final ObservableInt modelChange = new ObservableInt();
     public final ObservableField<String> textViewModelChange = new ObservableField<>();
@@ -29,6 +34,13 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();//目标语言
 
     LanguagePickerDialogViewModel languagePickerDialogViewModel;
+
+    @WatchThis
+    public final BaseObservable onRequestTranslation = new BaseObservable();
+
+    public RelayCommand onRequestTranslationButtonClick = new RelayCommand(()->{
+        onRequestTranslation.notifyChange();
+    });
 
     public SpecialistTranslationFragmentViewModel(Context context) {
 
