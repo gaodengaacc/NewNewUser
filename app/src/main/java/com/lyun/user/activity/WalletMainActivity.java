@@ -1,7 +1,6 @@
 package com.lyun.user.activity;
 
-import android.databinding.Observable;
-import android.os.Bundle;
+import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
 import android.view.WindowManager;
 
@@ -9,6 +8,7 @@ import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityWalletMainBinding;
 import com.lyun.user.viewmodel.WalletMainViewModel;
+import com.lyun.user.viewmodel.watchdog.IWalletMainViewModelCallbacks;
 
 /**
  * @author Gordon
@@ -16,13 +16,7 @@ import com.lyun.user.viewmodel.WalletMainViewModel;
  * do()
  */
 
-public class WalletMainActivity extends GeneralToolbarActivity<ActivityWalletMainBinding, WalletMainViewModel> {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addObservableViewModel(getBodyViewModel());
-    }
-
+public class WalletMainActivity extends GeneralToolbarActivity<ActivityWalletMainBinding, WalletMainViewModel> implements IWalletMainViewModelCallbacks{
     @Override
     protected int getBodyLayoutId() {
         return R.layout.activity_wallet_main;
@@ -31,24 +25,21 @@ public class WalletMainActivity extends GeneralToolbarActivity<ActivityWalletMai
     @NonNull
     @Override
     protected WalletMainViewModel createBodyViewModel() {
-        return new WalletMainViewModel(this,getTitleViewDataBinding().getMvvm());
+        return new WalletMainViewModel(getTitleViewDataBinding().getMvvm()).setPropertyChangeListener(this);
     }
 
-    public void addObservableViewModel(WalletMainViewModel viewModel) {
-        viewModel.activityBg.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                if (viewModel.activityBg.get() == true)
-                    backgroundAlpha(1f);
-                else
-                    backgroundAlpha(0.5f);
-            }
-        });
-    }
 
     public void backgroundAlpha(float bgAlpha) {
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.alpha = bgAlpha;
         getWindow().setAttributes(layoutParams);
+    }
+
+    @Override
+    public void activityBg(ObservableBoolean observableField, int fieldId) {
+        if (observableField.get() == true)
+            backgroundAlpha(0.5f);
+        else
+            backgroundAlpha(1f);
     }
 }

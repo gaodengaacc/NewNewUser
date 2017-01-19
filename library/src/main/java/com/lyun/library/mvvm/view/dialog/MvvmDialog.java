@@ -19,12 +19,10 @@ import com.lyun.library.mvvm.viewmodel.watchdog.IDialogViewModelCallbacks;
 
 public abstract class MvvmDialog<VDB extends ViewDataBinding, VM extends DialogViewModel> extends Dialog implements IDialogViewModelCallbacks {
     protected VM mDialogViewModel;
-    private LayoutInflater inflater;
     private int layoutId;
 
     public MvvmDialog(@NonNull Context context, VM mDialogViewModel, int layoutId, int themeId) {
         super(context, themeId);
-        inflater = LayoutInflater.from(context);
         this.layoutId = layoutId;
         this.mDialogViewModel = mDialogViewModel;
         mDialogViewModel.setPropertyChangeListener(this);
@@ -32,7 +30,7 @@ public abstract class MvvmDialog<VDB extends ViewDataBinding, VM extends DialogV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VDB viewBinding = DataBindingUtil.inflate(inflater, layoutId, null, false);
+        VDB viewBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), layoutId, null, false);
         viewBinding.setVariable(BR.mvvm, mDialogViewModel);
         this.setContentView(viewBinding.getRoot());
     }

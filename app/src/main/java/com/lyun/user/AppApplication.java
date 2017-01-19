@@ -1,7 +1,5 @@
 package com.lyun.user;
 
-import android.app.Activity;
-
 import com.lyun.ApplicationDelegate;
 import com.lyun.BaseApplication;
 import com.lyun.http.LogInterceptor;
@@ -9,7 +7,6 @@ import com.lyun.user.api.API;
 import com.lyun.user.im.NimApplicationDelegate;
 import com.lyun.utils.L;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,9 +15,6 @@ import java.util.List;
  */
 
 public class AppApplication extends BaseApplication {
-
-    private List<Activity> mList = new LinkedList<Activity>();
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,22 +38,5 @@ public class AppApplication extends BaseApplication {
     @Override
     protected String getStorageHomeDirName() {
         return "law-cloud/user";
-    }
-
-    //添加创建的Activity
-    public void addActivity(Activity activity) {
-        mList.add(activity);
-    }
-
-    //关闭每一个list内的activity
-    public void exit() {
-        try {
-            for (Activity activity : mList) {
-                if (activity != null)
-                    activity.finish();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

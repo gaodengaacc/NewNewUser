@@ -1,7 +1,5 @@
 package com.lyun.user.adapter;
 
-import android.content.Context;
-
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.user.databinding.ItemWalletMainPopwindowBinding;
 import com.lyun.user.viewmodel.WalletMainPopDesItemViewModel;
@@ -16,8 +14,8 @@ import java.util.List;
 
 public class WalletMainPopAdapter extends BaseRecyclerAdapter<ItemWalletMainPopwindowBinding,WalletMainPopDesItemViewModel> {
 
-    public WalletMainPopAdapter(Context context, List<WalletMainPopDesItemViewModel> viewModels, int layoutId) {
-        super(context, viewModels, layoutId);
+    public WalletMainPopAdapter(List<WalletMainPopDesItemViewModel> viewModels, int layoutId) {
+        super(viewModels, layoutId);
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.databinding.ObservableInt;
 import android.view.View;
 
 import com.lyun.library.mvvm.command.RelayCommand;
-import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 
@@ -16,9 +15,7 @@ import com.lyun.user.R;
  */
 
 public class WalletChargeViewModel extends ViewModel {
-    public WalletChargeViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
-        toolbarViewModel.title.set("购买");
-        toolbarViewModel.onBackClick.set((v)->getActivity().finish());
+    public WalletChargeViewModel() {
         init();
     }
 

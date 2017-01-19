@@ -1,12 +1,11 @@
 package com.lyun.user.viewmodel;
 
-import android.content.Context;
 import android.content.Intent;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.PopupWindow;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
@@ -14,7 +13,8 @@ import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainRecorderAdapter;
-import com.lyun.user.dialog.WalletMainPopWindow;
+
+import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +30,10 @@ public class WalletMainViewModel extends ViewModel {
     public final ObservableField<String> unUserTime = new ObservableField<>();
     public final ObservableField<String> balance = new ObservableField<>();
     public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>();
-    public final ObservableField<Boolean> activityBg = new ObservableField<>();
+    @WatchThis
+    public final ObservableBoolean activityBg = new ObservableBoolean();
 
-    public WalletMainViewModel(Context context,GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
-        super(context);
+    public WalletMainViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
         toolbarViewModel.title.set("钱包");
         toolbarViewModel.onBackClick.set((v)->getActivity().finish());
         toolbarViewModel.functionImage.set(R.mipmap.wallet_main_function_des_icon);
@@ -53,7 +53,7 @@ public class WalletMainViewModel extends ViewModel {
             viewModel.description.set("-100元");
             list.add(viewModel);
         }
-        WalletMainRecorderAdapter adapter = new WalletMainRecorderAdapter(getContext(), list, R.layout.wallet_main_recorder_item);
+        WalletMainRecorderAdapter adapter = new WalletMainRecorderAdapter(list, R.layout.wallet_main_recorder_item);
         recorderAdapter.set(adapter);
 //        notifyData.set(list);
     }
@@ -62,9 +62,9 @@ public class WalletMainViewModel extends ViewModel {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
     });
     private void showPop(View v) {
-        activityBg.set(false);
-        WalletMainPopWindow popWindow = new WalletMainPopWindow(v.getContext());
-        popWindow.setOnDismissListener(()->activityBg.set(true));
+        activityBg.set(true);
+        WalletMainPopViewModel popWindow = new WalletMainPopViewModel(v.getContext());
+        popWindow.setOnDismissListener(()->activityBg.set(false));
         popWindow.showAsDropDown(v);
     }
 }
