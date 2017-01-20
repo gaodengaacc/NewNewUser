@@ -59,7 +59,7 @@ android {
     }
 
     sourceSets {
-        main{
+        main {
             res.srcDirs += 'src/main/res-nim'
         }
     }
@@ -78,7 +78,7 @@ android {
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
 
             manifestPlaceholders.putAll([
-                    app_icon          : "@drawable/ic_debug_launcher",
+                    NIM_APPKEY        : "45c6af3c98409b18a84451215d0bdd6e",
                     UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
                     BaiduMobAd_STAT_ID: "ac161ce77e"])
         }
@@ -97,7 +97,7 @@ android {
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
 
             manifestPlaceholders.putAll([
-                    app_icon          : "@drawable/ic_launcher",
+                    NIM_APPKEY        : "45c6af3c98409b18a84451215d0bdd6e",
                     UMENG_APP_KEY     : "55a45f2967e58e1f1400529a",
                     BaiduMobAd_STAT_ID: "dc2fb90b27"])
         }
@@ -113,7 +113,7 @@ android {
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
 
             manifestPlaceholders.putAll([
-                    app_icon          : "@drawable/ic_alpha_launcher",
+                    NIM_APPKEY        : "45c6af3c98409b18a84451215d0bdd6e",
                     UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
                     BaiduMobAd_STAT_ID: "ac161ce77e"])
         }
@@ -144,6 +144,7 @@ android {
 
     productFlavors.all { flavor ->
         flavor.manifestPlaceholders.putAll([
+                APPLICATION_ID    : defaultConfig.applicationId,
                 VERSION_CODE      : defaultConfig.versionCode,
                 VERSION_NAME      : defaultConfig.versionName,
                 BaiduMobAd_CHANNEL: name,

@@ -6,6 +6,7 @@ import android.os.Handler;
 
 import com.lyun.activity.BaseActivity;
 import com.lyun.user.R;
+import com.lyun.user.im.avchat.activity.AVChatActivity;
 
 public class SplashActivity extends BaseActivity {
     private static int sleepTime = 3500;
@@ -17,7 +18,7 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         mHandler.postDelayed(() -> {
             Intent intent = new Intent();
-            intent.setClass(SplashActivity.this, MainActivity.class);
+            intent.setClass(SplashActivity.this, AVChatActivity.class);
             startActivity(intent);
             finish();
         }, sleepTime);
