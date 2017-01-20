@@ -1,6 +1,6 @@
 package com.lyun.user.im.session.extension;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 
 import java.util.Random;
 
@@ -49,14 +49,14 @@ public class GuessAttachment extends CustomAttachment {
     }
 
     @Override
-    protected void parseData(JSONObject data) {
-        value = Guess.enumOfValue(data.getIntValue("value"));
+    protected void parseData(JsonObject data) {
+        value = Guess.enumOfValue(data.get("value").getAsInt());
     }
 
     @Override
-    protected JSONObject packData() {
-        JSONObject data = new JSONObject();
-        data.put("value", value.getValue());
+    protected JsonObject packData() {
+        JsonObject data = new JsonObject();
+        data.addProperty("value", value.getValue());
         return data;
     }
 

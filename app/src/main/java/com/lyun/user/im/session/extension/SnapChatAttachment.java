@@ -2,7 +2,7 @@ package com.lyun.user.im.session.extension;
 
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.netease.nimlib.sdk.msg.attachment.FileAttachment;
 
 /**
@@ -19,24 +19,24 @@ public class SnapChatAttachment extends FileAttachment {
         super();
     }
 
-    public SnapChatAttachment(JSONObject data) {
+    public SnapChatAttachment(JsonObject data) {
         load(data);
     }
 
     @Override
     public String toJson(boolean send) {
-        JSONObject data = new JSONObject();
+        JsonObject data = new JsonObject();
         try {
             if (!send && !TextUtils.isEmpty(path)) {
-                data.put(KEY_PATH, path);
+                data.addProperty(KEY_PATH, path);
             }
 
             if (!TextUtils.isEmpty(md5)) {
-                data.put(KEY_MD5, md5);
+                data.addProperty(KEY_MD5, md5);
             }
 
-            data.put(KEY_URL, url);
-            data.put(KEY_SIZE, size);
+            data.addProperty(KEY_URL, url);
+            data.addProperty(KEY_SIZE, size);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,10 +44,10 @@ public class SnapChatAttachment extends FileAttachment {
         return CustomAttachParser.packData(CustomAttachmentType.SnapChat, data);
     }
 
-    private void load(JSONObject data) {
-        path = data.getString(KEY_PATH);
-        md5 = data.getString(KEY_MD5);
-        url = data.getString(KEY_URL);
-        size = data.containsKey(KEY_SIZE) ? data.getLong(KEY_SIZE) : 0;
+    private void load(JsonObject data) {
+        path = data.get(KEY_PATH).getAsString();
+        md5 = data.get(KEY_MD5).getAsString();
+        url = data.get(KEY_URL).getAsString();
+        size = data.has(KEY_SIZE) ? data.get(KEY_SIZE).getAsLong() : 0;
     }
 }

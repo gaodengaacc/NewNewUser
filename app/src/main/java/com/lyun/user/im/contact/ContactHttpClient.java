@@ -3,8 +3,8 @@ package com.lyun.user.im.contact;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.config.DemoServers;
 import com.netease.nim.uikit.common.http.NimHttpClient;
@@ -103,17 +103,13 @@ public class ContactHttpClient {
                     return;
                 }
 
-                try {
-                    JSONObject resObj = JSONObject.parseObject(response);
-                    int resCode = resObj.getIntValue(RESULT_KEY_RES);
-                    if (resCode == RESULT_CODE_SUCCESS) {
-                        callback.onSuccess(null);
-                    } else {
-                        String error = resObj.getString(RESULT_KEY_ERROR_MSG);
-                        callback.onFailed(resCode, error);
-                    }
-                } catch (JSONException e) {
-                    callback.onFailed(-1, e.getMessage());
+                JsonObject resObj = new JsonParser().parse(response).getAsJsonObject();
+                int resCode = resObj.get(RESULT_KEY_RES).getAsInt();
+                if (resCode == RESULT_CODE_SUCCESS) {
+                    callback.onSuccess(null);
+                } else {
+                    String error = resObj.get(RESULT_KEY_ERROR_MSG).getAsString();
+                    callback.onFailed(resCode, error);
                 }
             }
         });

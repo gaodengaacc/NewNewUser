@@ -1,6 +1,6 @@
 package com.lyun.user.im.session.extension;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.netease.nim.uikit.common.util.file.FileUtil;
 
 /**
@@ -25,16 +25,16 @@ public class StickerAttachment extends CustomAttachment {
     }
 
     @Override
-    protected void parseData(JSONObject data) {
-        this.catalog = data.getString(KEY_CATALOG);
-        this.chartlet = data.getString(KEY_CHARTLET);
+    protected void parseData(JsonObject data) {
+        this.catalog = data.get(KEY_CATALOG).getAsString();
+        this.chartlet = data.get(KEY_CHARTLET).getAsString();
     }
 
     @Override
-    protected JSONObject packData() {
-        JSONObject data = new JSONObject();
-        data.put(KEY_CATALOG, catalog);
-        data.put(KEY_CHARTLET, chartlet);
+    protected JsonObject packData() {
+        JsonObject data = new JsonObject();
+        data.addProperty(KEY_CATALOG, catalog);
+        data.addProperty(KEY_CHARTLET, chartlet);
         return data;
     }
 

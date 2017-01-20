@@ -21,7 +21,6 @@ import com.lyun.user.im.session.activity.MessageInfoActivity;
 import com.lyun.user.im.session.extension.CustomAttachParser;
 import com.lyun.user.im.session.extension.CustomAttachment;
 import com.lyun.user.im.session.extension.GuessAttachment;
-import com.lyun.user.im.session.extension.RTSAttachment;
 import com.lyun.user.im.session.extension.SnapChatAttachment;
 import com.lyun.user.im.session.extension.StickerAttachment;
 import com.lyun.user.im.session.search.SearchMessageActivity;
@@ -29,7 +28,6 @@ import com.lyun.user.im.session.viewholder.MsgViewHolderAVChat;
 import com.lyun.user.im.session.viewholder.MsgViewHolderDefCustom;
 import com.lyun.user.im.session.viewholder.MsgViewHolderFile;
 import com.lyun.user.im.session.viewholder.MsgViewHolderGuess;
-import com.lyun.user.im.session.viewholder.MsgViewHolderRTS;
 import com.lyun.user.im.session.viewholder.MsgViewHolderSnapChat;
 import com.lyun.user.im.session.viewholder.MsgViewHolderSticker;
 import com.lyun.user.im.session.viewholder.MsgViewHolderTip;
@@ -322,7 +320,7 @@ public class SessionHelper {
         NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
         NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
         NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
-        NimUIKit.registerMsgItemViewHolder(RTSAttachment.class, MsgViewHolderRTS.class);
+        //NimUIKit.registerMsgItemViewHolder(RTSAttachment.class, MsgViewHolderRTS.class);
         NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
     }
 
@@ -357,8 +355,8 @@ public class SessionHelper {
                     // 接收到的消息，附件没有下载成功，不允许转发
                     return true;
                 } else if (message.getMsgType() == MsgTypeEnum.custom && message.getAttachment() != null
-                        && (message.getAttachment() instanceof SnapChatAttachment
-                        || message.getAttachment() instanceof RTSAttachment)) {
+                        && (message.getAttachment() instanceof SnapChatAttachment)) {
+                    // || message.getAttachment() instanceof RTSAttachment)) {
                     // 白板消息和阅后即焚消息 不允许转发
                     return true;
                 }
@@ -375,8 +373,8 @@ public class SessionHelper {
             @Override
             public boolean shouldIgnore(IMMessage message) {
                 if (message.getAttachment() != null
-                        && (message.getAttachment() instanceof AVChatAttachment
-                        || message.getAttachment() instanceof RTSAttachment)) {
+                        && (message.getAttachment() instanceof AVChatAttachment)) {
+                    //|| message.getAttachment() instanceof RTSAttachment)) {
                     // 视频通话消息和白板消息 不允许撤回
                     return true;
                 } else if (NimCache.getAccount().equals(message.getSessionId())) {

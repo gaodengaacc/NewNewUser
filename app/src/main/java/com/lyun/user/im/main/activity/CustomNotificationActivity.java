@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.lyun.user.R;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.main.helper.CustomNotificationCache;
@@ -239,10 +239,10 @@ public class CustomNotificationActivity extends UI implements TAdapterDelegate {
     }
 
     private void sendCustomNotification(String account, String content) {
-        JSONObject obj = new JSONObject();
-        obj.put("id", "2");
-        obj.put("content", content);
-        String jsonContent = obj.toJSONString();
+        JsonObject obj = new JsonObject();
+        obj.addProperty("id", "2");
+        obj.addProperty("content", content);
+        String jsonContent = obj.toString();
 
         CustomNotification notification = new CustomNotification();
         notification.setFromAccount(NimCache.getAccount());

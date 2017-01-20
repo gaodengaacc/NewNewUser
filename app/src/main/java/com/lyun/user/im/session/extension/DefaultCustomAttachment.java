@@ -1,6 +1,7 @@
 package com.lyun.user.im.session.extension;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * Created by zhoujianghua on 2015/4/10.
@@ -14,15 +15,15 @@ public class DefaultCustomAttachment extends CustomAttachment {
     }
 
     @Override
-    protected void parseData(JSONObject data) {
-        content = data.toJSONString();
+    protected void parseData(JsonObject data) {
+        content = data.toString();
     }
 
     @Override
-    protected JSONObject packData() {
-        JSONObject data = null;
+    protected JsonObject packData() {
+        JsonObject data = null;
         try {
-            data = JSONObject.parseObject(content);
+            data = new JsonParser().parse(content).getAsJsonObject();
         } catch (Exception e) {
 
         }

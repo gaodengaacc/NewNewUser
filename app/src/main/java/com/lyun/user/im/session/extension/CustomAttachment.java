@@ -1,6 +1,6 @@
 package com.lyun.user.im.session.extension;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 
 /**
@@ -14,7 +14,7 @@ public abstract class CustomAttachment implements MsgAttachment {
         this.type = type;
     }
 
-    public void fromJson(JSONObject data) {
+    public void fromJson(JsonObject data) {
         if (data != null) {
             parseData(data);
         }
@@ -29,6 +29,6 @@ public abstract class CustomAttachment implements MsgAttachment {
         return type;
     }
 
-    protected abstract void parseData(JSONObject data);
-    protected abstract JSONObject packData();
+    protected abstract void parseData(JsonObject data);
+    protected abstract JsonObject packData();
 }

@@ -3,7 +3,8 @@ package com.lyun.user.im.main.viewholder;
 import android.view.View;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.lyun.user.R;
 import com.lyun.user.im.main.helper.MessageHelper;
 import com.netease.nim.uikit.common.adapter.TViewHolder;
@@ -57,13 +58,13 @@ public class CustomNotificationViewHolder extends TViewHolder {
     }
 
     private void updateMsgLabel() {
-        JSONObject jsonObj = com.alibaba.fastjson.JSONObject.parseObject(notification.getContent());
-        String id = jsonObj.getString("id");
+        JsonObject jsonObj = new JsonParser().parse(notification.getContent()).getAsJsonObject();
+        String id = jsonObj.get("id").getAsString();
         String content;
         if (id != null && id.equals("1")) {
             content = "正在输入...";
         } else {
-            content = jsonObj.getString("content");
+            content = jsonObj.get("content").getAsString();
         }
         lblMessage.setText(content);
 

@@ -1,7 +1,7 @@
 package com.lyun.user.im.session.extension;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachmentParser;
 
@@ -17,9 +17,9 @@ public class CustomAttachParser implements MsgAttachmentParser {
     public MsgAttachment parse(String json) {
         CustomAttachment attachment = null;
         try {
-            JSONObject object = JSON.parseObject(json);
-            int type = object.getInteger(KEY_TYPE);
-            JSONObject data = object.getJSONObject(KEY_DATA);
+            JsonObject object = new JsonParser().parse(json).getAsJsonObject();
+            int type = object.get(KEY_TYPE).getAsInt();
+            JsonObject data = object.get(KEY_DATA).getAsJsonObject();
             switch (type) {
                 case CustomAttachmentType.Guess:
                     attachment = new GuessAttachment();
@@ -29,9 +29,9 @@ public class CustomAttachParser implements MsgAttachmentParser {
                 case CustomAttachmentType.Sticker:
                     attachment = new StickerAttachment();
                     break;
-                case CustomAttachmentType.RTS:
-                    attachment = new RTSAttachment();
-                    break;
+//                case CustomAttachmentType.RTS:
+//                    attachment = new RTSAttachment();
+//                    break;
                 default:
                     attachment = new DefaultCustomAttachment();
                     break;
@@ -47,13 +47,13 @@ public class CustomAttachParser implements MsgAttachmentParser {
         return attachment;
     }
 
-    public static String packData(int type, JSONObject data) {
-        JSONObject object = new JSONObject();
-        object.put(KEY_TYPE, type);
+    public static String packData(int type, JsonObject data) {
+        JsonObject object = new JsonObject();
+        object.addProperty(KEY_TYPE, type);
         if (data != null) {
-            object.put(KEY_DATA, data);
+            object.add(KEY_DATA, data);
         }
 
-        return object.toJSONString();
+        return object.toString();
     }
 }

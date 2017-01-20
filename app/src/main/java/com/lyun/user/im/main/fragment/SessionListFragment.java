@@ -14,7 +14,6 @@ import com.lyun.user.im.main.model.MainTab;
 import com.lyun.user.im.main.reminder.ReminderManager;
 import com.lyun.user.im.session.SessionHelper;
 import com.lyun.user.im.session.extension.GuessAttachment;
-import com.lyun.user.im.session.extension.RTSAttachment;
 import com.lyun.user.im.session.extension.SnapChatAttachment;
 import com.lyun.user.im.session.extension.StickerAttachment;
 import com.netease.nim.uikit.common.activity.UI;
@@ -218,8 +217,8 @@ public class SessionListFragment extends MainTabFragment {
                 if (attachment instanceof GuessAttachment) {
                     GuessAttachment guess = (GuessAttachment) attachment;
                     return guess.getValue().getDesc();
-                } else if (attachment instanceof RTSAttachment) {
-                    return "[白板]";
+//                } else if (attachment instanceof RTSAttachment) {
+//                    return "[白板]";
                 } else if (attachment instanceof StickerAttachment) {
                     return "[贴图]";
                 } else if (attachment instanceof SnapChatAttachment) {
