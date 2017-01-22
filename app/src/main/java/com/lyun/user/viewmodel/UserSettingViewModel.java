@@ -2,11 +2,9 @@ package com.lyun.user.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
-import android.view.View;
 
 import com.lyun.library.BuildConfig;
 import com.lyun.library.mvvm.command.RelayCommand;
-import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;

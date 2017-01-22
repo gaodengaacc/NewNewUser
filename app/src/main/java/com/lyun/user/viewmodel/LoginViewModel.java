@@ -4,10 +4,10 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
 import com.lyun.library.mvvm.command.RelayCommand;
-import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.api.response.LoginResponse;
+import com.lyun.user.im.login.NimLoginHelper;
 import com.lyun.user.model.LoginModel;
-import com.lyun.utils.L;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -30,12 +30,7 @@ public class LoginViewModel extends ViewModel {
     public final BaseObservable onLoginSuccess = new BaseObservable();
 
     public RelayCommand onLoginButtonClick = new RelayCommand(() -> {
-        new LoginModel().login(username.get(), password.get())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginResponseAPIResult -> onLoginSuccess.notifyChange(), throwable -> {
-                    onLoginSuccess.notifyChange();
-                    L.e("tag", throwable);
-                });
+        login(username.get(), password.get());
     });
 
     public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
@@ -45,5 +40,23 @@ public class LoginViewModel extends ViewModel {
     public RelayCommand onFindPasswordButtonClick = new RelayCommand(() -> {
         onNavigationFindPassword.notifyChange();
     });
+
+    private void login(String username, String password) {
+        new LoginModel().login(username, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(loginResponseAPIResult -> {
+                    loginNim(username, password, loginResponseAPIResult.getContent());
+                }, throwable -> {
+
+                });
+    }
+
+    private void loginNim(String username, String token, LoginResponse loginResponse) {
+        NimLoginHelper.login(username, token).subscribe(loginInfo -> {
+            onLoginSuccess.notifyChange();
+        }, throwable -> {
+
+        });
+    }
 
 }

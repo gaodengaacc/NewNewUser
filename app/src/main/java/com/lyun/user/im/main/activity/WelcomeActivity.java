@@ -7,11 +7,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.lyun.user.R;
+import com.lyun.user.activity.LoginActivity;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.avchat.activity.AVChatActivity;
 import com.lyun.user.im.common.util.sys.SysInfoUtil;
 import com.lyun.user.im.config.preference.Preferences;
-import com.lyun.user.im.login.LoginActivity;
 import com.lyun.user.im.main.model.Extras;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;

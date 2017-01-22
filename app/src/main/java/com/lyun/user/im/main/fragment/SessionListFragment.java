@@ -6,9 +6,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lyun.user.R;
+import com.lyun.user.activity.LoginActivity;
 import com.lyun.user.im.config.preference.Preferences;
-import com.lyun.user.im.login.LoginActivity;
-import com.lyun.user.im.login.LogoutHelper;
+import com.lyun.user.im.login.NimLoginHelper;
 import com.lyun.user.im.main.activity.MultiportActivity;
 import com.lyun.user.im.main.model.MainTab;
 import com.lyun.user.im.main.reminder.ReminderManager;
@@ -168,7 +168,7 @@ public class SessionListFragment extends MainTabFragment {
     // 注销
     private void onLogout() {
         // 清理缓存&注销监听&清除状态
-        LogoutHelper.logout();
+        NimLoginHelper.logout();
 
         LoginActivity.start(getActivity(), true);
         getActivity().finish();

@@ -2,6 +2,7 @@ package com.lyun.user.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
 import com.lyun.user.databinding.FragmentUserCenterBinding;

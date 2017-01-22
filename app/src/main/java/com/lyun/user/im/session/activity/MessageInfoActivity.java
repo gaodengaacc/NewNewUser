@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lyun.user.R;
-import com.lyun.user.im.NimCache;
 import com.lyun.user.im.contact.activity.UserProfileActivity;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.NimUserInfoCache;

@@ -1,14 +1,11 @@
 package com.lyun.user.viewmodel;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Build;
 import android.view.View;
 
-import com.lyun.library.mvvm.viewmodel.ProgressDialogViewModel;
-import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 

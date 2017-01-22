@@ -12,12 +12,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.lyun.user.R;
+import com.lyun.user.activity.LoginActivity;
 import com.lyun.user.im.avchat.AVChatProfile;
 import com.lyun.user.im.avchat.activity.AVChatActivity;
 import com.lyun.user.im.config.preference.UserPreferences;
 import com.lyun.user.im.contact.activity.AddFriendActivity;
-import com.lyun.user.im.login.LoginActivity;
-import com.lyun.user.im.login.LogoutHelper;
+import com.lyun.user.im.login.NimLoginHelper;
 import com.lyun.user.im.main.fragment.HomeFragment;
 import com.lyun.user.im.main.model.Extras;
 import com.lyun.user.im.session.SessionHelper;
@@ -294,7 +294,7 @@ public class MainActivity extends UI {
     // 注销
     private void onLogout() {
         // 清理缓存&注销监听
-        LogoutHelper.logout();
+        NimLoginHelper.logout();
 
         // 启动登录
         LoginActivity.start(this);

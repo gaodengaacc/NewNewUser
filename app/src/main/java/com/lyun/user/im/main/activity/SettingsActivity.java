@@ -226,7 +226,7 @@ public class SettingsActivity extends UI implements SettingsAdapter.SwitchChange
                 CustomNotificationActivity.start(SettingsActivity.this);
                 break;
             case TAG_ABOUT:
-                startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
+//                startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
                 break;
             case TAG_CLEAR:
                 NIMClient.getService(MsgService.class).clearMsgDatabase(true);

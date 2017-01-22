@@ -4,7 +4,6 @@ import com.lyun.api.response.APIResult;
 import com.lyun.user.api.APIConstants;
 import com.lyun.user.api.request.LoginBean;
 import com.lyun.user.api.response.LoginResponse;
-import com.lyun.user.api.response.UserInfo;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;

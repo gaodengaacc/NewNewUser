@@ -1,6 +1,5 @@
 package com.lyun.user.viewmodel;
 
-import android.content.Context;
 import android.databinding.ObservableField;
 
 import com.lyun.library.mvvm.viewmodel.ViewModel;
