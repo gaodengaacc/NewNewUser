@@ -3,6 +3,7 @@ package com.lyun.user.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -12,9 +13,12 @@ import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityLoginBinding;
+import com.lyun.user.im.session.SessionHelper;
 import com.lyun.user.viewmodel.LoginViewModel;
 import com.lyun.user.viewmodel.watchdog.ILoginViewModelCallbacks;
 import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialogHelper;
+import com.netease.nim.uikit.session.SessionCustomization;
+import com.netease.nim.uikit.session.activity.P2PMessageActivity;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.ClientType;
@@ -98,7 +102,14 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
     @Override
     public void onLoginSuccess(BaseObservable observableField, int fieldId) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_LONG).show();
+        SessionHelper.startP2PSession(this, "123456");
         finish();
+    }
+
+    @Override
+    public void onLoginFailed(ObservableField<Throwable> observableField, int fieldId) {
+        Toast.makeText(this, observableField.get().getMessage(), Toast.LENGTH_LONG).show();
+        observableField.get().printStackTrace();
     }
 
 }

@@ -36,14 +36,12 @@ public class AppApplication extends BaseApplication {
     }
 
     private HeaderInterceptor mHeaderInterceptor = new HeaderInterceptor() {
-
         @Override
         public Headers getHeaders() {
             return new Headers.Builder()
                     .add("Authorization", Account.preference().getToken() + "")
                     .build();
         }
-
     };
 
     private SSLSocketFactory getSSLSocketFactory() {
