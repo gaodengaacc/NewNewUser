@@ -27,6 +27,7 @@ public abstract class MvvmDialog<VDB extends ViewDataBinding, VM extends DialogV
         this.mDialogViewModel = mDialogViewModel;
         mDialogViewModel.setPropertyChangeListener(this);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public abstract class MvvmDialog<VDB extends ViewDataBinding, VM extends DialogV
 
     @Override
     public void isDismiss(ObservableBoolean observableField, int fieldId) {
-        if(isShowing())
-        dismiss();
+        if (isShowing())
+            dismiss();
     }
 }

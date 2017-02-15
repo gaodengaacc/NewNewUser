@@ -8,5 +8,7 @@ package com.lyun.user.api;
 public class APIConstants {
 
     public static final String LOGIN = "login/";
+    public static final String REGISTERVERIFYPHONE="";
+    public static final String REGISTER = "register/";
 
 }

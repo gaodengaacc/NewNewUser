@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:background="@color/bgc1"
         android:orientation="vertical">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,33 +29,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
-                    android:paddingBottom="15dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp">
+
                     <RelativeLayout
                         android:id="@+id/layout_height_top"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:layout_alignParentTop="true"
                         android:visibility="@{mvvm.topVisible}"></RelativeLayout>
+
                     <ImageView
                         android:id="@+id/user_center_settting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_below="@+id/layout_height_top"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="15dp"
-                        android:src="@mipmap/user_setting_icon"
-                        android:layout_below="@+id/layout_height_top"
-                        android:onClick="@{mvvm.onViewClick}"/>
+                        android:onClick="@{mvvm.onViewClick}"
+                        android:src="@mipmap/user_setting_icon" />
 
                     <ImageView
                         android:id="@+id/user_center_avatar"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:onClick="@{mvvm.onViewClick}"
+                        android:layout_below="@+id/layout_height_top"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
-                        android:layout_below="@+id/layout_height_top"
+                        android:onClick="@{mvvm.onViewClick}"
                         android:src="@mipmap/user_default_avatar" />
 
                     <TextView
@@ -64,17 +67,17 @@
                         android:layout_below="@+id/user_center_avatar"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="@{mvvm.userName}"
                         android:onClick="@{mvvm.onViewClick}"
-                        android:textSize="15sp"
-                        android:textColor="@color/tcw" />
+                        android:text="@{mvvm.userName}"
+                        android:textColor="@color/tcw"
+                        android:textSize="15sp" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:orientation="horizontal"
                     android:background="@color/bgcw"
+                    android:orientation="horizontal"
                     android:weightSum="3">
 
                     <RelativeLayout
@@ -93,18 +96,18 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:text="@{mvvm.userTime}"
-                                android:textSize="14sp"
-                                android:textColor="@color/tc1" />
+                                android:textColor="@color/tc1"
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:textColor="@color/tc2"
                                 android:layout_below="@+id/user_center_min"
+                                android:layout_centerHorizontal="true"
                                 android:layout_marginTop="5dp"
-                                android:textSize="13sp"
-                                android:text="使用时长" />
+                                android:text="使用时长"
+                                android:textColor="@color/tc2"
+                                android:textSize="13sp" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -131,18 +134,18 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:text="@{mvvm.userNum}"
-                                android:textSize="14sp"
-                                android:textColor="@color/tc1" />
+                                android:textColor="@color/tc1"
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:textColor="@color/tc2"
                                 android:layout_below="@+id/user_center_time"
+                                android:layout_centerHorizontal="true"
                                 android:layout_marginTop="5dp"
-                                android:textSize="13sp"
-                                android:text="总呼叫" />
+                                android:text="总呼叫"
+                                android:textColor="@color/tc2"
+                                android:textSize="13sp" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -153,61 +156,62 @@
                         android:layout_marginTop="15dp"
                         android:background="@color/lc1" />
 
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
                         <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/user_center_type"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true">
+                                android:layout_centerHorizontal="true"
+                                android:text="@{mvvm.userLanguage}"
+                                android:textColor="@color/tc1"
+                                android:textSize="14sp" />
 
-                                <TextView
-                                    android:id="@+id/user_center_type"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="@{mvvm.userLanguage}"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/tc1" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:textColor="@color/tc2"
-                                    android:layout_below="@+id/user_center_type"
-                                    android:layout_marginTop="5dp"
-                                    android:textSize="13sp"
-                                    android:text="接触语种" />
-                            </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/user_center_type"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:text="接触语种"
+                                android:textColor="@color/tc2"
+                                android:textSize="13sp" />
                         </RelativeLayout>
+                    </RelativeLayout>
 
-                    </LinearLayout>
+                </LinearLayout>
 
 
                 <TextView
-                    style="@style/main_fragment_discover_item"
                     android:id="@+id/user_center_wallet"
+                    style="@style/main_fragment_discover_item"
                     android:layout_marginTop="10dp"
                     android:drawableLeft="@mipmap/user_wallet_icon"
                     android:onClick="@{mvvm.onViewClick}"
                     android:text="钱包" />
+
                 <Button
                     android:id="@+id/user_center_exit"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="95dp"
-                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/bg_no_border_round_corner"
+                    android:onClick="@{mvvm.onViewClick}"
                     android:text="退出登录"
                     android:textColor="@android:color/white"
                     android:textSize="15sp"
-                    android:onClick="@{mvvm.onViewClick}"
-                    android:visibility="@{mvvm.exitVisible}"
-                    android:background="@drawable/bg_no_border_round_corner"/>
+                    android:visibility="@{mvvm.exitVisible}" />
             </LinearLayout>
 
         </ScrollView>

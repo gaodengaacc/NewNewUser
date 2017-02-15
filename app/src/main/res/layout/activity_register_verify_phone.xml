@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -51,6 +51,7 @@
                 android:hint="手机号"
                 android:maxLines="1"
                 android:padding="10dp"
+                android:text="@{mvvm.username}"
                 android:textSize="14sp" />
 
             <LinearLayout
@@ -73,6 +74,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:padding="10dp"
+                    android:text="@{mvvm.smscode}"
                     android:textSize="14sp" />
 
                 <Button
@@ -81,7 +83,8 @@
                     android:layout_weight="3"
                     android:background="@drawable/no_border_right_round_corner_primary_bg"
                     android:text="获取验证码"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    app:clickCommand="@{mvvm.onGetSMSCodeButtonClick}" />
             </LinearLayout>
 
             <Button
@@ -93,9 +96,9 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_no_border_round_corner"
                 android:text="下一步"
-                app:clickCommand="@{mvvm.onNextButtonClick}"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:clickCommand="@{mvvm.onNextButtonClick}" />
 
         </LinearLayout>
 
