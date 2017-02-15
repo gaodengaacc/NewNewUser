@@ -98,6 +98,7 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
     @Override
     public void onLoginSuccess(BaseObservable observableField, int fieldId) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_LONG).show();
+        finish();
     }
 
 }

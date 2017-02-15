@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.lyun.ApplicationDelegate;
 import com.lyun.user.AppApplication;
+import com.lyun.user.BuildConfig;
 import com.lyun.user.R;
 import com.lyun.user.activity.SplashActivity;
 import com.lyun.user.im.avchat.AVChatProfile;
@@ -58,7 +59,7 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
         NimCache.setContext(getApplication());
 
         // 注册小米推送appID 、appKey 以及在云信管理后台添加的小米推送证书名称，该逻辑放在 NIMClient init 之前
-        NIMPushClient.registerMiPush(getApplication(), "DEMO_MI_PUSH", "2882303761517502883", "5671750254883");
+        NIMPushClient.registerMiPush(getApplication(), BuildConfig.MIPUSH_CERT_NAME, BuildConfig.MIPUSH_APP_ID, BuildConfig.MIPUSH_APP_KEY);
         // 注册自定义小米推送消息处理，这个是可选项
         //NIMPushClient.registerMixPushMessageHandler(new DemoMixPushMessageHandler());
         NIMClient.init(getApplication(), getLoginInfo(), getOptions());

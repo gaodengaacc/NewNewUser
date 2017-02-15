@@ -22,7 +22,7 @@ import retrofit2.Converter;
 
 public class APIRequestBodyConverter<T> implements Converter<T, RequestBody> {
 
-    private static final MediaType MEDIA_TYPE = MediaType.parse("multipart/form-data; charset=UTF-8");
+    private static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
     private Gson gson;
@@ -41,7 +41,7 @@ public class APIRequestBodyConverter<T> implements Converter<T, RequestBody> {
         JsonWriter jsonWriter = gson.newJsonWriter(writer);
         adapter.write(jsonWriter, value);
         jsonWriter.close();
-        return RequestBody.create(MediaType.parse("application/json"), buffer.readString(UTF_8));
+        return RequestBody.create(MEDIA_TYPE, buffer.readString(UTF_8));
     }
 
 }

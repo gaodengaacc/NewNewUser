@@ -52,6 +52,9 @@ android {
         multiDexEnabled true
         signingConfig signingConfigs.debug
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "MIPUSH_APP_ID", '"2882303761517467815"'
+        buildConfigField "String", "MIPUSH_APP_KEY", '"5111746715815"'
     }
 
     dataBinding {
@@ -73,12 +76,14 @@ android {
             versionNameSuffix = " debug-${buildTime()}"
             applicationIdSuffix = 'debug'
 
-            buildConfigField "String", "HOST", '"http://172.16.157.147:8080"'
+            buildConfigField "String", "HOST", '"https://172.16.252.51:8443"'
+            buildConfigField "String", "MIPUSH_CERT_NAME", '"userdebug"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
 
             manifestPlaceholders.putAll([
-                    NIM_APPKEY        : "45c6af3c98409b18a84451215d0bdd6e",
+                    APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
+                    NIM_APPKEY        : "2bbbb39221e2ea7d61904f61acc72d52",
                     UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
                     BaiduMobAd_STAT_ID: "ac161ce77e"])
         }
@@ -97,7 +102,9 @@ android {
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
 
             manifestPlaceholders.putAll([
-                    NIM_APPKEY        : "45c6af3c98409b18a84451215d0bdd6e",
+                    APPLICATION_ID    : defaultConfig.applicationId,
+                    NIM_APPKEY        : "124ec74d7185ba1c8f7ee5c5207490ff",
+                    MIPUSH_CERT_NAME  : "user",
                     UMENG_APP_KEY     : "55a45f2967e58e1f1400529a",
                     BaiduMobAd_STAT_ID: "dc2fb90b27"])
         }
@@ -113,7 +120,9 @@ android {
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
 
             manifestPlaceholders.putAll([
-                    NIM_APPKEY        : "45c6af3c98409b18a84451215d0bdd6e",
+                    APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
+                    NIM_APPKEY        : "2bbbb39221e2ea7d61904f61acc72d52",
+                    MIPUSH_CERT_NAME  : "useralpha",
                     UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
                     BaiduMobAd_STAT_ID: "ac161ce77e"])
         }
@@ -151,7 +160,6 @@ android {
 
     productFlavors.all { flavor ->
         flavor.manifestPlaceholders.putAll([
-                APPLICATION_ID    : defaultConfig.applicationId,
                 VERSION_CODE      : defaultConfig.versionCode,
                 VERSION_NAME      : defaultConfig.versionName,
                 BaiduMobAd_CHANNEL: name,

@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.Account;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.im.login.NimLoginHelper;
 import com.lyun.user.model.LoginModel;
@@ -44,19 +45,22 @@ public class LoginViewModel extends ViewModel {
     private void login(String username, String password) {
         new LoginModel().login(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginResponseAPIResult -> {
-                    loginNim(username, password, loginResponseAPIResult.getContent());
-                }, throwable -> {
-
-                });
+                .subscribe(loginResponseAPIResult -> loginNim(username, password, loginResponseAPIResult.getContent()),
+                        throwable -> {
+                        });
     }
 
     private void loginNim(String username, String token, LoginResponse loginResponse) {
-        NimLoginHelper.login(username, token).subscribe(loginInfo -> {
-            onLoginSuccess.notifyChange();
-        }, throwable -> {
+        NimLoginHelper.login(username, token).subscribe(
+                loginInfo -> {
+                    Account.preference().savePhone(username);
+                    Account.preference().savePassword(password.get());
+                    Account.preference().saveToken(token);
+                    onLoginSuccess.notifyChange();
+                },
+                throwable -> {
 
-        });
+                });
     }
 
 }

@@ -30,6 +30,7 @@ public class LogInterceptor implements Interceptor {
         System.out.println("\n");
         System.out.println(chain.request().method() + " " + chain.request().url());
         System.out.println("-----------------= Request =-----------------");
+        System.out.println(chain.request().headers());
         System.out.println(prettyJson(bodyToString(chain.request())));
         System.out.println("-----------------= Response =-----------------");
         String bodyString = response.body().string();

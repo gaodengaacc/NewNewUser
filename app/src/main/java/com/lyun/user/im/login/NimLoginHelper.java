@@ -2,6 +2,7 @@ package com.lyun.user.im.login;
 
 import android.content.res.Resources;
 
+import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.config.preference.Preferences;
@@ -44,7 +45,7 @@ public class NimLoginHelper {
                         @Override
                         public void onFailed(int code) {
                             if (code == 302 || code == 404) {
-                                consumer.onError(new Exception(Resources.getSystem().getString(R.string.login_failed)));
+                                consumer.onError(new Exception(AppApplication.getInstance().getResources().getString(R.string.login_failed)));
                             } else {
                                 consumer.onError(new Exception("登录失败: " + code));
                             }

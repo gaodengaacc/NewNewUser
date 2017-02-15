@@ -2,6 +2,9 @@ package com.lyun.api;
 
 import com.lyun.http.APIClient;
 
+import javax.net.ssl.SSLSocketFactory;
+
+import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 
 /**
@@ -17,8 +20,8 @@ public class APIBase {
      *
      * @param baseUrl
      */
-    public static void init(String baseUrl) {
-        APIClient.init(baseUrl);
+    public static void init(String baseUrl, SSLSocketFactory sslSocketFactory, Interceptor tokenInterceptor) {
+        APIClient.init(baseUrl, sslSocketFactory, tokenInterceptor);
     }
 
     /**
@@ -27,8 +30,8 @@ public class APIBase {
      * @param baseUrl
      * @param interceptor
      */
-    public static void init(String baseUrl, Interceptor interceptor) {
-        APIClient.init(baseUrl, interceptor);
+    public static void init(String baseUrl, SSLSocketFactory sslSocketFactory, Interceptor tokenInterceptor, Interceptor interceptor) {
+        APIClient.init(baseUrl, sslSocketFactory, tokenInterceptor, interceptor);
     }
 
     /**

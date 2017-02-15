@@ -39,6 +39,6 @@ public class Preferences {
     }
 
     static SharedPreferences getSharedPreferences() {
-        return NimCache.getContext().getSharedPreferences("Demo", Context.MODE_PRIVATE);
+        return NimCache.getContext().getSharedPreferences("NimPreferences", Context.MODE_PRIVATE);
     }
 }

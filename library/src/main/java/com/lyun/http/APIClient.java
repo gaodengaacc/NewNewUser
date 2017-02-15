@@ -1,6 +1,7 @@
 package com.lyun.http;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.lyun.BaseApplication;
 import com.lyun.http.converter.APIConverterFactory;
 
 import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
@@ -17,11 +18,16 @@ import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
+import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.Route;
 import retrofit2.Retrofit;
 
 /**
@@ -37,12 +43,14 @@ public class APIClient {
     private APIClient() {
     }
 
-    private APIClient(String baseUrl, Interceptor interceptor) {
+    private APIClient(String baseUrl, SSLSocketFactory sslSocketFactory, Interceptor tokenInterceptor, Interceptor interceptor) {
         // 初始化OkHttpClient
         mOkHttpClient = new OkHttpClient.Builder()
                 // 忽略SSL验证
-                .sslSocketFactory(getSSLSocketFactory(), getTrustManager())
+                // .sslSocketFactory(getSSLSocketFactory(), getTrustManager())
+                .sslSocketFactory(sslSocketFactory, getTrustManager())
                 .hostnameVerifier(getHostnameVerifier())
+                .addInterceptor(tokenInterceptor)
                 .addInterceptor(interceptor)
                 .build();
 
@@ -62,7 +70,17 @@ public class APIClient {
      * @return
      */
     public static APIClient init(String baseUrl) {
-        return init(baseUrl, null);
+        return init(baseUrl, getSSLSocketFactory(), null);
+    }
+
+    /**
+     * 初始化APIClient
+     *
+     * @param baseUrl
+     * @return
+     */
+    public static APIClient init(String baseUrl, SSLSocketFactory sslSocketFactory, Interceptor tokenInterceptor) {
+        return init(baseUrl, sslSocketFactory, tokenInterceptor, null);
     }
 
     /**
@@ -72,11 +90,11 @@ public class APIClient {
      * @param interceptor
      * @return
      */
-    public static APIClient init(String baseUrl, Interceptor interceptor) {
+    public static APIClient init(String baseUrl, SSLSocketFactory sslSocketFactory, Interceptor tokenInterceptor, Interceptor interceptor) {
         if (mInstance == null) {
             synchronized (APIClient.class) {
                 if (mInstance == null) {
-                    mInstance = new APIClient(baseUrl, interceptor);
+                    mInstance = new APIClient(baseUrl, sslSocketFactory, tokenInterceptor, interceptor);
                 }
             }
         }
@@ -96,7 +114,7 @@ public class APIClient {
         return mRetrofit;
     }
 
-    protected X509TrustManager getTrustManager() {
+    protected static X509TrustManager getTrustManager() {
         return new X509TrustManager() {
             @Override
             public void checkClientTrusted(X509Certificate[] chain, String authType) throws
@@ -115,7 +133,7 @@ public class APIClient {
         };
     }
 
-    protected SSLSocketFactory getSSLSocketFactory() {
+    protected static SSLSocketFactory getSSLSocketFactory() {
         SSLSocketFactory sslSocketFactory = new SSLSocketFactory() {
             @Override
             public String[] getDefaultCipherSuites() {
