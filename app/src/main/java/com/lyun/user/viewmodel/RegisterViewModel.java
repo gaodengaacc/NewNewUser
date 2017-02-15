@@ -18,7 +18,14 @@ public class RegisterViewModel extends ViewModel {
     public final ObservableField<String> comfirmPassword = new ObservableField<>("");
 
     public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
+//        if ("".equals(username.get())){
+//        }else if ("".equals(password.get())){
+//        }else if ("".equals(comfirmPassword.get())){
+//        }else if (!(password.get()==comfirmPassword.get())){
+//        }else{
+//        }
         register(username.get(), password.get());
+        getActivity().finish();
     });
 
     private void register(String username, String password) {

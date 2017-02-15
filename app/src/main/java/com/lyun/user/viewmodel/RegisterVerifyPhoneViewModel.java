@@ -27,7 +27,9 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
 
     public RelayCommand onNextButtonClick = new RelayCommand(() -> {
+
         onVerifySuccess.notifyChange();
+        getActivity().finish();
     });
 
     private void getSmsCode(String username) {
