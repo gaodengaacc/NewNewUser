@@ -29,6 +29,8 @@ public class LoginViewModel extends ViewModel {
     public final BaseObservable onNavigationFindPassword = new BaseObservable();
     @WatchThis
     public final BaseObservable onLoginSuccess = new BaseObservable();
+    @WatchThis
+    public final ObservableField<Throwable> onLoginFailed = new ObservableField<>();
 
     public RelayCommand onLoginButtonClick = new RelayCommand(() -> {
         login(username.get(), password.get());
@@ -46,21 +48,18 @@ public class LoginViewModel extends ViewModel {
         new LoginModel().login(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loginResponseAPIResult -> loginNim(username, password, loginResponseAPIResult.getContent()),
-                        throwable -> {
-                        });
+                        throwable -> onLoginFailed.set(throwable));
     }
 
-    private void loginNim(String username, String token, LoginResponse loginResponse) {
-        NimLoginHelper.login(username, token).subscribe(
+    private void loginNim(String username, String password, LoginResponse loginResponse) {
+        NimLoginHelper.login(username, loginResponse.getYunXinToken()).subscribe(
                 loginInfo -> {
                     Account.preference().savePhone(username);
-                    Account.preference().savePassword(password.get());
-                    Account.preference().saveToken(token);
+                    Account.preference().savePassword(password);
+                    Account.preference().saveToken(loginResponse.getAppKey());
                     onLoginSuccess.notifyChange();
                 },
-                throwable -> {
-
-                });
+                throwable -> onLoginFailed.set(throwable));
     }
 
 }

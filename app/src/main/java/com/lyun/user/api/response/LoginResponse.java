@@ -8,13 +8,31 @@ import com.lyun.api.response.BaseResponse;
 
 public class LoginResponse extends BaseResponse {
 
+    /**
+     * userName : 13838502074
+     * telePhone : null
+     * identityCardNo : null
+     * nickName : null
+     * realName : null
+     * email : null
+     * language : null
+     * empAge : null
+     * introduction : null
+     * yunXinToken : 036db37bd336b5088014f1948f82bf87
+     * appKey : abc123
+     */
+
     private String userName;
-    private String password;
-    private String telePhone;
-    private String identityCardNo;
-    private String nickName;
-    private String realName;
-    private String email;
+    private Object telePhone;
+    private Object identityCardNo;
+    private Object nickName;
+    private Object realName;
+    private Object email;
+    private Object language;
+    private Object empAge;
+    private Object introduction;
+    private String yunXinToken;
+    private String appKey;
 
     public String getUserName() {
         return userName;
@@ -24,51 +42,83 @@ public class LoginResponse extends BaseResponse {
         this.userName = userName;
     }
 
-    public Object getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getTelePhone() {
+    public Object getTelePhone() {
         return telePhone;
     }
 
-    public void setTelePhone(String telePhone) {
+    public void setTelePhone(Object telePhone) {
         this.telePhone = telePhone;
     }
 
-    public String getIdentityCardNo() {
+    public Object getIdentityCardNo() {
         return identityCardNo;
     }
 
-    public void setIdentityCardNo(String identityCardNo) {
+    public void setIdentityCardNo(Object identityCardNo) {
         this.identityCardNo = identityCardNo;
     }
 
-    public String getNickName() {
+    public Object getNickName() {
         return nickName;
     }
 
-    public void setNickName(String nickName) {
+    public void setNickName(Object nickName) {
         this.nickName = nickName;
     }
 
-    public String getRealName() {
+    public Object getRealName() {
         return realName;
     }
 
-    public void setRealName(String realName) {
+    public void setRealName(Object realName) {
         this.realName = realName;
     }
 
-    public String getEmail() {
+    public Object getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Object email) {
         this.email = email;
+    }
+
+    public Object getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Object language) {
+        this.language = language;
+    }
+
+    public Object getEmpAge() {
+        return empAge;
+    }
+
+    public void setEmpAge(Object empAge) {
+        this.empAge = empAge;
+    }
+
+    public Object getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(Object introduction) {
+        this.introduction = introduction;
+    }
+
+    public String getYunXinToken() {
+        return yunXinToken;
+    }
+
+    public void setYunXinToken(String yunXinToken) {
+        this.yunXinToken = yunXinToken;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
     }
 }
