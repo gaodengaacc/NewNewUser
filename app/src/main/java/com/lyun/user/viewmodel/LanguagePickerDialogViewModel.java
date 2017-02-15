@@ -147,6 +147,7 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
         public void onPick(String language);
     }
 
+    //该方法为了让PickLanguage接口的方法在SpecialistTranslationFragmentViewModel中实现
     public void setPickLanguage(PickLanguage pickLanguage) {
         this.pickLanguage = pickLanguage;
     }

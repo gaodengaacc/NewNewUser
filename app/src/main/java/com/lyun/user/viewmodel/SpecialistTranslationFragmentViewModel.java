@@ -33,7 +33,7 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
         initData();
     }
 
-    public void initData() {
+    public void initData() {//初始化数据
         modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
         imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
         textViewModelChange.set("语音呼叫");

@@ -40,7 +40,7 @@ public class AppApplication extends BaseApplication {
         @Override
         public Headers getHeaders() {
             return new Headers.Builder()
-                    .add("Authorization", Account.preference().getToken())
+                    .add("Authorization", Account.preference().getToken() + "")
                     .build();
         }
 
