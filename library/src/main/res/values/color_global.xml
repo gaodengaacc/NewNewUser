@@ -46,7 +46,7 @@
     <!-- 背景色 -->
     <color name="bgcw">#ffffff</color>
     <color name="bgc0">#fcfcfc</color>
-    <color name="bgc1">#f7f7f7</color>
+    <color name="bgc1">#f0f0f0</color>
     <color name="bgc2">#ededed</color>
     <color name="bgc3">#e3e3e3</color>
     <color name="bgc4">#d9d9d9</color>
