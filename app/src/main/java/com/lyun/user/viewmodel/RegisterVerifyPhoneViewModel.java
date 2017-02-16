@@ -6,6 +6,7 @@ import android.databinding.ObservableField;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.model.RegisterVerifyPhoneModel;
+import com.lyun.utils.Validator;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -20,9 +21,19 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     public final ObservableField<String> smscode = new ObservableField<>("");//获取的验证码
     @WatchThis
     public final BaseObservable onVerifySuccess = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onNumberBlank = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onNumberWrong = new BaseObservable();
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
-        getSmsCode(username.get());
+        if (("".equals(username.get()) || (username.get() == null))) {
+            onNumberBlank.notifyChange();
+        } else if (!Validator.isMobileNO(username.get())) {
+            onNumberWrong.notifyChange();
+        } else {
+            getSmsCode(username.get());
+        }
     });
 
 

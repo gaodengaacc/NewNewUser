@@ -19,15 +19,30 @@ public class RegisterViewModel extends ViewModel {
 
     public final ObservableField<String> username = new ObservableField<>("");
     public final ObservableField<String> password = new ObservableField<>("");
-    public final ObservableField<String> comfirmPassword = new ObservableField<>("");
+    public final ObservableField<String> confirmPassword = new ObservableField<>("");
 
     @WatchThis
     public final BaseObservable onRegisterSuccess = new BaseObservable();
     @WatchThis
     public final ObservableField<Throwable> onRegisterFailed = new ObservableField<>();
+    @WatchThis
+    public final BaseObservable onPasswordBlank = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onConfirmPasswordBlank = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onPasswordSame = new BaseObservable();
 
     public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
-        register(username.get(), password.get());
+        if (("".equals(password.get())) || (null == password.get())) {
+            onPasswordBlank.notifyChange();
+        } else if (("".equals(confirmPassword.get())) || (null == confirmPassword.get())) {
+            onConfirmPasswordBlank.notifyChange();
+        } else if (!(password.get().equals(confirmPassword.get()))) {
+            onPasswordSame.notifyChange();
+        } else {
+            register(username.get(), password.get());
+        }
+
     });
 
     private void register(String username, String password) {
