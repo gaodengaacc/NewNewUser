@@ -38,5 +38,6 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
     @Override
     public void onVerifySuccess(BaseObservable observableField, int fieldId) {
         startActivity(new Intent(this, RegisterActivity.class));
+        finish();
     }
 }
