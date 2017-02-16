@@ -7,5 +7,13 @@ import com.lyun.api.response.BaseResponse;
  */
 
 public class RegisterVerifyPhoneRespose extends BaseResponse {
+    private String message;
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

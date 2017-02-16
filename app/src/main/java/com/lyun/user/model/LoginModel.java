@@ -22,6 +22,4 @@ public class LoginModel extends Model {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
-
-
 }
