@@ -7,17 +7,20 @@ import com.lyun.api.request.BaseRequest;
  */
 
 public class RegisterVerifyPhoneBean extends BaseRequest {
-    private String name;
+    private String cardNo;
 
-    public String getName() {
-        return name;
+    public RegisterVerifyPhoneBean(String cardNo) {
+
+        this.cardNo = cardNo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getCardNo() {
+        return cardNo;
     }
 
-    public RegisterVerifyPhoneBean(String name) {
-        this.name = name;
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
     }
+
+
 }
