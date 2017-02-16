@@ -27,10 +27,12 @@ public class Account {
         private String phone;
         private String password;
         private String token;
+        private boolean login;
 
         private final String KEY_PHONE = "phone";
         private final String KEY_PASSWORD = "password";
         private final String KEY_TOKEN = "token";
+        private final String KEY_LOGIN = "login";
 
         public String getPhone() {
             if (phone == null)
@@ -64,6 +66,15 @@ public class Account {
             this.token = token;
             saveString(KEY_TOKEN, token);
         }
+
+        public boolean isLogin() {
+            return getBoolean(KEY_LOGIN);
+        }
+
+        public void setLogin(boolean login) {
+            this.login = login;
+            saveBoolean(KEY_LOGIN, login);
+        }
     }
 
 
@@ -75,6 +86,16 @@ public class Account {
 
     private static String getString(String key) {
         return getSharedPreferences().getString(key, null);
+    }
+
+    private static void saveBoolean(String key, boolean value) {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+    private static boolean getBoolean(String key) {
+        return getSharedPreferences().getBoolean(key, false);
     }
 
     static SharedPreferences getSharedPreferences() {
