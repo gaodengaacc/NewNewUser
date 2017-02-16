@@ -26,4 +26,23 @@ public class TranslationOrderModel extends Model {
                 .observeOn(Schedulers.io());
     }
 
+    public enum OrderType {
+
+        // 0=图文 1=语音
+        MESSAGE("0"), AUDIO("1");
+
+        private String value;
+
+        OrderType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 }

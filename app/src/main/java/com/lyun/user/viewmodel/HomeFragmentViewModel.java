@@ -10,17 +10,20 @@ import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.model.TranslationOrderModel;
+import com.lyun.user.model.TranslationOrderModel.OrderType;
+
+import net.funol.databinding.watchdog.annotations.WatchThis;
 
 /**
  * Created by 郑成裕 on 2016/12/30.
  */
 
-public class SpecialistTranslationFragmentViewModel extends ViewModel {
+public class HomeFragmentViewModel extends ViewModel {
 
     public final ObservableInt imageViewModelChange = new ObservableInt();
     public final ObservableInt modelChange = new ObservableInt();
     public final ObservableField<String> textViewModelChange = new ObservableField<>();
-    private boolean mTranslationAudioMode = false;
+    private OrderType mTranslationOrderType = OrderType.MESSAGE;
     public final ObservableField<String> textViewCategoryChange = new ObservableField<>();//服务类型
     public final ObservableField<Boolean> showPopupWindow = new ObservableField<>();
     private final int REQUEST_CODE = 10000;
@@ -30,9 +33,12 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();//目标语言
 
+    @WatchThis
+    public final ObservableField<OrderType> onTranslationOrderGenerated = new ObservableField<>();
+
     LanguagePickerDialogViewModel languagePickerDialogViewModel;
 
-    public SpecialistTranslationFragmentViewModel() {
+    public HomeFragmentViewModel() {
         initData();
     }
 
@@ -47,8 +53,10 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
 
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
         // 0=图文 1=语音
-        new TranslationOrderModel().generateOrder("0", mTranslationAudioMode ? "1" : "0")
+        new TranslationOrderModel().generateOrder("0", mTranslationOrderType.getValue())
                 .subscribe();
+        onTranslationOrderGenerated.set(mTranslationOrderType);
+        onTranslationOrderGenerated.notifyChange();
     });
 
     public void languagePickerLinearLayoutClick(View view) {//选取目标语言
@@ -61,20 +69,20 @@ public class SpecialistTranslationFragmentViewModel extends ViewModel {
     }
 
     public void modelChangeImageViewClick(View view) {//选择翻译模式，语言或者图文
-        if (!mTranslationAudioMode) {
+        if (mTranslationOrderType == OrderType.MESSAGE) {
             modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
             imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
             textViewModelChange.set("语音呼叫");
             textViewColor1.set(Color.parseColor("#40d12d"));
             textViewColor2.set(Color.parseColor("#333333"));
-            mTranslationAudioMode = true;
+            mTranslationOrderType = OrderType.AUDIO;
         } else {
             modelChange.set(R.mipmap.radio_brown_fragment_specialist_translation);
             imageViewModelChange.set(R.mipmap.picture_fragment_specialist_translation);
             textViewModelChange.set("图文翻译");
             textViewColor1.set(Color.parseColor("#333333"));
             textViewColor2.set(Color.parseColor("#ffb900"));
-            mTranslationAudioMode = false;
+            mTranslationOrderType = OrderType.MESSAGE;
         }
     }
 }

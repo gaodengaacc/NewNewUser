@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.lyun.user.viewmodel.SpecialistTranslationFragmentViewModel"></import>
+        <import type="com.lyun.user.viewmodel.HomeFragmentViewModel"></import>
 
         <variable
             name="mvvm"
-            type="SpecialistTranslationFragmentViewModel"></variable>
+            type="HomeFragmentViewModel"></variable>
     </data>
 
     <LinearLayout

@@ -13,7 +13,7 @@ import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.MainPagerAdapter;
-import com.lyun.user.fragment.SpecialistTranslationFragment;
+import com.lyun.user.fragment.HomeFragment;
 import com.lyun.user.fragment.UserCenterFragment;
 
 import java.util.ArrayList;
@@ -37,10 +37,10 @@ public class MainActivityViewModel extends ViewModel {
     }
 
     public void init() {
-        SpecialistTranslationFragment mSpecialistTranslationFragment = SpecialistTranslationFragment.newInstance();
+        HomeFragment mHomeFragment = HomeFragment.newInstance();
         UserCenterFragment mUserCenterFragment = UserCenterFragment.newInstance();
         fragments = new ArrayList<>();
-        fragments.add(mSpecialistTranslationFragment);
+        fragments.add(mHomeFragment);
         fragments.add(mUserCenterFragment);
         relayCommandViewPage.set(relayCommand);
         List<TabItemBean> tabs = new ArrayList<>();
