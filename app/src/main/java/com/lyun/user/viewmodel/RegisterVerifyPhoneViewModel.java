@@ -22,7 +22,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     public final BaseObservable onVerifySuccess = new BaseObservable();
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
-//        getSmsCode(username.get());
+        getSmsCode(username.get());
     });
 
 
