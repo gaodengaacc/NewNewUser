@@ -180,4 +180,10 @@
         <attr name="Cyclic" format="reference"></attr>
         <attr name="WheelForeground" format="reference"></attr>
     </declare-styleable>
+    <declare-styleable name="CheckBox">
+        <attr name="checkListener" format="reference"></attr>
+    </declare-styleable>
+    <declare-styleable name="EditText">
+        <attr name="transformMethod" format="reference"></attr>
+    </declare-styleable>
 </resources>

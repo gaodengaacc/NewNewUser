@@ -9,6 +9,7 @@ import com.lyun.user.Account;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.im.login.NimLoginHelper;
 import com.lyun.user.model.LoginModel;
+import com.lyun.user.model.HomeFragmentModel;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -59,8 +60,13 @@ public class LoginViewModel extends ViewModel {
                     Account.preference().saveToken(loginResponse.getAppKey());
                     Account.preference().setLogin(true);
                     onLoginSuccess.notifyChange();
+                    getFindByLanguage();
                 },
                 throwable -> onLoginFailed.set(throwable));
+    }
+
+    private void getFindByLanguage() {
+        new HomeFragmentModel().setFindByLanguage();
     }
 
 }
