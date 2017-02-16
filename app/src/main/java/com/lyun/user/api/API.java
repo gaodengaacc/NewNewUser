@@ -2,6 +2,7 @@ package com.lyun.user.api;
 
 import com.lyun.api.APIBase;
 import com.lyun.user.api.service.AuthService;
+import com.lyun.user.api.service.TranslationOrderService;
 
 /**
  * 网络接口服务集合
@@ -12,5 +13,6 @@ import com.lyun.user.api.service.AuthService;
 public class API extends APIBase {
 
     public static AuthService auth = create(AuthService.class);
+    public static TranslationOrderService translationOrder = create(TranslationOrderService.class);
 
 }
