@@ -43,6 +43,8 @@ public class HomeFragmentViewModel extends ViewModel {
 
     LanguagePickerDialogViewModel languagePickerDialogViewModel;
 
+    private List list;
+
     public HomeFragmentViewModel() {
         initData();
     }
