@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.lyun.user.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import kankan.wheel.widget.adapters.AbstractWheelTextAdapter;
 
@@ -15,9 +15,9 @@ import kankan.wheel.widget.adapters.AbstractWheelTextAdapter;
  */
 
 public class LanguageTextAdapter extends AbstractWheelTextAdapter {
-    ArrayList<Object> list;
+    List<Object> list;
 
-    public LanguageTextAdapter(Context context, ArrayList<Object> list, int currentItem, int maxsize, int minsize) {
+    public LanguageTextAdapter(Context context, List<Object> list, int currentItem, int maxsize, int minsize) {
         super(context, R.layout.item_language_picker, NO_RESOURCE, currentItem, maxsize, minsize);
         this.list = list;
         setItemTextResource(R.id.textView_tempValue);

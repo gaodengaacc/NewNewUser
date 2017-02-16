@@ -1,16 +1,20 @@
 package com.lyun.library.mvvm.bindingadapter.edittext;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.TransformationMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 
 public final class ViewBindingAdapter {
-
-
+    @BindingAdapter("transformMethod")
+    public static void setInputType(EditText editText, TransformationMethod method) {
+        editText.setTransformationMethod(method);
+    }
     @android.databinding.BindingAdapter({"requestFocus"})
     public static void requestFocusCommand(EditText editText, final Boolean needRequestFocus) {
         if (needRequestFocus) {

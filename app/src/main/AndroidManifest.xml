@@ -109,9 +109,10 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterVerifyPhoneActivity"/>
-        <activity android:name=".activity.RegisterActivity"/>
-        <activity android:name=".activity.FindPasswordActivity"/>
+        <activity android:name=".activity.RegisterVerifyPhoneActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.FindPasswordActivity" />
+        <activity android:name=".activity.ResetPasswordActivity" />
 
 
         <!-- 声明云信后台服务 -->

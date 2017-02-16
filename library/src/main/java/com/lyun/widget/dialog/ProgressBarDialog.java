@@ -5,7 +5,6 @@ import com.lyun.library.R;
 import com.lyun.library.databinding.IncludeDialogProgressbarBinding;
 import com.lyun.library.mvvm.view.dialog.MvvmDialog;
 import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
-
 /**
  * 加载中dialog
  */

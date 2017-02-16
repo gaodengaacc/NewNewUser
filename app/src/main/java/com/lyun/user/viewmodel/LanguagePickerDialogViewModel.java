@@ -13,6 +13,7 @@ import com.lyun.user.adapter.LanguageTextAdapter;
 import com.lyun.user.dialog.LanguagePickerDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.OnWheelScrollListener;
@@ -33,7 +34,7 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
     public final ObservableBoolean isShow = new ObservableBoolean();
 
     private LanguageTextAdapter languageTextAdapter;
-    ArrayList<Object> listLanguagePicker = new ArrayList<Object>();
+    private List<Object> listLanguagePicker = new ArrayList<Object>();
 
     //设置选择时字体大小
     private int maxTextSize = 16;
@@ -48,8 +49,9 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
 
     private PickLanguage pickLanguage;
 
-    public LanguagePickerDialogViewModel(Context context) {
+    public LanguagePickerDialogViewModel(Context context,List<Object> listLanguagePicker) {
         super(context);
+        this.listLanguagePicker = listLanguagePicker;
         initData();
         setDataOne(listLanguagePicker);
         new LanguagePickerDialog(getContext(), this);
@@ -57,11 +59,10 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
 
     private void initData() {
         languageTextAdapter = new LanguageTextAdapter(getContext(), listLanguagePicker, 0, maxTextSize, minTextSize);
-
         changedListener.set(onWheelChangedListener);
         scrollListener.set(onWheelScrollListener);
 
-        initListData();//设置选项值
+//        initListData();//设置选项值
         adapter.set(languageTextAdapter);
         visibleItem.set(7);//设置item的显示数目
         currentItem.set(0);
@@ -126,7 +127,7 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
         }
     }
 
-    private void setDataOne(ArrayList<Object> listLanguagePicker) {
+    private void setDataOne(List<Object> listLanguagePicker) {
         if (listLanguagePicker != null && listLanguagePicker.size() > 0) {
             //设置默认为第一个
             currentPosition = 0;
