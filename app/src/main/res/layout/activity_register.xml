@@ -84,7 +84,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="10dp"
-                android:text="@{mvvm.comfirmPassword}"
+                android:text="@={mvvm.confirmPassword}"
                 android:textSize="14sp" />
 
             <Button
