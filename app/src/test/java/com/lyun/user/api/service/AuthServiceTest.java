@@ -17,7 +17,7 @@ public class AuthServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        API.init("http://172.16.157.147:8080/lytapp/apiDesc/", new LogInterceptor());
+        //API.init("http://172.16.157.147:8080/lytapp/apiDesc/", new LogInterceptor());
         authService = API.auth;
     }
 

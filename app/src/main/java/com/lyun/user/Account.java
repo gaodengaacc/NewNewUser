@@ -34,6 +34,13 @@ public class Account {
         private final String KEY_TOKEN = "token";
         private final String KEY_LOGIN = "login";
 
+        public void clear() {
+            savePassword(null);
+            savePhone(null);
+            saveToken(null);
+            setLogin(false);
+        }
+
         public String getPhone() {
             if (phone == null)
                 phone = getString(KEY_PHONE);
