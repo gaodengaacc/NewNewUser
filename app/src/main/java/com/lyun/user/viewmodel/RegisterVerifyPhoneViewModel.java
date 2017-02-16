@@ -16,8 +16,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  */
 
 public class RegisterVerifyPhoneViewModel extends ViewModel {
-    public final ObservableField<String> username = new ObservableField<>("");
-    public final ObservableField<String> smscode = new ObservableField<>("");
+    public final ObservableField<String> username = new ObservableField<>("");//手机号码
+    public final ObservableField<String> smscode = new ObservableField<>("");//获取的验证码
     @WatchThis
     public final BaseObservable onVerifySuccess = new BaseObservable();
 
