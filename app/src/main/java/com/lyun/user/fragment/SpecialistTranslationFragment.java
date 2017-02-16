@@ -9,9 +9,10 @@ import com.lyun.user.databinding.FragmentSpecialistTranslationBinding;
 import com.lyun.user.viewmodel.SpecialistTranslationFragmentViewModel;
 
 public class SpecialistTranslationFragment extends MvvmFragment<FragmentSpecialistTranslationBinding, SpecialistTranslationFragmentViewModel> {
+
     public SpecialistTranslationFragment() {
-        // Required empty public constructor
     }
+
     public static SpecialistTranslationFragment newInstance() {
         SpecialistTranslationFragment fragment = new SpecialistTranslationFragment();
         Bundle args = new Bundle();
