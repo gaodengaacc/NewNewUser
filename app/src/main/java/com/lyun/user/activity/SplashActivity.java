@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.lyun.activity.BaseActivity;
+import com.lyun.user.Account;
 import com.lyun.user.R;
 
 public class SplashActivity extends BaseActivity {
@@ -17,7 +18,11 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         mHandler.postDelayed(() -> {
             Intent intent = new Intent();
-            intent.setClass(SplashActivity.this, MainActivity.class);
+            if (Account.preference().isLogin()) {
+                intent.setClass(SplashActivity.this, MainActivity.class);
+            } else {
+                intent.setClass(SplashActivity.this, LoginActivity.class);
+            }
             startActivity(intent);
             finish();
         }, sleepTime);

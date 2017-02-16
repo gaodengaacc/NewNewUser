@@ -57,6 +57,7 @@ public class LoginViewModel extends ViewModel {
                     Account.preference().savePhone(username);
                     Account.preference().savePassword(password);
                     Account.preference().saveToken(loginResponse.getAppKey());
+                    Account.preference().setLogin(true);
                     onLoginSuccess.notifyChange();
                 },
                 throwable -> onLoginFailed.set(throwable));

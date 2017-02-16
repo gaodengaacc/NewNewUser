@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lyun.user"
-    android:versionCode="${VERSION_CODE}"
-    android:versionName="${VERSION_NAME}">
+          package="com.lyun.user"
+          android:versionCode="${VERSION_CODE}"
+          android:versionName="${VERSION_NAME}">
 
     <!-- 加入应用需要的权限 -->
     <!-- 网络相关 -->
@@ -64,53 +64,54 @@
             android:name=".activity.SplashActivity"
             android:theme="@style/AppTheme.NoTitle.FullScreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/AppTheme" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.LOGIN" />
+                <action android:name="com.lyun.user.intent.action.LOGIN"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.UserSettingActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.USER_SETTING" />
+                <action android:name="com.lyun.user.intent.action.USER_SETTING"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.WalletMainActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.WALLET_MAIN" />
+                <action android:name="com.lyun.user.intent.action.WALLET_MAIN"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.WalletChargeActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.WALLET_CHARGE" />
+                <action android:name="com.lyun.user.intent.action.WALLET_CHARGE"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterVerifyPhoneActivity" />
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.FindPasswordActivity" />
+        <activity android:name=".activity.RegisterVerifyPhoneActivity"/>
+        <activity android:name=".activity.RegisterActivity"/>
+        <activity android:name=".activity.FindPasswordActivity"/>
 
 
         <!-- 声明云信后台服务 -->

@@ -9,4 +9,14 @@ import java.io.Serializable;
  * @date 2016/12/20
  */
 public class BaseRequest implements Serializable {
+
+    private String appTypeId = "0";
+
+    public String getAppTypeId() {
+        return appTypeId;
+    }
+
+    public void setAppTypeId(String appTypeId) {
+        this.appTypeId = appTypeId;
+    }
 }
