@@ -1,6 +1,8 @@
 package com.lyun.widget.dialog;
+
 import android.content.Context;
 import android.os.Bundle;
+
 import com.lyun.library.R;
 import com.lyun.library.databinding.IncludeDialogProgressbarBinding;
 import com.lyun.library.mvvm.view.dialog.MvvmDialog;

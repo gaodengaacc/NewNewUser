@@ -1,7 +1,6 @@
 package com.lyun.http;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.lyun.BaseApplication;
 import com.lyun.http.converter.APIConverterFactory;
 
 import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
@@ -18,16 +17,11 @@ import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
-import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.Route;
 import retrofit2.Retrofit;
 
 /**

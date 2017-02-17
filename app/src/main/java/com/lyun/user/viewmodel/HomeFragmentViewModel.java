@@ -11,11 +11,11 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.model.TranslationOrderModel.OrderType;
-
-import net.funol.databinding.watchdog.annotations.WatchThis;
 import com.lyun.utils.filecache.Cache;
 import com.lyun.utils.filecache.CacheCallBack;
 import com.lyun.utils.filecache.CacheUtil;
+
+import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import java.util.List;
 

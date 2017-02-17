@@ -8,8 +8,8 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.im.login.NimLoginHelper;
-import com.lyun.user.model.LoginModel;
 import com.lyun.user.model.HomeFragmentModel;
+import com.lyun.user.model.LoginModel;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 

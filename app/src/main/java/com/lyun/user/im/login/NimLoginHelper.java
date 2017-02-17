@@ -1,7 +1,5 @@
 package com.lyun.user.im.login;
 
-import android.content.res.Resources;
-
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.im.NimCache;

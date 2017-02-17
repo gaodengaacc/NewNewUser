@@ -4,7 +4,6 @@ import com.lyun.http.APIClient;
 
 import javax.net.ssl.SSLSocketFactory;
 
-import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 
 /**

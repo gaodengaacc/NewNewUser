@@ -1,11 +1,7 @@
 package com.lyun.widget.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 
 import com.lyun.library.R;

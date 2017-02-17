@@ -8,7 +8,6 @@ import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityUserSettingBinding;
-import com.lyun.user.viewmodel.ResetPasswordViewModel;
 import com.lyun.user.viewmodel.UserSettingViewModel;
 import com.lyun.user.viewmodel.watchdog.IUserSettingViewModelCallbacks;
 
