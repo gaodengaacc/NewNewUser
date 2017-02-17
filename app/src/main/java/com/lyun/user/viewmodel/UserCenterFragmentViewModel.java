@@ -1,6 +1,7 @@
 package com.lyun.user.viewmodel;
 
 import android.content.Intent;
+import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Build;
@@ -9,6 +10,8 @@ import android.view.View;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.R;
+
+import net.funol.databinding.watchdog.annotations.WatchThis;
 
 /**
  * Created by 郑成裕 on 2016/12/28.
@@ -104,7 +107,8 @@ public class UserCenterFragmentViewModel extends ViewModel {
 //        });
 //        viewModel.show();
     }
-
+    @WatchThis
+    public final BaseObservable onLogout = new BaseObservable();
     private void exit() {
         Account.preference().clear();
         onLogout.notifyChange();
