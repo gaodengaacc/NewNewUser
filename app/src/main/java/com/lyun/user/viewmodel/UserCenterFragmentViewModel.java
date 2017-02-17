@@ -113,7 +113,8 @@ public class UserCenterFragmentViewModel extends ViewModel {
 //        });
 //        viewModel.show();
     }
-
+    @WatchThis
+    public final BaseObservable onLogout = new BaseObservable();
     private void exit() {
         Account.preference().clear();
         onLogout.notifyChange();

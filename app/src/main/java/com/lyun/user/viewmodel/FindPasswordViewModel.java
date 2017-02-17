@@ -4,6 +4,9 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.CountDownTimer;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.TransformationMethod;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -23,6 +26,7 @@ public class FindPasswordViewModel extends ViewModel {
     public final ObservableField<String> mSendSmsCode = new ObservableField<>("");//获取验证码倒计时
     public final ObservableInt isVisible = new ObservableInt();
     public final ObservableField<Boolean> clickable = new ObservableField<>();
+    public final ObservableField<TransformationMethod> inputType = new ObservableField<>();
     private TimeCount timeCount = new TimeCount(60000, 1000);
     private Boolean aBoolean = false;
     @WatchThis
@@ -36,6 +40,7 @@ public class FindPasswordViewModel extends ViewModel {
         mSendSmsCode.set("获取验证码");
         clickable.set(true);
         isVisible.set(R.mipmap.ic_password_invisible);
+        inputType.set(PasswordTransformationMethod.getInstance());//密码隐藏
     }
 
     public RelayCommand onSubmitClick = new RelayCommand(() -> {
@@ -44,9 +49,11 @@ public class FindPasswordViewModel extends ViewModel {
     public RelayCommand onVisible = new RelayCommand(() -> {
         if (!aBoolean) {
             isVisible.set(R.mipmap.ic_password_visible);
+            inputType.set(HideReturnsTransformationMethod.getInstance());//密码显示
             aBoolean = true;
         } else {
             isVisible.set(R.mipmap.ic_password_invisible);
+            inputType.set(PasswordTransformationMethod.getInstance());//密码隐藏
             aBoolean = false;
         }
 
