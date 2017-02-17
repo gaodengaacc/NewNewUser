@@ -1,6 +1,7 @@
 package com.lyun.library.mvvm.bindingadapter.recyclerview;
 
 import android.databinding.BindingAdapter;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -79,6 +80,23 @@ public class ViewBindingAdapter {
                 return isScroll;
             }
         });//设置布局管理器,优化scrollview嵌套recyclerview惯性滑动
+    }
+
+    @BindingAdapter("header")
+    public static void setHeader(RecyclerView recyclerView, @LayoutRes int layoutRes) {
+        if (layoutRes > 0) {
+            View view = View.inflate(recyclerView.getContext(), layoutRes, null);
+            ((BaseRecyclerAdapter) recyclerView.getAdapter()).setHeaderView(view);
+        } else {
+            ((BaseRecyclerAdapter) recyclerView.getAdapter()).setHeaderView(null);
+        }
+
+    }
+
+    @BindingAdapter("footer")
+    public static void setFooter(RecyclerView recyclerView, @LayoutRes int layoutRes) {
+        View view = View.inflate(recyclerView.getContext(), layoutRes, null);
+        ((BaseRecyclerAdapter) recyclerView.getAdapter()).setFooterView(view);
     }
     @BindingAdapter("onItemClickCommand")
     public static void setOnItemClickListener(RecyclerView recyclerView, final RelayCommand<ClickListenerData> clickCommand) {
