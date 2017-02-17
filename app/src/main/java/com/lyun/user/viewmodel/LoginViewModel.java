@@ -57,7 +57,8 @@ public class LoginViewModel extends ViewModel {
                 loginInfo -> {
                     Account.preference().savePhone(username);
                     Account.preference().savePassword(password);
-                    Account.preference().saveToken(loginResponse.getAppKey());
+                    Account.preference().saveToken(loginResponse.getAppToken());
+                    Account.preference().saveNimToken(loginResponse.getYunXinToken());
                     Account.preference().setLogin(true);
                     onLoginSuccess.notifyChange();
                     getFindByLanguage();
