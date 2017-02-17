@@ -82,8 +82,9 @@
                     android:layout_height="40dp"
                     android:layout_weight="3"
                     android:background="@drawable/no_border_right_round_corner_primary_bg"
-                    android:text="获取验证码"
+                    android:text="@{mvvm.mSendSmsCode}"
                     android:textColor="@android:color/white"
+                    android:clickable="@{mvvm.clickable}"
                     app:clickCommand="@{mvvm.onGetSMSCodeButtonClick}" />
             </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.lyun.user.activity;
 
 import android.databinding.BaseObservable;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
@@ -36,5 +37,15 @@ public class FindPasswordActivity extends GeneralToolbarActivity<ActivityFindPas
     @Override
     public void onFindPasswordSuccess(BaseObservable observableField, int fieldId) {
         finish();
+    }
+
+    @Override
+    public void onNumberBlank(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "请输入手机号!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNumberWrong(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "请输入正确的手机号!", Toast.LENGTH_SHORT).show();
     }
 }
