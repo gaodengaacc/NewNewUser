@@ -2,9 +2,9 @@ package com.lyun.user;
 
 import com.lyun.ApplicationDelegate;
 import com.lyun.BaseApplication;
+import com.lyun.http.HeaderInterceptor;
 import com.lyun.http.HttpsSocketFactoryBuilder;
 import com.lyun.http.LogInterceptor;
-import com.lyun.http.HeaderInterceptor;
 import com.lyun.user.api.API;
 import com.lyun.user.im.NimApplicationDelegate;
 import com.lyun.utils.L;

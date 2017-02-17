@@ -18,13 +18,19 @@ import net.funol.databinding.watchdog.annotations.WatchThis;
  */
 
 public class UserCenterFragmentViewModel extends ViewModel {
+
     public final ObservableField<String> userName = new ObservableField<>();
     public final ObservableField<String> userTime = new ObservableField<>();//使用时长
     public final ObservableField<String> userNum = new ObservableField<>();//使用次数
     public final ObservableField<String> userLanguage = new ObservableField<>();//接触语种
     public final ObservableInt exitVisible = new ObservableInt();//退出登录按钮的显示
     public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
+
     private Intent intent;
+
+    @WatchThis
+    public final BaseObservable onLogout = new BaseObservable();
+
     public UserCenterFragmentViewModel() {
         init();
     }
@@ -32,10 +38,10 @@ public class UserCenterFragmentViewModel extends ViewModel {
     @Override
     public void onResume() {
         super.onResume();
-        if(Account.preference().isLogin()){
+        if (Account.preference().isLogin()) {
             getUserDes();
             setUserInformation();
-        }else {
+        } else {
             exitVisible.set(View.INVISIBLE);
             userName.set("");
         }
@@ -46,8 +52,8 @@ public class UserCenterFragmentViewModel extends ViewModel {
     }
 
     private void setUserInformation() {
-            userName.set(Account.preference().getPhone());
-            exitVisible.set(View.VISIBLE);
+        userName.set(Account.preference().getPhone());
+        exitVisible.set(View.VISIBLE);
     }
 
 
@@ -71,8 +77,8 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 getActivity().startActivity(intent);
                 break;
             case R.id.user_center_avatar:
-//                if(!Account.preference().isLogin())
-                    getActivity().startActivity(new Intent("com.lyun.user.intent.action.LOGIN"));
+                //  if(!Account.preference().isLogin())
+                //  getActivity().startActivity(new Intent("com.lyun.user.intent.action.LOGIN"));
                 break;
             case R.id.user_center_wallet:
                 intent = new Intent("com.lyun.user.intent.action.WALLET_MAIN");

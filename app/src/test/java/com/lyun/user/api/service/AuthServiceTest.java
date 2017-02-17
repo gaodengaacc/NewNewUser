@@ -1,6 +1,5 @@
 package com.lyun.user.api.service;
 
-import com.lyun.http.LogInterceptor;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.LoginBean;
 

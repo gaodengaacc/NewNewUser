@@ -17,7 +17,6 @@ import com.lyun.utils.filecache.CacheUtil;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ import java.util.List;
 
 public class HomeFragmentViewModel extends ViewModel {
 
-    public final ObservableInt imageViewModelChange = new ObservableInt();//服务类型图片
+    public final ObservableInt imageViewModelChange = new ObservableInt();
     public final ObservableInt modelChange = new ObservableInt();
     public final ObservableField<String> textViewModelChange = new ObservableField<>();
     private OrderType mTranslationOrderType = OrderType.MESSAGE;
@@ -38,12 +37,13 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();//目标语言
-    private List<Object> list = new ArrayList<>();
 
     @WatchThis
     public final ObservableField<OrderType> onTranslationOrderGenerated = new ObservableField<>();
 
     LanguagePickerDialogViewModel languagePickerDialogViewModel;
+
+    private List list;
 
     public HomeFragmentViewModel() {
         initData();
@@ -71,11 +71,11 @@ public class HomeFragmentViewModel extends ViewModel {
             CacheUtil.getInstance().getData(Cache.DATA_TYPE_FIND_BY_LANGUAGE, new CacheCallBack() {
                 @Override
                 public void onBack(Object result) {
-                    if (result != null)
+                    if(result!=null)
                         list = (List) result;
                 }
             });
-            languagePickerDialogViewModel = new LanguagePickerDialogViewModel(view.getContext(), list);
+            languagePickerDialogViewModel = new LanguagePickerDialogViewModel(view.getContext(),list);
         }
 
         languagePickerDialogViewModel.setPickLanguage(language -> textViewTargetLanguage.set(language));

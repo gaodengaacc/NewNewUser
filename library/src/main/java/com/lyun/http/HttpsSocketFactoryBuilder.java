@@ -2,7 +2,6 @@ package com.lyun.http;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Key;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
