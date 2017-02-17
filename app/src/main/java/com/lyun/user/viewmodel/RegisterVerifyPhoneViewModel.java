@@ -21,8 +21,8 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     public final ObservableField<String> username = new ObservableField<>("");//手机号码
     public final ObservableField<String> smscode = new ObservableField<>("");//获取的验证码
     public final ObservableField<String> mSendSmsCode = new ObservableField<>("");//获取验证码倒计时
-    public final ObservableField<Boolean> clickable = new ObservableField<>();
-    private TimeCount timeCount = new TimeCount(60000, 1000);
+    public final ObservableField<Boolean> clickable = new ObservableField<>();//设置获取验证码是否可以点击
+    private TimeCount timeCount = new TimeCount(60000, 1000);//设置获取验证码的倒计时
 
     @WatchThis
     public final BaseObservable onVerifySuccess = new BaseObservable();

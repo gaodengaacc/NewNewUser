@@ -9,7 +9,6 @@ import com.lyun.user.api.request.RegisterVerifyPhoneBean;
 import com.lyun.user.api.request.ResetPasswordBean;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.api.response.LoginResponse;
-import com.lyun.user.api.response.RegisterVerifyPhoneRespose;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public interface AuthService {
     Observable<APIResult<LoginResponse>> login(@Body LoginBean body);
 
     @POST(APIConstants.REGISTERVERIFYPHONE)
-    Observable<APIResult<RegisterVerifyPhoneRespose>> getSmsCode(@Body RegisterVerifyPhoneBean body);
+    Observable<APIResult> getSmsCode(@Body RegisterVerifyPhoneBean body);
 
     @POST(APIConstants.REGISTER)
     Observable<APIResult> register(@Body RegisterBean body);

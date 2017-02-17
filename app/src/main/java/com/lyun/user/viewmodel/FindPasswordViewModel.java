@@ -24,10 +24,10 @@ public class FindPasswordViewModel extends ViewModel {
     public final ObservableField<String> smscode = new ObservableField<>("");//获取的验证码
     public final ObservableField<String> newPassword = new ObservableField<>("");//新密码
     public final ObservableField<String> mSendSmsCode = new ObservableField<>("");//获取验证码倒计时
-    public final ObservableInt isVisible = new ObservableInt();
-    public final ObservableField<Boolean> clickable = new ObservableField<>();
-    public final ObservableField<TransformationMethod> inputType = new ObservableField<>();
-    private TimeCount timeCount = new TimeCount(60000, 1000);
+    public final ObservableInt isVisible = new ObservableInt();//密码显隐图片
+    public final ObservableField<Boolean> clickable = new ObservableField<>();//设置获取验证码是否可以点击
+    public final ObservableField<TransformationMethod> inputType = new ObservableField<>();//设置密码显隐
+    private TimeCount timeCount = new TimeCount(60000, 1000);//设置能够获取验证码倒计时
     private Boolean aBoolean = false;
     @WatchThis
     public final BaseObservable onFindPasswordSuccess = new BaseObservable();

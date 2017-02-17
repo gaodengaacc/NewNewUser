@@ -4,7 +4,6 @@ import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.RegisterVerifyPhoneBean;
-import com.lyun.user.api.response.RegisterVerifyPhoneRespose;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -14,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class RegisterVerifyPhoneModel extends Model {
-    public Observable<APIResult<RegisterVerifyPhoneRespose>> getSmsCode(String cardNo){
+    public Observable<APIResult> getSmsCode(String cardNo) {
         RegisterVerifyPhoneBean bean = new RegisterVerifyPhoneBean(cardNo);
         return API.auth.getSmsCode(bean)
                 .subscribeOn(Schedulers.io())
