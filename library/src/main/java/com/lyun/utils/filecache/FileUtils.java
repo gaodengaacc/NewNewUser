@@ -8,8 +8,6 @@ package com.lyun.utils.filecache;
 
 import android.content.Context;
 
-import org.apache.http.util.EncodingUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -33,7 +31,7 @@ public class FileUtils {
         // 读取数据
         in.read(buffer);
         // 依test.txt的编码类型选择合适的编码，如果不调整会乱码
-        res = EncodingUtils.getString(buffer, charset);
+        res = new String(buffer, charset);
         // 关闭
         in.close();
         return res;
@@ -52,7 +50,7 @@ public class FileUtils {
         byte[] buffer = new byte[length];
         in.read(buffer);
         in.close();
-        res = EncodingUtils.getString(buffer, charset);
+        res = new String(buffer, charset);
         return res;
     }
 
@@ -88,7 +86,7 @@ public class FileUtils {
         int length = fin.available();
         byte[] buffer = new byte[length];
         fin.read(buffer);
-        res = EncodingUtils.getString(buffer, charset);
+        res = new String(buffer, charset);
         fin.close();
 
         return res;
@@ -160,8 +158,7 @@ public class FileUtils {
         int length = fin.available();
         byte[] buffer = new byte[length];
         fin.read(buffer);
-        // res = EncodingUtils.getString(buffer, "UTF-8");
-        res = EncodingUtils.getString(buffer, charset);
+        res = new String(buffer, charset);
         fin.close();
         return res;
     }
@@ -175,8 +172,7 @@ public class FileUtils {
         int length = fis.available();
         byte[] buffer = new byte[length];
         fis.read(buffer);
-        // String res = EncodingUtils.getString(buffer, "UTF-8");
-        String res = EncodingUtils.getString(buffer, charset);
+        String res = new String(buffer, charset);
         fis.close();
         return res;
     }
@@ -250,7 +246,7 @@ public class FileUtils {
         File file = context.getFilesDir();
         File[] array = file.listFiles();
         /*
-		 * String[] files = new String[array.length]; for(int i = 0 ; i <
+         * String[] files = new String[array.length]; for(int i = 0 ; i <
 		 * array.length ; i ++){ files[i] =array[i].getName(); }
 		 */
         return array;
@@ -283,7 +279,7 @@ public class FileUtils {
     }
 
 	/*
-	 * String Name = File.getName(); //获得文件或文件夹的名称： String parentPath =
+     * String Name = File.getName(); //获得文件或文件夹的名称： String parentPath =
 	 * File.getParent(); //获得文件或文件夹的父目录 String path =
 	 * File.getAbsoultePath();//绝对路经 String path = File.getPath();//相对路经
 	 * File.createNewFile();//建立文件 File.mkDir(); //建立文件夹 File.isDirectory();

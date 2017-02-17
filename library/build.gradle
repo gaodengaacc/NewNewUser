@@ -82,7 +82,6 @@ dependencies {
     compile 'net.funol.databinding.watchdog:watchdog:1.0.0'
     annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.0'
     compile project(path: ':wheel')
-    compile 'org.apache.httpcomponents:httpcore:4.4.6'
 }
 
 apply from: "bintrayUpload.gradle"
