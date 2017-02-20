@@ -51,4 +51,19 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
     public void onNumberWrong(BaseObservable observableField, int fieldId) {
         Toast.makeText(this, "请输入正确的手机号!", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onSmsCodeBlank(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "请输入验证码!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSmsCodeWrong(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "验证码错误,请重新输入！", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSmsCodeExpired(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "验证码已过期，请重新获取!", Toast.LENGTH_SHORT).show();
+    }
 }

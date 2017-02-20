@@ -2,23 +2,14 @@ package com.lyun.library.mvvm.bindingadapter.image;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.facebook.common.executors.UiThreadImmediateExecutorService;
-import com.facebook.common.references.CloseableReference;
-import com.facebook.datasource.DataSource;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.core.ImagePipeline;
-import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
-import com.facebook.imagepipeline.image.CloseableImage;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.utils.GlideUtils;
 
@@ -28,9 +19,9 @@ import com.lyun.utils.GlideUtils;
 public final class ViewBindingAdapter {
 
     @BindingAdapter({"uri"})
-    public static void setImageUri(SimpleDraweeView simpleDraweeView, String uri) {
+    public static void setImageUri(ImageView imageView, String uri) {
         if (!TextUtils.isEmpty(uri)) {
-            simpleDraweeView.setImageURI(Uri.parse(uri));
+           GlideUtils.showImage(imageView.getContext(),imageView,uri);
         }
     }
 
@@ -49,38 +40,30 @@ public final class ViewBindingAdapter {
         GlideUtils.showImage(context,imageView,resid);
     }
 
-    @BindingAdapter(value = {"uri", "placeholderImageRes", "request_width", "request_height", "onSuccessCommand", "onFailureCommand"}, requireAll = false)
+    @BindingAdapter(value = {"uri", "placeholderImageRes", "onSuccessCommand", "onFailureCommand"}, requireAll = false)
     public static void loadImage(final ImageView imageView, String uri,
                                  @DrawableRes int placeholderImageRes,
-                                 int width, int height,
-                                 final RelayCommand<Bitmap> onSuccessCommand,
-                                 final RelayCommand<DataSource<CloseableReference<CloseableImage>>> onFailureCommand) {
+                                 final RelayCommand<ImageView> onSuccessCommand,
+                                 final RelayCommand<ImageView> onFailureCommand) {
         imageView.setImageResource(placeholderImageRes);
         if (!TextUtils.isEmpty(uri)) {
-            ImagePipeline imagePipeline = Fresco.getImagePipeline();
-            ImageRequestBuilder builder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(uri));
-            if (width > 0 && height > 0) {
-                builder.setResizeOptions(new ResizeOptions(width, height));
-            }
-            ImageRequest request = builder.build();
-            DataSource<CloseableReference<CloseableImage>>
-                    dataSource = imagePipeline.fetchDecodedImage(request, imageView.getContext());
-            dataSource.subscribe(new BaseBitmapDataSubscriber() {
+            Glide.with(imageView.getContext()).load(uri).listener(new RequestListener<String, GlideDrawable>() {
                 @Override
-                protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                     if (onFailureCommand != null) {
-                        onFailureCommand.execute(dataSource);
+                        onFailureCommand.execute(imageView);
                     }
+                    return false;
                 }
 
                 @Override
-                protected void onNewResultImpl(Bitmap bitmap) {
-                    imageView.setImageBitmap(bitmap);
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                     if (onSuccessCommand != null) {
-                        onSuccessCommand.execute(bitmap);
+                        onSuccessCommand.execute(imageView);
                     }
+                    return false;
                 }
-            }, UiThreadImmediateExecutorService.getInstance());
+            }).into(imageView);
         }
     }
 }

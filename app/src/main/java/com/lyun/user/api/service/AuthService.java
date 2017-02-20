@@ -3,6 +3,8 @@ package com.lyun.user.api.service;
 import com.lyun.api.request.BaseRequest;
 import com.lyun.api.response.APIResult;
 import com.lyun.user.api.APIConstants;
+import com.lyun.user.api.request.CheckVerificationBean;
+import com.lyun.user.api.request.FindByLanguageBean;
 import com.lyun.user.api.request.LoginBean;
 import com.lyun.user.api.request.RegisterBean;
 import com.lyun.user.api.request.RegisterVerifyPhoneBean;
@@ -29,6 +31,9 @@ public interface AuthService {
 
     @POST(APIConstants.REGISTERVERIFYPHONE)
     Observable<APIResult> getSmsCode(@Body RegisterVerifyPhoneBean body);
+
+    @POST(APIConstants.CHECK_VERIFICATION)
+    Observable<APIResult> checkVerification(@Body CheckVerificationBean body);
 
     @POST(APIConstants.REGISTER)
     Observable<APIResult> register(@Body RegisterBean body);

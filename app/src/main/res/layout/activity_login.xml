@@ -50,6 +50,8 @@
                 android:drawablePadding="5dp"
                 android:hint="手机号"
                 android:maxLines="1"
+                android:inputType="number"
+                android:singleLine="true"
                 android:padding="10dp"
                 android:text="@={mvvm.username}"
                 android:textSize="14sp" />

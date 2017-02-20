@@ -51,6 +51,8 @@
                 android:hint="手机号"
                 android:maxLines="1"
                 android:padding="10dp"
+                android:inputType="number"
+                android:singleLine="true"
                 android:text="@={mvvm.username}"
                 android:textSize="14sp" />
 
@@ -71,10 +73,10 @@
                     android:drawableLeft="@mipmap/ic_msg_code_small"
                     android:drawablePadding="5dp"
                     android:hint="验证码"
-                    android:inputType="textPassword"
                     android:maxLines="1"
+                    android:inputType="number"
                     android:padding="10dp"
-                    android:text="@{mvvm.smscode}"
+                    android:text="@={mvvm.smscode}"
                     android:textSize="14sp" />
 
                 <Button
@@ -82,9 +84,9 @@
                     android:layout_height="40dp"
                     android:layout_weight="3"
                     android:background="@drawable/no_border_right_round_corner_primary_bg"
+                    android:clickable="@{mvvm.clickable}"
                     android:text="@{mvvm.mSendSmsCode}"
                     android:textColor="@android:color/white"
-                    android:clickable="@{mvvm.clickable}"
                     app:clickCommand="@{mvvm.onGetSMSCodeButtonClick}" />
             </LinearLayout>
 

@@ -29,6 +29,8 @@
         <attr name="notifyData" format="reference" />
         <attr name="isScroll" format="reference" />
         <attr name="layoutManager" format="reference" />
+        <attr name="header" format="reference" />
+        <attr name="footer" format="reference" />
         <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
         <attr name="onItemClickCommand" />
         <attr name="onItemLongClickCommand" format="reference" />
@@ -91,6 +93,7 @@
         <attr name="onTextChangedCommand" format="reference" />
         <!--require ReplyCommand<String> -->
         <attr name="afterTextChangedCommand" format="reference" />
+        <attr name="backGroundRes" format="reference"></attr>
     </declare-styleable>
 
 
@@ -110,7 +113,6 @@
         <attr name="onFailureCommand" format="reference" />
 
     </declare-styleable>
-
     <declare-styleable name="ViewGroup">
         <attr name="clickCommand" />
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
@@ -180,10 +182,15 @@
         <attr name="Cyclic" format="reference"></attr>
         <attr name="WheelForeground" format="reference"></attr>
     </declare-styleable>
-    <declare-styleable name="CheckBox">
-        <attr name="checkListener" format="reference"></attr>
+    <declare-styleable name="PullToRefreshLayout">
+        <attr name="refreshListener" format="reference"></attr>
+        <attr name="autoRefresh" format="reference"></attr>
     </declare-styleable>
+    <declare-styleable name="PullRecyclerView" parent="RecyclerView"></declare-styleable>
     <declare-styleable name="EditText">
         <attr name="transformMethod" format="reference"></attr>
+    </declare-styleable>
+    <declare-styleable name="CheckBox">
+        <attr name="checkListener" format="reference"></attr>
     </declare-styleable>
 </resources>

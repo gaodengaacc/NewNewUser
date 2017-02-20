@@ -19,20 +19,20 @@ public class LoginResponse extends BaseResponse {
      * empAge : null
      * introduction : null
      * yunXinToken : 036db37bd336b5088014f1948f82bf87
-     * appKey : abc123
+     * appToken : abc123
      */
 
     private String userName;
-    private Object telePhone;
-    private Object identityCardNo;
-    private Object nickName;
-    private Object realName;
-    private Object email;
-    private Object language;
-    private Object empAge;
-    private Object introduction;
+    private String telePhone;
+    private String identityCardNo;
+    private String nickName;
+    private String realName;
+    private String email;
+    private String language;
+    private String empAge;
+    private String introduction;
     private String yunXinToken;
-    private String appKey;
+    private String appToken;
 
     public String getUserName() {
         return userName;
@@ -42,67 +42,67 @@ public class LoginResponse extends BaseResponse {
         this.userName = userName;
     }
 
-    public Object getTelePhone() {
+    public String getTelePhone() {
         return telePhone;
     }
 
-    public void setTelePhone(Object telePhone) {
+    public void setTelePhone(String telePhone) {
         this.telePhone = telePhone;
     }
 
-    public Object getIdentityCardNo() {
+    public String getIdentityCardNo() {
         return identityCardNo;
     }
 
-    public void setIdentityCardNo(Object identityCardNo) {
+    public void setIdentityCardNo(String identityCardNo) {
         this.identityCardNo = identityCardNo;
     }
 
-    public Object getNickName() {
+    public String getNickName() {
         return nickName;
     }
 
-    public void setNickName(Object nickName) {
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
-    public Object getRealName() {
+    public String getRealName() {
         return realName;
     }
 
-    public void setRealName(Object realName) {
+    public void setRealName(String realName) {
         this.realName = realName;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public Object getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(Object language) {
+    public void setLanguage(String language) {
         this.language = language;
     }
 
-    public Object getEmpAge() {
+    public String getEmpAge() {
         return empAge;
     }
 
-    public void setEmpAge(Object empAge) {
+    public void setEmpAge(String empAge) {
         this.empAge = empAge;
     }
 
-    public Object getIntroduction() {
+    public String getIntroduction() {
         return introduction;
     }
 
-    public void setIntroduction(Object introduction) {
+    public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
 
@@ -114,11 +114,11 @@ public class LoginResponse extends BaseResponse {
         this.yunXinToken = yunXinToken;
     }
 
-    public String getAppKey() {
-        return appKey;
+    public String getAppToken() {
+        return appToken;
     }
 
-    public void setAppKey(String appKey) {
-        this.appKey = appKey;
+    public void setAppToken(String appToken) {
+        this.appToken = appToken;
     }
 }

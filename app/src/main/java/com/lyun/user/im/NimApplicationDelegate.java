@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.lyun.ApplicationDelegate;
+import com.lyun.user.Account;
 import com.lyun.user.AppApplication;
 import com.lyun.user.BuildConfig;
 import com.lyun.user.R;
@@ -173,7 +174,12 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
 
     // 如果已经存在用户登录信息，返回LoginInfo，否则返回null即可
     private LoginInfo getLoginInfo() {
-        return null;
+        if (Account.preference().isLogin()) {
+            NimCache.setAccount(Account.preference().getPhone());
+            return new LoginInfo(Account.preference().getPhone(), Account.preference().getNimToken());
+        } else {
+            return null;
+        }
     }
 
     private void initUIKit() {
