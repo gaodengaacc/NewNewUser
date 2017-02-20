@@ -13,8 +13,10 @@ import com.lyun.library.mvvm.command.RelayCommand;
 public final class ViewBindingAdapter {
     @BindingAdapter("transformMethod")
     public static void setInputType(EditText editText, TransformationMethod method) {
-        editText.setTransformationMethod(method);
+        editText.setTransformationMethod(method);//设置密码显隐
+        editText.setSelection(editText.getText().length());//设置光标位置
     }
+
     @android.databinding.BindingAdapter({"requestFocus"})
     public static void requestFocusCommand(EditText editText, final Boolean needRequestFocus) {
         if (needRequestFocus) {

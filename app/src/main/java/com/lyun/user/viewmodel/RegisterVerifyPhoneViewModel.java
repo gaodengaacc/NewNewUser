@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.model.CheckVerificationModel;
 import com.lyun.user.model.RegisterVerifyPhoneModel;
 import com.lyun.utils.Validator;
 
@@ -30,6 +31,12 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     public final BaseObservable onNumberBlank = new BaseObservable();
     @WatchThis
     public final BaseObservable onNumberWrong = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onSmsCodeBlank = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onSmsCodeWrong = new BaseObservable();
+    @WatchThis
+    public final BaseObservable onSmsCodeExpired = new BaseObservable();
 
     public RegisterVerifyPhoneViewModel() {
         mSendSmsCode.set("获取验证码");
@@ -49,10 +56,33 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
 
     public RelayCommand onNextButtonClick = new RelayCommand(() -> {
-        onVerifySuccess.notifyChange();
+        if (("".equals(username.get()) || (username.get() == null))) {
+            onNumberBlank.notifyChange();
+        } else if (!Validator.isMobileNO(username.get())) {
+            onNumberWrong.notifyChange();
+        } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
+            onSmsCodeBlank.notifyChange();
+        } else {
+            checkVerification(username.get(), smscode.get());
+        }
+
     });
 
-    private void getSmsCode(String username) {
+    private void checkVerification(String username, String smscode) {//验证验证码
+        new CheckVerificationModel().checkVerification(username, smscode)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResult -> {
+                    if ("0".equals(apiResult.getStatus())) {//验证成功
+                        onVerifySuccess.notifyChange();
+                    } else if ("1".equals(apiResult.getStatus())) {//验证码错误
+                        onSmsCodeWrong.notifyChange();
+                    } else if ("3002".equals(apiResult.getStatus())) {//验证码已过期
+                        onSmsCodeExpired.notifyChange();
+                    }
+                });
+    }
+
+    private void getSmsCode(String username) {//获取验证码
         new RegisterVerifyPhoneModel().getSmsCode(username)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();

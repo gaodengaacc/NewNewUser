@@ -13,6 +13,7 @@ public class APIConstants {
     public static final String REGISTER = "register/";//注册的URL
     public static final String RESET_PASSWORD = "uppassword/";//修改密码
     public static final String FIND_BY_LANGUAGE = "findByLanguage/";//查找语言
+    public static final String CHECK_VERIFICATION = "checkVerification/";//验证验证码
 
     // Order Service
     public static final String GENERATE_TRANSLATION_ORDER = "addBill/";//生成翻译订单
