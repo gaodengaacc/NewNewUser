@@ -12,7 +12,6 @@ import com.lyun.user.R;
 import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.model.TranslationOrderModel.OrderType;
 import com.lyun.utils.filecache.Cache;
-import com.lyun.utils.filecache.CacheCallBack;
 import com.lyun.utils.filecache.CacheUtil;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
@@ -68,12 +67,9 @@ public class HomeFragmentViewModel extends ViewModel {
 
     public void languagePickerLinearLayoutClick(View view) {//选取目标语言
         if (languagePickerDialogViewModel == null) {
-            CacheUtil.getInstance().getData(Cache.DATA_TYPE_FIND_BY_LANGUAGE, new CacheCallBack() {
-                @Override
-                public void onBack(Object result) {
+            CacheUtil.getInstance().getData(Cache.DATA_TYPE_FIND_BY_LANGUAGE, result ->  {
                     if(result!=null)
                         list = (List) result;
-                }
             });
             languagePickerDialogViewModel = new LanguagePickerDialogViewModel(view.getContext(),list);
         }

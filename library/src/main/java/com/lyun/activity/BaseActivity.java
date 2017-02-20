@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.lyun.BaseApplication;
-import com.lyun.widget.dialog.ProgressBarDialog;
 import com.squareup.leakcanary.RefWatcher;
 
 
@@ -17,7 +16,6 @@ import com.squareup.leakcanary.RefWatcher;
  */
 public class BaseActivity extends FragmentActivity  {
 
-    protected ProgressBarDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

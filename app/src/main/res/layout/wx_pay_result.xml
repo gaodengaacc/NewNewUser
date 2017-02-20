@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.WxPayResultViewModel"></variable>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:background="@color/bgc1"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/resulttxt"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@{mvvm.text}"
+        android:textSize="19sp" />
+
+</LinearLayout>
+</layout>

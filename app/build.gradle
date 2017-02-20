@@ -80,6 +80,7 @@ android {
             buildConfigField "String", "MIPUSH_CERT_NAME", '"userdebug"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
+            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
@@ -100,6 +101,7 @@ android {
             buildConfigField "String", "HOST", '"https://lyt.law-cloud.com.cn:8444"'
             buildConfigField "String", "BAIDU_MAP_AK", '"I8mvwSd8WolPcyoTUCPf5QI1"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
+            buildConfigField "String", "WX_PAY_APPID", "wx32783f5b7b05f691"
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId,
@@ -118,6 +120,7 @@ android {
             buildConfigField "String", "HOST", '"https://lyt-stg.law-cloud.com.cn:8444"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
+            buildConfigField "String", "WX_PAY_APPID", "wx32783f5b7b05f691"
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
@@ -204,6 +207,8 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.0'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+    compile files('libs/alipaySdk-20161222.jar')
 }
 
 fir {

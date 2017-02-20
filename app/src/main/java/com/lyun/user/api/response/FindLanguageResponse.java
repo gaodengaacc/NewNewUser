@@ -9,24 +9,45 @@ import com.lyun.api.response.BaseResponse;
  */
 
 public class FindLanguageResponse extends BaseResponse {
-    private int language_id;
-    private String language;
+    private int id;
+    private String code;
+    private String name;
+    private String description;
 
-    public int getLanguage_id() {
-        return language_id;
+    public int getId() {
+        return id;
     }
 
-    public void setLanguage_id(int language_id) {
-        this.language_id = language_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getCode() {
+        return code;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setCode(String code) {
+        this.code = code;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
 
 
 }

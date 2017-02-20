@@ -1,8 +1,8 @@
 package com.lyun.user.api.service;
 
+import com.lyun.api.request.BaseRequest;
 import com.lyun.api.response.APIResult;
 import com.lyun.user.api.APIConstants;
-import com.lyun.user.api.request.FindByLanguageBean;
 import com.lyun.user.api.request.LoginBean;
 import com.lyun.user.api.request.RegisterBean;
 import com.lyun.user.api.request.RegisterVerifyPhoneBean;
@@ -37,5 +37,5 @@ public interface AuthService {
     Observable<APIResult> resetPassword(@Body ResetPasswordBean body);
 
     @POST(APIConstants.FIND_BY_LANGUAGE)
-    Observable<APIResult<List<FindLanguageResponse>>> findByLanguage(@Body FindByLanguageBean body);
+    Observable<APIResult<List<FindLanguageResponse>>> findByLanguage(@Body BaseRequest body);
 }

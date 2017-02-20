@@ -1,12 +1,18 @@
 package com.lyun.user.activity;
 
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityWalletChargeBinding;
+import com.lyun.user.pay.alipay.AliPayManager;
+import com.lyun.user.pay.wxpay.WXPayManager;
 import com.lyun.user.viewmodel.WalletChargeViewModel;
+import com.lyun.user.viewmodel.watchdog.IWalletChargeViewModelCallbacks;
 
 /**
  * @author Gordon
@@ -14,7 +20,9 @@ import com.lyun.user.viewmodel.WalletChargeViewModel;
  * do()
  */
 
-public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWalletChargeBinding,WalletChargeViewModel>{
+public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWalletChargeBinding,WalletChargeViewModel> implements IWalletChargeViewModelCallbacks{
+    private AliPayManager aliPayManager;
+    private WXPayManager wxPayManager;
     @Override
     protected int getBodyLayoutId() {
         return R.layout.activity_wallet_charge;
@@ -32,5 +40,39 @@ public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWallet
     @Override
     protected WalletChargeViewModel createBodyViewModel() {
         return new WalletChargeViewModel().setPropertyChangeListener(this);
+    }
+
+    @Override
+    public void aliPay(ObservableField<String> observableField, int fieldId) {
+        Toast.makeText(getApplicationContext(),"AliPAy!",Toast.LENGTH_LONG).show();
+//        aliPayManager = new AliPayManager(new OnPayCallBack() {
+//            @Override
+//            public void onSuccess() {
+//                dialogViewModel.dismiss();
+//                Toast.makeText(getApplicationContext(),"支付成功！！",Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onFailure(String des) {
+//                dialogViewModel.dismiss();
+//                Toast.makeText(getApplicationContext(),des,Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        aliPayManager.alipay(this,"");
+    }
+
+    @Override
+    public void wxPay(ObservableField<String> observableField, int fieldId) {
+//        new WXPayManager(this).sendPayReq();
+        Toast.makeText(getApplicationContext(),"WxPAy!",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void isShowDialog(ObservableBoolean observableField, int fieldId) {
+         if(observableField.get()){
+             dialogViewModel.show();
+         }else {
+             dialogViewModel.dismiss();
+         }
     }
 }
