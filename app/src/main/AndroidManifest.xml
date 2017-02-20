@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.lyun.user"
           android:versionCode="${VERSION_CODE}"
           android:versionName="${VERSION_NAME}">
@@ -109,11 +110,15 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterVerifyPhoneActivity" />
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.FindPasswordActivity" />
-        <activity android:name=".activity.ResetPasswordActivity" />
+        <activity android:name=".activity.RegisterVerifyPhoneActivity"/>
+        <activity android:name=".activity.RegisterActivity"/>
+        <activity android:name=".activity.FindPasswordActivity"/>
+        <activity android:name=".activity.ResetPasswordActivity"/>
 
+        <activity
+            android:name="com.netease.nim.uikit.session.activity.P2PMessageActivity"
+            android:theme="@style/AppTheme.NoTitle"
+            tools:replace="android:theme"/>
 
         <!-- 声明云信后台服务 -->
         <service
@@ -251,7 +256,7 @@
         <!-- WxPay begin-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true" />
+            android:exported="true"/>
         <!-- WxPay over-->
     </application>
 

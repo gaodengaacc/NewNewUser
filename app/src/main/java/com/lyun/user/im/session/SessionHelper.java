@@ -149,7 +149,7 @@ public class SessionHelper {
 //            p2pCustomization.backgroundColor = Color.BLUE;
 //            p2pCustomization.backgroundUri = "file:///android_asset/xx/bk.jpg";
 //            p2pCustomization.backgroundUri = "file:///sdcard/Pictures/bk.png";
-//            p2pCustomization.backgroundUri = "android.resource://com.netease.nim.demo/drawable/bk"
+//            p2pCustomization.backgroundUri = "android.resource://com.lyun.user.im/drawable/bk"
 
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
@@ -225,7 +225,7 @@ public class SessionHelper {
 //            p2pCustomization.backgroundColor = Color.BLUE;
 //            p2pCustomization.backgroundUri = "file:///android_asset/xx/bk.jpg";
 //            p2pCustomization.backgroundUri = "file:///sdcard/Pictures/bk.png";
-//            p2pCustomization.backgroundUri = "android.resource://com.netease.nim.demo/drawable/bk"
+//            p2pCustomization.backgroundUri = "android.resource://com.lyun.user.im/drawable/bk"
 
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
@@ -356,7 +356,7 @@ public class SessionHelper {
                     return true;
                 } else if (message.getMsgType() == MsgTypeEnum.custom && message.getAttachment() != null
                         && (message.getAttachment() instanceof SnapChatAttachment)) {
-                    // || message.getAttachment() instanceof RTSAttachment)) {
+                    //|| message.getAttachment() instanceof RTSAttachment)) {
                     // 白板消息和阅后即焚消息 不允许转发
                     return true;
                 }
