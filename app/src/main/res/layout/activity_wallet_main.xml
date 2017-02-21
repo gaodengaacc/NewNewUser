@@ -43,27 +43,6 @@
             android:layout_height="1px"
             android:background="@color/bgcw" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/main_fragment_discover_item"
-                android:drawableLeft="@mipmap/wallet_main_balance_icon"
-                android:drawableRight="@null"
-                android:text="余额" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:text="@{mvvm.balance}"
-                android:textColor="@color/tc1"
-                android:textSize="14sp" />
-        </RelativeLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

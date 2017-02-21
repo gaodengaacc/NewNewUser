@@ -8,9 +8,11 @@ import com.lyun.user.api.request.FindPasswordBean;
 import com.lyun.user.api.request.LoginBean;
 import com.lyun.user.api.request.RegisterBean;
 import com.lyun.user.api.request.RegisterVerifyPhoneBean;
+import com.lyun.user.api.request.RemainingTimeBean;
 import com.lyun.user.api.request.ResetPasswordBean;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.api.response.LoginResponse;
+import com.lyun.user.api.response.RemainingTimeResponse;
 
 import java.util.List;
 
@@ -46,4 +48,7 @@ public interface AuthService {
 
     @POST(APIConstants.FIND_PASSWORD)
     Observable<APIResult> findPassword(@Body FindPasswordBean body);
+
+    @POST(APIConstants.REMAINING_TIME)
+    Observable<APIResult> getRemainingTime(@Body RemainingTimeBean body);
 }

@@ -1,7 +1,9 @@
 package com.lyun.user.activity;
 
+import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -23,6 +25,8 @@ import com.lyun.user.viewmodel.watchdog.IWalletChargeViewModelCallbacks;
 public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWalletChargeBinding,WalletChargeViewModel> implements IWalletChargeViewModelCallbacks{
     private AliPayManager aliPayManager;
     private WXPayManager wxPayManager;
+    private Intent intent = new Intent();
+    private Bundle bundle = new Bundle();
     @Override
     protected int getBodyLayoutId() {
         return R.layout.activity_wallet_charge;
@@ -39,7 +43,9 @@ public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWallet
     @NonNull
     @Override
     protected WalletChargeViewModel createBodyViewModel() {
-        return new WalletChargeViewModel().setPropertyChangeListener(this);
+        intent = getIntent();
+        bundle = intent.getExtras();
+        return new WalletChargeViewModel(bundle).setPropertyChangeListener(this);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.lyun.user.viewmodel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.os.Bundle;
 import android.view.View;
 
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -24,9 +25,14 @@ public class WalletChargeViewModel extends ViewModel {
     public final ObservableField<String> buyDes = new ObservableField<>();
     public final ObservableInt aliSelect = new ObservableInt();
     public final ObservableInt wxSelect = new ObservableInt();
-    public WalletChargeViewModel() {
+    private Bundle bundleTime = new Bundle();
+
+    public WalletChargeViewModel(Bundle bundleTime) {
+        this.bundleTime = bundleTime;
+
         init();
     }
+
     private int PAY_WAY = 0; // 0 支付宝 1 微信
     @WatchThis
     public final ObservableField<String> aliPay = new ObservableField();
@@ -34,8 +40,9 @@ public class WalletChargeViewModel extends ViewModel {
     public final ObservableField<String> wxPay = new ObservableField();
     @WatchThis
     public final ObservableBoolean isShowDialog = new ObservableBoolean();
+
     private void init() {
-        availableMin.set("20");
+        availableMin.set(bundleTime.getString("remainingTime"));
         moneyReduceText.set("15元");
         moneyAddText.set("15元");
         moneyResultText.set("60");
@@ -43,7 +50,6 @@ public class WalletChargeViewModel extends ViewModel {
         aliSelect.set(R.mipmap.wallet_charge_select);
         wxSelect.set(R.mipmap.wallet_charge_unselect);
     }
-
 
 
     public void OnClickView(View view) {
@@ -71,23 +77,25 @@ public class WalletChargeViewModel extends ViewModel {
                 break;
         }
     }
-   //1,首次充值-以15分钟为最小购买单元,购买价格为：45元/分钟;\n2,续费充值-以5分钟为充值单元,购买价格为：15元/分钟.
+
+    //1,首次充值-以15分钟为最小购买单元,购买价格为：45元/分钟;\n2,续费充值-以5分钟为充值单元,购买价格为：15元/分钟.
     private void doSubmit() {
-        if(isShowDialog.get()){
+        if (isShowDialog.get()) {
             isShowDialog.set(false);
         }
         isShowDialog.set(true);
-        if(PAY_WAY == 0){
+        if (PAY_WAY == 0) {
             aliPay.notifyChange();
-        }else {
+        } else {
             wxPay.notifyChange();
         }
     }
-    private void doReduceOrAdd(boolean isAdd){
-        if(isAdd){
-            moneyResultText.set((Integer.parseInt(moneyResultText.get())+15)+"");
-        }else {
-            moneyResultText.set((Integer.parseInt(moneyResultText.get())-15)+"");
+
+    private void doReduceOrAdd(boolean isAdd) {
+        if (isAdd) {
+            moneyResultText.set((Integer.parseInt(moneyResultText.get()) + 15) + "");
+        } else {
+            moneyResultText.set((Integer.parseInt(moneyResultText.get()) - 15) + "");
         }
     }
 }

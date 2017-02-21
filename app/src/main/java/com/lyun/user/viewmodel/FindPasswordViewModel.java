@@ -67,9 +67,9 @@ public class FindPasswordViewModel extends ViewModel {
             onNumberWrong.notifyChange();
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
             onSmsCodeBlank.notifyChange();
-        } else if (("".equals(newPassword.get()) || (newPassword.get() == null))){
+        } else if (("".equals(newPassword.get()) || (newPassword.get() == null))) {
             onNewPasswordBlank.notifyChange();
-        }else {
+        } else {
             submit(username.get(), smscode.get(), newPassword.get());//提交新密码
         }
 

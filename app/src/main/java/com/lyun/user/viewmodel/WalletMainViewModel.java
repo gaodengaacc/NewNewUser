@@ -3,6 +3,7 @@ package com.lyun.user.viewmodel;
 import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,11 +14,14 @@ import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainRecorderAdapter;
+import com.lyun.user.model.RemainingTimeModel;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * @author Gordon
@@ -28,24 +32,42 @@ import java.util.List;
 public class WalletMainViewModel extends ViewModel {
     public final ObservableField<BaseRecyclerAdapter> recorderAdapter = new ObservableField<>();
     public final ObservableField<String> unUserTime = new ObservableField<>();
-    public final ObservableField<String> balance = new ObservableField<>();
     public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>();
+    private Bundle bundle = new Bundle();
+    private Bundle bundleTime = new Bundle();
+    private String userName = "";
+    private Intent intent;
     @WatchThis
     public final ObservableBoolean activityBg = new ObservableBoolean();
 
-    public WalletMainViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
+    public WalletMainViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel, Bundle bundle) {
         toolbarViewModel.title.set("钱包");
-        toolbarViewModel.onBackClick.set((v)->getActivity().finish());
+        toolbarViewModel.onBackClick.set((v) -> getActivity().finish());
         toolbarViewModel.functionImage.set(R.mipmap.wallet_main_function_des_icon);
         toolbarViewModel.functionLeftImage.set(R.mipmap.wallet_main_function_charge_icon);
-        toolbarViewModel.onFunctionClick.set((v)->showPop(v));
-        toolbarViewModel.onFunctionLeftClick.set((v)->getActivity().startActivity(new Intent("com.lyun.user.intent.action.WALLET_CHARGE")));
+        toolbarViewModel.onFunctionClick.set((v) -> showPop(v));
+        toolbarViewModel.onFunctionLeftClick.set((v) ->{
+            intent = new Intent("com.lyun.user.intent.action.WALLET_CHARGE");
+            bundleTime.putString("remainingTime",unUserTime.get());
+            intent.putExtras(bundleTime);
+            getActivity().startActivity(intent);
+        } );
+        this.bundle = bundle;
+        userName = bundle.getString("cardNo");
+        getRemainingTime(userName);
+
         init();
     }
 
+    private void getRemainingTime(String userName) {
+        new RemainingTimeModel().getRemainingTime(userName)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResult -> {
+                    unUserTime.set(apiResult.getContent().toString());
+                });
+    }
+
     private void init() {
-        unUserTime.set("2小时28分钟");
-        balance.set("100.00元");
         List list = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             WalletMainRecorderItemViewModel viewModel = new WalletMainRecorderItemViewModel();
@@ -61,10 +83,11 @@ public class WalletMainViewModel extends ViewModel {
     public RelayCommand<RecyclerView> recyclerViewRelayCommand = new RelayCommand<RecyclerView>(recyclerView -> {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
     });
+
     private void showPop(View v) {
         activityBg.set(true);
         WalletMainPopViewModel popWindow = new WalletMainPopViewModel(v.getContext());
-        popWindow.setOnDismissListener(()->activityBg.set(false));
+        popWindow.setOnDismissListener(() -> activityBg.set(false));
         popWindow.showAsDropDown(v);
     }
 }
