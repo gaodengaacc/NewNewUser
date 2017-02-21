@@ -2,6 +2,7 @@ package com.lyun.user.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -20,17 +21,23 @@ public class RegisterViewModel extends ViewModel {
     public final ObservableField<String> username = new ObservableField<>("");
     public final ObservableField<String> password = new ObservableField<>("");
     public final ObservableField<String> confirmPassword = new ObservableField<>("");
+    private Bundle bundle = new Bundle();
 
     @WatchThis
-    public final BaseObservable onRegisterSuccess = new BaseObservable();
+    public final BaseObservable onRegisterSuccess = new BaseObservable();//注册成功
     @WatchThis
-    public final ObservableField<Throwable> onRegisterFailed = new ObservableField<>();
+    public final ObservableField<Throwable> onRegisterFailed = new ObservableField<>();//
     @WatchThis
-    public final BaseObservable onPasswordBlank = new BaseObservable();
+    public final BaseObservable onPasswordBlank = new BaseObservable();//密码为空
     @WatchThis
-    public final BaseObservable onConfirmPasswordBlank = new BaseObservable();
+    public final BaseObservable onConfirmPasswordBlank = new BaseObservable();//确认密码为空
     @WatchThis
-    public final BaseObservable onPasswordSame = new BaseObservable();
+    public final BaseObservable onPasswordSame = new BaseObservable();//两次输入的密码不同
+
+    public RegisterViewModel(Bundle bundle) {
+        this.bundle = bundle;
+        username.set(bundle.getString("username"));
+    }
 
     public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
         if (("".equals(password.get())) || (null == password.get())) {
@@ -45,6 +52,12 @@ public class RegisterViewModel extends ViewModel {
 
     });
 
+    /**
+     * 注册
+     *
+     * @param username
+     * @param password
+     */
     private void register(String username, String password) {
         new RegisterModel().register(username, password)
                 .observeOn(AndroidSchedulers.mainThread())

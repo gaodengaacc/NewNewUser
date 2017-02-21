@@ -62,7 +62,7 @@ public class HomeFragmentViewModel extends ViewModel {
         new TranslationOrderModel().generateOrder("0", mTranslationOrderType.getValue())
                 .subscribe();
         onTranslationOrderGenerated.set(mTranslationOrderType);
-        onTranslationOrderGenerated.notifyChange();
+        onTranslationOrderGenerated.notifyChange();//打开聊天框
     });
 
     public void languagePickerLinearLayoutClick(View view) {//选取目标语言

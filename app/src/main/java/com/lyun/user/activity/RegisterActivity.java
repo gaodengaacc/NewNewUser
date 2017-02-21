@@ -1,7 +1,9 @@
 package com.lyun.user.activity;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -13,6 +15,8 @@ import com.lyun.user.viewmodel.RegisterViewModel;
 import com.lyun.user.viewmodel.watchdog.IRegisterViewModelCallbacks;
 
 public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBinding, RegisterViewModel> implements IRegisterViewModelCallbacks {
+    private Intent intent = new Intent();
+    private Bundle bundle = new Bundle();
 
     @Override
     protected int getBodyLayoutId() {
@@ -31,12 +35,15 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
     @NonNull
     @Override
     protected RegisterViewModel createBodyViewModel() {
-        return new RegisterViewModel()
+        intent = getIntent();
+        bundle = intent.getExtras();
+        return new RegisterViewModel(bundle)
                 .setPropertyChangeListener(this);
     }
 
     @Override
     public void onRegisterSuccess(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "注册成功！", Toast.LENGTH_LONG).show();
         finish();
     }
 

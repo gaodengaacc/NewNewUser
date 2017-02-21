@@ -111,7 +111,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterVerifyPhoneActivity"/>
-        <activity android:name=".activity.RegisterActivity"/>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:theme="@style/GlobalTitleTheme">
+            <intent-filter>
+                <action android:name="com.lyun.user.intent.action.REGISTER"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.FindPasswordActivity"/>
         <activity android:name=".activity.ResetPasswordActivity"/>
 

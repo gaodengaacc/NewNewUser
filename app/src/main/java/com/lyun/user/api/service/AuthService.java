@@ -4,7 +4,7 @@ import com.lyun.api.request.BaseRequest;
 import com.lyun.api.response.APIResult;
 import com.lyun.user.api.APIConstants;
 import com.lyun.user.api.request.CheckVerificationBean;
-import com.lyun.user.api.request.FindByLanguageBean;
+import com.lyun.user.api.request.FindPasswordBean;
 import com.lyun.user.api.request.LoginBean;
 import com.lyun.user.api.request.RegisterBean;
 import com.lyun.user.api.request.RegisterVerifyPhoneBean;
@@ -43,4 +43,7 @@ public interface AuthService {
 
     @POST(APIConstants.FIND_BY_LANGUAGE)
     Observable<APIResult<List<FindLanguageResponse>>> findByLanguage(@Body BaseRequest body);
+
+    @POST(APIConstants.FIND_PASSWORD)
+    Observable<APIResult> findPassword(@Body FindPasswordBean body);
 }

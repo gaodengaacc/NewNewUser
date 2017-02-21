@@ -2,6 +2,7 @@ package com.lyun.user.activity;
 
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -37,8 +38,8 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
     }
 
     @Override
-    public void onVerifySuccess(BaseObservable observableField, int fieldId) {
-        startActivity(new Intent(this, RegisterActivity.class));
+    public void onVerifySuccess(ObservableField<Intent> observableField, int fieldId) {
+        startActivity(observableField.get());
         finish();
     }
 

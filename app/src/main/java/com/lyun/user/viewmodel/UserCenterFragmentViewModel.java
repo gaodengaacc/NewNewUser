@@ -52,7 +52,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     }
 
     private void setUserInformation() {
-        userName.set(Account.preference().getPhone());
+        userName.set(Account.preference().getPhone());//更新昵称
         exitVisible.set(View.VISIBLE);
     }
 
