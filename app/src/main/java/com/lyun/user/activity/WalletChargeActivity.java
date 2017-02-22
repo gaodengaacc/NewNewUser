@@ -1,6 +1,7 @@
 package com.lyun.user.activity;
 
 import android.content.Intent;
+import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
@@ -22,15 +23,17 @@ import com.lyun.user.viewmodel.watchdog.IWalletChargeViewModelCallbacks;
  * do()
  */
 
-public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWalletChargeBinding,WalletChargeViewModel> implements IWalletChargeViewModelCallbacks{
+public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletChargeBinding, WalletChargeViewModel> implements IWalletChargeViewModelCallbacks {
     private AliPayManager aliPayManager;
     private WXPayManager wxPayManager;
     private Intent intent = new Intent();
     private Bundle bundle = new Bundle();
+
     @Override
     protected int getBodyLayoutId() {
         return R.layout.activity_wallet_charge;
     }
+
     @NonNull
     @Override
     protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
@@ -40,6 +43,7 @@ public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWallet
         viewModel.onBackClick.set(view -> finish());
         return viewModel;
     }
+
     @NonNull
     @Override
     protected WalletChargeViewModel createBodyViewModel() {
@@ -50,7 +54,7 @@ public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWallet
 
     @Override
     public void aliPay(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(getApplicationContext(),"AliPAy!",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "AliPAy!", Toast.LENGTH_LONG).show();
 //        aliPayManager = new AliPayManager(new OnPayCallBack() {
 //            @Override
 //            public void onSuccess() {
@@ -70,15 +74,20 @@ public class WalletChargeActivity  extends GeneralToolbarActivity<ActivityWallet
     @Override
     public void wxPay(ObservableField<String> observableField, int fieldId) {
 //        new WXPayManager(this).sendPayReq();
-        Toast.makeText(getApplicationContext(),"WxPAy!",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "WxPAy!", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void isShowDialog(ObservableBoolean observableField, int fieldId) {
-         if(observableField.get()){
-             dialogViewModel.show();
-         }else {
-             dialogViewModel.dismiss();
-         }
+        if (observableField.get()) {
+            dialogViewModel.show();
+        } else {
+            dialogViewModel.dismiss();
+        }
+    }
+
+    @Override
+    public void onMoneyResultZero(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "金额不得小于0元！", Toast.LENGTH_LONG).show();
     }
 }

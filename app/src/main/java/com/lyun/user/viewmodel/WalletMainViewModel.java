@@ -12,6 +12,7 @@ import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.Account;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainRecorderAdapter;
 import com.lyun.user.model.RemainingTimeModel;
@@ -33,30 +34,31 @@ public class WalletMainViewModel extends ViewModel {
     public final ObservableField<BaseRecyclerAdapter> recorderAdapter = new ObservableField<>();
     public final ObservableField<String> unUserTime = new ObservableField<>();
     public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>();
-    private Bundle bundle = new Bundle();
-    private Bundle bundleTime = new Bundle();
     private String userName = "";
     private Intent intent;
     @WatchThis
     public final ObservableBoolean activityBg = new ObservableBoolean();
 
-    public WalletMainViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel, Bundle bundle) {
+    public WalletMainViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
         toolbarViewModel.title.set("钱包");
         toolbarViewModel.onBackClick.set((v) -> getActivity().finish());
         toolbarViewModel.functionImage.set(R.mipmap.wallet_main_function_des_icon);
         toolbarViewModel.functionLeftImage.set(R.mipmap.wallet_main_function_charge_icon);
         toolbarViewModel.onFunctionClick.set((v) -> showPop(v));
-        toolbarViewModel.onFunctionLeftClick.set((v) ->{
+        toolbarViewModel.onFunctionLeftClick.set((v) -> {
             intent = new Intent("com.lyun.user.intent.action.WALLET_CHARGE");
-            bundleTime.putString("remainingTime",unUserTime.get());
-            intent.putExtras(bundleTime);
+            Bundle bundle = new Bundle();
+            bundle.putString("remainingTime", unUserTime.get());
+            intent.putExtras(bundle);
             getActivity().startActivity(intent);
-        } );
-        this.bundle = bundle;
-        userName = bundle.getString("cardNo");
-        getRemainingTime(userName);
-
+        });
         init();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getRemainingTime(Account.preference().getPhone());//获取剩余时间
     }
 
     private void getRemainingTime(String userName) {

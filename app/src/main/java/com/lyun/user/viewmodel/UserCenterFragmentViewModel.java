@@ -5,7 +5,6 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.View;
 
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -28,8 +27,6 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
 
     private Intent intent;
-    private Bundle bundle = new Bundle();
-
     @WatchThis
     public final BaseObservable onLogout = new BaseObservable();
 
@@ -83,9 +80,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 //  getActivity().startActivity(new Intent("com.lyun.user.intent.action.LOGIN"));
                 break;
             case R.id.user_center_wallet:
-                bundle.putString("cardNo",userName.get());
                 intent = new Intent("com.lyun.user.intent.action.WALLET_MAIN");
-                intent.putExtras(bundle);
                 getActivity().startActivity(intent);
 
                 break;

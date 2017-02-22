@@ -14,7 +14,9 @@ public final class ViewBindingAdapter {
     @BindingAdapter("transformMethod")
     public static void setInputType(EditText editText, TransformationMethod method) {
         editText.setTransformationMethod(method);
+        editText.setSelection(editText.getText().length());
     }
+
     @android.databinding.BindingAdapter({"requestFocus"})
     public static void requestFocusCommand(EditText editText, final Boolean needRequestFocus) {
         if (needRequestFocus) {

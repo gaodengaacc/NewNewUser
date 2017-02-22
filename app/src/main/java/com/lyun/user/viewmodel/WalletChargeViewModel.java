@@ -1,5 +1,6 @@
 package com.lyun.user.viewmodel;
 
+import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -40,12 +41,15 @@ public class WalletChargeViewModel extends ViewModel {
     public final ObservableField<String> wxPay = new ObservableField();
     @WatchThis
     public final ObservableBoolean isShowDialog = new ObservableBoolean();
+    @WatchThis
+    public final BaseObservable onMoneyResultZero = new BaseObservable();//金额为0时
+
 
     private void init() {
         availableMin.set(bundleTime.getString("remainingTime"));
         moneyReduceText.set("15元");
         moneyAddText.set("15元");
-        moneyResultText.set("60");
+        moneyResultText.set("0");
         buyDes.set("1,首次充值-以15分钟为最小购买单元,购买价格为：45元/分钟;\n2,续费充值-以5分钟为充值单元,购买价格为：15元/分钟.");
         aliSelect.set(R.mipmap.wallet_charge_select);
         wxSelect.set(R.mipmap.wallet_charge_unselect);
@@ -94,6 +98,8 @@ public class WalletChargeViewModel extends ViewModel {
     private void doReduceOrAdd(boolean isAdd) {
         if (isAdd) {
             moneyResultText.set((Integer.parseInt(moneyResultText.get()) + 15) + "");
+        } else if ("0".equals(moneyResultText.get())) {
+            onMoneyResultZero.notifyChange();
         } else {
             moneyResultText.set((Integer.parseInt(moneyResultText.get()) - 15) + "");
         }

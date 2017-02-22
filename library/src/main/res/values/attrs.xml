@@ -93,6 +93,7 @@
         <attr name="onTextChangedCommand" format="reference"/>
         <!--require ReplyCommand<String> -->
         <attr name="afterTextChangedCommand" format="reference"/>
+        <attr name="typeFace" format="reference"></attr>
         <attr name="backGroundRes" format="reference"></attr>
     </declare-styleable>
 
