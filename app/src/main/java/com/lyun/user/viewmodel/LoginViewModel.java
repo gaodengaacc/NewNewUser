@@ -48,7 +48,7 @@ public class LoginViewModel extends ViewModel {
     private void login(String username, String password) {
         new LoginModel().login(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginResponseAPIResult -> loginNim(username, password, loginResponseAPIResult.getContent()),
+                .subscribe(loginResponse -> loginNim(username, password, loginResponse),
                         throwable -> onLoginFailed.set(throwable));
     }
 

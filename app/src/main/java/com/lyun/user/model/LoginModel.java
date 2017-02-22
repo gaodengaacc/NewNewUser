@@ -1,6 +1,5 @@
 package com.lyun.user.model;
 
-import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.LoginBean;
@@ -16,9 +15,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoginModel extends Model {
 
-    public Observable<APIResult<LoginResponse>> login(String username, String password) {
+    public Observable<LoginResponse> login(String username, String password) {
         LoginBean bean = new LoginBean(username, MD5Util.getStringMD5(password));
-        return API.auth.login(bean)
+        return parseAPIObservable(API.auth.login(bean))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

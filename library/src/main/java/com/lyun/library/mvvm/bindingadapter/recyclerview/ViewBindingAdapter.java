@@ -60,7 +60,7 @@ public class ViewBindingAdapter {
     }
 
     @BindingAdapter({"notifyData"})
-    public static void setNotifyData(RecyclerView recyclerView, List<ViewModel> data) {
+    public static void setNotifyData(RecyclerView recyclerView, List<? extends ViewModel> data) {
         BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
         if (data != null)
             adapter.setListData(data);

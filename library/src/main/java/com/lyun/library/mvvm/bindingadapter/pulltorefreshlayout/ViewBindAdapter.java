@@ -2,6 +2,7 @@ package com.lyun.library.mvvm.bindingadapter.pulltorefreshlayout;
 
 import android.databinding.BindingAdapter;
 
+import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.widget.refresh.PullToRefreshLayout;
 
 /**
@@ -12,12 +13,24 @@ import com.lyun.widget.refresh.PullToRefreshLayout;
 
 public class ViewBindAdapter {
     @BindingAdapter("refreshListener")
-    public static void onRefreshListener(PullToRefreshLayout layout, PullToRefreshLayout.OnRefreshListener listener){
+    public static void onRefreshListener(PullToRefreshLayout layout, PullToRefreshLayout.OnRefreshListener listener) {
         layout.setOnRefreshListener(listener);
     }
+
     @BindingAdapter("autoRefresh")
-    public static void setAutoRefresh(PullToRefreshLayout layout,boolean isAuto){
-        if(isAuto)
-        layout.autoRefresh();
+    public static void setAutoRefresh(PullToRefreshLayout layout, boolean isAuto) {
+        if (isAuto)
+            layout.autoRefresh();
     }
+
+    @BindingAdapter("refreshResult")
+    public static void stopRefresh(PullToRefreshLayout layout, int refreshResult) {
+        layout.refreshFinish(refreshResult);
+    }
+
+    @BindingAdapter("loadMoreResult")
+    public static void stopLoadMore(PullToRefreshLayout layout, int loadMoreResult) {
+        layout.loadmoreFinish(loadMoreResult);
+    }
+
 }
