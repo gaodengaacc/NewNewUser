@@ -1,8 +1,6 @@
 package com.lyun.user.activity;
 
-import android.content.Intent;
 import android.databinding.ObservableBoolean;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.WindowManager;
 
@@ -19,8 +17,7 @@ import com.lyun.user.viewmodel.watchdog.IWalletMainViewModelCallbacks;
  */
 
 public class WalletMainActivity extends GeneralToolbarActivity<ActivityWalletMainBinding, WalletMainViewModel> implements IWalletMainViewModelCallbacks{
-    private Intent intent = new Intent();
-    private Bundle bundle = new Bundle();
+
     @Override
     protected int getBodyLayoutId() {
         return R.layout.activity_wallet_main;
@@ -29,9 +26,8 @@ public class WalletMainActivity extends GeneralToolbarActivity<ActivityWalletMai
     @NonNull
     @Override
     protected WalletMainViewModel createBodyViewModel() {
-        intent = getIntent();
-        bundle = intent.getExtras();
-        return new WalletMainViewModel(getTitleViewDataBinding().getMvvm(),bundle).setPropertyChangeListener(this);
+
+        return new WalletMainViewModel(getTitleViewDataBinding().getMvvm()).setPropertyChangeListener(this);
     }
 
 
