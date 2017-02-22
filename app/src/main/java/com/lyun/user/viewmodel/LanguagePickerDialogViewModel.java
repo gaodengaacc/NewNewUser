@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.lyun.library.mvvm.viewmodel.DialogViewModel;
 import com.lyun.user.R;
 import com.lyun.user.adapter.LanguageTextAdapter;
+import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.dialog.LanguagePickerDialog;
 
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
     public final ObservableInt foreground = new ObservableInt();
     public final ObservableBoolean isShow = new ObservableBoolean();
 
-    private LanguageTextAdapter languageTextAdapter;
-    private List<Object> listLanguagePicker = new ArrayList<Object>();
+    private LanguageTextAdapter mLanguageAdapter;
+    private List<FindLanguageResponse> mLanguageDatas = new ArrayList<>();
 
     //设置选择时字体大小
     private int maxTextSize = 16;
@@ -50,21 +51,21 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
 
     private OnLanguagePickedListener onLanguagePickedListener;
 
-    public LanguagePickerDialogViewModel(Context context,List<Object> listLanguagePicker) {
+    public LanguagePickerDialogViewModel(Context context,List<FindLanguageResponse> languageDatas) {
         super(context);
-        this.listLanguagePicker = listLanguagePicker;
+        this.mLanguageDatas = languageDatas;
         initData();
-        setDataOne(listLanguagePicker);
+        setDataOne(languageDatas);
         new LanguagePickerDialog(getContext(), this);
     }
 
     private void initData() {
-        languageTextAdapter = new LanguageTextAdapter(getContext(), listLanguagePicker, 0, maxTextSize, minTextSize);
+        mLanguageAdapter = new LanguageTextAdapter(getContext(), mLanguageDatas, 0, maxTextSize, minTextSize);
         changedListener.set(onWheelChangedListener);
         scrollListener.set(onWheelScrollListener);
 
 //        initListData();//设置选项值
-        adapter.set(languageTextAdapter);
+        adapter.set(mLanguageAdapter);
         visibleItem.set(7);//设置item的显示数目
         currentItem.set(0);
         isCyclic.set(true);//设置循环
@@ -74,8 +75,8 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
     private OnWheelChangedListener onWheelChangedListener = new OnWheelChangedListener() {//接口实现
         @Override
         public void onChanged(WheelView wheel, int oldValue, int newValue) {
-            String currentText = (String) languageTextAdapter.getItemText(wheel.getCurrentItem());
-            setTextviewSize(currentText, languageTextAdapter);
+            String currentText = (String) mLanguageAdapter.getItemText(wheel.getCurrentItem());
+            setTextviewSize(currentText, mLanguageAdapter);
             currentPosition = wheel.getCurrentItem();
             currentContent = currentText;
             language = currentText;
@@ -89,8 +90,8 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
 
         @Override
         public void onScrollingFinished(WheelView wheel) {
-            String currentText = (String) languageTextAdapter.getItemText(wheel.getCurrentItem());
-            setTextviewSize(currentText, languageTextAdapter);
+            String currentText = (String) mLanguageAdapter.getItemText(wheel.getCurrentItem());
+            setTextviewSize(currentText, mLanguageAdapter);
         }
     };
 
@@ -115,12 +116,12 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
         }
     }
 
-    private void setDataOne(List<Object> listLanguagePicker) {
+    private void setDataOne(List<FindLanguageResponse> listLanguagePicker) {
         if (listLanguagePicker != null && listLanguagePicker.size() > 0) {
             //设置默认为第一个
             currentPosition = 0;
             currentContent = listLanguagePicker.get(0);
-            String currentText = (String) languageTextAdapter.getItemText(currentItem.get());
+            String currentText = mLanguageAdapter.getItemText(currentItem.get());
             language = currentText;
         }
     }

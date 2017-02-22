@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lyun.user.R;
+import com.lyun.user.api.response.FindLanguageResponse;
 
 import java.util.List;
 
@@ -15,11 +16,12 @@ import kankan.wheel.widget.adapters.AbstractWheelTextAdapter;
  */
 
 public class LanguageTextAdapter extends AbstractWheelTextAdapter {
-    List<Object> list;
 
-    public LanguageTextAdapter(Context context, List<Object> list, int currentItem, int maxsize, int minsize) {
+    List<FindLanguageResponse> mDatas;
+
+    public LanguageTextAdapter(Context context, List<FindLanguageResponse> datas, int currentItem, int maxsize, int minsize) {
         super(context, R.layout.item_language_picker, NO_RESOURCE, currentItem, maxsize, minsize);
-        this.list = list;
+        this.mDatas = datas;
         setItemTextResource(R.id.textView_tempValue);
     }
 
@@ -30,12 +32,12 @@ public class LanguageTextAdapter extends AbstractWheelTextAdapter {
     }
 
     @Override
-    public CharSequence getItemText(int index) {
-        return list.get(index) + "";
+    public String getItemText(int index) {
+        return mDatas.get(index).getName();
     }
 
     @Override
     public int getItemsCount() {
-        return list.size();
+        return mDatas.size();
     }
 }
