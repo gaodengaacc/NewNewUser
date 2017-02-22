@@ -83,7 +83,7 @@ public class HomeFragmentViewModel extends ViewModel {
 
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
         // 0=图文 1=语音
-        new TranslationOrderModel().generateOrder("0", mTranslationOrderType.getValue())
+        new TranslationOrderModel().generateOrder(textViewTargetLanguage.get(), mTranslationOrderType.getValue())
                 .subscribe();
         onTranslationOrderGenerated.set(mTranslationOrderType);
         onTranslationOrderGenerated.notifyChange();//打开聊天框
@@ -98,7 +98,7 @@ public class HomeFragmentViewModel extends ViewModel {
             languagePickerDialogViewModel = new LanguagePickerDialogViewModel(view.getContext(), list);
         }
 
-        languagePickerDialogViewModel.setPickLanguage(language -> textViewTargetLanguage.set(language));
+        languagePickerDialogViewModel.setOnLanguagePickedListener(language -> textViewTargetLanguage.set(language));
         languagePickerDialogViewModel.show();
     }
 

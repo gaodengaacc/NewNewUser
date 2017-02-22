@@ -24,6 +24,7 @@ import kankan.wheel.widget.WheelView;
  */
 
 public class LanguagePickerDialogViewModel extends DialogViewModel {
+
     public final ObservableField<OnWheelChangedListener> changedListener = new ObservableField<>();
     public final ObservableField<OnWheelScrollListener> scrollListener = new ObservableField<>();
     public final ObservableField<LanguageTextAdapter> adapter = new ObservableField<>();
@@ -47,7 +48,7 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
     //已选择的语种
     private String language = "";
 
-    private PickLanguage pickLanguage;
+    private OnLanguagePickedListener onLanguagePickedListener;
 
     public LanguagePickerDialogViewModel(Context context,List<Object> listLanguagePicker) {
         super(context);
@@ -93,19 +94,6 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
         }
     };
 
-    private void initListData() {
-        listLanguagePicker.add("英语");
-        listLanguagePicker.add("日语");
-        listLanguagePicker.add("法语");
-        listLanguagePicker.add("德语");
-        listLanguagePicker.add("俄语");
-        listLanguagePicker.add("韩语");
-        listLanguagePicker.add("意大利语");
-        listLanguagePicker.add("西班牙语");
-        listLanguagePicker.add("葡萄牙语");
-        listLanguagePicker.add("泰语");
-    }
-
     /**
      * 设置字体大小
      *
@@ -138,19 +126,19 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
     }
 
     public void textViewDone(View view) {
-        if (pickLanguage != null) {
-            pickLanguage.onPick(language);
+        if (onLanguagePickedListener != null) {
+            onLanguagePickedListener.onPick(language);
             dismiss();
         }
     }
 
-    public interface PickLanguage {
-        public void onPick(String language);
+    public interface OnLanguagePickedListener {
+        void onPick(String language);
     }
 
     //该方法为了让PickLanguage接口的方法在SpecialistTranslationFragmentViewModel中实现
-    public void setPickLanguage(PickLanguage pickLanguage) {
-        this.pickLanguage = pickLanguage;
+    public void setOnLanguagePickedListener(OnLanguagePickedListener onLanguagePickedListener) {
+        this.onLanguagePickedListener = onLanguagePickedListener;
     }
 
 }
