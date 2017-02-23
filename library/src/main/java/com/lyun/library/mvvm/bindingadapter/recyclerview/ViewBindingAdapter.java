@@ -10,6 +10,7 @@ import android.view.View;
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.OnRecycleItemClickListener;
 import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.command.ResponseCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 
 import java.util.List;
@@ -55,8 +56,8 @@ public class ViewBindingAdapter {
     }
 
     @BindingAdapter({"layoutManager"})
-    public static void setLayoutManage(RecyclerView recyclerView, RelayCommand<RecyclerView> layoutRelayCommand) {
-        layoutRelayCommand.execute(recyclerView);
+    public static void setLayoutManage(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager) {
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @BindingAdapter({"notifyData"})
@@ -98,22 +99,24 @@ public class ViewBindingAdapter {
         View view = View.inflate(recyclerView.getContext(), layoutRes, null);
         ((BaseRecyclerAdapter) recyclerView.getAdapter()).setFooterView(view);
     }
+
     @BindingAdapter("onItemClickCommand")
     public static void setOnItemClickListener(RecyclerView recyclerView, final RelayCommand<ClickListenerData> clickCommand) {
-      BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
+        BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
         if (adapter != null)
-        adapter.setItemClickListener(
-                new OnRecycleItemClickListener() {
+            adapter.setItemClickListener(
+                    new OnRecycleItemClickListener() {
 
-                    @Override
-                    public void onItemClick(View view, List viewModels, int position) {
-                        clickCommand.execute(new ClickListenerData(viewModels, position));
+                        @Override
+                        public void onItemClick(View view, List viewModels, int position) {
+                            clickCommand.execute(new ClickListenerData(viewModels, position));
+                        }
                     }
-                }
-        );
+            );
     }
+
     @BindingAdapter("onItemLongClickCommand")
-    public static void setOnItemLongClickListener(RecyclerView recyclerView,final RelayCommand<ClickListenerData> longClickCommand) {
+    public static void setOnItemLongClickListener(RecyclerView recyclerView, final RelayCommand<ClickListenerData> longClickCommand) {
         BaseRecyclerAdapter adapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
         adapter.setItemLongClickListener(new OnRecycleItemClickListener() {
             @Override
@@ -123,6 +126,7 @@ public class ViewBindingAdapter {
         });
 
     }
+
     public static class OnScrollListener extends RecyclerView.OnScrollListener {
 
         private PublishSubject<Integer> methodInvoke = PublishSubject.create();
@@ -172,10 +176,12 @@ public class ViewBindingAdapter {
             this.state = state;
         }
     }
-    public static class ClickListenerData{
+
+    public static class ClickListenerData {
         public List<ViewModel> list;
         public int position;
-        public ClickListenerData(List<ViewModel> list,int position) {
+
+        public ClickListenerData(List<ViewModel> list, int position) {
             this.list = list;
             this.position = position;
         }

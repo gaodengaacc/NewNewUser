@@ -1,6 +1,10 @@
-package com.lyun.library.mvvm.bindingadapter.wheelview;
+package com.lyun.user.bindingadapter.wheelview;
 
 import android.databinding.BindingAdapter;
+
+import com.lyun.user.adapter.LanguageTextAdapter;
+
+import java.util.List;
 
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.OnWheelScrollListener;
@@ -12,6 +16,7 @@ import kankan.wheel.widget.adapters.WheelViewAdapter;
  */
 
 public class ViewBindingAdapter {
+
     @BindingAdapter("ChangingListener")
     public static void addChangingListener(final WheelView wheelView, OnWheelChangedListener changedlistener) {
         wheelView.addChangingListener(changedlistener);

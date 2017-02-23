@@ -1,10 +1,14 @@
 package com.lyun.user.model;
 
+import com.google.gson.Gson;
 import com.lyun.api.request.BaseRequest;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
+import com.lyun.user.AppApplication;
+import com.lyun.user.Constants;
 import com.lyun.user.api.API;
 import com.lyun.user.api.response.FindLanguageResponse;
+import com.lyun.utils.ACache;
 import com.lyun.utils.filecache.Cache;
 import com.lyun.utils.filecache.CacheUtil;
 
@@ -28,11 +32,10 @@ public class LanguageModel extends Model {
 
     public void updateLanguages() {
         findByLanguage()
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         listAPIResult -> {
                             if (listAPIResult.getStatus().equals("0") && listAPIResult.getContent() != null) {
-                                CacheUtil.getInstance().saveData(Cache.DATA_TYPE_FIND_BY_LANGUAGE, listAPIResult.getContent());
+                                ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
                             }
                         }, throwable -> {
                         }

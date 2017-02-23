@@ -11,6 +11,7 @@ import android.widget.PopupWindow;
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainPopAdapter;
 import com.lyun.user.dialog.WalletMainPopWindow;
@@ -37,9 +38,7 @@ public class WalletMainPopViewModel extends ViewModel {
     public final ObservableField<PopupWindow.OnDismissListener> onDismissListener = new ObservableField();
 
     //设置LayoutManager
-    public RelayCommand<RecyclerView> recyclerViewRelayCommand = new RelayCommand<RecyclerView>(recyclerView -> {
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-    });
+    public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
 
     public WalletMainPopViewModel(Context context) {
         new WalletMainPopWindow(context, this);

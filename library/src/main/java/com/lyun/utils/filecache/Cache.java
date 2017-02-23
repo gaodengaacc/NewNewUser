@@ -6,7 +6,6 @@ package com.lyun.utils.filecache;
  * do()
  */
 public interface Cache {
-    public static final int DATA_TYPE_FIND_BY_LANGUAGE = 1;
     /**
      * 保存数据
      *

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -29,7 +29,7 @@
                 android:layout_marginTop="10dp"
                 android:text="目标语言"
                 android:textColor="#333333"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/textView_completed"
@@ -38,15 +38,15 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
-                android:onClick="@{mvvm.textViewDone}"
                 android:text="完成"
                 android:textColor="#00abfa"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:clickCommand="@{mvvm.onDoneClickCommand}"/>
         </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"/>
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/wheelView_language_picker"
@@ -57,9 +57,9 @@
             app:ChangingListener="@{mvvm.changedListener}"
             app:CurrentItem="@{mvvm.currentItem}"
             app:Cyclic="@{mvvm.isCyclic}"
-            app:ScrollingListener="@{mvvm.scrollListener}"
             app:VisibleItems="@{mvvm.visibleItem}"
             app:WheelForeground="@{mvvm.foreground}"
+            app:languageDatas="@{mvvm.mLanguageDatas}"
             app:WheelViewAdapter="@{mvvm.adapter}"></kankan.wheel.widget.WheelView>
     </LinearLayout>
 
