@@ -1,6 +1,5 @@
 package com.lyun.user.model;
 
-import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.Account;
 import com.lyun.user.api.API;
@@ -15,12 +14,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TranslationOrderModel extends Model {
 
-    public Observable<APIResult<String>> generateOrder(String languageId, String orderTypeId) {
+    public Observable<String> generateOrder(String languageId, String orderTypeId) {
         GenerateOrderRequest request = new GenerateOrderRequest();
         request.setCardNo(Account.preference().getPhone());
         request.setLanguageId(languageId);
         request.setOrderTypeId(orderTypeId);
-        return API.translationOrder.generateOrder(request)
+        return parseAPIObservable(API.translationOrder.generateOrder(request))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

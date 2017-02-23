@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.view.View;
 
 import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.R;
@@ -44,9 +45,10 @@ public class HomeFragmentViewModel extends ViewModel {
 
     @WatchThis
     public final ObservableField<OrderType> onTranslationOrderGenerated = new ObservableField<>();
+    @WatchThis
+    public final ObservableField<String> onTranslationOrderGenerateFail = new ObservableField<>();
 
     LanguagePickerDialogViewModel languagePickerDialogViewModel;
-
 
     public HomeFragmentViewModel() {
         initData();
@@ -80,9 +82,8 @@ public class HomeFragmentViewModel extends ViewModel {
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
         // 0=图文 1=语音
         new TranslationOrderModel().generateOrder(textViewTargetLanguage.get(), mTranslationOrderType.getValue())
-                .subscribe();
-        onTranslationOrderGenerated.set(mTranslationOrderType);
-        onTranslationOrderGenerated.notifyChange();//打开聊天框
+                .subscribe(orderId -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, mTranslationOrderType),
+                        throwable -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage()));
     });
 
     public void languagePickerLinearLayoutClick(View view) {//选取目标语言
@@ -117,7 +118,6 @@ public class HomeFragmentViewModel extends ViewModel {
             typeface1.set(Typeface.defaultFromStyle(Typeface.NORMAL));
             typeface2.set(Typeface.defaultFromStyle(Typeface.BOLD));
             mTranslationOrderType = OrderType.MESSAGE;
-
         }
     }
 }

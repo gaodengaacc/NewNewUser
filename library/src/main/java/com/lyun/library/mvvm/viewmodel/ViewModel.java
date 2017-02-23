@@ -3,6 +3,7 @@ package com.lyun.library.mvvm.viewmodel;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableField;
 
 import com.lyun.library.mvvm.observable.ObservableActivity;
 import com.lyun.library.mvvm.observable.ObservableProgressDialog;
@@ -78,4 +79,5 @@ public abstract class ViewModel extends BaseObservable {
     public void onDestroyView() {
 
     }
+
 }

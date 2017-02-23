@@ -1,5 +1,6 @@
 package com.lyun.library.mvvm.model;
 
+import com.lyun.api.exception.APINotSuccessException;
 import com.lyun.api.response.APIResult;
 
 import io.reactivex.Observable;
@@ -33,7 +34,7 @@ public class Model {
                                 if ("0".equals(result.getStatus())) {
                                     e.onNext(result.getContent());
                                 } else {
-                                    e.onError(new Exception(result.getDescribe()));
+                                    e.onError(new APINotSuccessException(result));
                                 }
                                 e.onComplete();
                             }
