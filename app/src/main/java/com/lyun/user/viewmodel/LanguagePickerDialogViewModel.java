@@ -1,19 +1,22 @@
 package com.lyun.user.viewmodel;
 
-import android.content.Context;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
-import android.view.View;
-import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.DialogViewModel;
+import com.lyun.user.AppApplication;
+import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.adapter.LanguageTextAdapter;
 import com.lyun.user.api.response.FindLanguageResponse;
-import com.lyun.user.dialog.LanguagePickerDialog;
+import com.lyun.utils.ACache;
 
-import java.util.ArrayList;
+import net.funol.databinding.watchdog.annotations.WatchThis;
+
 import java.util.List;
 
 import kankan.wheel.widget.OnWheelChangedListener;
@@ -33,56 +36,48 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
     public final ObservableInt currentItem = new ObservableInt();
     public final ObservableField<Boolean> isCyclic = new ObservableField<>();
     public final ObservableInt foreground = new ObservableInt();
-    public final ObservableBoolean isShow = new ObservableBoolean();
 
-    private LanguageTextAdapter mLanguageAdapter;
-    private List<FindLanguageResponse> mLanguageDatas = new ArrayList<>();
+    @WatchThis
+    public final ObservableField<FindLanguageResponse> onLanguagePicked = new ObservableField<>();
 
-    //设置选择时字体大小
-    private int maxTextSize = 16;
-    private int minTextSize = 14;
-
-    //当前选择的位置及其内容
-    private int currentPosition;
-    private Object currentContent;
+    public final ObservableField<List<FindLanguageResponse>> mLanguageDatas = new ObservableField<>();
 
     //已选择的语种
-    private String language = "";
+    private FindLanguageResponse mCurrentSelectedLanguage = null;
 
-    private OnLanguagePickedListener onLanguagePickedListener;
+    private final String defaultLanguageCache = "[{\"id\":1,\"code\":\"102\",\"name\":\"英文\",\"description\":\"英文语言\"}]";
 
-    public LanguagePickerDialogViewModel(Context context, List<FindLanguageResponse> languageDatas) {
-        super(context);
-        this.mLanguageDatas = languageDatas;
+    public LanguagePickerDialogViewModel() {
         initData();
-        setDataOne(languageDatas);
-        new LanguagePickerDialog(getContext(), this);
     }
 
     private void initData() {
-        mLanguageAdapter = new LanguageTextAdapter(getContext(), mLanguageDatas, 0, maxTextSize, minTextSize);
         changedListener.set(onWheelChangedListener);
         scrollListener.set(onWheelScrollListener);
 
-//        initListData();//设置选项值
-        adapter.set(mLanguageAdapter);
+        // initListData();//设置选项值
         visibleItem.set(7);//设置item的显示数目
         currentItem.set(0);
         isCyclic.set(true);//设置循环
         foreground.set(R.mipmap.bg_wheel_divider);
+
+        String languageStr = ACache.get(AppApplication.getInstance()).getAsString(Constants.Cache.SUPPORT_LANGUAGES);
+        mLanguageDatas.set(new Gson().fromJson(languageStr == null ? defaultLanguageCache : languageStr, new TypeToken<List<FindLanguageResponse>>() {
+        }.getType()));
+
+        if (mLanguageDatas.get() != null && mLanguageDatas.get().size() > 0) {
+            //设置默认为第一个
+            currentItem.set(0);
+            mCurrentSelectedLanguage = mLanguageDatas.get().get(currentItem.get());
+            onLanguagePicked.set(mCurrentSelectedLanguage);
+        }
     }
 
-    private OnWheelChangedListener onWheelChangedListener = new OnWheelChangedListener() {//接口实现
-        @Override
-        public void onChanged(WheelView wheel, int oldValue, int newValue) {
-            String currentText = (String) mLanguageAdapter.getItemText(wheel.getCurrentItem());
-            setTextviewSize(currentText, mLanguageAdapter);
-            currentPosition = wheel.getCurrentItem();
-            currentContent = currentText;
-            language = currentText;
-        }
+    private OnWheelChangedListener onWheelChangedListener = (wheel, oldValue, newValue) -> {
+        mCurrentSelectedLanguage = mLanguageDatas.get().get(wheel.getCurrentItem());
     };
-    private OnWheelScrollListener onWheelScrollListener = new OnWheelScrollListener() {//接口实现
+
+    private OnWheelScrollListener onWheelScrollListener = new OnWheelScrollListener() {
         @Override
         public void onScrollingStarted(WheelView wheel) {
 
@@ -90,56 +85,11 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
 
         @Override
         public void onScrollingFinished(WheelView wheel) {
-            String currentText = (String) mLanguageAdapter.getItemText(wheel.getCurrentItem());
-            setTextviewSize(currentText, mLanguageAdapter);
         }
     };
 
-    /**
-     * 设置字体大小
-     *
-     * @param curriteItemText
-     * @param adapter
-     */
-    public void setTextviewSize(String curriteItemText, LanguageTextAdapter adapter) {
-        ArrayList<View> arrayList = adapter.getTextViews();
-        int size = arrayList.size();
-        String currentText;
-        for (int i = 0; i < size; i++) {
-            TextView textView = (TextView) arrayList.get(i);
-            currentText = textView.getText().toString();
-            if (curriteItemText.equals(currentText)) {
-                textView.setTextSize(maxTextSize);
-            } else {
-                textView.setTextSize(minTextSize);
-            }
-        }
-    }
-
-    private void setDataOne(List<FindLanguageResponse> listLanguagePicker) {
-        if (listLanguagePicker != null && listLanguagePicker.size() > 0) {
-            //设置默认为第一个
-            currentPosition = 0;
-            currentContent = listLanguagePicker.get(0);
-            String currentText = mLanguageAdapter.getItemText(currentItem.get());
-            language = currentText;
-        }
-    }
-
-    public void textViewDone(View view) {
-        if (onLanguagePickedListener != null) {
-            onLanguagePickedListener.onPick(language);
-            dismiss();
-        }
-    }
-
-    public interface OnLanguagePickedListener {
-        void onPick(String language);
-    }
-
-    //该方法为了让PickLanguage接口的方法在SpecialistTranslationFragmentViewModel中实现
-    public void setOnLanguagePickedListener(OnLanguagePickedListener onLanguagePickedListener) {
-        this.onLanguagePickedListener = onLanguagePickedListener;
-    }
+    public RelayCommand onDoneClickCommand = new RelayCommand(() -> {
+        ObservableNotifier.alwaysNotify(onLanguagePicked, mCurrentSelectedLanguage);
+    });
 
 }

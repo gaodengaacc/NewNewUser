@@ -60,9 +60,6 @@ public class CacheUtil implements Cache {
     @Override
     public void getData(int dataType, CacheCallBack callBack) {
         switch (dataType) {
-            case Cache.DATA_TYPE_FIND_BY_LANGUAGE:
-                getCachePoolData(dataType, callBack);
-                break;
             default:
                 break;
         }

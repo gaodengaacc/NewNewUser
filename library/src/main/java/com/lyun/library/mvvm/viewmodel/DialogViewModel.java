@@ -12,6 +12,10 @@ import net.funol.databinding.watchdog.annotations.WatchThis;
  */
 
 public class DialogViewModel extends ViewModel {
+
+    public DialogViewModel() {
+    }
+
     public DialogViewModel(Context context) {
         super(context);
     }
