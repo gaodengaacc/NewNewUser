@@ -47,15 +47,9 @@ public class WalletMainPopViewModel extends ViewModel {
     }
 
     private void init() {
+        //1,首次充值-以15分钟为最小购买单元,购买价格为:45元/15分钟;\n2,续费充值-以5分钟为充值单元,购买价格为:15元/5分钟.
         List<WalletMainPopDesItemViewModel> list = new ArrayList<>();
-        list.add(new WalletMainPopDesItemViewModel("购买说明"));
-        for (int i = 1; i < 4; i++) {
-            list.add(new WalletMainPopDesItemViewModel(i + ",****************"));
-        }
-        list.add(new WalletMainPopDesItemViewModel("费率说明"));
-        for (int i = 1; i < 5; i++) {
-            list.add(new WalletMainPopDesItemViewModel(i + ",****************"));
-        }
+        list.add(new WalletMainPopDesItemViewModel("购买说明\n1,首次充值-以15分钟为最小购买单元,购买价格为:45元/15分钟;\n2,续费充值-以5分钟为充值单元,购买价格为:15元/5分钟."));
         WalletMainPopAdapter popAdapter = new WalletMainPopAdapter(list, R.layout.item_wallet_main_popwindow);
         adapter.set(popAdapter);
     }

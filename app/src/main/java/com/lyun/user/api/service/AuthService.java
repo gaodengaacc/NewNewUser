@@ -1,5 +1,6 @@
 package com.lyun.user.api.service;
 
+import com.lyun.api.response.APIPageResult;
 import com.lyun.api.response.APIResult;
 import com.lyun.user.api.APIConstants;
 import com.lyun.user.api.request.CheckVerificationBean;
@@ -9,7 +10,13 @@ import com.lyun.user.api.request.RegisterBean;
 import com.lyun.user.api.request.RegisterVerifyPhoneBean;
 import com.lyun.user.api.request.RemainingTimeBean;
 import com.lyun.user.api.request.ResetPasswordBean;
+import com.lyun.user.api.request.WalletChargeBean;
+import com.lyun.user.api.request.WalletChargeRecorderBean;
 import com.lyun.user.api.response.LoginResponse;
+import com.lyun.user.api.response.WalletChargeRecorderResponse;
+import com.lyun.user.api.response.WalletChargeResponse;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -42,4 +49,11 @@ public interface AuthService {
 
     @POST(APIConstants.REMAINING_TIME)
     Observable<APIResult> getRemainingTime(@Body RemainingTimeBean body);
+
+    @POST(APIConstants.LYT_RECHARGE)
+    Observable<APIResult<WalletChargeResponse>> getChargeOrder(@Body WalletChargeBean body);
+
+    @POST(APIConstants.CHARGE_RECORDER)
+    Observable<APIResult<APIPageResult<List<WalletChargeRecorderResponse>>>> getChargeRecorder(@Body WalletChargeRecorderBean body);
+
 }

@@ -1,18 +1,19 @@
 package com.lyun.user.activity;
 
-import android.content.Intent;
-import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
+import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityWalletChargeBinding;
 import com.lyun.user.pay.alipay.AliPayManager;
+import com.lyun.user.pay.alipay.OnPayCallBack;
 import com.lyun.user.pay.wxpay.WXPayManager;
 import com.lyun.user.viewmodel.WalletChargeViewModel;
 import com.lyun.user.viewmodel.watchdog.IWalletChargeViewModelCallbacks;
@@ -26,8 +27,6 @@ import com.lyun.user.viewmodel.watchdog.IWalletChargeViewModelCallbacks;
 public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletChargeBinding, WalletChargeViewModel> implements IWalletChargeViewModelCallbacks {
     private AliPayManager aliPayManager;
     private WXPayManager wxPayManager;
-    private Intent intent = new Intent();
-    private Bundle bundle = new Bundle();
 
     @Override
     protected int getBodyLayoutId() {
@@ -40,35 +39,30 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
         GeneralToolbarViewModel.ToolbarViewModel viewModel = super.createTitleViewModel();
         viewModel.setPropertyChangeListener(this);
         viewModel.title.set("购买");
-        viewModel.onBackClick.set(view -> finish());
+        viewModel.onBackClick.set(view -> showIsBuy());
         return viewModel;
     }
 
     @NonNull
     @Override
     protected WalletChargeViewModel createBodyViewModel() {
-        intent = getIntent();
-        bundle = intent.getExtras();
-        return new WalletChargeViewModel(bundle).setPropertyChangeListener(this);
+        return new WalletChargeViewModel().setPropertyChangeListener(this);
     }
 
     @Override
     public void aliPay(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(getApplicationContext(), "AliPAy!", Toast.LENGTH_LONG).show();
-//        aliPayManager = new AliPayManager(new OnPayCallBack() {
-//            @Override
-//            public void onSuccess() {
-//                dialogViewModel.dismiss();
-//                Toast.makeText(getApplicationContext(),"支付成功！！",Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onFailure(String des) {
-//                dialogViewModel.dismiss();
-//                Toast.makeText(getApplicationContext(),des,Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        aliPayManager.alipay(this,"");
+        aliPayManager = new AliPayManager(new OnPayCallBack() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(), "支付成功！！", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(String des) {
+                Toast.makeText(getApplicationContext(), des, Toast.LENGTH_LONG).show();
+            }
+        });
+        aliPayManager.alipay(this, observableField.get());
     }
 
     @Override
@@ -87,7 +81,39 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
     }
 
     @Override
-    public void onMoneyResultZero(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "金额不得小于0元！", Toast.LENGTH_LONG).show();
+    public void showText(ObservableField<String> observableField, int fieldId) {
+        Toast.makeText(this, observableField.get(), Toast.LENGTH_LONG).show();
     }
+
+    private void showIsBuy() {
+        SimpleDialogViewModel viewModel = new SimpleDialogViewModel(this);
+        viewModel.setInfo("是否确定放弃购买");
+        viewModel.setYesBtnText("是");
+        viewModel.setCancelBtnText("否");
+        viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
+            @Override
+            public void OnYesClick(View view) {
+                finish();
+            }
+
+            @Override
+            public void OnCancelClick(View view) {
+
+            }
+        });
+        viewModel.show();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            showIsBuy();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 }

@@ -15,7 +15,8 @@ public class APIConstants {
     public static final String FIND_BY_LANGUAGE = "findByLanguage/";//查找语言
     public static final String CHECK_VERIFICATION = "checkVerification/";//验证验证码
     public static final String FIND_PASSWORD="resetPassword/";//找回密码
-
+    public static final String LYT_RECHARGE ="lyt_recharge/"; //充值接口
+    public static final String CHARGE_RECORDER ="findPayinfo/"; //充值记录
     // Order Service
     public static final String GENERATE_TRANSLATION_ORDER = "addBill/";//生成翻译订单
     public static final String REMAINING_TIME = "remainingtime/";//查询剩余时间

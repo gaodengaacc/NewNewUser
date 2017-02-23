@@ -65,14 +65,31 @@
              android:gravity="center_vertical"
              android:text="记录"/>
         </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="3dp"
+        <com.lyun.widget.refresh.PullToRefreshLayout
+            android:background="#f0f0f0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="#00000000"
-            app:layoutManager="@{mvvm.recyclerViewRelayCommand}"
-            app:notifyData="@{mvvm.notifyData}"
-            app:adapter="@{mvvm.recorderAdapter}">
-        </android.support.v7.widget.RecyclerView>
+            app:loadMoreResult="@{mvvm.loadMoreResult}"
+            app:refreshListener="@{mvvm.onRefreshListener}"
+            app:refreshResult="@{mvvm.refreshResult}">
+
+            <include layout="@layout/refresh_head"/>
+
+            <com.lyun.widget.refresh.PullRecyclerView
+                android:id="@+id/pullListView"
+                android:background="#f0f0f0"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="@null"
+                android:overScrollMode="never"
+                app:adapter="@{mvvm.recorderAdapter}"
+                app:layoutManager="@{mvvm.recyclerViewLayoutManageCommand}"
+                app:notifyData="@{mvvm.notifyData}">
+
+            </com.lyun.widget.refresh.PullRecyclerView>
+
+            <include layout="@layout/load_more"/>
+
+        </com.lyun.widget.refresh.PullToRefreshLayout>
     </LinearLayout>
 </layout>

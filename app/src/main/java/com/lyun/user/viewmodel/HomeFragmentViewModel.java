@@ -37,7 +37,6 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableField<Boolean> showPopupWindow = new ObservableField<>();
     private final int REQUEST_CODE = 10000;
     public final ObservableField<ViewTreeObserver.OnGlobalLayoutListener> linearLayoutListener = new ObservableField<>();
-
     public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     public final ObservableField<String> textViewTargetLanguage = new ObservableField<>();//目标语言

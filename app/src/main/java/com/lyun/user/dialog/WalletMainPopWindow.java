@@ -29,7 +29,7 @@ public class WalletMainPopWindow extends PopupWindow implements IWalletMainPopVi
         // 设置SelectPicPopupWindow的View
         this.setContentView(viewBinding.getRoot());
         // 设置SelectPicPopupWindow弹出窗体的宽
-        setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+        setWidth(400);
         // 设置SelectPicPopupWindow弹出窗体的高
         this.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         // 设置SelectPicPopupWindow弹出窗体可点击
