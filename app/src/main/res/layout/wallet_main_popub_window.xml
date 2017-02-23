@@ -23,7 +23,7 @@
             android:divider="@null"
             android:dividerHeight="0dp"
             android:scrollbars="none"
-            app:layoutManager="@{mvvm.recyclerViewRelayCommand}"
+            app:layoutManager="@{mvvm.recyclerViewLayoutManager}"
             app:adapter="@{mvvm.adapter}"
             app:notifyData="@{mvvm.notifyData}"></android.support.v7.widget.RecyclerView>
     </LinearLayout>

@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="#00000000"
-            app:layoutManager="@{mvvm.recyclerViewRelayCommand}"
+            app:layoutManager="@{mvvm.recyclerViewLayoutManager}"
             app:notifyData="@{mvvm.notifyData}"
             app:adapter="@{mvvm.recorderAdapter}">
         </android.support.v7.widget.RecyclerView>

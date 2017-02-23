@@ -3,6 +3,7 @@ package com.lyun.user.fragment;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
@@ -52,5 +53,10 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
     @Override
     public void onTranslationOrderGenerated(ObservableField<TranslationOrderModel.OrderType> observableField, int fieldId) {
         SessionHelper.startP2PSession(getActivity(), "123456");
+    }
+
+    @Override
+    public void onTranslationOrderGenerateFail(ObservableField<String> observableField, int fieldId) {
+        Toast.makeText(getContext(),observableField.get(),Toast.LENGTH_LONG).show();
     }
 }

@@ -13,6 +13,7 @@ import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
+import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainRecorderAdapter;
 import com.lyun.user.model.RemainingTimeModel;
@@ -82,9 +83,7 @@ public class WalletMainViewModel extends ViewModel {
 //        notifyData.set(list);
     }
 
-    public RelayCommand<RecyclerView> recyclerViewRelayCommand = new RelayCommand<RecyclerView>(recyclerView -> {
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-    });
+    public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
 
     private void showPop(View v) {
         activityBg.set(true);

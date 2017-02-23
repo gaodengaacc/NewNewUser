@@ -33,4 +33,14 @@
         <!-- 右边文本颜色 -->
         <attr name="ttRightTextColor" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="WheelView">
+        <attr name="ChangingListener" format="reference"></attr>
+        <attr name="ScrollingListener" format="reference"></attr>
+        <attr name="WheelViewAdapter" format="reference"></attr>
+        <attr name="VisibleItems" format="reference"></attr>
+        <attr name="CurrentItem" format="reference"></attr>
+        <attr name="Cyclic" format="reference"></attr>
+        <attr name="WheelForeground" format="reference"></attr>
+    </declare-styleable>
 </resources>

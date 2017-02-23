@@ -174,15 +174,6 @@
         <attr name="tabSelectListener" format="reference"/>
         <attr name="initTab" format="reference"/>
     </declare-styleable>
-    <declare-styleable name="WheelView">
-        <attr name="ChangingListener" format="reference"></attr>
-        <attr name="ScrollingListener" format="reference"></attr>
-        <attr name="WheelViewAdapter" format="reference"></attr>
-        <attr name="VisibleItems" format="reference"></attr>
-        <attr name="CurrentItem" format="reference"></attr>
-        <attr name="Cyclic" format="reference"></attr>
-        <attr name="WheelForeground" format="reference"></attr>
-    </declare-styleable>
     <declare-styleable name="PullToRefreshLayout">
         <attr name="refreshListener" format="reference"></attr>
         <attr name="autoRefresh" format="boolean"></attr>

@@ -1,4 +1,4 @@
-package com.lyun.library.mvvm.bindingadapter.wheelview;
+package com.lyun.user.bindingadapter.wheelview;
 
 import android.databinding.BindingAdapter;
 
