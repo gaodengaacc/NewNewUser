@@ -4,6 +4,7 @@
     <data>
 
         <import type="com.lyun.user.viewmodel.HomeFragmentViewModel"></import>
+        <import type="com.lyun.user.api.response.FindLanguageResponse"></import>
 
         <variable
             name="mvvm"
@@ -161,7 +162,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:onClick="@{mvvm.languagePickerLinearLayoutClick}"
+                                app:clickCommand="@{mvvm.onPickLanguageClickCommand}"
                                 android:orientation="vertical">
 
 
@@ -185,7 +186,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
                                     android:gravity="center"
-                                    android:text="@{mvvm.textViewTargetLanguage}"
+                                    android:text="@{((FindLanguageResponse)mvvm.mCurrentLanguage).getName()}"
                                     android:textColor="#00abfa"
                                     android:textSize="28sp" />
                             </LinearLayout>
