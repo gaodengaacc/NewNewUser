@@ -10,8 +10,11 @@ import android.view.View;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.R;
+import com.lyun.user.model.StatisticsCardNoModel;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by 郑成裕 on 2016/12/28.
@@ -38,7 +41,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public void onResume() {
         super.onResume();
         if (Account.preference().isLogin()) {
-            getUserDes();
+            getUserDes(Account.preference().getPhone());
             setUserInformation();
         } else {
             exitVisible.set(View.INVISIBLE);
@@ -46,8 +49,21 @@ public class UserCenterFragmentViewModel extends ViewModel {
         }
     }
 
-    private void getUserDes() {
-
+    /**
+     * 数据统计
+     *
+     * @param cardNo
+     */
+    private void getUserDes(String cardNo) {
+        new StatisticsCardNoModel().getStatistics(cardNo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResult -> {
+                    if ("0".equals(apiResult.getStatus())) {
+                        userTime.set(apiResult.getContent().getUseTime());
+                        userNum.set(apiResult.getContent().getCallFrequency());
+                        userLanguage.set(apiResult.getContent().getLanguages());
+                    }
+                });
     }
 
     private void setUserInformation() {

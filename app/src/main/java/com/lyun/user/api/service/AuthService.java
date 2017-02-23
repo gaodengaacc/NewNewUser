@@ -9,7 +9,9 @@ import com.lyun.user.api.request.RegisterBean;
 import com.lyun.user.api.request.RegisterVerifyPhoneBean;
 import com.lyun.user.api.request.RemainingTimeBean;
 import com.lyun.user.api.request.ResetPasswordBean;
+import com.lyun.user.api.request.StatisticsCardNoBean;
 import com.lyun.user.api.response.LoginResponse;
+import com.lyun.user.api.response.StatisticsCardNoResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -40,6 +42,8 @@ public interface AuthService {
     @POST(APIConstants.FIND_PASSWORD)
     Observable<APIResult> findPassword(@Body FindPasswordBean body);
 
-    @POST(APIConstants.REMAINING_TIME)
-    Observable<APIResult> getRemainingTime(@Body RemainingTimeBean body);
+
+
+    @POST(APIConstants.STATISTICS_CARDNO)
+    Observable<APIResult<StatisticsCardNoResponse>> getStatistics(@Body StatisticsCardNoBean body);
 }

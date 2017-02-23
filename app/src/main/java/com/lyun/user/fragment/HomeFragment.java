@@ -55,8 +55,9 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         SessionHelper.startP2PSession(getActivity(), "123456");
     }
 
+
     @Override
     public void onTranslationOrderGenerateFail(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(getContext(),observableField.get(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), observableField.get(), Toast.LENGTH_LONG).show();
     }
 }

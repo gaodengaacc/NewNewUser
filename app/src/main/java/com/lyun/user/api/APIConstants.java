@@ -15,6 +15,7 @@ public class APIConstants {
     public static final String FIND_BY_LANGUAGE = "findByLanguage/";//查找语言
     public static final String CHECK_VERIFICATION = "checkVerification/";//验证验证码
     public static final String FIND_PASSWORD="resetPassword/";//找回密码
+    public static final String STATISTICS_CARDNO="statisticsCardNo/";//查询使用时长，呼叫总次数，接触语种
 
     // Order Service
     public static final String GENERATE_TRANSLATION_ORDER = "addBill/";//生成翻译订单

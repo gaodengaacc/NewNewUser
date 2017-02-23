@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 public class RemainingTimeModel extends Model {
     public Observable<APIResult> getRemainingTime(String cardNo) {
         RemainingTimeBean bean = new RemainingTimeBean(cardNo);
-        return API.auth.getRemainingTime(bean)
+        return API.translationOrder.getRemainingTime(bean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
