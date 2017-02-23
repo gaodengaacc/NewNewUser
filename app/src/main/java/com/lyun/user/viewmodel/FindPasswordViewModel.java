@@ -87,6 +87,7 @@ public class FindPasswordViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     if ("0".equals(apiResult.getStatus())) {//验证成功
+                        timeCount.cancel();
                         onFindPasswordSuccess.notifyChange();
                     } else if ("1".equals(apiResult.getStatus())) {//验证码错误
                         onSmsCodeWrong.notifyChange();

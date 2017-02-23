@@ -5,7 +5,6 @@ import android.databinding.ObservableInt;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -33,10 +32,6 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableInt modelChange = new ObservableInt();
     public final ObservableField<String> textViewModelChange = new ObservableField<>();
     private OrderType mTranslationOrderType = OrderType.MESSAGE;
-    public final ObservableField<String> textViewCategoryChange = new ObservableField<>();//服务类型
-    public final ObservableField<Boolean> showPopupWindow = new ObservableField<>();
-    private final int REQUEST_CODE = 10000;
-    public final ObservableField<ViewTreeObserver.OnGlobalLayoutListener> linearLayoutListener = new ObservableField<>();
 
     public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
@@ -45,12 +40,13 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableField<Typeface> typeface2 = new ObservableField<>();
     public final ObservableField<String> unUserTime = new ObservableField<>();//剩余时间
 
+    private List list;
+
     @WatchThis
     public final ObservableField<OrderType> onTranslationOrderGenerated = new ObservableField<>();
 
     LanguagePickerDialogViewModel languagePickerDialogViewModel;
 
-    private List list;
 
     public HomeFragmentViewModel() {
         initData();

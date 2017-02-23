@@ -42,6 +42,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     @WatchThis
     public final BaseObservable onSmsCodeExpired = new BaseObservable();//验证码过期
 
+
     public RegisterVerifyPhoneViewModel() {
         mSendSmsCode.set("获取验证码");
         clickable.set(true);
@@ -98,6 +99,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     if ("0".equals(apiResult.getStatus())) {//验证成功
+                        timeCount.cancel();
                         onVerifySuccess.set(intent);
                     } else if ("1".equals(apiResult.getStatus())) {//验证码错误
                         onSmsCodeWrong.notifyChange();
@@ -133,4 +135,5 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
             clickable.set(true);
         }
     }
+
 }

@@ -67,4 +67,5 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
     public void onSmsCodeExpired(BaseObservable observableField, int fieldId) {
         Toast.makeText(this, "验证码已过期，请重新获取!", Toast.LENGTH_SHORT).show();
     }
+
 }

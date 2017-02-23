@@ -51,7 +51,7 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
 
     private OnLanguagePickedListener onLanguagePickedListener;
 
-    public LanguagePickerDialogViewModel(Context context,List<FindLanguageResponse> languageDatas) {
+    public LanguagePickerDialogViewModel(Context context, List<FindLanguageResponse> languageDatas) {
         super(context);
         this.mLanguageDatas = languageDatas;
         initData();
