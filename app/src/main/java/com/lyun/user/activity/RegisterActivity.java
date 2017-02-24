@@ -2,6 +2,7 @@ package com.lyun.user.activity;
 
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -65,5 +66,18 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
     @Override
     public void onPasswordSame(BaseObservable observableField, int fieldId) {
         Toast.makeText(this, "两次输入密码不同,请重新输入！", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
+        if (observableField.get())
+            dialogViewModel.show();
+        else
+            dialogViewModel.dismiss();
+    }
+
+    @Override
+    public void onRegisterResult(ObservableField<String> observableField, int fieldId) {
+        Toast.makeText(this, observableField.get(), Toast.LENGTH_LONG).show();
     }
 }

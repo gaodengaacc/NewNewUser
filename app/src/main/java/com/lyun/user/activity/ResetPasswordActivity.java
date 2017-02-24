@@ -1,5 +1,7 @@
 package com.lyun.user.activity;
 
+import android.content.Intent;
+import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
@@ -18,7 +20,7 @@ import com.lyun.user.viewmodel.watchdog.IResetPasswordViewModelCallbacks;
  * do()
  */
 
-public class ResetPasswordActivity extends GeneralToolbarActivity<ActivityResetPasswordBinding,ResetPasswordViewModel> implements IResetPasswordViewModelCallbacks{
+public class ResetPasswordActivity extends GeneralToolbarActivity<ActivityResetPasswordBinding, ResetPasswordViewModel> implements IResetPasswordViewModelCallbacks {
 
 
     @NonNull
@@ -48,10 +50,32 @@ public class ResetPasswordActivity extends GeneralToolbarActivity<ActivityResetP
     }
 
     @Override
+    public void onPasswordBlank(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "请输入原密码!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNewPasswordBlank(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "请输入新密码!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onConfirmPasswordBlank(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "请确认新密码!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onLogout(BaseObservable observableField, int fieldId) {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
+
+    @Override
     public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
-        if(observableField.get())
+        if (observableField.get())
             dialogViewModel.show();
         else
             dialogViewModel.dismiss();
     }
+
 }
