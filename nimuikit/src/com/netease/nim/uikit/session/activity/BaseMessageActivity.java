@@ -14,6 +14,7 @@ import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.sys.ScreenUtil;
 import com.netease.nim.uikit.session.SessionCustomization;
+import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.session.constant.Extras;
 import com.netease.nim.uikit.session.fragment.MessageFragment;
 
@@ -61,7 +62,7 @@ public abstract class BaseMessageActivity extends UI {
         }
 
         if (customization != null) {
-            customization.onActivityResult(this, requestCode, resultCode, data);
+            customization.getToolbarCustomization().onActivityResult(this, requestCode, resultCode, data);
         }
     }
 
@@ -70,12 +71,12 @@ public abstract class BaseMessageActivity extends UI {
         customization = (SessionCustomization) getIntent().getSerializableExtra(Extras.EXTRA_CUSTOMIZATION);
 
         if (customization != null) {
-            addRightCustomViewOnActionBar(this, customization.buttons);
+            addRightCustomViewOnActionBar(this, customization.getToolbarCustomization().getOptionsButtons());
         }
     }
 
     // 添加action bar的右侧按钮及响应事件
-    private void addRightCustomViewOnActionBar(UI activity, List<SessionCustomization.OptionsButton> buttons) {
+    private void addRightCustomViewOnActionBar(UI activity, List<ToolbarCustomization.OptionsButton> buttons) {
         if (buttons == null || buttons.size() == 0) {
             return;
         }
@@ -87,9 +88,9 @@ public abstract class BaseMessageActivity extends UI {
 
         LinearLayout view = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.nim_action_bar_custom_view, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        for (final SessionCustomization.OptionsButton button : buttons) {
+        for (final ToolbarCustomization.OptionsButton button : buttons) {
             ImageView imageView = new ImageView(activity);
-            imageView.setImageResource(button.iconId);
+            imageView.setImageResource(button.getIconId());
             imageView.setBackgroundResource(R.drawable.nim_nim_action_bar_button_selector);
             imageView.setPadding(ScreenUtil.dip2px(10), 0, ScreenUtil.dip2px(10), 0);
             imageView.setOnClickListener(new View.OnClickListener() {

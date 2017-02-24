@@ -1,16 +1,8 @@
 package com.netease.nim.uikit.session;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.view.View;
-
-import com.netease.nim.uikit.session.actions.BaseAction;
 import com.netease.nim.uikit.session.module.input.InputPanelCustomization;
-import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * 聊天界面定制化参数。 可定制：<br>
@@ -20,42 +12,40 @@ import java.util.ArrayList;
  */
 public class SessionCustomization implements Serializable {
 
-    /**
-     * 聊天背景。优先使用uri，如果没有提供uri，使用color。如果没有color，使用默认。uri暂时支持以下格式：<br>
-     *     drawable: android.resource://包名/drawable/资源名
-     *     assets: file:///android_asset/{asset文件路径}
-     *     file: file:///文件绝对路径
-     */
-    public String backgroundUri;
-    public int backgroundColor;
+    private ToolbarCustomization toolbarCustomization;
+    private MessagePanelCustomization messagePanelCustomization;
+    private InputPanelCustomization inputPanelCustomization;
 
-    public InputPanelCustomization inputPanelCustomization;
+    public SessionCustomization() {
+    }
 
-    /**
-     * ActionBar右侧可定制按钮。默认为空。
-     */
-    public ArrayList<OptionsButton> buttons;
+    public SessionCustomization(ToolbarCustomization toolbarCustomization, MessagePanelCustomization messagePanelCustomization, InputPanelCustomization inputPanelCustomization) {
+        this.toolbarCustomization = toolbarCustomization;
+        this.messagePanelCustomization = messagePanelCustomization;
+        this.inputPanelCustomization = inputPanelCustomization;
+    }
 
-    /**
-     * 如果OptionsButton的点击响应中需要startActivityForResult，可在此函数中处理结果。
-     * 需要注意的是，由于加号中的Action的限制，RequestCode只能使用int的最低8位。
-     *
-     * @param activity 当前的聊天Activity
-     * @param requestCode 请求码
-     * @param resultCode 结果码
-     * @param data 返回的结果数据
-     */
-    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {}
+    public ToolbarCustomization getToolbarCustomization() {
+        return toolbarCustomization;
+    }
 
-    /**
-     * ActionBar 右侧按钮，可定制icon和点击事件
-     */
-    public static abstract class OptionsButton implements Serializable {
+    public void setToolbarCustomization(ToolbarCustomization toolbarCustomization) {
+        this.toolbarCustomization = toolbarCustomization;
+    }
 
-        // 图标drawable id
-        public int iconId;
+    public MessagePanelCustomization getMessagePanelCustomization() {
+        return messagePanelCustomization;
+    }
 
-        // 响应事件
-        public abstract void onClick(Context context, View view, String sessionId);
+    public void setMessagePanelCustomization(MessagePanelCustomization messagePanelCustomization) {
+        this.messagePanelCustomization = messagePanelCustomization;
+    }
+
+    public InputPanelCustomization getInputPanelCustomization() {
+        return inputPanelCustomization;
+    }
+
+    public void setInputPanelCustomization(InputPanelCustomization inputPanelCustomization) {
+        this.inputPanelCustomization = inputPanelCustomization;
     }
 }

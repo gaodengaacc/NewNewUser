@@ -10,11 +10,13 @@ import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.cache.TeamDataCache;
 import com.netease.nim.uikit.session.SessionCustomization;
+import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.team.model.TeamExtras;
 import com.netease.nim.uikit.team.model.TeamRequestCode;
 import com.netease.nimlib.sdk.team.model.Team;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SessionCustomization 可以实现聊天界面定制项：
@@ -31,8 +33,10 @@ public class DefalutTeamSessionCustomization extends SessionCustomization {
 
     public DefalutTeamSessionCustomization() {
 
+        ToolbarCustomization toolbarCustomization = new ToolbarCustomization();
+
         // ActionBar右侧按钮，跳转至群信息界面
-        SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
+        ToolbarCustomization.OptionsButton infoButton = new ToolbarCustomization.OptionsButton() {
             @Override
             public void onClick(Context context, View view, String sessionId) {
                 Team team = TeamDataCache.getInstance().getTeamById(sessionId);
@@ -43,9 +47,11 @@ public class DefalutTeamSessionCustomization extends SessionCustomization {
                 }
             }
         };
-        infoButton.iconId = R.drawable.nim_ic_message_actionbar_team;
-        buttons = new ArrayList<>();
+        infoButton.setIconId(R.drawable.nim_ic_message_actionbar_team);
+        List<ToolbarCustomization.OptionsButton> buttons = new ArrayList<>();
         buttons.add(infoButton);
+        toolbarCustomization.setOptionsButtons(buttons);
+        setToolbarCustomization(toolbarCustomization);
     }
 
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
