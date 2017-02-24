@@ -10,7 +10,6 @@ import android.view.View;
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.OnRecycleItemClickListener;
 import com.lyun.library.mvvm.command.RelayCommand;
-import com.lyun.library.mvvm.command.ResponseCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 
 import java.util.List;
@@ -56,8 +55,8 @@ public class ViewBindingAdapter {
     }
 
     @BindingAdapter({"layoutManager"})
-    public static void setLayoutManage(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager) {
-        recyclerView.setLayoutManager(layoutManager);
+    public static void setLayoutManage(RecyclerView recyclerView, final RelayCommand<RecyclerView> onLoadMoreCommand) {
+        onLoadMoreCommand.execute(recyclerView);
     }
 
     @BindingAdapter({"notifyData"})

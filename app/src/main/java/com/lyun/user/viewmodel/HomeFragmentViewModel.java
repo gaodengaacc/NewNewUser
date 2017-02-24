@@ -6,28 +6,19 @@ import android.databinding.ObservableInt;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lyun.library.mvvm.command.RelayCommand;
-import com.lyun.library.mvvm.command.consumer.Consumer0;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
-import com.lyun.user.AppApplication;
-import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.model.RemainingTimeModel;
 import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.model.TranslationOrderModel.OrderType;
-import com.lyun.utils.ACache;
-import com.lyun.utils.filecache.Cache;
-import com.lyun.utils.filecache.CacheUtil;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
-
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
