@@ -88,7 +88,7 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
 
     @Override
     public void onTranslationOrderGenerated(ObservableField<TranslationOrderModel.OrderType> observableField, int fieldId) {
-        SessionHelper.startP2PSession(getActivity(), "123456");
+        SessionHelper.startP2PSession(getActivity(), "13838502074");
     }
 
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.netease.nim.uikit.session.SessionCustomization;
+import com.netease.nim.uikit.session.module.input.InputPanelCustomization;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 
 /**
@@ -17,14 +18,20 @@ import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 
 public class DefalutP2PSessionCustomization extends SessionCustomization {
 
-    @Override
-    public void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(activity, requestCode, resultCode, data);
+    public DefalutP2PSessionCustomization() {
+        inputPanelCustomization = new InputPanelCustomization(){
+            @Override
+            public MsgAttachment createStickerAttachment(String category, String item) {
+                return null;
+            }
+        };
+        inputPanelCustomization.showEmojiInputBar = true;
+        inputPanelCustomization.showAudioInputBar = true;
     }
 
     @Override
-    public MsgAttachment createStickerAttachment(String category, String item) {
-        return null;
+    public void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(activity, requestCode, resultCode, data);
     }
 
 }
