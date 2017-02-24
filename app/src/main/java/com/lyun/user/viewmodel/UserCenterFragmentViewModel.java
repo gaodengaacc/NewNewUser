@@ -74,9 +74,9 @@ public class UserCenterFragmentViewModel extends ViewModel {
 
     private void init() {
         userName.set("");
-        userTime.set("-- 分钟");
-        userNum.set("-- 次");
-        userLanguage.set("-- 种");
+        userTime.set("-- ");
+        userNum.set("-- ");
+        userLanguage.set("-- ");
         exitVisible.set(View.VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             topVisible.set(View.VISIBLE);
