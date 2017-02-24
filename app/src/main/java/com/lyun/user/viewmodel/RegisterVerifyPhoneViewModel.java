@@ -2,6 +2,7 @@ package com.lyun.user.viewmodel;
 
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -38,10 +39,11 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     @WatchThis
     public final BaseObservable onSmsCodeBlank = new BaseObservable();//验证码为空
     @WatchThis
-    public final BaseObservable onSmsCodeWrong = new BaseObservable();//验证码错误
+    public final ObservableBoolean progressDialogShow = new ObservableBoolean();
     @WatchThis
-    public final BaseObservable onSmsCodeExpired = new BaseObservable();//验证码过期
-
+    public final BaseObservable onSuccess = new BaseObservable();
+    @WatchThis
+    public final ObservableField<String> onVerifyResult = new ObservableField();
 
     public RegisterVerifyPhoneViewModel() {
         mSendSmsCode.set("获取验证码");
@@ -95,16 +97,17 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
      * @param smscode
      */
     private void checkVerification(String username, String smscode) {
+        progressDialogShow.set(true);
         new CheckVerificationModel().checkVerification(username, smscode)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
+                    progressDialogShow.set(false);
                     if ("0".equals(apiResult.getStatus())) {//验证成功
                         timeCount.cancel();
                         onVerifySuccess.set(intent);
-                    } else if ("1".equals(apiResult.getStatus())) {//验证码错误
-                        onSmsCodeWrong.notifyChange();
-                    } else if ("3002".equals(apiResult.getStatus())) {//验证码已过期
-                        onSmsCodeExpired.notifyChange();
+                        onSuccess.notifyChange();
+                    } else {
+                        onVerifyResult.set(apiResult.getDescribe());
                     }
                 });
     }

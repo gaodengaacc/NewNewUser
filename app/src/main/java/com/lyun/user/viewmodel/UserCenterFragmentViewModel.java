@@ -41,7 +41,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public void onResume() {
         super.onResume();
         if (Account.preference().isLogin()) {
-            getUserDes(Account.preference().getPhone());
+            getUserDes(Account.preference().getPhone());//获取数据统计
             setUserInformation();
         } else {
             exitVisible.set(View.INVISIBLE);
@@ -58,7 +58,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
         new StatisticsCardNoModel().getStatistics(cardNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
-                    if ("0".equals(apiResult.getStatus())) {
+                    if ("0".equals(apiResult.getStatus())) {//获取成功
                         userTime.set(apiResult.getContent().getUseTime());
                         userNum.set(apiResult.getContent().getCallFrequency());
                         userLanguage.set(apiResult.getContent().getLanguages());

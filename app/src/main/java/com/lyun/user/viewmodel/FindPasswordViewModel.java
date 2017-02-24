@@ -1,6 +1,7 @@
 package com.lyun.user.viewmodel;
 
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.CountDownTimer;
 import android.text.method.HideReturnsTransformationMethod;
@@ -39,11 +40,12 @@ public class FindPasswordViewModel extends ViewModel {
     @WatchThis
     public final BaseObservable onSmsCodeBlank = new BaseObservable();//验证码为空
     @WatchThis
-    public final BaseObservable onSmsCodeWrong = new BaseObservable();//验证码错误
-    @WatchThis
-    public final BaseObservable onSmsCodeExpired = new BaseObservable();//验证码过期
-    @WatchThis
     public final BaseObservable onNewPasswordBlank = new BaseObservable();//新密码为空
+    @WatchThis
+    public final ObservableBoolean progressDialogShow = new ObservableBoolean();
+    @WatchThis
+    public final ObservableField<String> onFindPasswordResult = new ObservableField();
+
 
     public FindPasswordViewModel() {
         mSendSmsCode.set("获取验证码");
@@ -83,16 +85,16 @@ public class FindPasswordViewModel extends ViewModel {
      * @param newPassword
      */
     private void submit(String username, String smscode, String newPassword) {
+        progressDialogShow.set(true);
         new FindPasswordModel().findPassword(username, smscode, newPassword)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
+                    progressDialogShow.set(false);
                     if ("0".equals(apiResult.getStatus())) {//验证成功
                         timeCount.cancel();
                         onFindPasswordSuccess.notifyChange();
-                    } else if ("1".equals(apiResult.getStatus())) {//验证码错误
-                        onSmsCodeWrong.notifyChange();
-                    } else if ("3002".equals(apiResult.getStatus())) {//验证码已过期
-                        onSmsCodeExpired.notifyChange();
+                    } else {
+                        onFindPasswordResult.set(apiResult.getDescribe());
                     }
                 });
     }
