@@ -44,9 +44,11 @@ public class ActionsPagerAdapter extends PagerAdapter{
 
         GridView gridView = new GridView(context);
         gridView.setAdapter(new ActionsGridviewAdapter(context, subBaseActions));
-        if (actions.size() >= 4) {
-            gridView.setNumColumns(4);
 
+        // 设置GridView列数
+        gridView.setNumColumns(4);
+
+        if (actions.size() >= 4) {
             container.post(new Runnable() {
                 @Override
                 public void run() {
@@ -57,8 +59,6 @@ public class ActionsPagerAdapter extends PagerAdapter{
                 }
             });
         } else {
-            gridView.setNumColumns(actions.size());
-
             container.post(new Runnable() {
                 @Override
                 public void run() {

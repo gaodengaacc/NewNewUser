@@ -33,7 +33,6 @@ import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.string.StringUtil;
 import com.netease.nim.uikit.recent.AitHelper;
-import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.actions.BaseAction;
 import com.netease.nim.uikit.session.emoji.EmoticonPickerView;
 import com.netease.nim.uikit.session.emoji.IEmoticonSelectedListener;
@@ -54,9 +53,8 @@ import com.netease.nimlib.sdk.msg.model.CustomNotificationConfig;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 
-import org.json.JSONObject;
-
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,7 +84,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     protected View emojiButtonInInputBar;// 发送消息按钮
     protected View messageInputBar;
 
-    private SessionCustomization customization;
+    private InputPanelCustomization customization;
 
     // 表情
     protected EmoticonPickerView emoticonPickerView;  // 贴图表情控件
@@ -118,7 +116,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     public InputPanel(Container container, View view, List<BaseAction> actions, boolean isTextAudioSwitchShow) {
         this.container = container;
         this.view = view;
-        this.actions = actions;
+        this.actions = actions == null ? new ArrayList<BaseAction>() : actions;
         this.uiHandler = new Handler();
         this.isTextAudioSwitchShow = isTextAudioSwitchShow;
         init();
@@ -161,14 +159,23 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         }
     }
 
-    public void setCustomization(SessionCustomization customization) {
+    public void setCustomization(InputPanelCustomization customization) {
         this.customization = customization;
         if (customization != null) {
             emoticonPickerView.setWithSticker(customization.withSticker);
+            // 语音输入按钮
+            switchToAudioButtonInInputBar.setVisibility(customization.showAudioInputBar ? View.VISIBLE : View.GONE);
+            switchToTextButtonInInputBar.setVisibility(customization.showAudioInputBar ? View.VISIBLE : View.GONE);
+            // 表情输入按钮
+            emojiButtonInInputBar.setVisibility(customization.showEmojiInputBar ? View.VISIBLE : View.GONE);
+            // 输入框背景
+            if (customization.messageInputBoxBackgroud != 0) {
+                messageEditText.setBackgroundResource(customization.messageInputBoxBackgroud);
+            }
         }
     }
 
-    public void reload(Container container, SessionCustomization customization) {
+    public void reload(Container container, InputPanelCustomization customization) {
         this.container = container;
         setCustomization(customization);
     }
@@ -336,7 +343,10 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         audioRecordBtn.setVisibility(View.GONE);
         messageEditText.setVisibility(View.VISIBLE);
         switchToTextButtonInInputBar.setVisibility(View.GONE);
-        switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
+        // 如果定制显示语音输入再显示
+        if (customization.showAudioInputBar) {
+            switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
+        }
 
         messageInputBar.setVisibility(View.VISIBLE);
 

@@ -3,7 +3,6 @@ package com.lyun.user.im.session;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -11,11 +10,7 @@ import android.widget.Toast;
 import com.lyun.user.R;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.contact.activity.UserProfileActivity;
-import com.lyun.user.im.session.action.AVChatAction;
-import com.lyun.user.im.session.action.FileAction;
-import com.lyun.user.im.session.action.GuessAction;
-import com.lyun.user.im.session.action.SnapChatAction;
-import com.lyun.user.im.session.action.TipAction;
+import com.lyun.user.im.session.action.ImageAction;
 import com.lyun.user.im.session.activity.MessageHistoryActivity;
 import com.lyun.user.im.session.activity.MessageInfoActivity;
 import com.lyun.user.im.session.extension.CustomAttachParser;
@@ -43,11 +38,11 @@ import com.netease.nim.uikit.session.helper.MessageHelper;
 import com.netease.nim.uikit.session.helper.MessageListPanelHelper;
 import com.netease.nim.uikit.session.module.MsgForwardFilter;
 import com.netease.nim.uikit.session.module.MsgRevokeFilter;
+import com.netease.nim.uikit.session.module.input.InputPanelCustomization;
 import com.netease.nim.uikit.team.model.TeamExtras;
 import com.netease.nim.uikit.team.model.TeamRequestCode;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
@@ -138,11 +133,6 @@ public class SessionHelper {
                     super.onActivityResult(activity, requestCode, resultCode, data);
 
                 }
-
-                @Override
-                public MsgAttachment createStickerAttachment(String category, String item) {
-                    return new StickerAttachment(category, item);
-                }
             };
 
             // 背景
@@ -150,20 +140,6 @@ public class SessionHelper {
 //            p2pCustomization.backgroundUri = "file:///android_asset/xx/bk.jpg";
 //            p2pCustomization.backgroundUri = "file:///sdcard/Pictures/bk.png";
 //            p2pCustomization.backgroundUri = "android.resource://com.lyun.user.im/drawable/bk"
-
-            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-            ArrayList<BaseAction> actions = new ArrayList<>();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                actions.add(new AVChatAction(AVChatType.AUDIO));
-                actions.add(new AVChatAction(AVChatType.VIDEO));
-            }
-            //actions.add(new RTSAction());
-            actions.add(new SnapChatAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            actions.add(new TipAction());
-            p2pCustomization.actions = actions;
-            p2pCustomization.withSticker = true;
 
             // 定制ActionBar右边的按钮，可以加多个
             ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
@@ -187,6 +163,35 @@ public class SessionHelper {
             buttons.add(cloudMsgButton);
             buttons.add(infoButton);
             p2pCustomization.buttons = buttons;
+
+            InputPanelCustomization inputPanelCustomization = new InputPanelCustomization(){
+                @Override
+                public MsgAttachment createStickerAttachment(String category, String item) {
+                    return new StickerAttachment(category, item);
+                }
+            };
+
+            inputPanelCustomization.showAudioInputBar = false;
+            inputPanelCustomization.showEmojiInputBar = false;
+            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
+            ArrayList<BaseAction> actions = new ArrayList<>();
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//                actions.add(new AVChatAction(AVChatType.AUDIO));
+//                actions.add(new AVChatAction(AVChatType.VIDEO));
+//            }
+            actions.add(new ImageAction());
+//            actions.add(new VideoAction());
+//            actions.add(new LocationAction());
+//            //actions.add(new RTSAction());
+//            actions.add(new SnapChatAction());
+//            actions.add(new GuessAction());
+//            actions.add(new FileAction());
+//            actions.add(new TipAction());
+            inputPanelCustomization.actions = actions;
+            inputPanelCustomization.withSticker = true;
+            inputPanelCustomization.messageInputBoxBackgroud = R.drawable.message_input_edittext_bg;
+
+            p2pCustomization.inputPanelCustomization = inputPanelCustomization;
         }
 
         return p2pCustomization;
@@ -214,11 +219,6 @@ public class SessionHelper {
                         }
                     }
                 }
-
-                @Override
-                public MsgAttachment createStickerAttachment(String category, String item) {
-                    return new StickerAttachment(category, item);
-                }
             };
 
             // 背景
@@ -227,13 +227,6 @@ public class SessionHelper {
 //            p2pCustomization.backgroundUri = "file:///sdcard/Pictures/bk.png";
 //            p2pCustomization.backgroundUri = "android.resource://com.lyun.user.im/drawable/bk"
 
-            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-            ArrayList<BaseAction> actions = new ArrayList<>();
-            actions.add(new SnapChatAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            myP2pCustomization.actions = actions;
-            myP2pCustomization.withSticker = true;
             // 定制ActionBar右边的按钮，可以加多个
             ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
             SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
@@ -247,6 +240,29 @@ public class SessionHelper {
 
             buttons.add(cloudMsgButton);
             myP2pCustomization.buttons = buttons;
+
+            InputPanelCustomization inputPanelCustomization = new InputPanelCustomization(){
+                @Override
+                public MsgAttachment createStickerAttachment(String category, String item) {
+                    return new StickerAttachment(category, item);
+                }
+            };
+
+            inputPanelCustomization.showAudioInputBar = false;
+            inputPanelCustomization.showEmojiInputBar = false;
+            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
+            ArrayList<BaseAction> actions = new ArrayList<>();
+            actions.add(new ImageAction());
+//            actions.add(new VideoAction());
+//            actions.add(new LocationAction());
+//            actions.add(new SnapChatAction());
+//            actions.add(new GuessAction());
+//            actions.add(new FileAction());
+            inputPanelCustomization.actions = actions;
+            inputPanelCustomization.withSticker = true;
+            inputPanelCustomization.messageInputBoxBackgroud = R.drawable.message_input_edittext_bg;
+
+            myP2pCustomization.inputPanelCustomization = inputPanelCustomization;
         }
         return myP2pCustomization;
     }
@@ -267,19 +283,7 @@ public class SessionHelper {
                         }
                     }
                 }
-
-                @Override
-                public MsgAttachment createStickerAttachment(String category, String item) {
-                    return new StickerAttachment(category, item);
-                }
             };
-
-            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-            ArrayList<BaseAction> actions = new ArrayList<>();
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            actions.add(new TipAction());
-            teamCustomization.actions = actions;
 
             // 定制ActionBar右边的按钮，可以加多个
             ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
@@ -307,7 +311,28 @@ public class SessionHelper {
             buttons.add(infoButton);
             teamCustomization.buttons = buttons;
 
-            teamCustomization.withSticker = true;
+            InputPanelCustomization inputPanelCustomization = new InputPanelCustomization(){
+                @Override
+                public MsgAttachment createStickerAttachment(String category, String item) {
+                    return new StickerAttachment(category, item);
+                }
+            };
+
+            inputPanelCustomization.showAudioInputBar = false;
+            inputPanelCustomization.showEmojiInputBar = false;
+            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
+            ArrayList<BaseAction> actions = new ArrayList<>();
+            actions.add(new ImageAction());
+//            actions.add(new VideoAction());
+//            actions.add(new LocationAction());
+//            actions.add(new GuessAction());
+//            actions.add(new FileAction());
+//            actions.add(new TipAction());
+            inputPanelCustomization.actions = actions;
+            inputPanelCustomization.withSticker = true;
+            inputPanelCustomization.messageInputBoxBackgroud = R.drawable.message_input_edittext_bg;
+
+            teamCustomization.inputPanelCustomization = inputPanelCustomization;
         }
 
         return teamCustomization;

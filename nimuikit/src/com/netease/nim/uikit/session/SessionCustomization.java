@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.netease.nim.uikit.session.actions.BaseAction;
+import com.netease.nim.uikit.session.module.input.InputPanelCustomization;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 
 import java.io.Serializable;
@@ -28,14 +29,7 @@ public class SessionCustomization implements Serializable {
     public String backgroundUri;
     public int backgroundColor;
 
-    // UIKit
-    public boolean withSticker;
-
-    /**
-     * 加号展开后的action list。
-     * 默认已包含图片，视频和地理位置
-     */
-    public ArrayList<BaseAction> actions;
+    public InputPanelCustomization inputPanelCustomization;
 
     /**
      * ActionBar右侧可定制按钮。默认为空。
@@ -52,11 +46,6 @@ public class SessionCustomization implements Serializable {
      * @param data 返回的结果数据
      */
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {}
-
-    // uikit内建了对贴图消息的输入和管理展示，并和emoji表情整合在了一起，但贴图消息的附件定义开发者需要根据自己的扩展
-    public MsgAttachment createStickerAttachment(String category, String item) {
-        return null;
-    }
 
     /**
      * ActionBar 右侧按钮，可定制icon和点击事件
