@@ -3,7 +3,6 @@ package com.lyun.user.im.session;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -11,11 +10,7 @@ import android.widget.Toast;
 import com.lyun.user.R;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.contact.activity.UserProfileActivity;
-import com.lyun.user.im.session.action.AVChatAction;
-import com.lyun.user.im.session.action.FileAction;
-import com.lyun.user.im.session.action.GuessAction;
-import com.lyun.user.im.session.action.SnapChatAction;
-import com.lyun.user.im.session.action.TipAction;
+import com.lyun.user.im.session.action.ImageAction;
 import com.lyun.user.im.session.activity.MessageHistoryActivity;
 import com.lyun.user.im.session.activity.MessageInfoActivity;
 import com.lyun.user.im.session.extension.CustomAttachParser;
@@ -39,9 +34,6 @@ import com.netease.nim.uikit.common.ui.popupmenu.PopupMenuItem;
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.SessionEventListener;
 import com.netease.nim.uikit.session.actions.BaseAction;
-import com.netease.nim.uikit.session.actions.ImageAction;
-import com.netease.nim.uikit.session.actions.LocationAction;
-import com.netease.nim.uikit.session.actions.VideoAction;
 import com.netease.nim.uikit.session.helper.MessageHelper;
 import com.netease.nim.uikit.session.helper.MessageListPanelHelper;
 import com.netease.nim.uikit.session.module.MsgForwardFilter;
@@ -51,7 +43,6 @@ import com.netease.nim.uikit.team.model.TeamExtras;
 import com.netease.nim.uikit.team.model.TeamRequestCode;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
@@ -184,18 +175,18 @@ public class SessionHelper {
             inputPanelCustomization.showEmojiInputBar = false;
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                actions.add(new AVChatAction(AVChatType.AUDIO));
-                actions.add(new AVChatAction(AVChatType.VIDEO));
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//                actions.add(new AVChatAction(AVChatType.AUDIO));
+//                actions.add(new AVChatAction(AVChatType.VIDEO));
+//            }
             actions.add(new ImageAction());
-            actions.add(new VideoAction());
-            actions.add(new LocationAction());
-            //actions.add(new RTSAction());
-            actions.add(new SnapChatAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            actions.add(new TipAction());
+//            actions.add(new VideoAction());
+//            actions.add(new LocationAction());
+//            //actions.add(new RTSAction());
+//            actions.add(new SnapChatAction());
+//            actions.add(new GuessAction());
+//            actions.add(new FileAction());
+//            actions.add(new TipAction());
             inputPanelCustomization.actions = actions;
             inputPanelCustomization.withSticker = true;
             inputPanelCustomization.messageInputBoxBackgroud = R.drawable.message_input_edittext_bg;
@@ -262,11 +253,11 @@ public class SessionHelper {
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
             actions.add(new ImageAction());
-            actions.add(new VideoAction());
-            actions.add(new LocationAction());
-            actions.add(new SnapChatAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
+//            actions.add(new VideoAction());
+//            actions.add(new LocationAction());
+//            actions.add(new SnapChatAction());
+//            actions.add(new GuessAction());
+//            actions.add(new FileAction());
             inputPanelCustomization.actions = actions;
             inputPanelCustomization.withSticker = true;
             inputPanelCustomization.messageInputBoxBackgroud = R.drawable.message_input_edittext_bg;
@@ -332,11 +323,11 @@ public class SessionHelper {
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
             actions.add(new ImageAction());
-            actions.add(new VideoAction());
-            actions.add(new LocationAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            actions.add(new TipAction());
+//            actions.add(new VideoAction());
+//            actions.add(new LocationAction());
+//            actions.add(new GuessAction());
+//            actions.add(new FileAction());
+//            actions.add(new TipAction());
             inputPanelCustomization.actions = actions;
             inputPanelCustomization.withSticker = true;
             inputPanelCustomization.messageInputBoxBackgroud = R.drawable.message_input_edittext_bg;
