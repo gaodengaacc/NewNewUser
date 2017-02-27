@@ -100,12 +100,7 @@ public class WalletChargeViewModel extends ViewModel {
             isShowDialog.set(false);
         }
         isShowDialog.set(true);
-        if (PAY_WAY == 2) {
             getPayOrder(PAY_WAY);
-        } else if (PAY_WAY == 1) {
-            getPayOrder(PAY_WAY);
-            wxPay.notifyChange();
-        }
     }
 
     private void doReduceOrAdd(boolean isAdd) {
