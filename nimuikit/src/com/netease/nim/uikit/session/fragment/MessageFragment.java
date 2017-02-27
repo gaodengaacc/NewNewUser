@@ -127,15 +127,15 @@ public class MessageFragment extends TFragment implements ModuleProxy {
 
         if (inputPanel == null) {
             inputPanel = new InputPanel(container, rootView, getActionList());
-            inputPanel.setCustomization(customization.inputPanelCustomization);
+            inputPanel.setCustomization(customization.getInputPanelCustomization());
         } else {
-            inputPanel.reload(container, customization.inputPanelCustomization);
+            inputPanel.reload(container, customization.getInputPanelCustomization());
         }
 
         registerObservers(true);
 
         if (customization != null) {
-            messageListPanel.setChattingBackground(customization.backgroundUri, customization.backgroundColor);
+            messageListPanel.setChattingBackground(customization.getMessagePanelCustomization().getBackgroundUri(), customization.getMessagePanelCustomization().getBackgroundColor());
         }
     }
 
@@ -220,7 +220,7 @@ public class MessageFragment extends TFragment implements ModuleProxy {
 
     @Override
     public boolean isLongClickEnabled() {
-        return !inputPanel.isRecording();
+        return customization.getMessagePanelCustomization().isMsgLongClickEnabled() && !inputPanel.isRecording();
     }
 
     @Override
@@ -242,7 +242,7 @@ public class MessageFragment extends TFragment implements ModuleProxy {
         //    actions.addAll(customization.inputPanelCustomization.actions);
         //}
 
-        return customization.inputPanelCustomization.actions;
+        return customization.getInputPanelCustomization().getActions();
     }
 
     /**

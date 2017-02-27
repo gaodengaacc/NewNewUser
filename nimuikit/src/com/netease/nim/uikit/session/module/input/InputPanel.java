@@ -162,15 +162,15 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     public void setCustomization(InputPanelCustomization customization) {
         this.customization = customization;
         if (customization != null) {
-            emoticonPickerView.setWithSticker(customization.withSticker);
+            emoticonPickerView.setWithSticker(customization.isWithSticker());
             // 语音输入按钮
-            switchToAudioButtonInInputBar.setVisibility(customization.showAudioInputBar ? View.VISIBLE : View.GONE);
-            switchToTextButtonInInputBar.setVisibility(customization.showAudioInputBar ? View.VISIBLE : View.GONE);
+            switchToAudioButtonInInputBar.setVisibility(customization.isShowAudioInputBar() ? View.VISIBLE : View.GONE);
+            switchToTextButtonInInputBar.setVisibility(customization.isShowAudioInputBar() ? View.VISIBLE : View.GONE);
             // 表情输入按钮
-            emojiButtonInInputBar.setVisibility(customization.showEmojiInputBar ? View.VISIBLE : View.GONE);
+            emojiButtonInInputBar.setVisibility(customization.isShowEmojiInputBar() ? View.VISIBLE : View.GONE);
             // 输入框背景
-            if (customization.messageInputBoxBackgroud != 0) {
-                messageEditText.setBackgroundResource(customization.messageInputBoxBackgroud);
+            if (customization.getMsgInputBoxBackgroud() != 0) {
+                messageEditText.setBackgroundResource(customization.getMsgInputBoxBackgroud());
             }
         }
     }
@@ -344,7 +344,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         messageEditText.setVisibility(View.VISIBLE);
         switchToTextButtonInInputBar.setVisibility(View.GONE);
         // 如果定制显示语音输入再显示
-        if (customization.showAudioInputBar) {
+        if (customization.isShowAudioInputBar()) {
             switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
         }
 

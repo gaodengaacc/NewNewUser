@@ -2,6 +2,7 @@ package com.lyun.user.activity;
 
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
@@ -59,13 +60,20 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
     }
 
     @Override
-    public void onSmsCodeWrong(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "验证码错误,请重新输入！", Toast.LENGTH_SHORT).show();
+    public void onVerifyResult(ObservableField<String> observableField, int fieldId) {
+        Toast.makeText(this, observableField.get(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onSmsCodeExpired(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "验证码已过期，请重新获取!", Toast.LENGTH_SHORT).show();
+    public void onSuccess(BaseObservable observableField, int fieldId) {
+        Toast.makeText(this, "验证成功!", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
+        if (observableField.get())
+            dialogViewModel.show();
+        else
+            dialogViewModel.dismiss();
+    }
 }

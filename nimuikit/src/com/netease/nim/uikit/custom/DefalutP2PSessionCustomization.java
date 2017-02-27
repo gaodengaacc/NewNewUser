@@ -1,8 +1,5 @@
 package com.netease.nim.uikit.custom;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.module.input.InputPanelCustomization;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
@@ -19,19 +16,16 @@ import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 public class DefalutP2PSessionCustomization extends SessionCustomization {
 
     public DefalutP2PSessionCustomization() {
-        inputPanelCustomization = new InputPanelCustomization(){
+        InputPanelCustomization inputPanelCustomization = new InputPanelCustomization() {
             @Override
             public MsgAttachment createStickerAttachment(String category, String item) {
                 return null;
             }
         };
-        inputPanelCustomization.showEmojiInputBar = true;
-        inputPanelCustomization.showAudioInputBar = true;
-    }
-
-    @Override
-    public void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(activity, requestCode, resultCode, data);
+        inputPanelCustomization.setShowEmojiInputBar(true);
+        inputPanelCustomization.setShowAudioInputBar(true);
+        inputPanelCustomization.setWithSticker(true);
+        setInputPanelCustomization(inputPanelCustomization);
     }
 
 }

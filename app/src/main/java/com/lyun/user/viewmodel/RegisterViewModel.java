@@ -1,6 +1,7 @@
 package com.lyun.user.viewmodel;
 
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 
@@ -33,6 +34,10 @@ public class RegisterViewModel extends ViewModel {
     public final BaseObservable onConfirmPasswordBlank = new BaseObservable();//确认密码为空
     @WatchThis
     public final BaseObservable onPasswordSame = new BaseObservable();//两次输入的密码不同
+    @WatchThis
+    public final ObservableBoolean progressDialogShow = new ObservableBoolean();
+    @WatchThis
+    public final ObservableField<String> onRegisterResult = new ObservableField();
 
     public RegisterViewModel(Bundle bundle) {
         this.bundle = bundle;
@@ -59,9 +64,17 @@ public class RegisterViewModel extends ViewModel {
      * @param password
      */
     private void register(String username, String password) {
+        progressDialogShow.set(true);
         new RegisterModel().register(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apiResult -> onRegisterSuccess.notifyChange(),
+                .subscribe(apiResult -> {
+                    progressDialogShow.set(false);
+                    if ("0".equals(apiResult.getStatus())){
+                        onRegisterSuccess.notifyChange();
+                    }else{
+                        onRegisterResult.set(apiResult.getDescribe());
+                    }
+                },
                         throwable -> onRegisterFailed.set(throwable));
     }
 }
