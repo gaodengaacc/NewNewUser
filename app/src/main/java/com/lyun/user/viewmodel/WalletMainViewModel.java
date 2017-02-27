@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author Gordon
@@ -89,6 +90,7 @@ public class WalletMainViewModel extends ViewModel {
 
     private void getChargeRecorder(int page, boolean refresh) {
         new WalletChargeModel().getWalletChargeRecorder(Account.preference().getPhone(), page)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     if (apiResult.getStatus().equals("0")) {
@@ -116,14 +118,19 @@ public class WalletMainViewModel extends ViewModel {
                             ObservableNotifier.alwaysNotify(loadMoreResult, PullToRefreshLayout.FAIL);
                         }
                     }
+                },throwable -> {
+                    throwable.printStackTrace();
                 });
     }
 
     private void getRemainingTime() {
         new RemainingTimeModel().getRemainingTime(Account.preference().getPhone())
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     unUserTime.set(apiResult.getContent().toString() + "分钟");
+                },throwable -> {
+                    throwable.printStackTrace();
                 });
     }
 

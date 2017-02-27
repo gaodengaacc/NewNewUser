@@ -21,6 +21,7 @@ import com.lyun.user.model.TranslationOrderModel.OrderType;
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by 郑成裕 on 2016/12/30.
@@ -63,9 +64,12 @@ public class HomeFragmentViewModel extends ViewModel {
 
     private void getRemainingTime(String userName) {
         new RemainingTimeModel().getRemainingTime(userName)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     unUserTime.set(apiResult.getContent().toString());
+                },throwable -> {
+                    throwable.printStackTrace();
                 });
     }
 

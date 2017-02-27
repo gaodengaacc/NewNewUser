@@ -2,7 +2,6 @@ package com.lyun.user.pay.wxpay;
 
 import android.app.Activity;
 
-import com.lyun.user.BuildConfig;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -13,16 +12,10 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
  * do(微信支付)
  */
 public class WXPayManager {
-
-	private IWXAPI msgApi;
-	private Activity mActivity;
 	/**
 	 * 
 	 */
-	public WXPayManager(Activity activity) {
-		mActivity = activity;
-		msgApi = WXAPIFactory.createWXAPI(mActivity, null);
-		msgApi.registerApp(BuildConfig.WX_PAY_APPID);
+	public WXPayManager() {
 	}
 
 	/**
@@ -30,17 +23,17 @@ public class WXPayManager {
 	 * 
 	 *
 	 */
-	public void sendPayReq(String partnerId, String prepayid, String nonce, String timeStamp, String sign) {
+	public void sendPayReq(Activity activity,String appId,String partnerId, String prepayid, String nonce, String timeStamp, String sign) {
+		IWXAPI	msgApi = WXAPIFactory.createWXAPI(activity, null);
+		msgApi.registerApp(appId);
 		PayReq req = new PayReq();
-
-		req.appId = BuildConfig.WX_PAY_APPID;
+		req.appId = appId;
 		req.partnerId = partnerId;
 		req.prepayId = prepayid;
 		req.packageValue = "Sign=WXPay";
 		req.nonceStr = nonce;
 		req.timeStamp = timeStamp;
 		req.sign = sign;
-		msgApi.registerApp(BuildConfig.WX_PAY_APPID);
 		msgApi.sendReq(req);
 	}
 

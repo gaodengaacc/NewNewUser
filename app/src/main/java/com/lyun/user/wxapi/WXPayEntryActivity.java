@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
-import com.lyun.user.BuildConfig;
+import com.lyun.user.Account;
 import com.lyun.user.R;
 import com.lyun.user.databinding.WxPayResultBinding;
 import com.lyun.user.viewmodel.WxPayResultViewModel;
@@ -26,7 +26,7 @@ public class WXPayEntryActivity extends GeneralToolbarActivity<WxPayResultBindin
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WXPAY_RESULT = -1000;
-        api = WXAPIFactory.createWXAPI(this, BuildConfig.WX_PAY_APPID);
+        api = WXAPIFactory.createWXAPI(this, (Account.preference().getWxAppId()==null || Account.preference().getWxAppId().equals(""))?"wx32783f5b7b05f691":Account.preference().getWxAppId());
         api.handleIntent(getIntent(), this);
     }
     @NonNull

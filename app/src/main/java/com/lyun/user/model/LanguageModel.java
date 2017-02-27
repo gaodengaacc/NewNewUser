@@ -9,8 +9,6 @@ import com.lyun.user.Constants;
 import com.lyun.user.api.API;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.utils.ACache;
-import com.lyun.utils.filecache.Cache;
-import com.lyun.utils.filecache.CacheUtil;
 
 import java.util.List;
 
@@ -32,12 +30,15 @@ public class LanguageModel extends Model {
 
     public void updateLanguages() {
         findByLanguage()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         listAPIResult -> {
                             if (listAPIResult.getStatus().equals("0") && listAPIResult.getContent() != null) {
                                 ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
                             }
                         }, throwable -> {
+
                         }
                 );
     }

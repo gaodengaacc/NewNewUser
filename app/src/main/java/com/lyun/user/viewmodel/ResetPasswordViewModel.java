@@ -11,6 +11,7 @@ import com.lyun.user.model.ResetPasswordModel;
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author Gordon
@@ -53,6 +54,7 @@ public class ResetPasswordViewModel extends ViewModel {
     private void resetPassword(String userName, String password, String newPassword) {
         progressDialogShow.set(true);
         new ResetPasswordModel().resetPassword(userName, password, newPassword)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                             progressDialogShow.set(false);

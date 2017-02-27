@@ -8,9 +8,10 @@ import com.lyun.api.response.BaseResponse;
  * do()
  */
 
-public class WalletChargeResponse extends BaseResponse {
+public class WalletChargeAliPayResponse extends BaseResponse {
     private String sign;
     private String signType;
+    private String userOrderid;
     public String getSign() {
         return sign;
     }
@@ -27,6 +28,11 @@ public class WalletChargeResponse extends BaseResponse {
         this.signType = signType;
     }
 
+    public String getUserOrderid() {
+        return userOrderid;
+    }
 
-
+    public void setUserOrderid(String userOrderid) {
+        this.userOrderid = userOrderid;
+    }
 }

@@ -6,8 +6,8 @@ import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.WalletChargeBean;
 import com.lyun.user.api.request.WalletChargeRecorderBean;
+import com.lyun.user.api.request.WalletChargeUpdateStateBean;
 import com.lyun.user.api.response.WalletChargeRecorderResponse;
-import com.lyun.user.api.response.WalletChargeResponse;
 
 import java.util.List;
 
@@ -21,22 +21,41 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class WalletChargeModel extends Model {
-    public Observable<APIResult<WalletChargeResponse>> getWalletChargeOrder(String payType,String handid,String amount,String butTime) {
+    //充值接口
+    public Observable getWalletChargeOrder(String payType, String handid, String amount, String butTime) {
         WalletChargeBean bean = new WalletChargeBean();
         bean.setPayType(payType);
         bean.setHandid(handid);
         bean.setAmount(amount);
         bean.setBuyTime(butTime);
-        return API.auth.getChargeOrder(bean)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io());
+        if(payType.equals("2")){
+            return API.auth.getAliChargeOrder(bean)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io());
+        }else {
+            return API.auth.getWxChargeOrder(bean)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io());
+        }
     }
+
+    //充值记录
     public Observable<APIResult<APIPageResult<List<WalletChargeRecorderResponse>>>> getWalletChargeRecorder(String cardNo, int pageid) {
         WalletChargeRecorderBean bean = new WalletChargeRecorderBean();
         bean.setCardNo(cardNo);
         bean.setPageid(String.valueOf(pageid));
         bean.setPagesize("20");
         return API.auth.getChargeRecorder(bean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+    }
+
+    //充值订单更新
+    public Observable<APIResult> setChargeOrderUpdate(String userOrderid, String opstateId) {
+        WalletChargeUpdateStateBean bean = new WalletChargeUpdateStateBean();
+        bean.setUserOrderid(userOrderid);
+        bean.setOpstateId(opstateId);
+        return API.auth.setChargeOrderUpdate(bean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

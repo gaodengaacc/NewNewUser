@@ -17,8 +17,9 @@ public class APIConstants {
     public static final String FIND_PASSWORD="resetPassword/";//找回密码
     public static final String STATISTICS_CARDNO="statisticsCardNo/";//查询使用时长，呼叫总次数，接触语种
 
-    public static final String LYT_RECHARGE ="lyt_recharge/"; //充值接口
+    public static final String CHARGE_PAY = "advancePayment/"; //充值接口
     public static final String CHARGE_RECORDER ="findPayinfo/"; //充值记录
+    public static final String CHARGE_UPDATE ="updateOpstate/"; //充值接口更新
     // Order Service
     public static final String GENERATE_TRANSLATION_ORDER = "addBill/";//生成翻译订单
     public static final String REMAINING_TIME = "remainingtime/";//查询剩余时间

@@ -29,12 +29,14 @@ public class Account {
         private String token;
         private String nimToken;
         private boolean login;
+        private String wxAppId;
 
         private final String KEY_PHONE = "phone";
         private final String KEY_PASSWORD = "password";
         private final String KEY_TOKEN = "token";
         private final String KEY_NIM_TOKEN = "nim_token";
         private final String KEY_LOGIN = "login";
+        private final String KEY_WX_APPID = "wx_app_id";
 
         public void clear() {
             savePassword(null);
@@ -54,6 +56,16 @@ public class Account {
             saveString(KEY_PHONE, phone);
         }
 
+        public String getWxAppId() {
+            if (wxAppId == null)
+                wxAppId = getString(KEY_WX_APPID);
+            return wxAppId;
+        }
+
+        public void saveWxAppId(String wxAppId) {
+            this.wxAppId = wxAppId;
+            saveString(KEY_WX_APPID, wxAppId);
+        }
         public String getPassword() {
             if (password == null)
                 password = getString(KEY_PASSWORD);

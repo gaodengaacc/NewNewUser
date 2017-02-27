@@ -15,6 +15,7 @@ import com.lyun.user.model.StatisticsCardNoModel;
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by 郑成裕 on 2016/12/28.
@@ -56,6 +57,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
      */
     private void getUserDes(String cardNo) {
         new StatisticsCardNoModel().getStatistics(cardNo)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     if ("0".equals(apiResult.getStatus())) {
@@ -63,6 +65,8 @@ public class UserCenterFragmentViewModel extends ViewModel {
                         userNum.set(apiResult.getContent().getCallFrequency());
                         userLanguage.set(apiResult.getContent().getLanguages());
                     }
+                },throwable -> {
+                    throwable.printStackTrace();
                 });
     }
 
