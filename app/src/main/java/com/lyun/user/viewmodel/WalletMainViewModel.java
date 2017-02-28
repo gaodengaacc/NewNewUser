@@ -94,7 +94,7 @@ public class WalletMainViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     if (apiResult.getStatus().equals("0")) {
-                        if(refresh)
+                        if (refresh)
                             list.clear();
                         for (WalletChargeRecorderResponse recorder : apiResult.getContent().getData()) {
                             WalletMainRecorderItemViewModel viewModel = new WalletMainRecorderItemViewModel();
@@ -118,18 +118,21 @@ public class WalletMainViewModel extends ViewModel {
                             ObservableNotifier.alwaysNotify(loadMoreResult, PullToRefreshLayout.FAIL);
                         }
                     }
-                },throwable -> {
+                }, throwable -> {
                     throwable.printStackTrace();
                 });
     }
 
+    /**
+     * 获取剩余时间·
+     */
     private void getRemainingTime() {
         new RemainingTimeModel().getRemainingTime(Account.preference().getPhone())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     unUserTime.set(apiResult.getContent().toString() + "分钟");
-                },throwable -> {
+                }, throwable -> {
                     throwable.printStackTrace();
                 });
     }

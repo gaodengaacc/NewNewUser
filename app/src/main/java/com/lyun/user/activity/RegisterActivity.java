@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
+import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityRegisterBinding;
 import com.lyun.user.viewmodel.RegisterViewModel;
@@ -44,28 +45,28 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
 
     @Override
     public void onRegisterSuccess(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "注册成功！", Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), "注册成功！", Toast.LENGTH_LONG).show();
         finish();
     }
 
     @Override
     public void onRegisterFailed(ObservableField<Throwable> observableField, int fieldId) {
-        Toast.makeText(this, observableField.get().getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), observableField.get().getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onPasswordBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "请输入密码！", Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), "请输入密码！", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onConfirmPasswordBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "请确认密码！", Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), "请确认密码！", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onPasswordSame(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "两次输入密码不同,请重新输入！", Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), "两次输入密码不同,请重新输入！", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -78,6 +79,6 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
 
     @Override
     public void onRegisterResult(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(this, observableField.get(), Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_LONG).show();
     }
 }

@@ -6,7 +6,6 @@ import android.databinding.ObservableInt;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
@@ -33,11 +32,6 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableInt modelChange = new ObservableInt();
     public final ObservableField<String> textViewModelChange = new ObservableField<>();
     private OrderType mTranslationOrderType = OrderType.MESSAGE;
-    public final ObservableField<String> textViewCategoryChange = new ObservableField<>();//服务类型
-    public final ObservableField<Boolean> showPopupWindow = new ObservableField<>();
-    private final int REQUEST_CODE = 10000;
-    public final ObservableField<ViewTreeObserver.OnGlobalLayoutListener> linearLayoutListener = new ObservableField<>();
-
     public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     public final ObservableField<FindLanguageResponse> mCurrentLanguage = new ObservableField<>();//目标语言

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
+import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityLoginBinding;
 import com.lyun.user.im.NimCache;
@@ -101,7 +102,7 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
 
     @Override
     public void onLoginSuccess(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "登录成功", Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), "登录成功", Toast.LENGTH_LONG).show();
         // 初始化消息提醒配置
         initNotificationConfig();
         //SessionHelper.startP2PSession(this, "123456");
@@ -111,7 +112,7 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
 
     @Override
     public void onLoginFailed(ObservableField<Throwable> observableField, int fieldId) {
-        Toast.makeText(this, observableField.get().getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), observableField.get().getMessage(), Toast.LENGTH_LONG).show();
         observableField.get().printStackTrace();
     }
 
