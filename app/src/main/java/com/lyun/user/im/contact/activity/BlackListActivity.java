@@ -55,7 +55,7 @@ public class BlackListActivity extends UI implements TAdapterDelegate {
         setContentView(R.layout.black_list_activity);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.black_list;
+        options.setTitleId(R.string.black_list);
         setToolBar(R.id.toolbar, options);
 
         initData();

@@ -40,8 +40,8 @@ public abstract class BaseMessageActivity extends UI {
         super.onCreate(savedInstanceState);
 
         setContentView(getContentViewId());
-        initToolBar();
         parseIntent();
+        initToolBar();
 
         messageFragment = (MessageFragment) switchContent(fragment());
     }
@@ -105,4 +105,7 @@ public abstract class BaseMessageActivity extends UI {
         toolbar.addView(view, new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.RIGHT | Gravity.CENTER));
     }
 
+    public SessionCustomization getCustomization() {
+        return customization;
+    }
 }

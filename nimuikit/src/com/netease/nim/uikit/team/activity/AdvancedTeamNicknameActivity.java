@@ -49,7 +49,7 @@ public class AdvancedTeamNicknameActivity extends UI implements TextWatcher, Vie
         setContentView(R.layout.nim_advanced_team_nickname_activity);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.team_nickname;
+        options.setTitleId(R.string.team_nickname);
         setToolBar(R.id.toolbar, options);
 
         nickName = getIntent().getStringExtra(EXTRA_NAME);

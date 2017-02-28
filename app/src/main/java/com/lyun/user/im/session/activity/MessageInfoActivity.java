@@ -49,8 +49,8 @@ public class MessageInfoActivity extends UI {
         setContentView(R.layout.message_info_activity);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.message_info;
-        options.navigateId = R.drawable.actionbar_dark_back_icon;
+        options.setTitleId(R.string.message_info);
+        options.setNavigateId(R.drawable.actionbar_dark_back_icon);
         setToolBar(R.id.toolbar, options);
 
         account = getIntent().getStringExtra(EXTRA_ACCOUNT);

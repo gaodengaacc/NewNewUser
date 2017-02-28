@@ -77,7 +77,7 @@ public class SettingsActivity extends UI implements SettingsAdapter.SwitchChange
         setContentView(R.layout.settings_activity);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.settings;
+        options.setTitleId(R.string.settings);
         setToolBar(R.id.toolbar, options);
 
         initData();

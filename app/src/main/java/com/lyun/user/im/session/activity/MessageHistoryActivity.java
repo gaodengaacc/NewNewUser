@@ -51,7 +51,7 @@ public class MessageHistoryActivity extends UI implements ModuleProxy {
         setContentView(rootView);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.message_history_query;
+        options.setTitleId(R.string.message_history_query);
         setToolBar(R.id.toolbar, options);
 
         onParseIntent();

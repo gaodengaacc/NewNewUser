@@ -101,7 +101,7 @@ public class UserProfileActivity extends UI {
         setContentView(R.layout.user_profile_activity);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.user_profile;
+        options.setTitleId(R.string.user_profile);
         setToolBar(R.id.toolbar, options);
 
         account = getIntent().getStringExtra(Extras.EXTRA_ACCOUNT);

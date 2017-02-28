@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.netease.nim.uikit.model.ToolBarOptions;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
  */
 
 public class ToolbarCustomization implements Serializable {
+
+    private ToolBarOptions toolBarOptions;
 
     /**
      * ActionBar右侧可定制按钮。默认为空。
@@ -57,5 +61,13 @@ public class ToolbarCustomization implements Serializable {
 
     public void setOptionsButtons(List<OptionsButton> optionsButtons) {
         this.optionsButtons = optionsButtons;
+    }
+
+    public ToolBarOptions getToolBarOptions() {
+        return toolBarOptions;
+    }
+
+    public void setToolBarOptions(ToolBarOptions toolBarOptions) {
+        this.toolBarOptions = toolBarOptions;
     }
 }

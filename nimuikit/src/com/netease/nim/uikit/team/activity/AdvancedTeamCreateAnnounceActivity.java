@@ -55,7 +55,7 @@ public class AdvancedTeamCreateAnnounceActivity extends UI {
         setContentView(R.layout.nim_advanced_team_create_announce);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.team_annourcement;
+        options.setTitleId(R.string.team_annourcement);
         setToolBar(R.id.toolbar, options);
 
         parseIntentData();

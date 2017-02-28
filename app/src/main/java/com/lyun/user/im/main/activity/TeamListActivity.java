@@ -62,7 +62,7 @@ public class TeamListActivity extends UI implements AdapterView.OnItemClickListe
         setContentView(R.layout.group_list_activity);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = itemType == ItemTypes.TEAMS.ADVANCED_TEAM ? R.string.advanced_team : R.string.normal_team;
+        options.setTitleId(itemType == ItemTypes.TEAMS.ADVANCED_TEAM ? R.string.advanced_team : R.string.normal_team);
         setToolBar(R.id.toolbar, options);
 
         lvContacts = (ListView) findViewById(R.id.group_list);

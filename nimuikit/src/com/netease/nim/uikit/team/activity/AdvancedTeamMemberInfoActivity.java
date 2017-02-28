@@ -87,7 +87,7 @@ public class AdvancedTeamMemberInfoActivity extends UI implements View.OnClickLi
         setContentView(R.layout.nim_advanced_team_member_info_layout);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.team_member_info;
+        options.setTitleId(R.string.team_member_info);
         setToolBar(R.id.toolbar, options);
 
         parseIntentData();

@@ -79,7 +79,7 @@ public class AdvancedTeamAnnounceActivity extends UI implements TAdapterDelegate
         setContentView(R.layout.nim_advanced_team_announce);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.team_annourcement;
+        options.setTitleId(R.string.team_annourcement);
         setToolBar(R.id.toolbar, options);
 
         uiHandler = new Handler(getMainLooper());

@@ -235,7 +235,7 @@ public class TeamMessageActivity extends BaseMessageActivity {
     @Override
     protected void initToolBar() {
         ToolBarOptions options = new ToolBarOptions();
-        options.titleString = "群聊";
+        options.setTitleString("群聊");
         setToolBar(R.id.toolbar, options);
     }
 

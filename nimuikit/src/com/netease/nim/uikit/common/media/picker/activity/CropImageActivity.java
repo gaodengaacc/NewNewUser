@@ -50,7 +50,7 @@ public class CropImageActivity extends UI {
         setContentView(R.layout.nim_crop_image_activity);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.crop;
+        options.setTitleId(R.string.crop);
         setToolBar(R.id.toolbar, options);
 
         processIntent();
