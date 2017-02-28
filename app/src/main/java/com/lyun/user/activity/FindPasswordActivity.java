@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
+import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityFindPasswordBinding;
 import com.lyun.user.viewmodel.FindPasswordViewModel;
@@ -38,33 +39,33 @@ public class FindPasswordActivity extends GeneralToolbarActivity<ActivityFindPas
 
     @Override
     public void onFindPasswordSuccess(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "修改成功!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.getInstance(), "修改成功!", Toast.LENGTH_SHORT).show();
         finish();
     }
 
     @Override
     public void onNumberBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "请输入手机号!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.getInstance(), "请输入手机号!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNumberWrong(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "请输入正确的手机号!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.getInstance(), "请输入正确的手机号!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSmsCodeBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "请输入验证码!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.getInstance(), "请输入验证码!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNewPasswordBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(this, "请输入新密码!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.getInstance(), "请输入新密码!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFindPasswordResult(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(this, observableField.get(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
