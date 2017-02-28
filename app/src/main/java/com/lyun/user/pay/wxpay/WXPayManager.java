@@ -12,6 +12,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
  * do(微信支付)
  */
 public class WXPayManager {
+	private IWXAPI msgApi;
 	/**
 	 * 
 	 */
@@ -23,8 +24,11 @@ public class WXPayManager {
 	 * 
 	 *
 	 */
-	public void sendPayReq(Activity activity,String appId,String partnerId, String prepayid, String nonce, String timeStamp, String sign) {
-		IWXAPI	msgApi = WXAPIFactory.createWXAPI(activity, null);
+	public Boolean sendPayReq(Activity activity,String appId,String partnerId, String prepayid, String nonce, String timeStamp, String sign) {
+		if (msgApi == null)
+			msgApi = WXAPIFactory.createWXAPI(activity, null);
+		if(!msgApi.isWXAppInstalled())
+			return false;
 		msgApi.registerApp(appId);
 		PayReq req = new PayReq();
 		req.appId = appId;
@@ -35,6 +39,7 @@ public class WXPayManager {
 		req.timeStamp = timeStamp;
 		req.sign = sign;
 		msgApi.sendReq(req);
+		return true;
 	}
 
 }

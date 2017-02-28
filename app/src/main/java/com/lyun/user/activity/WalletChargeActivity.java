@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
+import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
 import com.lyun.user.databinding.ActivityWalletChargeBinding;
@@ -65,12 +66,14 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
         if (observableField.get() != null) {
             if (wxPayManager == null)
                 wxPayManager = new WXPayManager();
-            wxPayManager.sendPayReq(this, observableField.get().getAppid(),
+           boolean isWxInstalled= wxPayManager.sendPayReq(this, observableField.get().getAppid(),
                     observableField.get().getPartnerid(),
                     observableField.get().getPrepayid(),
                     observableField.get().getNoncestr(),
                     observableField.get().getTimestamp(),
                     observableField.get().getSign());
+            if(!isWxInstalled)
+                Toast.makeText(AppApplication.getInstance(),"请安装微信客户端", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -86,7 +89,7 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
 
     @Override
     public void showText(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(this, observableField.get(), Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -20,12 +20,11 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 public class WXPayEntryActivity extends GeneralToolbarActivity<WxPayResultBinding,WxPayResultViewModel> implements IWXAPIEventHandler {
 
     private IWXAPI api;
-    public static int WXPAY_RESULT;
+    public static int WXPAY_RESULT = -1000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WXPAY_RESULT = -1000;
         api = WXAPIFactory.createWXAPI(this, (Account.preference().getWxAppId()==null || Account.preference().getWxAppId().equals(""))?"wx32783f5b7b05f691":Account.preference().getWxAppId());
         api.handleIntent(getIntent(), this);
     }
