@@ -73,7 +73,7 @@ public class AdvancedTeamMemberActivity extends UI implements TAdapterDelegate,
         setContentView(R.layout.nim_team_member_grid_layout);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.team_member;
+        options.setTitleId(R.string.team_member);
         setToolBar(R.id.toolbar, options);
 
         parseIntentData();

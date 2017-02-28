@@ -75,9 +75,9 @@ public class GlobalSearchDetailActivity extends UI implements OnItemClickListene
         // title name
         ToolBarOptions options = new ToolBarOptions();
         if (sessionType == SessionTypeEnum.P2P) {
-            options.titleString = NimUserInfoCache.getInstance().getUserDisplayName(sessionId);
+            options.setTitleString(NimUserInfoCache.getInstance().getUserDisplayName(sessionId));
         } else if (sessionType == SessionTypeEnum.Team) {
-            options.titleString = TeamDataCache.getInstance().getTeamName(sessionId);
+            options.setTitleString(TeamDataCache.getInstance().getTeamName(sessionId));
         }
         setToolBar(R.id.toolbar, options);
 

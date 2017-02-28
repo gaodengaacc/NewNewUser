@@ -67,7 +67,7 @@ public class TeamMemberListActivity extends UI {
             }
         });
         ToolBarOptions options = new ToolBarOptions();
-        options.titleString = "选择提醒的人";
+        options.setTitleString("选择提醒的人");
         setToolBar(R.id.toolbar, options);
     }
 

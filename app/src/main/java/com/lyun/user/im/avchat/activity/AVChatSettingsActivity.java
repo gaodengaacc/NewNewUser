@@ -19,7 +19,7 @@ public class AVChatSettingsActivity extends UI {
         setContentView(R.layout.avchat_settings_layout);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.nrtc_settings;
+        options.setTitleId(R.string.nrtc_settings);
         setToolBar(R.id.toolbar, options);
 
 

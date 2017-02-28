@@ -30,6 +30,7 @@ import com.netease.nim.uikit.cache.TeamDataCache;
 import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.nim.uikit.common.ui.popupmenu.NIMPopupMenu;
 import com.netease.nim.uikit.common.ui.popupmenu.PopupMenuItem;
+import com.netease.nim.uikit.model.ToolBarOptions;
 import com.netease.nim.uikit.session.MessagePanelCustomization;
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.SessionEventListener;
@@ -130,6 +131,11 @@ public class SessionHelper {
 
             //定制Toolbar
             ToolbarCustomization toolbarCustomization = new ToolbarCustomization();
+            ToolBarOptions toolBarOptions = new ToolBarOptions();
+            toolBarOptions.setLogoId(0);
+            toolBarOptions.setNavigateId(R.mipmap.ic_arrow_back_black);
+            toolBarOptions.setTitleString("text test");
+            toolbarCustomization.setToolBarOptions(toolBarOptions);
             // 定制ActionBar右边的按钮，可以加多个
             ArrayList<ToolbarCustomization.OptionsButton> buttons = new ArrayList<>();
             toolbarCustomization.setOptionsButtons(buttons);

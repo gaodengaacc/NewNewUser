@@ -44,7 +44,7 @@ public class MultiportActivity extends UI {
         setContentView(R.layout.multiport_activity);
 
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.multiport_manager;
+        options.setTitleId(R.string.multiport_manager);
         setToolBar(R.id.toolbar, options);
 
         findViews();

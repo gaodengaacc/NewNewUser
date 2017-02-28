@@ -10,10 +10,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.util.log.LogUtil;
@@ -78,19 +80,19 @@ public abstract class UI extends AppCompatActivity {
 
     public void setToolBar(int toolBarId, ToolBarOptions options) {
         toolbar = (Toolbar) findViewById(toolBarId);
-        if (options.titleId != 0) {
-            toolbar.setTitle(options.titleId);
+        if (options.getTitleId() != 0) {
+            toolbar.setTitle(options.getTitleId());
         }
-        if (!TextUtils.isEmpty(options.titleString)) {
-            toolbar.setTitle(options.titleString);
+        if (!TextUtils.isEmpty(options.getTitleString())) {
+            toolbar.setTitle(options.getTitleString());
         }
-        if (options.logoId != 0) {
-            toolbar.setLogo(options.logoId);
+        if (options.getLogoId() != 0) {
+            toolbar.setLogo(options.getLogoId());
         }
         setSupportActionBar(toolbar);
 
-        if (options.isNeedNavigate) {
-            toolbar.setNavigationIcon(options.navigateId);
+        if (options.isNeedNavigate()) {
+            toolbar.setNavigationIcon(options.getNavigateId());
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

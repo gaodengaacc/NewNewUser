@@ -68,7 +68,7 @@ public class NoDisturbActivity extends UI implements SettingsAdapter.SwitchChang
         super.onCreate(savedInstanceState);
         setContentView(R.layout.no_disturb_activity);
         ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.no_disturb;
+        options.setTitleId(R.string.no_disturb);
         setToolBar(R.id.toolbar, options);
 
         parseIntentData();
