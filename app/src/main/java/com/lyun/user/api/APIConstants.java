@@ -23,5 +23,6 @@ public class APIConstants {
     // Order Service
     public static final String GENERATE_TRANSLATION_ORDER = "addBill/";//生成翻译订单
     public static final String REMAINING_TIME = "remainingtime/";//查询剩余时间
+    public static final String HEART_BEAT = "heartbeat/";//查询剩余时间
 
 }

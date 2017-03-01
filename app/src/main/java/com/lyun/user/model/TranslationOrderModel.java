@@ -1,9 +1,11 @@
 package com.lyun.user.model;
 
+import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.Account;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.GenerateOrderRequest;
+import com.lyun.user.api.request.HeartBeatBean;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -20,6 +22,12 @@ public class TranslationOrderModel extends Model {
         request.setLanguageId(languageId);
         request.setOrderTypeId(orderTypeId);
         return parseAPIObservable(API.translationOrder.generateOrder(request))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+    }
+
+    public Observable<APIResult> heartBeat(String userOrderId) {
+        return API.translationOrder.heartBeat(new HeartBeatBean(userOrderId, Account.preference().getPhone()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

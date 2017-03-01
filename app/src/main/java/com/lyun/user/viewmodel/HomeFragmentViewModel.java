@@ -42,7 +42,7 @@ public class HomeFragmentViewModel extends ViewModel {
     @WatchThis
     public final BaseObservable onPickLanguage = new BaseObservable();
     @WatchThis
-    public final ObservableField<OrderType> onTranslationOrderGenerated = new ObservableField<>();
+    public final ObservableField<String> onTranslationOrderGenerated = new ObservableField<>();
     @WatchThis
     public final ObservableField<String> onTranslationOrderGenerateFail = new ObservableField<>();
 
@@ -60,11 +60,8 @@ public class HomeFragmentViewModel extends ViewModel {
         new RemainingTimeModel().getRemainingTime(userName)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apiResult -> {
-                    unUserTime.set(apiResult.getContent().toString());
-                },throwable -> {
-                    throwable.printStackTrace();
-                });
+                .subscribe(apiResult -> unUserTime.set(apiResult.getContent().toString()),
+                        throwable -> throwable.printStackTrace());
     }
 
     public void initData() {//初始化数据
@@ -80,7 +77,7 @@ public class HomeFragmentViewModel extends ViewModel {
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
         // 0=图文 1=语音
         new TranslationOrderModel().generateOrder(mCurrentLanguage.get().getId() + "", mTranslationOrderType.getValue())
-                .subscribe(orderId -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, mTranslationOrderType),
+                .subscribe(orderId -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, orderId),
                         throwable -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage()));
     });
 

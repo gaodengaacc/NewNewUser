@@ -12,6 +12,7 @@ import com.lyun.user.im.NimCache;
 import com.lyun.user.im.contact.activity.UserProfileActivity;
 import com.lyun.user.im.session.action.ImageAction;
 import com.lyun.user.im.session.activity.MessageHistoryActivity;
+import com.lyun.user.im.session.activity.TranslationMessageActivity;
 import com.lyun.user.im.session.extension.CustomAttachParser;
 import com.lyun.user.im.session.extension.CustomAttachment;
 import com.lyun.user.im.session.extension.GuessAttachment;
@@ -100,6 +101,10 @@ public class SessionHelper {
         NimUIKit.setCommonTeamSessionCustomization(getTeamCustomization());
     }
 
+    public static void startTranslationSession(Context context, String account, String orderId) {
+        TranslationMessageActivity.start(context, account, orderId, getP2pCustomization(), null);
+    }
+
     public static void startP2PSession(Context context, String account) {
         startP2PSession(context, account, null);
     }
@@ -134,7 +139,6 @@ public class SessionHelper {
             ToolBarOptions toolBarOptions = new ToolBarOptions();
             toolBarOptions.setLogoId(0);
             toolBarOptions.setNavigateId(R.mipmap.ic_arrow_back_black);
-            toolBarOptions.setTitleString("text test");
             toolbarCustomization.setToolBarOptions(toolBarOptions);
             // 定制ActionBar右边的按钮，可以加多个
             ArrayList<ToolbarCustomization.OptionsButton> buttons = new ArrayList<>();

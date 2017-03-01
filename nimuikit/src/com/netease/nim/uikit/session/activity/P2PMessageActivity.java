@@ -3,6 +3,7 @@ package com.netease.nim.uikit.session.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -188,71 +189,5 @@ public class P2PMessageActivity extends BaseMessageActivity {
     @Override
     protected void initToolBar() {
         setToolBar(R.id.toolbar, getCustomization().getToolbarCustomization().getToolBarOptions());
-        centerToolbarTitle(getToolBar());
     }
-
-    public void centerToolbarTitle(final Toolbar toolbar) {
-        // Save current title and subtitle
-        final CharSequence originalTitle = toolbar.getTitle();
-        final CharSequence originalSubtitle = toolbar.getSubtitle();
-
-        // Temporarily modify title and subtitle to help detecting each
-        //toolbar.setTitle("title");
-        //toolbar.setSubtitle("subtitle");
-
-        for (int i = 0; i < toolbar.getChildCount(); i++) {
-            View view = toolbar.getChildAt(i);
-
-            if (view instanceof TextView) {
-                final TextView textView = (TextView) view;
-
-                if (textView.getText().equals(originalTitle)) {
-                    // Customize title's TextView
-                    //final Toolbar.LayoutParams params = (Toolbar.LayoutParams) textView.getLayoutParams();
-                    //final Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
-                    //params.gravity = Gravity.CENTER_HORIZONTAL;
-                    //params.leftMargin = (toolbar.getWidth() - textView.getWidth() - toolbar.getHeight()) / 2;
-                    //params.rightMargin = params.leftMargin;
-                    //textView.setLayoutParams(params);
-
-                    // Apply custom font using the Calligraphy library
-                    //Typeface typeface = TypefaceUtils.load(getAssets(), "fonts/myfont-1.otf");
-                    //textView.setTypeface(typeface);
-                    textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            textView.setLeft((toolbar.getWidth() - textView.getWidth()) / 2);
-                            textView.setRight(textView.getLeft() + textView.getMeasuredWidth());
-                        }
-                    });
-
-                } else if (textView.getText().equals(originalSubtitle)) {
-                    // Customize subtitle's TextView
-                    //final Toolbar.LayoutParams params = (Toolbar.LayoutParams) textView.getLayoutParams();
-                    //final Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
-                    //params.gravity = Gravity.CENTER_HORIZONTAL;
-                    //params.leftMargin = (toolbar.getWidth() - textView.getWidth() - toolbar.getHeight()) / 2;
-                   // params.rightMargin = params.leftMargin;
-                   // params.topMargin = toolbar.getHeight() / 2;
-                    //textView.setLayoutParams(params);
-
-                    // Apply custom font using the Calligraphy library
-                    //Typeface typeface = TypefaceUtils.load(getAssets(), "fonts/myfont-2.otf");
-                    //textView.setTypeface(typeface);
-                    textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            textView.setLeft((toolbar.getWidth() - textView.getWidth()) / 2);
-                            textView.setRight(textView.getLeft() + textView.getMeasuredWidth());
-                        }
-                    });
-                }
-            }
-        }
-
-        // Restore title and subtitle
-        //toolbar.setTitle(originalTitle);
-        //toolbar.setSubtitle(originalSubtitle);
-    }
-
 }
