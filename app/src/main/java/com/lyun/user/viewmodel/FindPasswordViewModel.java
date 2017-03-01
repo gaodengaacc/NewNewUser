@@ -40,7 +40,7 @@ public class FindPasswordViewModel extends ViewModel {
     @WatchThis
     public final BaseObservable onSmsCodeBlank = new BaseObservable();//验证码为空
     @WatchThis
-    public final BaseObservable onNewPasswordBlank = new BaseObservable();//新密码为空
+    public final BaseObservable onNewPasswordBlank = new BaseObservable();
     @WatchThis
     public final ObservableBoolean progressDialogShow = new ObservableBoolean();
     @WatchThis

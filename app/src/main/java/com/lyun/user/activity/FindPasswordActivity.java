@@ -63,6 +63,7 @@ public class FindPasswordActivity extends GeneralToolbarActivity<ActivityFindPas
         Toast.makeText(AppApplication.getInstance(), "请输入新密码!", Toast.LENGTH_SHORT).show();
     }
 
+
     @Override
     public void onFindPasswordResult(ObservableField<String> observableField, int fieldId) {
         Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_SHORT).show();
