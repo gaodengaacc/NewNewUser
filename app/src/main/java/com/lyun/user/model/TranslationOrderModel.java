@@ -4,6 +4,7 @@ import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.Account;
 import com.lyun.user.api.API;
+import com.lyun.user.api.request.CancelOrderOnTimeOutBean;
 import com.lyun.user.api.request.GenerateOrderRequest;
 import com.lyun.user.api.request.HeartBeatBean;
 
@@ -28,6 +29,12 @@ public class TranslationOrderModel extends Model {
 
     public Observable<APIResult> heartBeat(String userOrderId) {
         return API.translationOrder.heartBeat(new HeartBeatBean(userOrderId, Account.preference().getPhone()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+    }
+
+    public Observable<APIResult<String>> cancelOrder(String userOrderId) {
+        return API.translationOrder.cancelOrder(new CancelOrderOnTimeOutBean(userOrderId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

@@ -71,7 +71,9 @@ public class TranslationOrderService extends Service {
     };
 
     public class Action {
+        public static final String START = "com.lyun.translation.order.START";
         public static final String STATUS_CHANGE = "com.lyun.translation.order.STATUS_CHANGE";
+        public static final String FINISH = "com.lyun.translation.order.FINISH";
     }
 
 }

@@ -13,7 +13,7 @@ import com.lyun.library.mvvm.command.RelayCommand;
  */
 
 public class ViewBindAdapter {
-    @BindingAdapter("checkListener")
+    @BindingAdapter("onCheckCommand")
     public static void setOnCheckedListener(CheckBox checkBox, final RelayCommand<Boolean> relayCommand){
         checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
 

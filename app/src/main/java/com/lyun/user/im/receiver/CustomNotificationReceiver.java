@@ -3,8 +3,10 @@ package com.lyun.user.im.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.lyun.user.im.main.helper.CustomNotificationCache;
@@ -24,6 +26,7 @@ public class CustomNotificationReceiver extends BroadcastReceiver {
 
             // 从intent中取出自定义通知
             CustomNotification notification = (CustomNotification) intent.getSerializableExtra(NimIntent.EXTRA_BROADCAST_MSG);
+            Log.e("notification",new Gson().toJson(notification));
             JsonObject obj = new JsonParser().parse(notification.getContent()).getAsJsonObject();
             if (obj != null && obj.get("id").getAsInt() == 2) {
                 // 加入缓存中

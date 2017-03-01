@@ -128,7 +128,15 @@
             tools:replace="android:theme"/>
         <activity
             android:name=".im.session.activity.TranslationMessageActivity"
-            android:theme="@style/AppTheme.NoTitle" />
+            android:theme="@style/AppTheme.NoTitle"/>
+        <activity
+            android:name=".im.avchat.activity.AVChatActivity"
+            android:theme="@style/AppTheme.NoTitle"/>
+
+        <activity
+            android:name=".activity.WaitingForTranslatorActivity"
+            android:theme="@style/AppTheme">
+        </activity>
 
         <!-- 声明云信后台服务 -->
         <service
@@ -269,6 +277,7 @@
             android:enabled="true"
             android:exported="true">
         </service>
+
     </application>
 
 </manifest>

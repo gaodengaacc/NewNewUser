@@ -97,7 +97,6 @@
         <attr name="backGroundRes" format="reference"></attr>
     </declare-styleable>
 
-
     <declare-styleable name="ImageView">
         <attr name="clickCommand" format="reference"/>
         <!--  load bitmap from uri(string type) -->
@@ -114,6 +113,12 @@
         <attr name="onFailureCommand" format="reference"/>
 
     </declare-styleable>
+
+    <declare-styleable name="CheckBox">
+        <attr name="onCheckCommand" format="reference"/>
+
+    </declare-styleable>
+
     <declare-styleable name="ViewGroup">
         <attr name="clickCommand"/>
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
