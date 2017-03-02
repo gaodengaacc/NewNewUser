@@ -6,6 +6,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 
 import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.model.RegisterModel;
 
@@ -29,12 +30,6 @@ public class RegisterViewModel extends ViewModel {
     @WatchThis
     public final ObservableField<Throwable> onRegisterFailed = new ObservableField<>();//
     @WatchThis
-    public final BaseObservable onPasswordBlank = new BaseObservable();//密码为空
-    @WatchThis
-    public final BaseObservable onConfirmPasswordBlank = new BaseObservable();//确认密码为空
-    @WatchThis
-    public final BaseObservable onPasswordSame = new BaseObservable();//两次输入的密码不同
-    @WatchThis
     public final ObservableBoolean progressDialogShow = new ObservableBoolean();
     @WatchThis
     public final ObservableField<String> onRegisterResult = new ObservableField();
@@ -46,11 +41,13 @@ public class RegisterViewModel extends ViewModel {
 
     public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
         if (("".equals(password.get())) || (null == password.get())) {
-            onPasswordBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onRegisterResult, "请输入密码!");
         } else if (("".equals(confirmPassword.get())) || (null == confirmPassword.get())) {
-            onConfirmPasswordBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onRegisterResult, "请确认密码!");
         } else if (!(password.get().equals(confirmPassword.get()))) {
-            onPasswordSame.notifyChange();
+            ObservableNotifier.alwaysNotify(onRegisterResult, "两次输入密码不同,请重新输入!");
+        } else if ((password.get().length() < 6) || (password.get().length() > 16)) {
+            ObservableNotifier.alwaysNotify(onRegisterResult, "密码格式不正确,请重新输入!");
         } else {
             register(username.get(), password.get());
         }
@@ -68,13 +65,13 @@ public class RegisterViewModel extends ViewModel {
         new RegisterModel().register(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
-                    progressDialogShow.set(false);
-                    if ("0".equals(apiResult.getStatus())){
-                        onRegisterSuccess.notifyChange();
-                    }else{
-                        onRegisterResult.set(apiResult.getDescribe());
-                    }
-                },
+                            progressDialogShow.set(false);
+                            if ("0".equals(apiResult.getStatus())) {
+                                onRegisterSuccess.notifyChange();
+                            } else {
+                                onRegisterResult.set(apiResult.getDescribe());
+                            }
+                        },
                         throwable -> onRegisterFailed.set(throwable));
     }
 }

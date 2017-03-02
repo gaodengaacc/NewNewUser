@@ -53,22 +53,6 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
     public void onRegisterFailed(ObservableField<Throwable> observableField, int fieldId) {
         Toast.makeText(AppApplication.getInstance(), observableField.get().getMessage(), Toast.LENGTH_LONG).show();
     }
-
-    @Override
-    public void onPasswordBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "请输入密码！", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onConfirmPasswordBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "请确认密码！", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onPasswordSame(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "两次输入密码不同,请重新输入！", Toast.LENGTH_LONG).show();
-    }
-
     @Override
     public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
         if (observableField.get())

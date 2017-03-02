@@ -3,6 +3,7 @@ package com.lyun.user.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -114,6 +115,19 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
     public void onLoginFailed(ObservableField<Throwable> observableField, int fieldId) {
         Toast.makeText(AppApplication.getInstance(), observableField.get().getMessage(), Toast.LENGTH_LONG).show();
         observableField.get().printStackTrace();
+    }
+
+    @Override
+    public void onLoginResult(ObservableField<String> observableField, int fieldId) {
+        Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
+        if (observableField.get())
+            dialogViewModel.show();
+        else
+            dialogViewModel.dismiss();
     }
 
     private void initNotificationConfig() {

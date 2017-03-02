@@ -65,7 +65,7 @@
                 android:background="@drawable/no_border_round_corner_white_bg"
                 android:drawableLeft="@mipmap/ic_password_small"
                 android:drawablePadding="5dp"
-                android:hint="密码为6位字母或数字"
+                android:hint="密码为6~16位字母或数字"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="10dp"

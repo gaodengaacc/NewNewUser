@@ -82,4 +82,10 @@ public class WaitingForTranslatorViewModel extends ViewModel {
         cancelOrder();
         ObservableNotifier.alwaysNotify(onOrderCanceled, "译员正忙，请稍后");
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCountDownTimer.cancel();
+    }
 }
