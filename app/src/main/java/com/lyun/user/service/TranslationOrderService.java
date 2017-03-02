@@ -53,6 +53,7 @@ public class TranslationOrderService extends Service {
         intent.setAction(Action.START);
         intent.putExtra(TranslationOrder.ORDER_ID, mTranslationOrder.getOrderId());
         intent.putExtra(TranslationOrder.TRANSLATOR_ID, mTranslationOrder.getTranslatorId());
+        intent.putExtra(TranslationOrder.USER_ID, mTranslationOrder.getUserId());
         //发送无序广播
         sendBroadcast(intent);
 

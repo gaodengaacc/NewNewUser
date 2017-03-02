@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lyun.library.R;
+import com.lyun.utils.L;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -148,7 +149,6 @@ public class PullToRefreshLayout extends RelativeLayout {
                 timer.cancel();
                 requestLayout();
             }
-            Log.d("handle", "handle");
             // 刷新布局,会自动调用onLayout
             requestLayout();
             // 没有拖拉或者回弹完成
@@ -515,7 +515,6 @@ public class PullToRefreshLayout extends RelativeLayout {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Log.d("Test", "Test");
         if (!isLayout) {
             // 这里是第一次进来的时候做一些初始化
             refreshView = getChildAt(0);

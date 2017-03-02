@@ -22,7 +22,6 @@ public class AVChatSettingsActivity extends UI {
         options.setTitleId(R.string.nrtc_settings);
         setToolBar(R.id.toolbar, options);
 
-
     }
 
 }
