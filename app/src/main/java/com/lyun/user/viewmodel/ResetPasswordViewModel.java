@@ -5,6 +5,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.model.ResetPasswordModel;
@@ -40,13 +41,13 @@ public class ResetPasswordViewModel extends ViewModel {
 
     public RelayCommand onSubmitClick = new RelayCommand(() -> {
         if ("".equals(password.get())) {
-            onPasswordBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onResetPasswordResult, "请输入原密码!");
         } else if ("".equals(newPassword1.get())) {
-            onNewPasswordBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onResetPasswordResult, "请输入新密码!");
         } else if ("".equals(newPassword2.get())) {
-            onConfirmPasswordBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onResetPasswordResult, "请确认新密码!");
         } else if (!newPassword1.get().equals(newPassword2.get())) {
-            onResetPasswordResult.set("两次新密码输入不同!");
+            ObservableNotifier.alwaysNotify(onResetPasswordResult, "两次新密码输入不同!");
         } else {
             resetPassword(Account.preference().getPhone(), password.get(), newPassword1.get());
         }

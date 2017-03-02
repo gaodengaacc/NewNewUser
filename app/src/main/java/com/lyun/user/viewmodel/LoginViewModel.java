@@ -69,7 +69,10 @@ public class LoginViewModel extends ViewModel {
                             loginNim(username, password, loginResponse);
                             progressDialogShow.set(false);
                         },
-                        throwable -> onLoginFailed.set(throwable));
+                        throwable -> {
+                            onLoginFailed.set(throwable);
+                            progressDialogShow.set(false);
+                        });
     }
 
     private void loginNim(String username, String password, LoginResponse loginResponse) {
