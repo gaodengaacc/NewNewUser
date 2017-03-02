@@ -15,10 +15,15 @@ public class HeartBeatBean extends BaseRequest {
 
     private String userOrderId;
     private String cardNo;
+    /**
+     * 用户类型(0客户 1翻译)
+     */
+    private String userType;
 
-    public HeartBeatBean(String userOrderId, String cardNo) {
+    public HeartBeatBean(String userOrderId, String cardNo, String userType) {
         this.userOrderId = userOrderId;
         this.cardNo = cardNo;
+        this.userType = userType;
     }
 
     public String getUserOrderId() {
@@ -35,5 +40,13 @@ public class HeartBeatBean extends BaseRequest {
 
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

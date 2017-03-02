@@ -1,8 +1,11 @@
 package com.lyun.user.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.animation.Animation;
@@ -14,13 +17,22 @@ import android.widget.Toast;
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
+import com.lyun.user.databinding.ActivityWaittingForTranslatorBinding;
+import com.lyun.user.im.session.SessionHelper;
+import com.lyun.user.service.TranslationOrder;
+import com.lyun.user.service.TranslationOrderService;
 import com.lyun.user.viewmodel.WaitingForTranslatorViewModel;
 import com.lyun.user.viewmodel.watchdog.IWaitingForTranslatorViewModelCallbacks;
 
-public class WaitingForTranslatorActivity extends MvvmActivity implements IWaitingForTranslatorViewModelCallbacks {
+public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingForTranslatorBinding, WaitingForTranslatorViewModel> implements IWaitingForTranslatorViewModelCallbacks {
+
+    private String userOrderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        userOrderId = getIntent().getStringExtra("userOrderId");
+
         super.onCreate(savedInstanceState);
 
         ImageView imageView = (ImageView) findViewById(R.id.waiting_for_translator_time_anim);
@@ -31,12 +43,34 @@ public class WaitingForTranslatorActivity extends MvvmActivity implements IWaiti
         if (operatingAnim != null) {
             imageView.startAnimation(operatingAnim);
         }
+
+        IntentFilter intentFilter = new IntentFilter(TranslationOrderService.Action.START);
+        registerReceiver(orderStartReceiver, intentFilter);
+    }
+
+    private BroadcastReceiver orderStartReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String orderId = intent.getStringExtra(TranslationOrder.ORDER_ID);
+            if (userOrderId.equals(orderId)) {
+                getActivityViewModel().stopTimer();
+                SessionHelper.startTranslationSession(WaitingForTranslatorActivity.this, intent.getStringExtra(TranslationOrder.TRANSLATOR_ID), userOrderId);
+                finish();
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(orderStartReceiver);
+        getActivityViewModel().stopTimer();
     }
 
     @NonNull
     @Override
-    protected ViewModel createViewModel() {
-        return new WaitingForTranslatorViewModel(getIntent().getStringExtra("userOrderId")).setPropertyChangeListener(this);
+    protected WaitingForTranslatorViewModel createViewModel() {
+        return new WaitingForTranslatorViewModel(userOrderId).setPropertyChangeListener(this);
     }
 
     @NonNull
@@ -51,11 +85,13 @@ public class WaitingForTranslatorActivity extends MvvmActivity implements IWaiti
     }
 
     @Override
-    public void onOrderCanceledOnTimeOut(ObservableField<String> observableField, int fieldId) {
-        if (observableField.get() != null && !TextUtils.isEmpty(observableField.get())) {
-            Toast.makeText(this, observableField.get(), Toast.LENGTH_LONG).show();
-        }
-        finish();
+    public void onOrderCanceled(ObservableField<String> observableField, int fieldId) {
+        runOnUiThread(() -> {
+            if (observableField.get() != null && !TextUtils.isEmpty(observableField.get())) {
+                Toast.makeText(this, observableField.get(), Toast.LENGTH_LONG).show();
+            }
+            finish();
+        });
     }
 
 }

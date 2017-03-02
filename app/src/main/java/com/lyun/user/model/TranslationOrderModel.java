@@ -28,7 +28,7 @@ public class TranslationOrderModel extends Model {
     }
 
     public Observable<APIResult> heartBeat(String userOrderId) {
-        return API.translationOrder.heartBeat(new HeartBeatBean(userOrderId, Account.preference().getPhone()))
+        return API.translationOrder.heartBeat(new HeartBeatBean(userOrderId, Account.preference().getPhone(), "0"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

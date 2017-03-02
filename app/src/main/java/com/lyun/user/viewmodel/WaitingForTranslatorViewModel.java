@@ -25,13 +25,17 @@ public class WaitingForTranslatorViewModel extends ViewModel {
     private String userOrderId = "";
 
     @WatchThis
-    public final ObservableField<String> onOrderCanceledOnTimeOut = new ObservableField<>();
+    public final ObservableField<String> onOrderCanceled = new ObservableField<>();
 
     public WaitingForTranslatorViewModel(String userOrderId) {
         this.userOrderId = userOrderId;
         status.set("译员正在赶来，请稍候...");
         countDownTime.set(60);
         mCountDownTimer.schedule(mCountDownTimerTask, 1000, 1000);
+    }
+
+    public void stopTimer(){
+        mCountDownTimer.cancel();
     }
 
     private Timer mCountDownTimer = new Timer();
@@ -52,7 +56,7 @@ public class WaitingForTranslatorViewModel extends ViewModel {
 
     public RelayCommand<Boolean> onHangUpCheckCommand = new RelayCommand<>(isChecked -> {
         cancelOrder();
-        ObservableNotifier.alwaysNotify(onOrderCanceledOnTimeOut, null);
+        ObservableNotifier.alwaysNotify(onOrderCanceled, null);
     });
 
     public RelayCommand<Boolean> onHandFreeCheckCommand = new RelayCommand<>(isChecked -> {
@@ -76,6 +80,6 @@ public class WaitingForTranslatorViewModel extends ViewModel {
 
     private void cancelOrderOnTimerOut() {
         cancelOrder();
-        ObservableNotifier.alwaysNotify(onOrderCanceledOnTimeOut, "译员正忙，请稍后");
+        ObservableNotifier.alwaysNotify(onOrderCanceled, "译员正忙，请稍后");
     }
 }

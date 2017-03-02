@@ -3,21 +3,30 @@ package com.lyun.user.im.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.lyun.user.im.main.helper.CustomNotificationCache;
-import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.lyun.user.im.receiver.attach.Attach;
+import com.lyun.user.im.receiver.handler.AttachContentHandler;
+import com.lyun.user.im.receiver.handler.TranslationOrderStartHandler;
+import com.lyun.utils.L;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.CustomNotification;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 自定义通知消息广播接收器
  */
 public class CustomNotificationReceiver extends BroadcastReceiver {
+
+    private Map<Integer, AttachContentHandler> mNotificationHandlers = new HashMap<>();
+
+    public CustomNotificationReceiver() {
+        registerNotificationHandler(new TranslationOrderStartHandler());
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,20 +35,25 @@ public class CustomNotificationReceiver extends BroadcastReceiver {
 
             // 从intent中取出自定义通知
             CustomNotification notification = (CustomNotification) intent.getSerializableExtra(NimIntent.EXTRA_BROADCAST_MSG);
-            Log.e("notification",new Gson().toJson(notification));
-            JsonObject obj = new JsonParser().parse(notification.getContent()).getAsJsonObject();
-            if (obj != null && obj.get("id").getAsInt() == 2) {
-                // 加入缓存中
-                CustomNotificationCache.getInstance().addCustomNotification(notification);
 
-                // Toast
-                String content = obj.get("content").getAsString();
-                String tip = String.format("自定义消息[%s]：%s", notification.getFromAccount(), content);
-                Toast.makeText(context, tip, Toast.LENGTH_SHORT).show();
+            try {
+                JsonObject attach = new JsonParser().parse(notification.getContent()).getAsJsonObject();
+                int type = attach.get("type").getAsInt();
+                String content = attach.get("content").toString();
+
+                if (mNotificationHandlers.containsKey(type)) {
+                    AttachContentHandler handler = mNotificationHandlers.get(type);
+                    handler.handleNotification(new Gson().fromJson(content, handler.getDataType()));
+                }
+            } catch (Exception e) {
+                L.e(getClass().getSimpleName(), e);
             }
 
-            // 处理自定义通知消息
-            LogUtil.i("demo", "receive custom notification: " + notification.getContent() + " from :" + notification.getSessionId() + "/" + notification.getSessionType());
+            L.e(getClass().getSimpleName(), "receive custom notification: " + notification.getContent() + " from :" + notification.getSessionId() + "/" + notification.getSessionType());
         }
+    }
+
+    private <T extends AttachContentHandler> void registerNotificationHandler(T handler) {
+        mNotificationHandlers.put(handler.getHandleType(), handler);
     }
 }

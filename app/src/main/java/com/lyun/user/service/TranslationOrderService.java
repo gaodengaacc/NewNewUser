@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.lyun.user.BuildConfig;
 import com.lyun.user.model.TranslationOrderModel;
 
 import java.util.Timer;
@@ -18,6 +19,8 @@ public class TranslationOrderService extends Service {
     private TranslationOrder mTranslationOrder;
 
     public TranslationOrderService() {
+        mTimer = new Timer();
+        mTimer.schedule(mOrderTimerTask, 1000, 1000);
     }
 
     @Override
@@ -29,6 +32,12 @@ public class TranslationOrderService extends Service {
         return START_NOT_STICKY;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mTimer.cancel();
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,9 +45,17 @@ public class TranslationOrderService extends Service {
     }
 
     protected void startNewOrder(TranslationOrder translationOrder) {
+
         mTranslationOrder = translationOrder;
-        Timer mTimer = new Timer();
-        mTimer.schedule(mOrderTimerTask, 1000, 1000);
+
+        Intent intent = new Intent();
+        //设置intent的动作为，可以任意定义
+        intent.setAction(Action.START);
+        intent.putExtra(TranslationOrder.ORDER_ID, mTranslationOrder.getOrderId());
+        intent.putExtra(TranslationOrder.TRANSLATOR_ID, mTranslationOrder.getTranslatorId());
+        //发送无序广播
+        sendBroadcast(intent);
+
         heartBeat();
     }
 
@@ -51,6 +68,7 @@ public class TranslationOrderService extends Service {
                 });
     }
 
+    public Timer mTimer;
     public TimerTask mOrderTimerTask = new TimerTask() {
         @Override
         public void run() {
@@ -71,9 +89,9 @@ public class TranslationOrderService extends Service {
     };
 
     public class Action {
-        public static final String START = "com.lyun.translation.order.START";
-        public static final String STATUS_CHANGE = "com.lyun.translation.order.STATUS_CHANGE";
-        public static final String FINISH = "com.lyun.translation.order.FINISH";
+        public static final String START = BuildConfig.APPLICATION_ID + ".translation.order.START";
+        public static final String STATUS_CHANGE = BuildConfig.APPLICATION_ID + ".translation.order.STATUS_CHANGE";
+        public static final String FINISH = BuildConfig.APPLICATION_ID + ".translation.order.FINISH";
     }
 
 }

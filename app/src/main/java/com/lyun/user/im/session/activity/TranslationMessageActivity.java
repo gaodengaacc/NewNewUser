@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lyun.user.Account;
 import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 import com.lyun.utils.TimeUtil;
@@ -27,12 +26,6 @@ public class TranslationMessageActivity extends P2PMessageActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent intent = new Intent(getApplicationContext(), TranslationOrderService.class);
-        intent.putExtra(TranslationOrder.USER_ID, Account.preference().getPhone());
-        intent.putExtra(TranslationOrder.ORDER_ID, getIntent().getStringExtra("orderId"));
-        intent.putExtra(TranslationOrder.TRANSLATOR_ID, sessionId);
-        startService(intent);
 
         IntentFilter intentFilter = new IntentFilter(TranslationOrderService.Action.STATUS_CHANGE);
         registerReceiver(mTranslationOrderStatusChangeReciver, intentFilter);
