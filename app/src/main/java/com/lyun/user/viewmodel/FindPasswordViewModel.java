@@ -9,6 +9,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.text.method.TransformationMethod;
 
 import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.model.FindPasswordModel;
 import com.lyun.utils.Validator;
@@ -28,19 +29,10 @@ public class FindPasswordViewModel extends ViewModel {
     public final ObservableField<String> mSendSmsCode = new ObservableField<>("");//获取验证码倒计时
     public final ObservableField<Boolean> clickable = new ObservableField<>();//设置获取验证码是否可以点击
     public final ObservableField<TransformationMethod> inputType = new ObservableField<>();//设置密码显隐
-    public final ObservableField<RelayCommand<Boolean>> checkedChangeListener = new ObservableField<>();
     private TimeCount timeCount = new TimeCount(60000, 1000);//设置能够获取验证码倒计时
 
     @WatchThis
     public final BaseObservable onFindPasswordSuccess = new BaseObservable();//提交成功
-    @WatchThis
-    public final BaseObservable onNumberBlank = new BaseObservable();//号码为空
-    @WatchThis
-    public final BaseObservable onNumberWrong = new BaseObservable();//号码错误
-    @WatchThis
-    public final BaseObservable onSmsCodeBlank = new BaseObservable();//验证码为空
-    @WatchThis
-    public final BaseObservable onNewPasswordBlank = new BaseObservable();
     @WatchThis
     public final ObservableBoolean progressDialogShow = new ObservableBoolean();
     @WatchThis
@@ -50,7 +42,6 @@ public class FindPasswordViewModel extends ViewModel {
     public FindPasswordViewModel() {
         mSendSmsCode.set("获取验证码");
         clickable.set(true);
-        checkedChangeListener.set(isChecked);
         inputType.set(PasswordTransformationMethod.getInstance());//密码隐藏
     }
 
@@ -64,13 +55,15 @@ public class FindPasswordViewModel extends ViewModel {
 
     public RelayCommand onSubmitClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            onNumberBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号!");
         } else if (!Validator.isMobileNO(username.get())) {
-            onNumberWrong.notifyChange();
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入正确的手机号!");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
-            onSmsCodeBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入验证码!");
         } else if (("".equals(newPassword.get()) || (newPassword.get() == null))) {
-            onNewPasswordBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入新密码!");
+        } else if ((newPassword.get().length() < 6) || (newPassword.get().length() > 16)) {
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "密码格式不正确,请重新输入!");
         } else {
             submit(username.get(), smscode.get(), newPassword.get());//提交新密码
         }
@@ -101,9 +94,9 @@ public class FindPasswordViewModel extends ViewModel {
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            onNumberBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号!");
         } else if (!Validator.isMobileNO(username.get())) {
-            onNumberWrong.notifyChange();
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入正确的手机号!");
         } else {
             timeCount.start();
             getSmsCode(username.get());//获取验证码
@@ -119,6 +112,12 @@ public class FindPasswordViewModel extends ViewModel {
         new FindPasswordModel().getSmsCode(username)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        timeCount.cancel();
     }
 
     class TimeCount extends CountDownTimer {

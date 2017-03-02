@@ -44,27 +44,6 @@ public class FindPasswordActivity extends GeneralToolbarActivity<ActivityFindPas
     }
 
     @Override
-    public void onNumberBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "请输入手机号!", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNumberWrong(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "请输入正确的手机号!", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSmsCodeBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "请输入验证码!", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNewPasswordBlank(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "请输入新密码!", Toast.LENGTH_SHORT).show();
-    }
-
-
-    @Override
     public void onFindPasswordResult(ObservableField<String> observableField, int fieldId) {
         Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_SHORT).show();
     }

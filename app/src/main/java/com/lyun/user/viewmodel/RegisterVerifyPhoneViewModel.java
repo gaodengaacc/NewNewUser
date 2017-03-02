@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.model.CheckVerificationModel;
 import com.lyun.user.model.RegisterVerifyPhoneModel;
@@ -33,12 +34,6 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     @WatchThis
     public final ObservableField<Intent> onVerifySuccess = new ObservableField<>();//验证成功
     @WatchThis
-    public final BaseObservable onNumberBlank = new BaseObservable();//号码为空
-    @WatchThis
-    public final BaseObservable onNumberWrong = new BaseObservable();//号码错误
-    @WatchThis
-    public final BaseObservable onSmsCodeBlank = new BaseObservable();//验证码为空
-    @WatchThis
     public final ObservableBoolean progressDialogShow = new ObservableBoolean();
     @WatchThis
     public final BaseObservable onSuccess = new BaseObservable();
@@ -53,9 +48,9 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            onNumberBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
         } else if (!Validator.isMobileNO(username.get())) {
-            onNumberWrong.notifyChange();
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入正确的手机号!");
         } else {
             timeCount.start();
             getSmsCode(username.get());
@@ -75,11 +70,11 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
     public RelayCommand onNextButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            onNumberBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
         } else if (!Validator.isMobileNO(username.get())) {
-            onNumberWrong.notifyChange();
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入正确的手机号!");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
-            onSmsCodeBlank.notifyChange();
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码!");
         } else {
             intent = new Intent("com.lyun.user.intent.action.REGISTER");
             bundle.putString("username", username.get());
@@ -112,6 +107,11 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
                 });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        timeCount.cancel();
+    }
 
     class TimeCount extends CountDownTimer {
 
