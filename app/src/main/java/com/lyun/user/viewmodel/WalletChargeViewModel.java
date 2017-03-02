@@ -37,6 +37,7 @@ public class WalletChargeViewModel extends ViewModel {
     public final ObservableField<String> buyDes = new ObservableField<>();
     public final ObservableInt aliSelect = new ObservableInt();
     public final ObservableInt wxSelect = new ObservableInt();
+
     public WalletChargeViewModel() {
         init();
     }
@@ -55,6 +56,7 @@ public class WalletChargeViewModel extends ViewModel {
     @WatchThis
     public final BaseObservable doFinish = new BaseObservable();
     private WalletChargeModel model;
+
     private void init() {
         availableMin.set("15");
         moneyReduceText.set("15元");
@@ -99,7 +101,7 @@ public class WalletChargeViewModel extends ViewModel {
             isShowDialog.set(false);
         }
         isShowDialog.set(true);
-            getPayOrder(PAY_WAY);
+        getPayOrder(PAY_WAY);
     }
 
     private void doReduceOrAdd(boolean isAdd) {
@@ -108,7 +110,7 @@ public class WalletChargeViewModel extends ViewModel {
             availableMin.set((Integer.parseInt(availableMin.get()) + 5) + "");
         } else {
             if (Integer.parseInt(moneyResultText.get()) <= 45) {
-                ObservableNotifier.alwaysNotify(showText,"首次充值不能小于45元");
+                ObservableNotifier.alwaysNotify(showText, "首次充值不能小于45元");
                 return;
             }
             moneyResultText.set((Integer.parseInt(moneyResultText.get()) - 15) + "");
@@ -129,16 +131,16 @@ public class WalletChargeViewModel extends ViewModel {
                             if (result.getStatus().equals("0")) {
                                 if (payType == PayType.ALI) {//支付宝
                                     WalletChargeAliPayResponse response = (WalletChargeAliPayResponse) result.getContent();
-                                    ObservableNotifier.alwaysNotify(aliPay,new AliPayInfo(callBack, response.getSign()));
+                                    ObservableNotifier.alwaysNotify(aliPay, new AliPayInfo(callBack, response.getSign()));
                                     userOrderId = response.getUserOrderid();
                                 } else if (payType == PayType.WX) {//微信
                                     WalletChargeWxPayResponse response = (WalletChargeWxPayResponse) result.getContent();
-                                    ObservableNotifier.alwaysNotify(wxPay,response);
+                                    ObservableNotifier.alwaysNotify(wxPay, response);
                                     userOrderId = response.getUserOrderid();
                                     Account.preference().saveWxAppId(response.getAppid());
                                 }
                             } else
-                                ObservableNotifier.alwaysNotify(showText,result.getDescribe());
+                                ObservableNotifier.alwaysNotify(showText, result.getDescribe());
 
                         }, throwable -> {
                         }
@@ -148,13 +150,13 @@ public class WalletChargeViewModel extends ViewModel {
     private OnPayCallBack callBack = new OnPayCallBack() {
         @Override
         public void onSuccess() {
-            ObservableNotifier.alwaysNotify(showText,"支付成功");
+            ObservableNotifier.alwaysNotify(showText, "支付成功");
             doPayResult();
         }
 
         @Override
         public void onFailure(String des) {
-            ObservableNotifier.alwaysNotify(showText,des);
+            ObservableNotifier.alwaysNotify(showText, des);
         }
     };
 
@@ -200,10 +202,12 @@ public class WalletChargeViewModel extends ViewModel {
         WXPayEntryActivity.WXPAY_RESULT = -1000;
         doFinish.notifyChange();
     }
-    public enum PayType{
+
+    public enum PayType {
         ALI("2"),//支付宝
         WX("1");//微信
         private String value;
+
         PayType(String value) {
             this.value = value;
         }
