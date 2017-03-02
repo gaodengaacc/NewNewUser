@@ -32,12 +32,6 @@ public class ResetPasswordViewModel extends ViewModel {
     public final ObservableBoolean progressDialogShow = new ObservableBoolean();
     @WatchThis
     public final BaseObservable onLogout = new BaseObservable();
-    @WatchThis
-    public final BaseObservable onNewPasswordBlank = new BaseObservable();//新密码为空
-    @WatchThis
-    public final BaseObservable onPasswordBlank = new BaseObservable();//原密码为空
-    @WatchThis
-    public final BaseObservable onConfirmPasswordBlank = new BaseObservable();//确认密码为空
 
     public RelayCommand onSubmitClick = new RelayCommand(() -> {
         if ("".equals(password.get())) {
@@ -83,6 +77,7 @@ public class ResetPasswordViewModel extends ViewModel {
                             }
                         }
                         , throwable -> {
+                            progressDialogShow.set(false);
                             onResetPasswordResult.set(throwable.getMessage());
                             throwable.printStackTrace();
                         });
