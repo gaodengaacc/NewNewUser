@@ -42,6 +42,8 @@ public class ResetPasswordViewModel extends ViewModel {
             ObservableNotifier.alwaysNotify(onResetPasswordResult, "请确认新密码!");
         } else if (!newPassword1.get().equals(newPassword2.get())) {
             ObservableNotifier.alwaysNotify(onResetPasswordResult, "两次新密码输入不同!");
+        } else if ((newPassword1.get().length() < 6) || (newPassword1.get().length() > 16)) {
+            ObservableNotifier.alwaysNotify(onResetPasswordResult, "新密码格式不正确,请重新输入!");
         } else {
             resetPassword(Account.preference().getPhone(), password.get(), newPassword1.get());
         }
