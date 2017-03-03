@@ -44,7 +44,7 @@ public class LoginViewModel extends ViewModel {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onLoginResult, "请输入手机号!");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onLoginResult, "请输入正确的手机号!");
+            ObservableNotifier.alwaysNotify(onLoginResult, "错误手机号!");
         } else if (("".equals(password.get())) || (null == password.get())) {
             ObservableNotifier.alwaysNotify(onLoginResult, "请输入密码!");
         } else if (!RegExMatcherUtils.matchPassword(password.get())) {

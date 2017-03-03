@@ -57,7 +57,7 @@ public class FindPasswordViewModel extends ViewModel {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号!");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入正确的手机号!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "错误手机号!");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入验证码!");
         } else if (("".equals(newPassword.get()) || (newPassword.get() == null))) {
@@ -96,7 +96,7 @@ public class FindPasswordViewModel extends ViewModel {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号!");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入正确的手机号!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "错误手机号!");
         } else {
             timeCount.start();
             getSmsCode(username.get());//获取验证码
