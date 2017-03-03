@@ -20,6 +20,7 @@ import com.lyun.user.adapter.WalletMainRecorderAdapter;
 import com.lyun.user.api.response.WalletChargeRecorderResponse;
 import com.lyun.user.model.RemainingTimeModel;
 import com.lyun.user.model.WalletChargeModel;
+import com.lyun.utils.TimeUtil;
 import com.lyun.widget.refresh.PullToRefreshLayout;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
@@ -48,6 +49,7 @@ public class WalletMainViewModel extends ViewModel {
     private int currentTranslationOrderPage = 0;
     private int nextTranslationOrderPage = 0;
     private int totalTranslationOrderPage = 0;
+    private long unTime;
 
     public WalletMainViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
         toolbarViewModel.title.set("钱包");
@@ -57,6 +59,7 @@ public class WalletMainViewModel extends ViewModel {
         toolbarViewModel.onFunctionClick.set((v) -> showPop(v));
         toolbarViewModel.onFunctionLeftClick.set((v) -> {
             Intent intent = new Intent("com.lyun.user.intent.action.WALLET_CHARGE");
+            intent.putExtra("unUseTime", unTime);
             getActivity().startActivity(intent);
         });
         init();
@@ -99,7 +102,7 @@ public class WalletMainViewModel extends ViewModel {
                         for (WalletChargeRecorderResponse recorder : apiResult.getContent().getData()) {
                             WalletMainRecorderItemViewModel viewModel = new WalletMainRecorderItemViewModel();
                             viewModel.time.set(recorder.getAmountNowTime());
-                            viewModel.description.set("+" + recorder.getAmountNow() + "分钟");
+                            viewModel.description.set("+" + TimeUtil.convertMin2Str(recorder.getAmountNow()));
                             list.add(viewModel);
                         }
                         notifyData.set(list);
@@ -131,7 +134,12 @@ public class WalletMainViewModel extends ViewModel {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
-                    unUserTime.set(apiResult.getContent().toString() + "分钟");
+                    unUserTime.set(TimeUtil.convertMin2Str(apiResult.getContent().toString()));
+                    try {
+                        unTime = Long.parseLong(apiResult.getContent().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }, throwable -> {
                     throwable.printStackTrace();
                 });

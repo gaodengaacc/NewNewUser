@@ -50,7 +50,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入正确的手机号!");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号!");
         } else {
             timeCount.start();
             getSmsCode(username.get());
@@ -72,7 +72,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入正确的手机号!");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号!");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码!");
         } else {
