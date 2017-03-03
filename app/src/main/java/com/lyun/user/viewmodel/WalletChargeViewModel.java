@@ -37,8 +37,10 @@ public class WalletChargeViewModel extends ViewModel {
     public final ObservableField<String> buyDes = new ObservableField<>();
     public final ObservableInt aliSelect = new ObservableInt();
     public final ObservableInt wxSelect = new ObservableInt();
+    private long unUseTime;
 
-    public WalletChargeViewModel() {
+    public WalletChargeViewModel(long unUseTime) {
+        this.unUseTime = unUseTime;
         init();
     }
 
@@ -58,10 +60,16 @@ public class WalletChargeViewModel extends ViewModel {
     private WalletChargeModel model;
 
     private void init() {
-        availableMin.set("15");
+
         moneyReduceText.set("15元");
         moneyAddText.set("15元");
-        moneyResultText.set("45");
+        if (unUseTime > 0) {
+            availableMin.set("5");
+            moneyResultText.set("15");
+        } else {
+            availableMin.set("15");
+            moneyResultText.set("45");
+        }
         buyDes.set("1,首次充值-以15分钟为最小购买单元,购买价格为：45元/15分钟;\n2,续费充值-以5分钟为充值单元,购买价格为：15元/5分钟.");
         aliSelect.set(R.mipmap.wallet_charge_select);
         wxSelect.set(R.mipmap.wallet_charge_unselect);
@@ -109,8 +117,7 @@ public class WalletChargeViewModel extends ViewModel {
             moneyResultText.set((Integer.parseInt(moneyResultText.get()) + 15) + "");
             availableMin.set((Integer.parseInt(availableMin.get()) + 5) + "");
         } else {
-            if (Integer.parseInt(moneyResultText.get()) <= 45) {
-                ObservableNotifier.alwaysNotify(showText, "首次充值不能小于45元");
+            if ((Integer.parseInt(moneyResultText.get()) <= 45 && unUseTime <= 0) || (Integer.parseInt(moneyResultText.get()) <= 15)) {
                 return;
             }
             moneyResultText.set((Integer.parseInt(moneyResultText.get()) - 15) + "");

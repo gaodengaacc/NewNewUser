@@ -28,4 +28,21 @@ public class TimeUtil {
             return strMinute + ":" + strSecond;
         }
     }
+
+    //分钟转化为小时和分钟
+    public static String convertMin2Str(String min) {
+        long timeMin = 0;
+        try {
+            timeMin = Long.parseLong(min);
+        } catch (Exception e) {
+            return null;
+        }
+        if (timeMin <= 60) {
+            return min + "分钟";
+        } else {
+            long hour = timeMin / 60;
+            long mins = timeMin % 60;
+            return hour+"小时"+mins+"分钟";
+        }
+    }
 }

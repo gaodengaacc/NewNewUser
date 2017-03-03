@@ -48,7 +48,8 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
     @NonNull
     @Override
     protected WalletChargeViewModel createBodyViewModel() {
-        return new WalletChargeViewModel().setPropertyChangeListener(this);
+
+        return new WalletChargeViewModel(getIntent().getLongExtra("unUseTime",0)).setPropertyChangeListener(this);
     }
 
     @Override

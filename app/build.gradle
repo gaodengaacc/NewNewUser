@@ -48,7 +48,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode _versionCode()
-        versionName "3.8"
+        versionName "3.8.0"
         multiDexEnabled true
         signingConfig signingConfigs.debug
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
