@@ -134,7 +134,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
         @Override
         public void onFinish() {
-            mSendSmsCode.set("获取验证码");
+            mSendSmsCode.set("重新获取");
             clickable.set(true);
         }
     }
