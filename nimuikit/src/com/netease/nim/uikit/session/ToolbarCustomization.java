@@ -8,6 +8,7 @@ import android.view.View;
 import com.netease.nim.uikit.model.ToolBarOptions;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class ToolbarCustomization implements Serializable {
     /**
      * ActionBar右侧可定制按钮。默认为空。
      */
-    private List<OptionsButton> optionsButtons;
+    private ArrayList<OptionsButton> optionsButtons;
 
     /**
      * ActionBar 右侧按钮，可定制icon和点击事件
@@ -55,11 +56,11 @@ public class ToolbarCustomization implements Serializable {
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
     }
 
-    public List<OptionsButton> getOptionsButtons() {
+    public ArrayList<OptionsButton> getOptionsButtons() {
         return optionsButtons;
     }
 
-    public void setOptionsButtons(List<OptionsButton> optionsButtons) {
+    public void setOptionsButtons(ArrayList<OptionsButton> optionsButtons) {
         this.optionsButtons = optionsButtons;
     }
 

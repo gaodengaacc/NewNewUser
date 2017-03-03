@@ -36,6 +36,8 @@ import java.util.List;
  */
 public class P2PMessageActivity extends BaseMessageActivity {
 
+    private MessageFragment mMessageFragment;
+
     private boolean isResume = false;
 
     public static void start(Context context, String contactId, SessionCustomization customization, IMMessage anchor) {
@@ -173,12 +175,18 @@ public class P2PMessageActivity extends BaseMessageActivity {
 
     @Override
     protected MessageFragment fragment() {
-        Bundle arguments = getIntent().getExtras();
-        arguments.putSerializable(Extras.EXTRA_TYPE, SessionTypeEnum.P2P);
-        MessageFragment fragment = new MessageFragment();
-        fragment.setArguments(arguments);
-        fragment.setContainerId(R.id.message_fragment_container);
-        return fragment;
+        return getMessageFragment();
+    }
+
+    protected MessageFragment getMessageFragment() {
+        if (mMessageFragment == null) {
+            Bundle arguments = getIntent().getExtras();
+            arguments.putSerializable(Extras.EXTRA_TYPE, SessionTypeEnum.P2P);
+            mMessageFragment = new MessageFragment();
+            mMessageFragment.setArguments(arguments);
+            mMessageFragment.setContainerId(R.id.message_fragment_container);
+        }
+        return mMessageFragment;
     }
 
     @Override

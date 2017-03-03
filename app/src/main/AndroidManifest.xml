@@ -73,7 +73,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme.TranslucentStatus"/>
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/GlobalTitleTheme">
@@ -128,7 +128,7 @@
             tools:replace="android:theme"/>
         <activity
             android:name=".im.session.activity.TranslationMessageActivity"
-            android:theme="@style/AppTheme.NoTitle"/>
+            android:theme="@style/AppTheme.NoTitle.TranslucentStatus"/>
         <activity
             android:name=".im.avchat.activity.AVChatActivity"
             android:theme="@style/AppTheme.NoTitle"/>

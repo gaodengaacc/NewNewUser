@@ -48,7 +48,7 @@ public class DefalutTeamSessionCustomization extends SessionCustomization {
             }
         };
         infoButton.setIconId(R.drawable.nim_ic_message_actionbar_team);
-        List<ToolbarCustomization.OptionsButton> buttons = new ArrayList<>();
+        ArrayList<ToolbarCustomization.OptionsButton> buttons = new ArrayList<>();
         buttons.add(infoButton);
         toolbarCustomization.setOptionsButtons(buttons);
         setToolbarCustomization(toolbarCustomization);

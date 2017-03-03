@@ -3,12 +3,18 @@
     <style name="AppBaseTheme" parent="LibTheme"></style>
 
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat"> true </item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     </style>
 
     <style name="AppTheme.NoTitle" parent="LibTheme.NoTitle"></style>
 
     <style name="AppTheme.NoTitle.FullScreen" parent="LibTheme.NoTitle.FullScreen"></style>
+
+    <style name="AppTheme.TranslucentStatus" parent="LibTheme.TranslucentStatus"></style>
+
+    <style name="AppTheme.NoTitle.TranslucentStatus" parent="LibTheme.NoTitle">
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+    </style>
 
     <style name="GlobalTitleTheme" parent="@style/AppTheme.NoTitle">
         <item name="android:windowTitleSize">48dp</item>

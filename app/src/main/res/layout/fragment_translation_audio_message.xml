@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.TranslationAudioMessageViewModel"></variable>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/translation_audio_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_av_chat">
+
+        <LinearLayout
+            android:id="@+id/translation_audio_message_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="中文"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/ic_audio_chat_translation"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@{mvvm.targetLanguage}"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/translation_audio_message_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            app:clickCommand="@{mvvm.onSwitchClicked}">
+
+
+            <ImageView
+                android:id="@+id/translation_audio_message_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/nim_message_input_plus"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/translation_audio_message_plus"
+                android:background="@drawable/message_input_edittext_bg"
+                android:text="点击这里发送文字和图片"
+                android:inputType="none"
+                android:maxHeight="72dp"
+                android:padding="6dp"
+                android:textColor="#999999"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/translation_audio_message_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/translation_audio_message_switch"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="15dp"
+                android:drawableTop="@drawable/ic_av_chat_mute_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="静音"
+                app:onCheckCommand="@{mvvm.onMuteCheckCommand}"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="15dp"
+                android:drawableTop="@mipmap/ic_av_chat_hang_up"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=" "
+                app:onCheckCommand="@{mvvm.onHangUpCheckCommand}"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="15dp"
+                android:drawableTop="@drawable/ic_av_chat_hand_free_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="免提"
+                app:onCheckCommand="@{mvvm.onHandFreeCheckCommand}"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/translation_audio_message_options"
+            android:layout_below="@id/translation_audio_message_info"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="38dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp">
+
+            <com.netease.nim.uikit.common.ui.imageview.CircleImageView
+                android:id="@+id/translation_audio_message_avatar"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/user_default_avatar"
+                app:imageUrl="@{mvvm.translatorAvatar}"/>
+
+            <TextView
+                android:id="@+id/translation_audio_message_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/translation_audio_message_avatar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="@{`译员`+ mvvm.translatorName+`为您服务`}"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/translation_audio_message_username"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/ic_audio_chat"
+                android:drawablePadding="5dp"
+                android:text="@{mvvm.translationTime}"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>
