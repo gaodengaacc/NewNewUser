@@ -79,8 +79,8 @@ dependencies {
     compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.1.0'
     provided 'com.squareup.leakcanary:leakcanary-android:1.5'
     //watchdog
-    compile 'net.funol.databinding.watchdog:watchdog:1.0.0'
-    annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.0'
+    compile 'net.funol.databinding.watchdog:watchdog:1.0.1'
+    annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'
 }
 
 apply from: "bintrayUpload.gradle"

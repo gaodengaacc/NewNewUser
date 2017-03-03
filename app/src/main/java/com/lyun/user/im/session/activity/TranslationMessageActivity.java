@@ -8,14 +8,19 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.lyun.user.R;
 import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 import com.lyun.utils.TimeUtil;
 import com.netease.nim.uikit.session.SessionCustomization;
+import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.session.activity.P2PMessageActivity;
 import com.netease.nim.uikit.session.constant.Extras;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+
+import java.util.List;
 
 /**
  * Created by ZHAOWEIWEI on 2017/2/28.
@@ -38,6 +43,20 @@ public class TranslationMessageActivity extends P2PMessageActivity {
     }
 
     public static void start(Context context, String contactId, String orderId, SessionCustomization customization, IMMessage anchor) {
+
+        ToolbarCustomization toolbarCustomization = customization.getToolbarCustomization();
+        List<ToolbarCustomization.OptionsButton> optionsButtons = toolbarCustomization.getOptionsButtons();
+        ToolbarCustomization.OptionsButton avCallButton = new ToolbarCustomization.OptionsButton() {
+            @Override
+            public void onClick(Context context, View view, String sessionId) {
+                Toast.makeText(context,"click",Toast.LENGTH_LONG).show();
+            }
+        };
+        avCallButton.setIconId(R.drawable.ic_av_call);
+        optionsButtons.add(avCallButton);
+        toolbarCustomization.setOptionsButtons(optionsButtons);
+        customization.setToolbarCustomization(toolbarCustomization);
+
         Intent intent = new Intent();
         intent.putExtra(Extras.EXTRA_ACCOUNT, contactId);
         intent.putExtra("orderId", orderId);
