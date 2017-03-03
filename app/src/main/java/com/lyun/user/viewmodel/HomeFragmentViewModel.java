@@ -67,6 +67,7 @@ public class HomeFragmentViewModel extends ViewModel {
     public void initData() {//初始化数据
         modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
         imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
+        unUserTime.set("--");
         textViewModelChange.set("语音呼叫");
         textViewColor1.set(Color.parseColor("#40d12d"));
         textViewColor2.set(Color.parseColor("#333333"));
@@ -75,10 +76,15 @@ public class HomeFragmentViewModel extends ViewModel {
     }
 
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
-        // 0=图文 1=语音
-        new TranslationOrderModel().generateOrder(mCurrentLanguage.get().getId() + "", mTranslationOrderType.getValue())
-                .subscribe(orderId -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, orderId),
-                        throwable -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage()));
+        if ("0".equals(unUserTime.get())) {
+            ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, "您剩余的时间不足,请购买服务时间");
+        } else {
+            // 0=图文 1=语音
+            new TranslationOrderModel().generateOrder(mCurrentLanguage.get().getId() + "", mTranslationOrderType.getValue())
+                    .subscribe(orderId -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, orderId),
+                            throwable -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage()));
+        }
+
     });
 
     //选取目标语言

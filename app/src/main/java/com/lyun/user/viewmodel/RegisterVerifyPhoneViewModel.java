@@ -12,7 +12,7 @@ import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.model.CheckVerificationModel;
 import com.lyun.user.model.RegisterVerifyPhoneModel;
-import com.lyun.utils.Validator;
+import com.lyun.utils.RegExMatcherUtils;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -49,7 +49,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
-        } else if (!Validator.isMobileNO(username.get())) {
+        } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入正确的手机号!");
         } else {
             timeCount.start();
@@ -71,7 +71,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     public RelayCommand onNextButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
-        } else if (!Validator.isMobileNO(username.get())) {
+        } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入正确的手机号!");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码!");
@@ -134,7 +134,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
         @Override
         public void onFinish() {
-            mSendSmsCode.set("获取验证码");
+            mSendSmsCode.set("重新获取");
             clickable.set(true);
         }
     }

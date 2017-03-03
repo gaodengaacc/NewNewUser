@@ -71,10 +71,16 @@ public class UserCenterFragmentViewModel extends ViewModel {
     }
 
     private void setUserInformation() {
-        userName.set(Account.preference().getPhone());//更新昵称
+        userName.set(hideUserName(Account.preference().getPhone()));//更新昵称
         exitVisible.set(View.VISIBLE);
     }
-
+    private String hideUserName(String phone) {
+        try {
+            return phone.substring(0, 3) + "****" + phone.substring(7);
+        } catch (Exception e) {
+            return phone;
+        }
+    }
 
     private void init() {
         userName.set("");
