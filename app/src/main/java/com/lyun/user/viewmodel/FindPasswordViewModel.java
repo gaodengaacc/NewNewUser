@@ -12,7 +12,7 @@ import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.model.FindPasswordModel;
-import com.lyun.utils.Validator;
+import com.lyun.utils.RegExMatcherUtils;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -56,13 +56,13 @@ public class FindPasswordViewModel extends ViewModel {
     public RelayCommand onSubmitClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号!");
-        } else if (!Validator.isMobileNO(username.get())) {
+        } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入正确的手机号!");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入验证码!");
         } else if (("".equals(newPassword.get()) || (newPassword.get() == null))) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入新密码!");
-        } else if ((newPassword.get().length() < 6) || (newPassword.get().length() > 16)) {
+        } else if (!RegExMatcherUtils.matchPassword(newPassword.get())) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "密码格式不正确,请重新输入!");
         } else {
             submit(username.get(), smscode.get(), newPassword.get());//提交新密码
@@ -95,7 +95,7 @@ public class FindPasswordViewModel extends ViewModel {
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号!");
-        } else if (!Validator.isMobileNO(username.get())) {
+        } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入正确的手机号!");
         } else {
             timeCount.start();
