@@ -206,7 +206,7 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.0'
+    annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     compile files('libs/alipaySdk-20161222.jar')
 }

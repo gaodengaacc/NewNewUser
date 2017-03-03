@@ -32,7 +32,9 @@ public abstract class BaseMessageActivity extends UI {
     private MessageFragment messageFragment;
 
     protected abstract MessageFragment fragment();
+
     protected abstract int getContentViewId();
+
     protected abstract void initToolBar();
 
     @Override
@@ -42,6 +44,7 @@ public abstract class BaseMessageActivity extends UI {
         setContentView(getContentViewId());
         parseIntent();
         initToolBar();
+        addRightCustomViewOnActionBar();
 
         messageFragment = (MessageFragment) switchContent(fragment());
     }
@@ -69,14 +72,17 @@ public abstract class BaseMessageActivity extends UI {
     private void parseIntent() {
         sessionId = getIntent().getStringExtra(Extras.EXTRA_ACCOUNT);
         customization = (SessionCustomization) getIntent().getSerializableExtra(Extras.EXTRA_CUSTOMIZATION);
-
-        if (customization != null) {
-            addRightCustomViewOnActionBar(this, customization.getToolbarCustomization().getOptionsButtons());
-        }
     }
 
     // 添加action bar的右侧按钮及响应事件
-    private void addRightCustomViewOnActionBar(UI activity, List<ToolbarCustomization.OptionsButton> buttons) {
+    private void addRightCustomViewOnActionBar() {
+
+        if (customization == null || customization.getToolbarCustomization() == null) {
+            return;
+        }
+
+        List<ToolbarCustomization.OptionsButton> buttons = customization.getToolbarCustomization().getOptionsButtons();
+
         if (buttons == null || buttons.size() == 0) {
             return;
         }
@@ -86,13 +92,13 @@ public abstract class BaseMessageActivity extends UI {
             return;
         }
 
-        LinearLayout view = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.nim_action_bar_custom_view, null);
+        LinearLayout view = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.nim_action_bar_custom_view, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         for (final ToolbarCustomization.OptionsButton button : buttons) {
-            ImageView imageView = new ImageView(activity);
+            ImageView imageView = new ImageView(this);
             imageView.setImageResource(button.getIconId());
-            imageView.setBackgroundResource(R.drawable.nim_nim_action_bar_button_selector);
-            imageView.setPadding(ScreenUtil.dip2px(10), 0, ScreenUtil.dip2px(10), 0);
+            //imageView.setBackgroundResource(R.drawable.nim_nim_action_bar_button_selector);
+            imageView.setPadding(ScreenUtil.dip2px(15), 0, ScreenUtil.dip2px(15), 0);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
