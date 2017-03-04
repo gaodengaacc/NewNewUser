@@ -23,7 +23,8 @@ public class APIConstants {
     // Order Service
     public static final String GENERATE_TRANSLATION_ORDER = "addBill/";//生成翻译订单
     public static final String REMAINING_TIME = "remainingtime/";//查询剩余时间
-    public static final String HEART_BEAT = "heartbeat/";//查询剩余时间
-    public static final String CANCEL_ORDER = "ringoffupstatus/";//查询剩余时间
+    public static final String HEART_BEAT = "heartbeat/";//心跳接口
+    public static final String CANCEL_ORDER = "ringoffupstatus/";//修改订单状态
+    public static final String TRANSLATOR_STATUS = "lawUserPhone/";//翻译过程的状态
 
 }

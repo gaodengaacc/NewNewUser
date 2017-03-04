@@ -9,11 +9,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.user.R;
 import com.lyun.user.im.session.fragment.TranslationAudioMessageFragment;
+import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 import com.lyun.user.viewmodel.watchdog.ITranslationAudioMessageViewModelCallbacks;
@@ -28,6 +31,9 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Created by ZHAOWEIWEI on 2017/2/28.
  */
@@ -35,6 +41,7 @@ import java.util.ArrayList;
 public class TranslationMessageActivity extends P2PMessageActivity implements ITranslationAudioMessageViewModelCallbacks {
 
     private TranslationAudioMessageFragment mTranslationAudioMessageFragment;
+    private String userOrderId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,12 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
         IntentFilter intentFilter = new IntentFilter(TranslationOrderService.Action.STATUS_CHANGE);
         registerReceiver(mTranslationOrderStatusChangeReceiver, intentFilter);
+        userOrderId = getIntent().getStringExtra("orderId");
+    }
+
+    @Override
+    public void onBackPressed() {
+        showIsOver();
     }
 
     @Override
@@ -149,7 +162,12 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
     @Override
     protected TFragment switchContent(TFragment fragment, boolean needAddToBackStack) {
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        if (!isTextToAudio){
+//            showIsOver();
+//            return fragment;
+//        }
         if (mCurrentFragment != null) {
             ft.hide(mCurrentFragment);
         }
@@ -182,5 +200,46 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     @Override
     public void switchMessageMode(BaseObservable observableField, int fieldId) {
         changeToNormalChatMode();
+    }
+
+    private void showIsOver() {
+        SimpleDialogViewModel viewModel = new SimpleDialogViewModel(this);
+        viewModel.setInfo("是否结束本次服务");
+        viewModel.setYesBtnText("是");
+        viewModel.setCancelBtnText("否");
+        viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
+            @Override
+            public void OnYesClick(View view) {
+                setTranslationState(userOrderId, "1");
+            }
+
+            @Override
+            public void OnCancelClick(View view) {
+
+            }
+        });
+        viewModel.show();
+    }
+
+    private void setTranslationState(String userOrderId, String phoneState) {
+        new TranslationOrderModel().setTranslatorStatus(userOrderId, phoneState)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResult -> {
+                    finish();
+                }, throwable -> {
+                    finish();
+                });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            showIsOver();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

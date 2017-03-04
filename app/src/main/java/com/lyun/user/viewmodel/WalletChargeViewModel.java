@@ -30,14 +30,14 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class WalletChargeViewModel extends ViewModel {
-    public final ObservableField<String> availableMin = new ObservableField<>();
-    public final ObservableField<String> moneyResultText = new ObservableField<>();
-    public final ObservableField<String> moneyReduceText = new ObservableField<>();
-    public final ObservableField<String> moneyAddText = new ObservableField<>();
-    public final ObservableField<String> buyDes = new ObservableField<>();
-    public final ObservableInt aliSelect = new ObservableInt();
+    public final ObservableField<String> availableMin = new ObservableField<>();//购买时长
+    public final ObservableField<String> moneyResultText = new ObservableField<>();//购买金额
+    public final ObservableField<String> moneyReduceText = new ObservableField<>();//金额增加显示
+    public final ObservableField<String> moneyAddText = new ObservableField<>();//金额减少显示
+    public final ObservableField<String> buyDes = new ObservableField<>();//购买说明
+    public final ObservableInt aliSelect = new ObservableInt();//充值图标
     public final ObservableInt wxSelect = new ObservableInt();
-    private long unUseTime;
+    private long unUseTime;//传来的剩余时间
 
     public WalletChargeViewModel(long unUseTime) {
         this.unUseTime = unUseTime;
@@ -46,19 +46,20 @@ public class WalletChargeViewModel extends ViewModel {
 
 
     private PayType PAY_WAY = PayType.ALI; // 0=绿豆，1=微信，2=支付宝，3=银联，4=总账，5=其他
-    private String userOrderId;
+    private String userOrderId;//订单id
     @WatchThis
-    public final ObservableField<AliPayInfo> aliPay = new ObservableField();
+    public final ObservableField<AliPayInfo> aliPay = new ObservableField(); //支付宝
     @WatchThis
-    public final ObservableField<WalletChargeWxPayResponse> wxPay = new ObservableField();
+    public final ObservableField<WalletChargeWxPayResponse> wxPay = new ObservableField();//微信
     @WatchThis
-    public final ObservableBoolean isShowDialog = new ObservableBoolean();
+    public final ObservableBoolean isShowDialog = new ObservableBoolean();//加载的dialog
     @WatchThis
-    public final ObservableField<String> showText = new ObservableField();//金额为0时
+    public final ObservableField<String> showText = new ObservableField();//展示显示的文字
     @WatchThis
-    public final BaseObservable doFinish = new BaseObservable();
+    public final BaseObservable doFinish = new BaseObservable();//结束Activity
     private WalletChargeModel model;
 
+    //初始化界面显示
     private void init() {
 
         moneyReduceText.set("15元");
@@ -76,7 +77,7 @@ public class WalletChargeViewModel extends ViewModel {
         model = new WalletChargeModel();
     }
 
-
+    //点击事件
     public void OnClickView(View view) {
         switch (view.getId()) {
             case R.id.wallet_charge_left:
@@ -103,7 +104,7 @@ public class WalletChargeViewModel extends ViewModel {
         }
     }
 
-    //1,首次充值-以15分钟为最小购买单元,购买价格为：45元/分钟;\n2,续费充值-以5分钟为充值单元,购买价格为：15元/分钟.
+    //重置按钮点击事件
     private void doSubmit() {
         if (isShowDialog.get()) {
             isShowDialog.set(false);
@@ -112,6 +113,7 @@ public class WalletChargeViewModel extends ViewModel {
         getPayOrder(PAY_WAY);
     }
 
+    //增加和减少金额按钮的事件
     private void doReduceOrAdd(boolean isAdd) {
         if (isAdd) {
             moneyResultText.set((Integer.parseInt(moneyResultText.get()) + 15) + "");
@@ -125,6 +127,7 @@ public class WalletChargeViewModel extends ViewModel {
         }
     }
 
+    //获取支付订单信息
     private void getPayOrder(PayType payType) {
         if (model == null)
             model = new WalletChargeModel();
@@ -154,6 +157,7 @@ public class WalletChargeViewModel extends ViewModel {
                 );
     }
 
+    //支付宝回调
     private OnPayCallBack callBack = new OnPayCallBack() {
         @Override
         public void onSuccess() {
@@ -167,6 +171,7 @@ public class WalletChargeViewModel extends ViewModel {
         }
     };
 
+    //支付宝支付传值信息类
     public class AliPayInfo {
         private String sign;
         private OnPayCallBack callBack;
@@ -200,6 +205,7 @@ public class WalletChargeViewModel extends ViewModel {
             doPayResult();
     }
 
+    //充值成功通知后台去做
     private void doPayResult() {
         if (model == null)
             model = new WalletChargeModel();
@@ -210,6 +216,7 @@ public class WalletChargeViewModel extends ViewModel {
         doFinish.notifyChange();
     }
 
+    //充值类型枚举
     public enum PayType {
         ALI("2"),//支付宝
         WX("1");//微信

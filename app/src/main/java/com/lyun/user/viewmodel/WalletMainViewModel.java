@@ -38,17 +38,17 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class WalletMainViewModel extends ViewModel {
-    public final ObservableField<BaseRecyclerAdapter> recorderAdapter = new ObservableField<>();
-    public final ObservableField<String> unUserTime = new ObservableField<>();
-    public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>();
+    public final ObservableField<BaseRecyclerAdapter> recorderAdapter = new ObservableField<>(); //记录adapter
+    public final ObservableField<String> unUserTime = new ObservableField<>(); //剩余时间
+    public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>(); //记录条目更新
     @WatchThis
     public final ObservableBoolean activityBg = new ObservableBoolean();
-    public final ObservableInt refreshResult = new ObservableInt();
-    public final ObservableInt loadMoreResult = new ObservableInt();
+    public final ObservableInt refreshResult = new ObservableInt();//刷新结果
+    public final ObservableInt loadMoreResult = new ObservableInt();//加载更多结果
     private List list;
-    private int currentTranslationOrderPage = 0;
-    private int nextTranslationOrderPage = 0;
-    private int totalTranslationOrderPage = 0;
+    private int currentTranslationOrderPage = 0;//当前页码
+    private int nextTranslationOrderPage = 0;//下一页码
+    private int totalTranslationOrderPage = 0;//总页码
     private long unTime;
 
     public WalletMainViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
@@ -71,10 +71,11 @@ public class WalletMainViewModel extends ViewModel {
         getRemainingTime();//获取剩余时间
         getChargeRecorder(0, true);
     }
-
+    //设置recycleView的layoutManage
     public RelayCommand<RecyclerView> recyclerViewLayoutManageCommand = new RelayCommand<RecyclerView>(recyclerView -> {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
     });
+    //PullToRefreshLayout 刷新监听
     public PullToRefreshLayout.OnRefreshListener onRefreshListener = new PullToRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
@@ -90,11 +91,15 @@ public class WalletMainViewModel extends ViewModel {
             }
         }
     };
-
+    /**
+     * 获取充值记录
+     * @param page 页码
+     * @param refresh 是否刷新
+     */
     private void getChargeRecorder(int page, boolean refresh) {
         new WalletChargeModel().getWalletChargeRecorder(Account.preference().getPhone(), page)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())//子线程执行
+                .observeOn(AndroidSchedulers.mainThread())//主线程处理结果
                 .subscribe(apiResult -> {
                     if (apiResult.getStatus().equals("0")) {
                         if (refresh)
@@ -144,7 +149,7 @@ public class WalletMainViewModel extends ViewModel {
                     throwable.printStackTrace();
                 });
     }
-
+    //初始化数据
     private void init() {
         refreshResult.set(-1);
         loadMoreResult.set(-1);

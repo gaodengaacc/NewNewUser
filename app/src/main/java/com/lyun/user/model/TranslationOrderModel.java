@@ -7,6 +7,8 @@ import com.lyun.user.api.API;
 import com.lyun.user.api.request.CancelOrderOnTimeOutBean;
 import com.lyun.user.api.request.GenerateOrderRequest;
 import com.lyun.user.api.request.HeartBeatBean;
+import com.lyun.user.api.request.TranslatorStatusBean;
+import com.lyun.user.api.response.TranslatorStatusResponse;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -38,7 +40,11 @@ public class TranslationOrderModel extends Model {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
-
+    public Observable<APIResult<TranslatorStatusResponse>> setTranslatorStatus(String userOrderId,String phoneState) {
+        return API.translationOrder.setTranslatorStatus(new TranslatorStatusBean(userOrderId,phoneState))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+    }
     public enum OrderType {
 
         // 0=图文 1=语音

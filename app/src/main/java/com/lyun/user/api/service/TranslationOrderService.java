@@ -6,6 +6,8 @@ import com.lyun.user.api.request.CancelOrderOnTimeOutBean;
 import com.lyun.user.api.request.GenerateOrderRequest;
 import com.lyun.user.api.request.HeartBeatBean;
 import com.lyun.user.api.request.RemainingTimeBean;
+import com.lyun.user.api.request.TranslatorStatusBean;
+import com.lyun.user.api.response.TranslatorStatusResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -28,5 +30,8 @@ public interface TranslationOrderService {
 
     @POST(APIConstants.CANCEL_ORDER)
     Observable<APIResult<String>> cancelOrder(@Body CancelOrderOnTimeOutBean body);
+
+    @POST(APIConstants.TRANSLATOR_STATUS)
+    Observable<APIResult<TranslatorStatusResponse>> setTranslatorStatus(@Body TranslatorStatusBean body);
 
 }
