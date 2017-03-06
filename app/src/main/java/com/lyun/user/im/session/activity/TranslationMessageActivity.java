@@ -114,6 +114,11 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         }
     }
 
+    /**
+     * 居中显示Toolbar
+     *
+     * @param toolbar
+     */
     public void centerToolbarTitle(final Toolbar toolbar) {
         toolbar.setSubtitle("00:00");
         final CharSequence originalTitle = toolbar.getTitle();
@@ -164,10 +169,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     protected TFragment switchContent(TFragment fragment, boolean needAddToBackStack) {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        if (!isTextToAudio){
-//            showIsOver();
-//            return fragment;
-//        }
+
         if (mCurrentFragment != null) {
             ft.hide(mCurrentFragment);
         }
@@ -210,7 +212,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
             @Override
             public void OnYesClick(View view) {
-                setTranslationState(userOrderId, "1");
+                // 终止翻译服务
+                stopService(new Intent(TranslationMessageActivity.this, TranslationOrderService.class));
             }
 
             @Override
@@ -221,20 +224,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         viewModel.show();
     }
 
-    private void setTranslationState(String userOrderId, String phoneState) {
-        new TranslationOrderModel().setTranslatorStatus(userOrderId, phoneState)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apiResult -> {
-                    finish();
-                }, throwable -> {
-                    finish();
-                });
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getRepeatCount() == 0) {
             showIsOver();
