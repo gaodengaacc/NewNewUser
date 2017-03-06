@@ -207,11 +207,6 @@ public class WalletChargeViewModel extends ViewModel {
 
     //充值成功通知后台去做
     private void doPayResult() {
-        if (model == null)
-            model = new WalletChargeModel();
-        model.setChargeOrderUpdate(userOrderId, "0")
-                .subscribeOn(Schedulers.newThread())
-                .subscribe();
         WXPayEntryActivity.WXPAY_RESULT = -1000;
         doFinish.notifyChange();
     }

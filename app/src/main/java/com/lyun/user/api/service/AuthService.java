@@ -13,7 +13,6 @@ import com.lyun.user.api.request.ResetPasswordBean;
 import com.lyun.user.api.request.StatisticsCardNoBean;
 import com.lyun.user.api.request.WalletChargeBean;
 import com.lyun.user.api.request.WalletChargeRecorderBean;
-import com.lyun.user.api.request.WalletChargeUpdateStateBean;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.api.response.StatisticsCardNoResponse;
 import com.lyun.user.api.response.WalletChargeAliPayResponse;
@@ -60,9 +59,6 @@ public interface AuthService {
 
     @POST(APIConstants.CHARGE_PAY)
     Observable<APIResult<WalletChargeWxPayResponse>> getWxChargeOrder(@Body WalletChargeBean body);
-
-    @POST(APIConstants.CHARGE_UPDATE)
-    Observable<APIResult> setChargeOrderUpdate(@Body WalletChargeUpdateStateBean body);
 
     @POST(APIConstants.CHARGE_RECORDER)
     Observable<APIResult<APIPageResult<List<WalletChargeRecorderResponse>>>> getChargeRecorder(@Body WalletChargeRecorderBean body);
