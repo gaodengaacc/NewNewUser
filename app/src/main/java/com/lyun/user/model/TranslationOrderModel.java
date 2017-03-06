@@ -4,7 +4,7 @@ import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.Account;
 import com.lyun.user.api.API;
-import com.lyun.user.api.request.CancelOrderOnTimeOutBean;
+import com.lyun.user.api.request.CancelTranslationOrderBean;
 import com.lyun.user.api.request.GenerateOrderRequest;
 import com.lyun.user.api.request.HeartBeatBean;
 import com.lyun.user.api.request.TranslatorStatusBean;
@@ -36,10 +36,11 @@ public class TranslationOrderModel extends Model {
     }
 
     public Observable<APIResult<String>> cancelOrder(String userOrderId) {
-        return API.translationOrder.cancelOrder(new CancelOrderOnTimeOutBean(userOrderId))
+        return API.translationOrder.cancelOrder(new CancelTranslationOrderBean(userOrderId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
+
     public Observable<APIResult<TranslatorStatusResponse>> setTranslatorStatus(String userOrderId,String phoneState) {
         return API.translationOrder.setTranslatorStatus(new TranslatorStatusBean(userOrderId,phoneState))
                 .subscribeOn(Schedulers.io())
