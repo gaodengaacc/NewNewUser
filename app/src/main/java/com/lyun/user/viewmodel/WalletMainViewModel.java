@@ -151,8 +151,6 @@ public class WalletMainViewModel extends ViewModel {
     }
     //初始化数据
     private void init() {
-        refreshResult.set(-1);
-        loadMoreResult.set(-1);
         list = new ArrayList<>();
         WalletMainRecorderAdapter adapter = new WalletMainRecorderAdapter(list, R.layout.wallet_main_recorder_item);
         recorderAdapter.set(adapter);

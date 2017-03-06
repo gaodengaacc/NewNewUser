@@ -6,7 +6,6 @@ import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.WalletChargeBean;
 import com.lyun.user.api.request.WalletChargeRecorderBean;
-import com.lyun.user.api.request.WalletChargeUpdateStateBean;
 import com.lyun.user.api.response.WalletChargeRecorderResponse;
 
 import java.util.List;
@@ -46,16 +45,6 @@ public class WalletChargeModel extends Model {
         bean.setPageid(String.valueOf(pageid));
         bean.setPagesize("20");
         return API.auth.getChargeRecorder(bean)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io());
-    }
-
-    //充值订单更新
-    public Observable<APIResult> setChargeOrderUpdate(String userOrderid, String opstateId) {
-        WalletChargeUpdateStateBean bean = new WalletChargeUpdateStateBean();
-        bean.setUserOrderid(userOrderid);
-        bean.setOpstateId(opstateId);
-        return API.auth.setChargeOrderUpdate(bean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

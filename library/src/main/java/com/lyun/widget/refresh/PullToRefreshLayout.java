@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -15,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lyun.library.R;
-import com.lyun.utils.L;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -104,7 +102,6 @@ public class PullToRefreshLayout extends RelativeLayout {
     private boolean canPullUp = true;
 
     private Context mContext;
-
     /**
      * 执行自动回滚的handler
      */
@@ -199,6 +196,8 @@ public class PullToRefreshLayout extends RelativeLayout {
      * @param refreshResult PullToRefreshLayout.SUCCEED代表成功，PullToRefreshLayout.FAIL代表失败
      */
     public void refreshFinish(int refreshResult) {
+        if(!isLayout)
+            return;
         refreshingView.clearAnimation();
         refreshingView.setVisibility(View.GONE);
         switch (refreshResult) {
@@ -237,6 +236,8 @@ public class PullToRefreshLayout extends RelativeLayout {
      * @param refreshResult PullToRefreshLayout.SUCCEED代表成功，PullToRefreshLayout.FAIL代表失败
      */
     public void loadmoreFinish(int refreshResult) {
+        if(!isLayout)
+            return;
         loadingView.clearAnimation();
         loadingView.setVisibility(View.GONE);
         switch (refreshResult) {
@@ -480,6 +481,8 @@ public class PullToRefreshLayout extends RelativeLayout {
      * 自动刷新
      */
     public void autoRefresh() {
+        if(!isLayout)
+            return;
 //        AutoRefreshAndLoadTask task = new AutoRefreshAndLoadTask();
 //        task.execute(20);
         pullDownY = REFRESH_DIST;
