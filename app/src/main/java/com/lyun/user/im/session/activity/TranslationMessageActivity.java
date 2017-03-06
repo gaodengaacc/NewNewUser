@@ -13,13 +13,17 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.user.R;
+import com.lyun.user.im.NimCache;
+import com.lyun.user.im.avchat.AVChatProfile;
+import com.lyun.user.im.avchat.activity.AVChatActivity;
 import com.lyun.user.im.session.fragment.TranslationAudioMessageFragment;
-import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 import com.lyun.user.viewmodel.watchdog.ITranslationAudioMessageViewModelCallbacks;
+import com.lyun.utils.L;
 import com.lyun.utils.TimeUtil;
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.util.sys.ScreenUtil;
@@ -27,12 +31,16 @@ import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.session.activity.P2PMessageActivity;
 import com.netease.nim.uikit.session.constant.Extras;
+import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.avchat.AVChatCallback;
+import com.netease.nimlib.sdk.avchat.AVChatManager;
+import com.netease.nimlib.sdk.avchat.constant.AVChatType;
+import com.netease.nimlib.sdk.avchat.model.AVChatData;
+import com.netease.nimlib.sdk.avchat.model.AVChatNotifyOption;
+import com.netease.nimlib.sdk.avchat.model.AVChatOptionalConfig;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.ArrayList;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ZHAOWEIWEI on 2017/2/28.
@@ -54,8 +62,16 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
         currentNormalMode = true;
 
-        IntentFilter intentFilter = new IntentFilter(TranslationOrderService.Action.STATUS_CHANGE);
-        registerReceiver(mTranslationOrderStatusChangeReceiver, intentFilter);
+        // 注册audio来电广播接收器
+        registerAVChatIncomingCallObserver(true);
+
+        // 注册翻译服务广播接收器
+        IntentFilter orderStatusChangeIntentFilter = new IntentFilter(TranslationOrderService.Action.STATUS_CHANGE);
+        registerReceiver(mTranslationOrderStatusChangeReceiver, orderStatusChangeIntentFilter);
+
+        IntentFilter orderFinishIntentFilter = new IntentFilter(TranslationOrderService.Action.FINISH);
+        registerReceiver(mTranslationOrderFinishReceiver, orderFinishIntentFilter);
+
         userOrderId = getIntent().getStringExtra("orderId");
     }
 
@@ -67,7 +83,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        registerAVChatIncomingCallObserver(false);
         unregisterReceiver(mTranslationOrderStatusChangeReceiver);
+        unregisterReceiver(mTranslationOrderFinishReceiver);
     }
 
     public static void start(Context context, String contactId, String orderId, SessionCustomization customization, IMMessage anchor) {
@@ -149,6 +167,24 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     private boolean currentNormalMode;
 
     private void changeToAudioChatMode() {
+
+        AVChatManager.getInstance().call(sessionId, AVChatType.AUDIO, new AVChatOptionalConfig(), new AVChatNotifyOption(), new AVChatCallback<AVChatData>() {
+            @Override
+            public void onSuccess(AVChatData avChatData) {
+                L.e("AVChat", "Success" + new Gson().toJson(avChatData));
+            }
+
+            @Override
+            public void onFailed(int code) {
+                L.e("AVChat", "failed" + code);
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                L.e("AVChat", exception);
+            }
+        });
+
         currentNormalMode = false;
         if (getToolBar() != null) {
             getTranslationAudioMessageFragment().setTranslatorName(getToolBar().getTitle().toString());
@@ -198,6 +234,23 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             });
         }
     };
+
+    private BroadcastReceiver mTranslationOrderFinishReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
+
+    private void registerAVChatIncomingCallObserver(boolean register) {
+        AVChatManager.getInstance().observeIncomingCall((Observer<AVChatData>) data -> {
+            String extra = data.getExtra();
+            L.e("Extra", "Extra Message->" + extra);
+            // 有网络来电打开AVChatActivity
+            AVChatProfile.getInstance().setAVChatting(true);
+            AVChatActivity.launch(NimCache.getContext(), data, AVChatActivity.FROM_BROADCASTRECEIVER);
+        }, register);
+    }
 
     @Override
     public void switchMessageMode(BaseObservable observableField, int fieldId) {

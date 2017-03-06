@@ -232,15 +232,12 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
     }
 
     private void registerAVChatIncomingCallObserver(boolean register) {
-        AVChatManager.getInstance().observeIncomingCall(new Observer<AVChatData>() {
-            @Override
-            public void onEvent(AVChatData data) {
-                String extra = data.getExtra();
-                Log.e("Extra", "Extra Message->" + extra);
-                // 有网络来电打开AVChatActivity
-                AVChatProfile.getInstance().setAVChatting(true);
-                AVChatActivity.launch(NimCache.getContext(), data, AVChatActivity.FROM_BROADCASTRECEIVER);
-            }
+        AVChatManager.getInstance().observeIncomingCall((Observer<AVChatData>) data -> {
+            String extra = data.getExtra();
+            Log.e("Extra", "Extra Message->" + extra);
+            // 有网络来电打开AVChatActivity
+            AVChatProfile.getInstance().setAVChatting(true);
+            AVChatActivity.launch(NimCache.getContext(), data, AVChatActivity.FROM_BROADCASTRECEIVER);
         }, register);
     }
 
