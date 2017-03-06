@@ -82,7 +82,7 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
             NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
 
             // 注册网络通话来电
-            enableAVChat();
+            // enableAVChat();
 
             // 注册白板会话
             // enableRTS();
@@ -204,23 +204,20 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
      * 通知消息过滤器（如果过滤则该消息不存储不上报）
      */
     private void registerIMMessageFilter() {
-        NIMClient.getService(MsgService.class).registerIMMessageFilter(new IMMessageFilter() {
-            @Override
-            public boolean shouldIgnore(IMMessage message) {
-                if (UserPreferences.getMsgIgnore() && message.getAttachment() != null) {
-                    if (message.getAttachment() instanceof UpdateTeamAttachment) {
-                        UpdateTeamAttachment attachment = (UpdateTeamAttachment) message.getAttachment();
-                        for (Map.Entry<TeamFieldEnum, Object> field : attachment.getUpdatedFields().entrySet()) {
-                            if (field.getKey() == TeamFieldEnum.ICON) {
-                                return true;
-                            }
+        NIMClient.getService(MsgService.class).registerIMMessageFilter(message -> {
+            if (UserPreferences.getMsgIgnore() && message.getAttachment() != null) {
+                if (message.getAttachment() instanceof UpdateTeamAttachment) {
+                    UpdateTeamAttachment attachment = (UpdateTeamAttachment) message.getAttachment();
+                    for (Map.Entry<TeamFieldEnum, Object> field : attachment.getUpdatedFields().entrySet()) {
+                        if (field.getKey() == TeamFieldEnum.ICON) {
+                            return true;
                         }
-                    } else if (message.getAttachment() instanceof AVChatAttachment) {
-                        return true;
                     }
+                } else if (message.getAttachment() instanceof AVChatAttachment) {
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
     }
 
