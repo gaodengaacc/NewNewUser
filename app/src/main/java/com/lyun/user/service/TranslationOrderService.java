@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.google.gson.Gson;
 import com.lyun.user.BuildConfig;
 import com.lyun.user.model.TranslationOrderModel;
+import com.lyun.utils.L;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,6 +18,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TranslationOrderService extends Service {
 
+    private final String TAG = getClass().getSimpleName();
+
     //心跳包时间间隔 s
     public final int HEART_BEAT_INTERVAL = 60;
 
@@ -23,7 +27,6 @@ public class TranslationOrderService extends Service {
 
     public TranslationOrderService() {
         mTimer = new Timer();
-        mTimer.schedule(mOrderTimerTask, 1000, 1000);
     }
 
     @Override
@@ -63,6 +66,9 @@ public class TranslationOrderService extends Service {
      * 翻译服务开始
      */
     protected void startTranslation() {
+
+        mTimer.schedule(mOrderTimerTask, 1000, 1000);
+
         setTranslationState(mTranslationOrder.getOrderId(), "0");
 
         Intent intent = new Intent();
@@ -73,6 +79,8 @@ public class TranslationOrderService extends Service {
         intent.putExtra(TranslationOrder.USER_ID, mTranslationOrder.getUserId());
         //发送无序广播
         sendBroadcast(intent);
+
+        L.i(TAG, "开始翻译服务：" + new Gson().toJson(mTranslationOrder));
     }
 
     /**
@@ -92,6 +100,8 @@ public class TranslationOrderService extends Service {
         if (((int) mTranslationOrder.getServicedTime() / 1000) % HEART_BEAT_INTERVAL == 0) {
             heartBeat();
         }
+
+        L.i(TAG, "更新翻译服务进度：" + new Gson().toJson(mTranslationOrder));
     }
 
     /**
@@ -105,6 +115,8 @@ public class TranslationOrderService extends Service {
         intent.setAction(Action.FINISH);
         //发送无序广播
         sendBroadcast(intent);
+
+        L.i(TAG, "结束翻译服务：" + new Gson().toJson(mTranslationOrder));
     }
 
     private void setTranslationState(String userOrderId, String phoneState) {

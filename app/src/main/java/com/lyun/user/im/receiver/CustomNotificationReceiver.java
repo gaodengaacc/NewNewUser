@@ -49,7 +49,7 @@ public class CustomNotificationReceiver extends BroadcastReceiver {
                 L.e(getClass().getSimpleName(), e);
             }
 
-            L.i(getClass().getSimpleName(), "receive custom notification: " + notification.getContent() + " from :" + notification.getSessionId() + "/" + notification.getSessionType());
+            L.d(getClass().getSimpleName(), "receive custom notification: " + notification.getContent() + " from :" + notification.getSessionId() + "/" + notification.getSessionType());
         }
     }
 

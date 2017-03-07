@@ -50,18 +50,18 @@ public class WaitingForTranslatorViewModel extends ViewModel {
         }
     };
 
-    public RelayCommand<Boolean> onMuteCheckCommand = new RelayCommand<>(isChecked -> {
+    public boolean muteMode = false;
 
-    });
+    public RelayCommand<Boolean> onMuteCheckCommand = new RelayCommand<>(isChecked -> muteMode = isChecked);
 
     public RelayCommand<Boolean> onHangUpCheckCommand = new RelayCommand<>(isChecked -> {
         cancelOrder();
         ObservableNotifier.alwaysNotify(onOrderCanceled, null);
     });
 
-    public RelayCommand<Boolean> onHandFreeCheckCommand = new RelayCommand<>(isChecked -> {
+    public boolean handFreeMode = false;
 
-    });
+    public RelayCommand<Boolean> onHandFreeCheckCommand = new RelayCommand<>(isChecked -> handFreeMode = isChecked);
 
     private int cancelOrderRetryCount = 0;
 

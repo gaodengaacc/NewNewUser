@@ -85,10 +85,10 @@
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@id/translation_audio_message_plus"
                 android:background="@drawable/message_input_edittext_bg"
-                android:text="点击这里发送文字和图片"
                 android:inputType="none"
                 android:maxHeight="72dp"
                 android:padding="6dp"
+                android:text="点击这里发送文字和图片"
                 android:textColor="#999999"
                 android:textSize="16sp"/>
 
@@ -160,8 +160,7 @@
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/user_default_avatar"
-                app:imageUrl="@{mvvm.translatorAvatar}"/>
+                android:src="@mipmap/user_default_avatar"/>
 
             <TextView
                 android:id="@+id/translation_audio_message_username"
