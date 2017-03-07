@@ -40,7 +40,7 @@
         <attr name="WheelViewAdapter" format="reference"></attr>
         <attr name="VisibleItems" format="reference"></attr>
         <attr name="CurrentItem" format="reference"></attr>
-        <attr name="Cyclic" format="reference"></attr>languageDatas
+        <attr name="Cyclic" format="reference"></attr>
         <attr name="WheelForeground" format="reference"></attr>
         <attr name="languageDatas" format="reference"></attr>
     </declare-styleable>

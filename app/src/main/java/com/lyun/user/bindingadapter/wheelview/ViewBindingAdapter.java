@@ -2,10 +2,6 @@ package com.lyun.user.bindingadapter.wheelview;
 
 import android.databinding.BindingAdapter;
 
-import com.lyun.user.adapter.LanguageTextAdapter;
-
-import java.util.List;
-
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;

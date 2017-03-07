@@ -20,8 +20,6 @@ import net.funol.databinding.watchdog.annotations.WatchThis;
 import java.util.List;
 
 import kankan.wheel.widget.OnWheelChangedListener;
-import kankan.wheel.widget.OnWheelScrollListener;
-import kankan.wheel.widget.WheelView;
 
 /**
  * Created by 郑成裕 on 2017/1/11.
@@ -30,7 +28,6 @@ import kankan.wheel.widget.WheelView;
 public class LanguagePickerDialogViewModel extends DialogViewModel {
 
     public final ObservableField<OnWheelChangedListener> changedListener = new ObservableField<>();
-    public final ObservableField<OnWheelScrollListener> scrollListener = new ObservableField<>();
     public final ObservableField<LanguageTextAdapter> adapter = new ObservableField<>();
     public final ObservableInt visibleItem = new ObservableInt();
     public final ObservableInt currentItem = new ObservableInt();
@@ -53,8 +50,6 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
 
     private void initData() {
         changedListener.set(onWheelChangedListener);
-        scrollListener.set(onWheelScrollListener);
-
         // initListData();//设置选项值
         visibleItem.set(7);//设置item的显示数目
         currentItem.set(0);
@@ -75,17 +70,6 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
 
     private OnWheelChangedListener onWheelChangedListener = (wheel, oldValue, newValue) -> {
         mCurrentSelectedLanguage = mLanguageDatas.get().get(wheel.getCurrentItem());
-    };
-
-    private OnWheelScrollListener onWheelScrollListener = new OnWheelScrollListener() {
-        @Override
-        public void onScrollingStarted(WheelView wheel) {
-
-        }
-
-        @Override
-        public void onScrollingFinished(WheelView wheel) {
-        }
     };
 
     public RelayCommand onDoneClickCommand = new RelayCommand(() -> {

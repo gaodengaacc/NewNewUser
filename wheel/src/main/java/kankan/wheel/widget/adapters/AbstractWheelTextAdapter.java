@@ -44,7 +44,11 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
     /**
      * Default text color
      */
-    public static final int DEFAULT_TEXT_COLOR = 0xFF101010;
+    public static final int DEFAULT_TEXT_COLOR = 0xFF666666;
+    /**
+     * Default text color
+     */
+    public static final int MAX_TEXT_COLOR = 0xFF333333;
 
     /**
      * Default text color
@@ -72,9 +76,9 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
     // Empty items resources
     protected int emptyItemResourceId;
 
-    private int currentIndex = 0;
-    private static int maxsize = 25;
-    private static int minsize = 15;
+    public int currentIndex = 0;
+    public static int maxsize = 25;
+    public static int minsize = 15;
     private ArrayList<View> arrayList = new ArrayList<View>();
 
     /**
@@ -118,7 +122,6 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
         this.currentIndex = currentIndex;
         this.maxsize = maxsize;
         this.minsize = minsize;
-
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -243,18 +246,16 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
                 textView.setText(text);
                 if (index == currentIndex) {
                     textView.setTextSize(maxsize);
+                    textView.setTextColor(MAX_TEXT_COLOR);
                 } else {
                     textView.setTextSize(minsize);
-                }
-                if (itemResourceId == TEXT_VIEW_ITEM_RESOURCE) {
-                    configureTextView(textView);
+                    textView.setTextColor(DEFAULT_TEXT_COLOR);
                 }
             }
             return convertView;
         }
         return null;
     }
-
     @Override
     public View getEmptyItem(View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -265,6 +266,11 @@ public abstract class AbstractWheelTextAdapter extends AbstractWheelAdapter {
         }
 
         return convertView;
+    }
+
+    @Override
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
     }
 
     /**
