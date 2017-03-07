@@ -26,6 +26,7 @@ import com.lyun.user.im.session.viewholder.MsgViewHolderGuess;
 import com.lyun.user.im.session.viewholder.MsgViewHolderSnapChat;
 import com.lyun.user.im.session.viewholder.MsgViewHolderSticker;
 import com.lyun.user.im.session.viewholder.MsgViewHolderTip;
+import com.lyun.user.model.TranslationOrderModel;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.TeamDataCache;
 import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialogHelper;
@@ -101,8 +102,8 @@ public class SessionHelper {
         NimUIKit.setCommonTeamSessionCustomization(getTeamCustomization());
     }
 
-    public static void startTranslationSession(Context context, String account, String orderId) {
-        TranslationMessageActivity.start(context, account, orderId, getP2pCustomization(), null);
+    public static void startTranslationSession(Context context, String account, String orderId, TranslationOrderModel.OrderType orderType, String targetLanguage) {
+        TranslationMessageActivity.start(context, account, orderId, orderType, targetLanguage, getP2pCustomization(), null);
     }
 
     public static void startP2PSession(Context context, String account) {

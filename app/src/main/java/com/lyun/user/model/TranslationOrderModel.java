@@ -10,6 +10,8 @@ import com.lyun.user.api.request.HeartBeatBean;
 import com.lyun.user.api.request.TranslatorStatusBean;
 import com.lyun.user.api.response.TranslatorStatusResponse;
 
+import java.io.Serializable;
+
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -41,12 +43,13 @@ public class TranslationOrderModel extends Model {
                 .observeOn(Schedulers.io());
     }
 
-    public Observable<APIResult<TranslatorStatusResponse>> setTranslatorStatus(String userOrderId,String phoneState) {
-        return API.translationOrder.setTranslatorStatus(new TranslatorStatusBean(userOrderId,phoneState))
+    public Observable<APIResult<TranslatorStatusResponse>> setTranslatorStatus(String userOrderId, String phoneState) {
+        return API.translationOrder.setTranslatorStatus(new TranslatorStatusBean(userOrderId, phoneState))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
-    public enum OrderType {
+
+    public enum OrderType implements Serializable {
 
         // 0=图文 1=语音
         MESSAGE("0"), AUDIO("1");

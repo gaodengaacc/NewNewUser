@@ -19,6 +19,7 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityWaittingForTranslatorBinding;
 import com.lyun.user.im.session.SessionHelper;
+import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 import com.lyun.user.viewmodel.WaitingForTranslatorViewModel;
@@ -27,11 +28,15 @@ import com.lyun.user.viewmodel.watchdog.IWaitingForTranslatorViewModelCallbacks;
 public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingForTranslatorBinding, WaitingForTranslatorViewModel> implements IWaitingForTranslatorViewModelCallbacks {
 
     private String userOrderId;
+    private String targetLanguage;
+    private TranslationOrderModel.OrderType orderType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        userOrderId = getIntent().getStringExtra("userOrderId");
+        userOrderId = getIntent().getStringExtra(TranslationOrder.ORDER_ID);
+        targetLanguage = getIntent().getStringExtra(TranslationOrder.TARGET_LANGUAGE);
+        orderType = (TranslationOrderModel.OrderType) getIntent().getSerializableExtra(TranslationOrder.ORDER_TYPE);
 
         super.onCreate(savedInstanceState);
 
@@ -45,17 +50,20 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         }
 
         IntentFilter intentFilter = new IntentFilter(TranslationOrderService.Action.START);
-        registerReceiver(orderStartReceiver, intentFilter);
+        registerReceiver(mOrderStartReceiver, intentFilter);
     }
 
-    private BroadcastReceiver orderStartReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver mOrderStartReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String orderId = intent.getStringExtra(TranslationOrder.ORDER_ID);
             if (userOrderId.equals(orderId)) {
                 getActivityViewModel().stopTimer();
-                SessionHelper.startTranslationSession(WaitingForTranslatorActivity.this, intent.getStringExtra(TranslationOrder.TRANSLATOR_ID), userOrderId);
+                String account = intent.getStringExtra(TranslationOrder.TRANSLATOR_ID);
+                SessionHelper.startTranslationSession(WaitingForTranslatorActivity.this, account, userOrderId, orderType, targetLanguage);
                 finish();
+            } else {
+                stopService(new Intent(getApplicationContext(), TranslationOrderService.class));
             }
         }
     };
@@ -63,7 +71,7 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(orderStartReceiver);
+        unregisterReceiver(mOrderStartReceiver);
         getActivityViewModel().stopTimer();
     }
 
