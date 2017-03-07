@@ -61,4 +61,5 @@ public interface WheelViewAdapter {
 	 * @param observer the observer to be unregistered
 	 */
 	void unregisterDataSetObserver (DataSetObserver observer);
+	void setCurrentIndex(int currentIndex);
 }

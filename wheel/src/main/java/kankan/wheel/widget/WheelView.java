@@ -399,6 +399,7 @@ public class WheelView extends View {
                 notifyChangingListeners(old, currentItem);
 
                 invalidate();
+                viewAdapter.setCurrentIndex(currentItem);
             }
         }
     }
