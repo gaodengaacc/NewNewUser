@@ -1,6 +1,7 @@
 package com.lyun.user.viewmodel;
 
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.model.RemainingTimeModel;
 import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.model.TranslationOrderModel.OrderType;
+import com.lyun.user.service.TranslationOrder;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -31,18 +33,18 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableInt imageViewModelChange = new ObservableInt();
     public final ObservableInt modelChange = new ObservableInt();
     public final ObservableField<String> textViewModelChange = new ObservableField<>();
-    private OrderType mTranslationOrderType = OrderType.MESSAGE;
+    private OrderType mTranslationOrderType = OrderType.AUDIO;
     public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     public final ObservableField<FindLanguageResponse> mCurrentLanguage = new ObservableField<>();//目标语言
     public final ObservableField<Typeface> typeface1 = new ObservableField<>();//设置字体加粗
     public final ObservableField<Typeface> typeface2 = new ObservableField<>();
-    public final ObservableField<String> unUserTime = new ObservableField<>();//剩余时间
+    public final ObservableField<String> unusedTime = new ObservableField<>();//剩余时间
 
     @WatchThis
     public final BaseObservable onPickLanguage = new BaseObservable();
     @WatchThis
-    public final ObservableField<String> onTranslationOrderGenerated = new ObservableField<>();
+    public final ObservableField<TranslationOrder> onTranslationOrderGenerated = new ObservableField<>();
     @WatchThis
     public final ObservableField<String> onTranslationOrderGenerateFail = new ObservableField<>();
 
@@ -60,14 +62,14 @@ public class HomeFragmentViewModel extends ViewModel {
         new RemainingTimeModel().getRemainingTime(userName)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apiResult -> unUserTime.set(apiResult.getContent().toString()),
+                .subscribe(apiResult -> unusedTime.set(apiResult.getContent().toString()),
                         throwable -> throwable.printStackTrace());
     }
 
     public void initData() {//初始化数据
         modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
         imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
-        unUserTime.set("--");
+        unusedTime.set("--");
         textViewModelChange.set("语音呼叫");
         textViewColor1.set(Color.parseColor("#40d12d"));
         textViewColor2.set(Color.parseColor("#333333"));
@@ -75,14 +77,24 @@ public class HomeFragmentViewModel extends ViewModel {
         typeface2.set(Typeface.defaultFromStyle(Typeface.NORMAL));
     }
 
+    // 防止连续点击请求翻译
+    public ObservableBoolean onRequestTranslationClickable = new ObservableBoolean(true);
+
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
-        if ("0".equals(unUserTime.get())) {
+        if ("0".equals(unusedTime.get())) {
             ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, "您剩余的时间不足,请购买服务时间");
         } else {
+            onRequestTranslationClickable.set(false);
             // 0=图文 1=语音
-            new TranslationOrderModel().generateOrder(mCurrentLanguage.get().getId() + "", mTranslationOrderType.getValue())
-                    .subscribe(orderId -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, orderId),
-                            throwable -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage()));
+            final OrderType orderType = mTranslationOrderType;
+            new TranslationOrderModel().generateOrder(mCurrentLanguage.get().getId() + "", orderType.getValue())
+                    .subscribe(orderId -> {
+                                // 仅传递orderId、orderType、targetLanguage
+                                TranslationOrder order = new TranslationOrder(orderId, orderType, mCurrentLanguage.get().getName(), 0, null, null);
+                                ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, order);
+                            },
+                            throwable -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage()),
+                            () -> onRequestTranslationClickable.set(true));
         }
 
     });

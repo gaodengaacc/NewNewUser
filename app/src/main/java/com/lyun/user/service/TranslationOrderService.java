@@ -29,9 +29,11 @@ public class TranslationOrderService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String orderId = intent.getStringExtra(TranslationOrder.ORDER_ID);
+        TranslationOrderModel.OrderType orderType = (TranslationOrderModel.OrderType) intent.getSerializableExtra(TranslationOrder.ORDER_TYPE);
+        String targetLanguage = intent.getStringExtra(TranslationOrder.TARGET_LANGUAGE);
         String userId = intent.getStringExtra(TranslationOrder.USER_ID);
         String translatorId = intent.getStringExtra(TranslationOrder.TRANSLATOR_ID);
-        startNewOrder(new TranslationOrder(orderId, System.currentTimeMillis(), userId, translatorId));
+        startNewOrder(new TranslationOrder(orderId, orderType, targetLanguage, System.currentTimeMillis(), userId, translatorId));
         return START_NOT_STICKY;
     }
 

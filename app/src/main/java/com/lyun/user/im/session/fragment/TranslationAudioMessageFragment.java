@@ -25,6 +25,8 @@ public class TranslationAudioMessageFragment extends TFragment {
     private TranslationAudioMessageViewModel mViewModel;
     private View rootView;
 
+    private String targetLanguage;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_translation_audio_message, container, false);
@@ -32,15 +34,20 @@ public class TranslationAudioMessageFragment extends TFragment {
         FragmentTranslationAudioMessageBinding translationAudioMessageBinding = (FragmentTranslationAudioMessageBinding) viewDataBinding;
         mViewModel = new TranslationAudioMessageViewModel().setPropertyChangeListener(getActivity());
         translationAudioMessageBinding.setMvvm(mViewModel);
+        mViewModel.targetLanguage.set(targetLanguage);
         return rootView;
     }
 
-    public void onServiceTimeChanged(String time){
+    public void onServiceTimeChanged(String time) {
         mViewModel.translationTime.set(time);
     }
 
-    public void setTranslatorName(String name){
+    public void setTranslatorName(String name) {
         mViewModel.translatorName.set(name);
+    }
+
+    public void setTranslatorTargetLanguage(String targetLanguage) {
+        this.targetLanguage = targetLanguage;
     }
 
     @BindingAdapter("imageUrl")

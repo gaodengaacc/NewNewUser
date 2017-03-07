@@ -14,6 +14,7 @@ import com.lyun.user.activity.WaitingForTranslatorActivity;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.databinding.FragmentHomeBinding;
 import com.lyun.user.dialog.LanguagePickerDialog;
+import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.viewmodel.HomeFragmentViewModel;
 import com.lyun.user.viewmodel.LanguagePickerDialogViewModel;
 import com.lyun.user.viewmodel.watchdog.IHomeFragmentViewModelCallbacks;
@@ -75,10 +76,11 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
     }
 
     @Override
-    public void onTranslationOrderGenerated(ObservableField<String> observableField, int fieldId) {
-        //SessionHelper.startTranslationSession(getActivity(), "123456", observableField.get());
+    public void onTranslationOrderGenerated(ObservableField<TranslationOrder> observableField, int fieldId) {
         Intent intent = new Intent(getActivity(), WaitingForTranslatorActivity.class);
-        intent.putExtra("userOrderId", observableField.get());
+        intent.putExtra(TranslationOrder.ORDER_ID, observableField.get().getOrderId());
+        intent.putExtra(TranslationOrder.ORDER_TYPE, observableField.get().getOrderType());
+        intent.putExtra(TranslationOrder.TARGET_LANGUAGE, observableField.get().getTargetLanguage());
         startActivity(intent);
     }
 
