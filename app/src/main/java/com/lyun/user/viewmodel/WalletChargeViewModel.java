@@ -38,7 +38,7 @@ public class WalletChargeViewModel extends ViewModel {
     public final ObservableInt aliSelect = new ObservableInt();//充值图标
     public final ObservableInt wxSelect = new ObservableInt();
     private long unUseTime;//传来的剩余时间
-
+    private long lastClickTime;
     public WalletChargeViewModel(long unUseTime) {
         this.unUseTime = unUseTime;
         init();
@@ -79,6 +79,8 @@ public class WalletChargeViewModel extends ViewModel {
 
     //点击事件
     public void OnClickView(View view) {
+        if(isFastDoubleClick())
+            return;
         switch (view.getId()) {
             case R.id.wallet_charge_left:
                 doReduceOrAdd(false);
@@ -220,5 +222,14 @@ public class WalletChargeViewModel extends ViewModel {
         PayType(String value) {
             this.value = value;
         }
+    }
+    public boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if ( 0 < timeD && timeD < 500) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
     }
 }

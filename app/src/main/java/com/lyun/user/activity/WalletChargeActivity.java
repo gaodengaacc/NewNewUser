@@ -35,6 +35,13 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
         return R.layout.activity_wallet_charge;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (wxPayManager != null)
+            wxPayManager.detach();
+    }
+
     @NonNull
     @Override
     protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
@@ -67,16 +74,14 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
         if (observableField.get() != null) {
             if (wxPayManager == null)
                 wxPayManager = new WXPayManager();
-           boolean isWxInstalled= wxPayManager.sendPayReq(this, observableField.get().getAppid(),
+            if (!wxPayManager.sendPayReq(this, observableField.get().getAppid(),
                     observableField.get().getPartnerid(),
                     observableField.get().getPrepayid(),
                     observableField.get().getNoncestr(),
                     observableField.get().getTimestamp(),
-                    observableField.get().getSign());
-            if(!isWxInstalled)
+                    observableField.get().getSign()))
                 Toast.makeText(AppApplication.getInstance(),"请安装微信客户端", Toast.LENGTH_LONG).show();
         }
-
     }
 
     @Override

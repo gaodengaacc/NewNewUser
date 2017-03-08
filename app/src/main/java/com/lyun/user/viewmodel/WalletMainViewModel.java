@@ -159,9 +159,9 @@ public class WalletMainViewModel extends ViewModel {
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
 
     private void showPop(View v) {
-        activityBg.set(true);
-        WalletMainPopViewModel popWindow = new WalletMainPopViewModel(v.getContext());
-        popWindow.setOnDismissListener(() -> activityBg.set(false));
-        popWindow.showAsDropDown(v);
+//        activityBg.set(true);
+//        WalletMainPopViewModel popWindow = new WalletMainPopViewModel(v.getContext());
+//        popWindow.setOnDismissListener(() -> activityBg.set(false));
+//        popWindow.showAsDropDown(v);
     }
 }

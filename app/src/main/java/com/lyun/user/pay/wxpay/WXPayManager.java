@@ -42,4 +42,10 @@ public class WXPayManager {
 		return true;
 	}
 
+	public void detach() {
+		if (msgApi != null) {
+			msgApi.detach();
+			msgApi = null;
+		}
+	}
 }

@@ -100,8 +100,6 @@ public class PullToRefreshLayout extends RelativeLayout {
     // 这两个变量用来控制pull的方向，如果不加控制，当情况满足可上拉又可下拉时没法下拉
     private boolean canPullDown = true;
     private boolean canPullUp = true;
-
-    private Context mContext;
     /**
      * 执行自动回滚的handler
      */
@@ -175,8 +173,7 @@ public class PullToRefreshLayout extends RelativeLayout {
     }
 
     private void initView(Context context) {
-        mContext = context;
-        timer = new MyTimer(updateHandler);
+        timer = new MyTimer();
         rotateAnimation = (RotateAnimation) AnimationUtils.loadAnimation(context, R.anim.reverse_anim);
         refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(context, R.anim.rotating);
         // 添加匀速转动动画
@@ -439,6 +436,27 @@ public class PullToRefreshLayout extends RelativeLayout {
         super.dispatchTouchEvent(ev);
         return true;
     }
+    //view销毁的方法，处理内存泄露
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (timer != null) {
+                if(timer.mTask!=null){
+                    timer.mTask.cancel();
+                    timer.mTask = null;
+                }
+                if(updateHandler!=null){
+                    updateHandler.removeCallbacksAndMessages(null);
+                    updateHandler =null;
+                }
+            if(timer.timer!=null){
+                timer.timer.cancel();
+                timer.timer = null;
+            }
+            timer.cancel();
+            timer = null;
+        }
+    }
 
     /**
      * @author chenjing 自动模拟手指滑动的task
@@ -502,7 +520,6 @@ public class PullToRefreshLayout extends RelativeLayout {
         if (mListener != null)
             mListener.onLoadMore(this);
     }
-
     private void initView() {
         // 初始化下拉布局
         pullView = refreshView.findViewById(R.id.pull_icon);
@@ -535,12 +552,10 @@ public class PullToRefreshLayout extends RelativeLayout {
     }
 
     class MyTimer {
-        private Handler handler;
         private Timer timer;
         private MyTask mTask;
 
-        public MyTimer(Handler handler) {
-            this.handler = handler;
+        public MyTimer() {
             timer = new Timer();
         }
 
@@ -549,7 +564,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                 mTask.cancel();
                 mTask = null;
             }
-            mTask = new MyTask(handler);
+            mTask = new MyTask();
             timer.schedule(mTask, 0, period);
         }
 
@@ -561,15 +576,17 @@ public class PullToRefreshLayout extends RelativeLayout {
         }
 
         class MyTask extends TimerTask {
-            private Handler handler;
-
-            public MyTask(Handler handler) {
-                this.handler = handler;
+            public MyTask() {
             }
 
             @Override
             public void run() {
-                handler.obtainMessage().sendToTarget();
+                updateHandler.obtainMessage().sendToTarget();
+            }
+
+            @Override
+            public boolean cancel() {
+                return super.cancel();
             }
 
         }
