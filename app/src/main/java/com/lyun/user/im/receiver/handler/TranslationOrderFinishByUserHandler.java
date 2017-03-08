@@ -5,16 +5,15 @@ import android.content.Intent;
 import com.google.gson.reflect.TypeToken;
 import com.lyun.user.AppApplication;
 import com.lyun.user.im.receiver.attach.TranslationOrderFinish;
-import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 
 import java.lang.reflect.Type;
 
 /**
- * 翻译端挂断翻译服务
+ * 用户端挂断翻译服务
  */
 
-public class TranslationOrderFinishHandler implements AttachContentHandler<TranslationOrderFinish> {
+public class TranslationOrderFinishByUserHandler implements AttachContentHandler<TranslationOrderFinish> {
 
     @Override
     public void handleNotification(TranslationOrderFinish data) {
@@ -30,7 +29,7 @@ public class TranslationOrderFinishHandler implements AttachContentHandler<Trans
 
     @Override
     public int getHandleType() {
-        return 3;
+        return 2;
     }
 
 }
