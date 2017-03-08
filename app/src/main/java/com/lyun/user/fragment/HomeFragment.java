@@ -3,6 +3,7 @@ package com.lyun.user.fragment;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Observable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -90,4 +91,11 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         Toast.makeText(getContext(), observableField.get(), Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
+        if (observableField.get())
+            dialogViewModel.show();
+        else
+            dialogViewModel.dismiss();
+    }
 }

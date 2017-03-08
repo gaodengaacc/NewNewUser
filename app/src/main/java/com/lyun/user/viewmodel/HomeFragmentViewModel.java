@@ -47,6 +47,9 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableField<TranslationOrder> onTranslationOrderGenerated = new ObservableField<>();
     @WatchThis
     public final ObservableField<String> onTranslationOrderGenerateFail = new ObservableField<>();
+    @WatchThis
+    public final ObservableBoolean progressDialogShow = new ObservableBoolean();
+
 
     public HomeFragmentViewModel() {
         initData();
@@ -81,7 +84,9 @@ public class HomeFragmentViewModel extends ViewModel {
     public ObservableBoolean onRequestTranslationClickable = new ObservableBoolean(true);
 
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
+        progressDialogShow.set(true);
         if ("0".equals(unusedTime.get())) {
+            progressDialogShow.set(false);
             ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, "您剩余的时间不足,请购买服务时间");
         } else {
             onRequestTranslationClickable.set(false);
@@ -91,9 +96,13 @@ public class HomeFragmentViewModel extends ViewModel {
                     .subscribe(orderId -> {
                                 // 仅传递orderId、orderType、targetLanguage
                                 TranslationOrder order = new TranslationOrder(orderId, orderType, mCurrentLanguage.get().getName(), 0, null, null);
+                                progressDialogShow.set(false);
                                 ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, order);
                             },
-                            throwable -> ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage()),
+                            throwable -> {
+                                progressDialogShow.set(false);
+                                ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage());
+                            },
                             () -> onRequestTranslationClickable.set(true));
         }
 

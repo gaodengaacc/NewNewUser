@@ -56,7 +56,7 @@ public class AliPayManager {
 			default:
 				break;
 			}
-		};
+		}
 	};
 
 	/**
