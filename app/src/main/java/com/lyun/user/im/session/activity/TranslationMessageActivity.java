@@ -390,7 +390,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             @Override
             public void onSuccess(AVChatData avChatData) {
                 L.i("AVChat", "语音请求发起成功，等待对方接听");
-                runOnUiThread(() -> showProgress("语音请求发起成功，等待对方接听"));
+                runOnUiThread(() -> showProgress("等待对方接听"));
             }
 
             @Override
