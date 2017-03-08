@@ -102,7 +102,7 @@ android {
             buildConfigField "String", "MIPUSH_CERT_NAME", '"user"'
             buildConfigField "String", "BAIDU_MAP_AK", '"I8mvwSd8WolPcyoTUCPf5QI1"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
-            buildConfigField "String", "WX_PAY_APPID", "wx32783f5b7b05f691"
+            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId,
@@ -122,7 +122,7 @@ android {
             buildConfigField "String", "MIPUSH_CERT_NAME", '"alpha"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
-            buildConfigField "String", "WX_PAY_APPID", "wx32783f5b7b05f691"
+            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
@@ -206,6 +206,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    alphaCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'

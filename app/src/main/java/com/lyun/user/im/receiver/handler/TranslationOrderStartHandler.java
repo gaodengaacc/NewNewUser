@@ -1,14 +1,11 @@
 package com.lyun.user.im.receiver.handler;
 
-import android.content.Intent;
-
 import com.google.gson.reflect.TypeToken;
 import com.lyun.user.Account;
 import com.lyun.user.AppApplication;
 import com.lyun.user.im.receiver.attach.Attach;
 import com.lyun.user.im.receiver.attach.TranslationOrderStart;
 import com.lyun.user.model.TranslationOrderModel;
-import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 
 import java.lang.reflect.Type;
@@ -21,15 +18,11 @@ public class TranslationOrderStartHandler implements AttachContentHandler<Transl
 
     @Override
     public void handleNotification(TranslationOrderStart data) {
-
-        Intent intent = new Intent(AppApplication.getInstance(), TranslationOrderService.class);
-        intent.putExtra(TranslationOrder.ORDER_ID, data.getUserOrderId());
-        // 暂时没有
-        //intent.putExtra(TranslationOrder.TARGET_LANGUAGE, data.getTargetLanguage());
-        intent.putExtra(TranslationOrder.ORDER_TYPE, TranslationOrderModel.OrderType.MESSAGE);
-        intent.putExtra(TranslationOrder.TRANSLATOR_ID, data.getOrderHand());
-        intent.putExtra(TranslationOrder.USER_ID, Account.preference().getPhone());
-        AppApplication.getInstance().startService(intent);
+        TranslationOrderService.start(AppApplication.getInstance(),
+                data.getUserOrderId(), null,
+                TranslationOrderModel.OrderType.MESSAGE,
+                data.getOrderHand(),
+                Account.preference().getPhone());
     }
 
     @Override

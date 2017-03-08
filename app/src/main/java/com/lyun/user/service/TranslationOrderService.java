@@ -1,11 +1,14 @@
 package com.lyun.user.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.lyun.user.Account;
+import com.lyun.user.AppApplication;
 import com.lyun.user.BuildConfig;
 import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.utils.L;
@@ -29,6 +32,17 @@ public class TranslationOrderService extends Service {
         mTimer = new Timer();
     }
 
+    public static void start(Context context, String orderId, String targetLanguage,
+                             TranslationOrderModel.OrderType orderType, String translatorId, String userId) {
+        Intent intent = new Intent(context, TranslationOrderService.class);
+        intent.putExtra(TranslationOrder.ORDER_ID, orderId);
+        intent.putExtra(TranslationOrder.TARGET_LANGUAGE, targetLanguage);
+        intent.putExtra(TranslationOrder.ORDER_TYPE, orderType);
+        intent.putExtra(TranslationOrder.TRANSLATOR_ID, translatorId);
+        intent.putExtra(TranslationOrder.USER_ID, userId);
+        context.startService(intent);
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String orderId = intent.getStringExtra(TranslationOrder.ORDER_ID);
@@ -39,6 +53,7 @@ public class TranslationOrderService extends Service {
         startNewOrder(new TranslationOrder(orderId, orderType, targetLanguage, System.currentTimeMillis(), userId, translatorId));
         return START_NOT_STICKY;
     }
+
 
     @Override
     public void onDestroy() {

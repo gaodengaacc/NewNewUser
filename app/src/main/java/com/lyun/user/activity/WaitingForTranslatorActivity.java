@@ -144,13 +144,12 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
                 AVChatManager.getInstance().muteLocalAudio(getActivityViewModel().muteMode);
                 AVChatManager.getInstance().setSpeaker(getActivityViewModel().handFreeMode);
 
-                Intent intent = new Intent(AppApplication.getInstance(), TranslationOrderService.class);
-                intent.putExtra(TranslationOrder.ORDER_ID, userOrderId);
-                intent.putExtra(TranslationOrder.TARGET_LANGUAGE, targetLanguage);
-                intent.putExtra(TranslationOrder.ORDER_TYPE, TranslationOrderModel.OrderType.AUDIO);
-                intent.putExtra(TranslationOrder.TRANSLATOR_ID, translatorId);
-                intent.putExtra(TranslationOrder.USER_ID, Account.preference().getPhone());
-                AppApplication.getInstance().startService(intent);
+                TranslationOrderService.start(getApplicationContext(),
+                        userOrderId,
+                        targetLanguage,
+                        TranslationOrderModel.OrderType.AUDIO,
+                        translatorId,
+                        Account.preference().getPhone());
             }
 
             @Override
