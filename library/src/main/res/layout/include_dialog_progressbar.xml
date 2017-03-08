@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <import type="com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel"></import>
+
         <variable
             name="mvvm"
             type="ProgressBarDialogViewModel"/>
     </data>
 
     <LinearLayout
-    android:id="@+id/custom_progress_root_view"
-        android:layout_width="wrap_content"
-    android:gravity="center_horizontal"
-    android:layout_height="wrap_content"
-    android:background="@drawable/no_border_round_corner_white_bg"
-    android:orientation="vertical">
-
-    <ProgressBar
+        android:id="@+id/custom_progress_root_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:indeterminateDuration="1800"
-        android:padding="10dp"/>
-
-    <TextView
-        android:id="@+id/custom_imageview_progress_title"
-        style="@style/textStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="8.0dip"
+        android:background="@drawable/no_border_round_corner_white_bg"
         android:gravity="center"
-        android:maxWidth="240dp"
-        android:text="@{mvvm.progressText}"
-        android:visibility="visible"
-        />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDuration="1800"
+            android:padding="10dp"/>
+
+        <TextView
+            android:id="@+id/custom_imageview_progress_title"
+            style="@style/textStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxWidth="200dp"
+            android:padding="10dp"
+            android:text="@{mvvm.progressText}"
+            android:visibility="@{mvvm.progressTextVisibility}"/>
+
+    </LinearLayout>
 </layout>

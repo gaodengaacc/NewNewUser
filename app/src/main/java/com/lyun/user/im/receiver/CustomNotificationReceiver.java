@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.lyun.user.im.receiver.attach.Attach;
 import com.lyun.user.im.receiver.handler.AttachContentHandler;
+import com.lyun.user.im.receiver.handler.TranslationOrderFinishByTranslatorHandler;
 import com.lyun.user.im.receiver.handler.TranslationOrderStartHandler;
 import com.lyun.utils.L;
 import com.netease.nimlib.sdk.NimIntent;
@@ -26,6 +27,7 @@ public class CustomNotificationReceiver extends BroadcastReceiver {
 
     public CustomNotificationReceiver() {
         registerNotificationHandler(new TranslationOrderStartHandler());
+        registerNotificationHandler(new TranslationOrderFinishByTranslatorHandler());
     }
 
     @Override

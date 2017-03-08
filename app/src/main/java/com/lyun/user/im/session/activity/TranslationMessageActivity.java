@@ -249,6 +249,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         }
     };
 
+    /**
+     * 翻译服务结束
+     */
     private BroadcastReceiver mTranslationOrderFinishReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -387,7 +390,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             @Override
             public void onSuccess(AVChatData avChatData) {
                 L.i("AVChat", "语音请求发起成功，等待对方接听");
-                runOnUiThread(() -> showProgress(null));
+                runOnUiThread(() -> showProgress("等待对方接听"));
             }
 
             @Override
