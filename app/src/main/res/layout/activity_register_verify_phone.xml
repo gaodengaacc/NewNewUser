@@ -92,7 +92,7 @@
                     android:clickable="@{mvvm.clickable}"
                     android:text="@{mvvm.mSendSmsCode}"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:clickCommand="@{mvvm.onGetSMSCodeButtonClick}" />
             </LinearLayout>
 
