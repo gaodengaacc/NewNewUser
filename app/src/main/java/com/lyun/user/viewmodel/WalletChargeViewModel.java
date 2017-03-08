@@ -79,8 +79,6 @@ public class WalletChargeViewModel extends ViewModel {
 
     //点击事件
     public void OnClickView(View view) {
-        if(isFastDoubleClick())
-            return;
         switch (view.getId()) {
             case R.id.wallet_charge_left:
                 doReduceOrAdd(false);
@@ -99,6 +97,8 @@ public class WalletChargeViewModel extends ViewModel {
                 wxSelect.set(R.mipmap.wallet_charge_select);
                 break;
             case R.id.wallet_charge_yes:
+                if(isFastDoubleClick())
+                    return;
                 doSubmit();
                 break;
             default:
