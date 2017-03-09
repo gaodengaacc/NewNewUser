@@ -11,10 +11,17 @@
             type="HomeFragmentViewModel"></variable>
     </data>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:imageUrl="@{mvvm.backGround}"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg_fragment_specialist_translation"
         android:orientation="vertical">
 
 
@@ -256,8 +263,9 @@
                 android:layout_marginBottom="20dp"
                 android:clickable="@{mvvm.onRequestTranslationClickable}"
                 app:clickCommand="@{mvvm.onRequestTranslation}"
-                app:imageSrc="@{mvvm.imageViewModelChange}"/>
+                app:imageSrc="@{mvvm.imageViewModelChange}" />
         </RelativeLayout>
 
     </LinearLayout>
+    </RelativeLayout>
 </layout>

@@ -102,6 +102,7 @@
         <!--  load bitmap from uri(string type) -->
         <attr name="uri"/>
         <attr name="imageSrc" format="integer"/>
+        <attr name="imageUrl" format="reference"/>
         <!--width for ResizeOptions (use Fresco to load bitmap). -->
         <attr name="request_width" format="integer"/>
         <!--height for ResizeOptions (use Fresco to load bitmap). -->

@@ -34,6 +34,7 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableInt modelChange = new ObservableInt();
     public final ObservableField<String> textViewModelChange = new ObservableField<>();
     private OrderType mTranslationOrderType = OrderType.AUDIO;
+    public final ObservableInt backGround = new ObservableInt();//背景
     public final ObservableInt textViewColor1 = new ObservableInt();//语音呼叫
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     public final ObservableField<FindLanguageResponse> mCurrentLanguage = new ObservableField<>();//目标语言
@@ -78,6 +79,7 @@ public class HomeFragmentViewModel extends ViewModel {
         textViewColor2.set(Color.parseColor("#333333"));
         typeface1.set(Typeface.defaultFromStyle(Typeface.BOLD));
         typeface2.set(Typeface.defaultFromStyle(Typeface.NORMAL));
+        backGround.set(R.mipmap.bg_fragment_specialist_translation);
     }
 
     // 防止连续点击请求翻译

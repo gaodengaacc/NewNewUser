@@ -3,11 +3,13 @@ package com.lyun.user.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
 
 import com.lyun.activity.BaseActivity;
 import com.lyun.user.Account;
 import com.lyun.user.R;
 import com.lyun.user.model.LanguageModel;
+import com.lyun.utils.GlideUtils;
 
 public class SplashActivity extends BaseActivity {
     private static int sleepTime = 3500;
@@ -17,6 +19,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        GlideUtils.showImage(this, (ImageView) findViewById(R.id.bg_splash),R.mipmap.bg_splash);
         new LanguageModel().updateLanguages();
         if (mHandler == null)
             mHandler = new Handler();

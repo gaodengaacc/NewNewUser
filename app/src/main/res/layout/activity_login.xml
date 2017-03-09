@@ -54,7 +54,8 @@
                 android:singleLine="true"
                 android:padding="10dp"
                 android:text="@={mvvm.username}"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:cursorVisible="true"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -70,7 +71,8 @@
                 android:maxLines="1"
                 android:padding="10dp"
                 android:text="@={mvvm.password}"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:cursorVisible="true"/>
 
             <Button
                 android:id="@+id/login_button"
