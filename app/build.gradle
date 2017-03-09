@@ -118,7 +118,7 @@ android {
             versionNameSuffix = " alpha-${getGitCommitHash()}"
             applicationIdSuffix = 'alpha'
 
-            buildConfigField "String", "HOST", '"https://lyt-stg.law-cloud.com.cn:8444"'
+            buildConfigField "String", "HOST", '"https://newlyt1.law-cloud.com.cn:8441"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"alpha"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
