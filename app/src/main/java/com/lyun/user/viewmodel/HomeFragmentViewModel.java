@@ -71,6 +71,7 @@ public class HomeFragmentViewModel extends ViewModel {
     }
 
     public void initData() {//初始化数据
+        backGround.set(R.mipmap.bg_fragment_specialist_translation);
         modelChange.set(R.mipmap.radio_green_fragment_specialist_translation);
         imageViewModelChange.set(R.mipmap.call_fragment_specialist_translation);
         unusedTime.set("--");
@@ -79,7 +80,7 @@ public class HomeFragmentViewModel extends ViewModel {
         textViewColor2.set(Color.parseColor("#333333"));
         typeface1.set(Typeface.defaultFromStyle(Typeface.BOLD));
         typeface2.set(Typeface.defaultFromStyle(Typeface.NORMAL));
-        backGround.set(R.mipmap.bg_fragment_specialist_translation);
+
     }
 
     // 防止连续点击请求翻译
