@@ -17,10 +17,6 @@ public class CheckVerificationModel extends Model {
     public Observable<APIResult> checkVerification(String name, String verification) {
         CheckVerificationBean bean = new CheckVerificationBean(name, verification);
         return API.auth.checkVerification(bean)
-                .onErrorReturn(throwable -> {
-                    ;
-                    return new APIResult();
-                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

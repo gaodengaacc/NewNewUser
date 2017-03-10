@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
+import com.lyun.user.AppIntent;
 import com.lyun.user.R;
 import com.lyun.user.model.StatisticsCardNoModel;
 
@@ -65,7 +66,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
                         userNum.set(apiResult.getContent().getCallFrequency());
                         userLanguage.set(apiResult.getContent().getLanguages());
                     }
-                },throwable -> {
+                }, throwable -> {
                     throwable.printStackTrace();
                 });
     }
@@ -74,6 +75,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
         userName.set(hideUserName(Account.preference().getPhone()));//更新昵称
         exitVisible.set(View.VISIBLE);
     }
+
     private String hideUserName(String phone) {
         try {
             return phone.substring(0, 3) + "****" + phone.substring(7);
@@ -98,15 +100,15 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.user_center_settting:
-                intent = new Intent("com.lyun.user.intent.action.USER_SETTING");
+                intent = new Intent(AppIntent.ACTION_USER_SETTING);
                 getActivity().startActivity(intent);
                 break;
             case R.id.user_center_avatar:
                 //  if(!Account.preference().isLogin())
-                //  getActivity().startActivity(new Intent("com.lyun.user.intent.action.LOGIN"));
+                //  getActivity().startActivity(new Intent(AppIntent.ACTION_LOGIN));
                 break;
             case R.id.user_center_wallet:
-                intent = new Intent("com.lyun.user.intent.action.WALLET_MAIN");
+                intent = new Intent(AppIntent.ACTION_WALLET_MAIN);
                 getActivity().startActivity(intent);
 
                 break;
@@ -121,7 +123,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     }
 
     private void login(View view) {
-        getActivity().startActivity(new Intent("com.lyun.user.intent.action.LOGIN"));
+        getActivity().startActivity(new Intent(AppIntent.ACTION_LOGIN));
 //        if (viewModel == null)
 //            viewModel = new SimpleDialogViewModel(view.getContext());
 //        viewModel.setYesBtnText("是");

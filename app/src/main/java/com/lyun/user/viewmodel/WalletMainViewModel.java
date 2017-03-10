@@ -15,6 +15,7 @@ import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppApplication;
+import com.lyun.user.AppIntent;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainRecorderAdapter;
 import com.lyun.user.api.response.WalletChargeRecorderResponse;
@@ -58,7 +59,7 @@ public class WalletMainViewModel extends ViewModel {
         toolbarViewModel.functionLeftImage.set(R.mipmap.wallet_main_function_charge_icon);
         toolbarViewModel.onFunctionClick.set((v) -> showPop(v));
         toolbarViewModel.onFunctionLeftClick.set((v) -> {
-            Intent intent = new Intent("com.lyun.user.intent.action.WALLET_CHARGE");
+            Intent intent = new Intent(AppIntent.ACTION_WALLET_CHARGE);
             intent.putExtra("unUseTime", unTime);
             getActivity().startActivity(intent);
         });
@@ -71,6 +72,7 @@ public class WalletMainViewModel extends ViewModel {
         getRemainingTime();//获取剩余时间
         getChargeRecorder(0, true);
     }
+
     //设置recycleView的layoutManage
     public RelayCommand<RecyclerView> recyclerViewLayoutManageCommand = new RelayCommand<RecyclerView>(recyclerView -> {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -91,9 +93,11 @@ public class WalletMainViewModel extends ViewModel {
             }
         }
     };
+
     /**
      * 获取充值记录
-     * @param page 页码
+     *
+     * @param page    页码
      * @param refresh 是否刷新
      */
     private void getChargeRecorder(int page, boolean refresh) {
@@ -149,6 +153,7 @@ public class WalletMainViewModel extends ViewModel {
                     throwable.printStackTrace();
                 });
     }
+
     //初始化数据
     private void init() {
         list = new ArrayList<>();

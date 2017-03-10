@@ -78,7 +78,7 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.LOGIN"/>
+                <action android:name="${APPLICATION_ID}.intent.action.LOGIN"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
@@ -87,7 +87,7 @@
             android:name=".activity.UserSettingActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.USER_SETTING"/>
+                <action android:name="${APPLICATION_ID}.intent.action.USER_SETTING"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
@@ -96,7 +96,7 @@
             android:name=".activity.WalletMainActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.WALLET_MAIN"/>
+                <action android:name="${APPLICATION_ID}.intent.action.WALLET_MAIN"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
@@ -105,7 +105,7 @@
             android:name=".activity.WalletChargeActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.WALLET_CHARGE"/>
+                <action android:name="${APPLICATION_ID}.intent.action.WALLET_CHARGE"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
@@ -115,7 +115,7 @@
             android:name=".activity.RegisterActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="com.lyun.user.intent.action.REGISTER"/>
+                <action android:name="${APPLICATION_ID}.intent.action.REGISTER"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>

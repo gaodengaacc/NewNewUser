@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.AppIntent;
 import com.lyun.user.model.CheckVerificationModel;
 import com.lyun.user.model.RegisterVerifyPhoneModel;
 import com.lyun.utils.RegExMatcherUtils;
@@ -76,7 +77,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码!");
         } else {
-            intent = new Intent("com.lyun.user.intent.action.REGISTER");
+            intent = new Intent(AppIntent.ACTION_REGISTER);
             bundle.putString("username", username.get());
             intent.putExtras(bundle);
 
