@@ -79,6 +79,7 @@ public class ResetPasswordViewModel extends ViewModel {
                                 onResetPasswordResult.set("修改成功!");
                             } else {
                                 onResetPasswordResult.set(apiResult.getDescribe());
+                                progressDialogShow.set(false);
                             }
                         }
                         , throwable -> {
