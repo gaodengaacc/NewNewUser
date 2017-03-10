@@ -87,7 +87,7 @@
             android:name=".activity.UserSettingActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="${APPLICATION_ID}.intent.action.USER_SETTING"/>
+                <action android:name="${APPLICATION_ID}.intent.action.SETTINGS"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>

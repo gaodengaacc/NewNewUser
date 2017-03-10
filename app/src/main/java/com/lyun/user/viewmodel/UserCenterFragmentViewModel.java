@@ -100,7 +100,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.user_center_settting:
-                intent = new Intent(AppIntent.ACTION_USER_SETTING);
+                intent = new Intent(AppIntent.ACTION_SETTINGS);
                 getActivity().startActivity(intent);
                 break;
             case R.id.user_center_avatar:
