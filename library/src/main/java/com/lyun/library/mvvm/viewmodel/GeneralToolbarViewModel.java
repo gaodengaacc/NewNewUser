@@ -18,9 +18,10 @@ public class GeneralToolbarViewModel extends ViewModel {
         public final ObservableField<String> function = new ObservableField<>();
         public final ObservableField<String> functionLeft = new ObservableField<>();
         public final ObservableInt functionLeftImage = new ObservableInt();
-        public final ObservableInt  functionImage = new ObservableInt();
+        public final ObservableInt functionImage = new ObservableInt();
         public final ObservableInt functionLeftVisibility = new ObservableInt();
         public final ObservableInt dividerVisibility = new ObservableInt();
+        public final ObservableInt backVisibility = new ObservableInt();
 
         public final ObservableField<View.OnClickListener> onBackClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionClick = new ObservableField<>();
@@ -29,6 +30,7 @@ public class GeneralToolbarViewModel extends ViewModel {
         public ToolbarViewModel() {
             title.set("标题");
             dividerVisibility.set(View.INVISIBLE);
+            backVisibility.set(View.VISIBLE);
         }
 
     }

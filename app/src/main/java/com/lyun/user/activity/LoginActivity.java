@@ -6,7 +6,6 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -77,6 +76,7 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
         GeneralToolbarViewModel.ToolbarViewModel viewModel = super.createTitleViewModel();
         viewModel.setPropertyChangeListener(this);
         viewModel.title.set("登录");
+//        viewModel.backVisibility.set(View.INVISIBLE);
         viewModel.onBackClick.set(view -> finish());
         return viewModel;
     }
