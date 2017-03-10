@@ -47,6 +47,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/no_border_round_corner_white_bg"
+                android:cursorVisible="true"
                 android:drawableLeft="@mipmap/ic_phone_small"
                 android:drawablePadding="5dp"
                 android:editable="false"
@@ -54,6 +55,7 @@
                 android:maxLines="1"
                 android:padding="10dp"
                 android:text="@={mvvm.username}"
+                android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="14sp" />
 
             <EditText
@@ -63,6 +65,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/no_border_round_corner_white_bg"
+                android:cursorVisible="true"
                 android:drawableLeft="@mipmap/ic_password_small"
                 android:drawablePadding="5dp"
                 android:hint="密码为6~16位字母或数字"
@@ -70,6 +73,7 @@
                 android:maxLines="1"
                 android:padding="10dp"
                 android:text="@={mvvm.password}"
+                android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="14sp" />
 
             <EditText
@@ -79,6 +83,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/no_border_round_corner_white_bg"
+                android:cursorVisible="true"
                 android:drawableLeft="@mipmap/ic_re_password"
                 android:drawablePadding="5dp"
                 android:hint="确认密码"
@@ -86,6 +91,7 @@
                 android:maxLines="1"
                 android:padding="10dp"
                 android:text="@={mvvm.confirmPassword}"
+                android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="14sp" />
 
             <Button

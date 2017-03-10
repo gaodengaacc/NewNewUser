@@ -46,16 +46,17 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/no_border_round_corner_white_bg"
+                android:cursorVisible="true"
                 android:drawableLeft="@mipmap/ic_phone_small"
                 android:drawablePadding="5dp"
                 android:hint="手机号"
-                android:maxLines="1"
                 android:inputType="number"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:padding="10dp"
+                android:singleLine="true"
                 android:text="@={mvvm.username}"
-                android:textSize="14sp"
-                android:cursorVisible="true"/>
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="14sp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -64,15 +65,16 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/no_border_round_corner_white_bg"
+                android:cursorVisible="true"
                 android:drawableLeft="@mipmap/ic_password_small"
                 android:drawablePadding="5dp"
                 android:hint="请输入密码"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="10dp"
+                android:textCursorDrawable="@drawable/cursor_color"
                 android:text="@={mvvm.password}"
-                android:textSize="14sp"
-                android:cursorVisible="true"/>
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/login_button"
