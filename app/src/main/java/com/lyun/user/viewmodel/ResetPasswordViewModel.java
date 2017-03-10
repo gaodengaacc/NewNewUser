@@ -8,6 +8,9 @@ import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
+import com.lyun.user.api.response.LoginResponse;
+import com.lyun.user.im.login.NimLoginHelper;
+import com.lyun.user.model.LoginModel;
 import com.lyun.user.model.ResetPasswordModel;
 import com.lyun.utils.RegExMatcherUtils;
 
@@ -70,20 +73,45 @@ public class ResetPasswordViewModel extends ViewModel {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
-                            progressDialogShow.set(false);
                             if (apiResult.getStatus().equals("0")) {
-                                onResetPasswordResult.set("修改成功,请重新登录!");
                                 Account.preference().clear();
-                                onLogout.notifyChange();
+                                login(userName, newPassword);
+                                onResetPasswordResult.set("修改成功!");
                             } else {
                                 onResetPasswordResult.set(apiResult.getDescribe());
                             }
                         }
                         , throwable -> {
-                            progressDialogShow.set(false);
                             onResetPasswordResult.set(throwable.getMessage());
                             throwable.printStackTrace();
+                            progressDialogShow.set(false);
                         });
     }
 
+    private void login(String username, String password) {
+        new LoginModel().login(username, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(loginResponse -> {
+                            loginNim(username, password, loginResponse);
+                        },
+                        throwable -> {
+                            progressDialogShow.set(false);
+                        });
+    }
+
+    private void loginNim(String username, String password, LoginResponse loginResponse) {
+        NimLoginHelper.login(username, loginResponse.getYunXinToken()).subscribe(
+                loginInfo -> {
+                    progressDialogShow.set(false);
+                    Account.preference().savePhone(username);
+                    Account.preference().savePassword(password);
+                    Account.preference().saveToken(loginResponse.getAppToken());
+                    Account.preference().saveNimToken(loginResponse.getYunXinToken());
+                    Account.preference().setLogin(true);
+                    onLogout.notifyChange();
+                },
+                throwable -> {
+                    progressDialogShow.set(false);
+                });
+    }
 }

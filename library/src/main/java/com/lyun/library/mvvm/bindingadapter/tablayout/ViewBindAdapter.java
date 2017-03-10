@@ -32,28 +32,22 @@ public class ViewBindAdapter {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
                 tab.setCustomView(data.getTabs().get(i).getTabView(tabLayout.getContext()));
             }
-            tabLayout.getTabAt(data.getIndex()).select();//进入APP后显示的“专人翻译”
         }
     }
 
+    @BindingAdapter("select")
+    public static void setSelect(TabLayout layout, int index) {
+        if (index < layout.getTabCount()) {
+            layout.getTabAt(index).select();//进入APP后显示的“专人翻译”
+        }
+    }
     public static class TabData {
         public List<TabItemBean> getTabs() {
             return tabs;
         }
-
         public void setTabs(List<TabItemBean> tabs) {
             this.tabs = tabs;
         }
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
-
         private List<TabItemBean> tabs;
-        private int index;
     }
 }

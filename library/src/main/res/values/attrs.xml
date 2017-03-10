@@ -179,6 +179,7 @@
         <attr name="viewPage" format="reference"></attr>
         <attr name="tabSelectListener" format="reference"/>
         <attr name="initTab" format="reference"/>
+        <attr name="select" format="reference"/>
     </declare-styleable>
     <declare-styleable name="PullToRefreshLayout">
         <attr name="refreshListener" format="reference"></attr>

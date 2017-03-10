@@ -20,6 +20,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         GlideUtils.showImage(this, (ImageView) findViewById(R.id.bg_splash),R.mipmap.bg_splash);
+        if(Account.preference().isLogin())
         new LanguageModel().updateLanguages();
         if (mHandler == null)
             mHandler = new Handler();
@@ -34,7 +35,6 @@ public class SplashActivity extends BaseActivity {
             finish();
         }, sleepTime);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

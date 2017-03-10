@@ -29,7 +29,8 @@
             app:tabTextAppearance="@style/TextAppearance.Design.Tab"
             app:tabTextColor="#9a9a9a"
             app:viewPage="@{mvvm.viewPage}"
-            app:initTab="@{mvvm.tabData}" />
+            app:initTab="@{mvvm.tabData}"
+            app:select="@{mvvm.selectIndex}"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/main_container"

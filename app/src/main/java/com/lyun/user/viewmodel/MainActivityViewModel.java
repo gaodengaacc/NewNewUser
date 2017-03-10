@@ -1,6 +1,7 @@
 package com.lyun.user.viewmodel;
 
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +29,8 @@ public class MainActivityViewModel extends ViewModel {
     public final ObservableField<RelayCommand> relayCommandViewPage = new ObservableField<>();
     public final ObservableField<TabLayout.OnTabSelectedListener> tabListener = new ObservableField<>();
     public final ObservableField<ViewBindAdapter.TabData> tabData = new ObservableField<>();
+    public final ObservableInt selectIndex = new ObservableInt();
+
     private FragmentManager mFragmentManager;
     private List<Fragment> fragments;
     public MainActivityViewModel(ViewPager viewPager,FragmentManager mFragmentManager) {
@@ -49,8 +52,8 @@ public class MainActivityViewModel extends ViewModel {
         tabListener.set(onTabSelectedListener);
         ViewBindAdapter.TabData tabData = new ViewBindAdapter.TabData();
         tabData.setTabs(tabs);
-        tabData.setIndex(0);
         this.tabData.set(tabData);
+        selectIndex.set(0);
     }
 
     RelayCommand<ViewPager> relayCommand = new RelayCommand<>((viewPage) -> {
