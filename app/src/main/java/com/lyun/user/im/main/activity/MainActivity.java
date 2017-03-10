@@ -104,7 +104,7 @@ public class MainActivity extends UI {
         LogUtil.i(TAG, "sync completed = " + syncCompleted);
         if (!syncCompleted) {
             DialogMaker.showProgressDialog(MainActivity.this, getString(R.string.prepare_data)).setCanceledOnTouchOutside(false);
-        }else {
+        } else {
             syncPushNoDisturb(UserPreferences.getStatusConfig());
         }
 
@@ -123,7 +123,7 @@ public class MainActivity extends UI {
 
         boolean isNoDisbConfigExist = NIMClient.getService(MixPushService.class).isPushNoDisturbConfigExist();
 
-        if(!isNoDisbConfigExist && staConfig.downTimeToggle) {
+        if (!isNoDisbConfigExist && staConfig.downTimeToggle) {
             NIMClient.getService(MixPushService.class).setPushNoDisturbConfig(staConfig.downTimeToggle,
                     staConfig.downTimeBegin, staConfig.downTimeEnd);
         }
@@ -143,7 +143,7 @@ public class MainActivity extends UI {
                         Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION
-                        )
+                )
                 .request();
     }
 
@@ -153,12 +153,12 @@ public class MainActivity extends UI {
     }
 
     @OnMPermissionGranted(BASIC_PERMISSION_REQUEST_CODE)
-    public void onBasicPermissionSuccess(){
+    public void onBasicPermissionSuccess() {
         Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
     }
 
     @OnMPermissionDenied(BASIC_PERMISSION_REQUEST_CODE)
-    public void onBasicPermissionFailed(){
+    public void onBasicPermissionFailed() {
         Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
     }
 
@@ -297,7 +297,7 @@ public class MainActivity extends UI {
         NimLoginHelper.logout();
 
         // 启动登录
-        LoginActivity.start(this);
+        LoginActivity.start(this, false);
         finish();
     }
 }

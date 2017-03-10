@@ -45,11 +45,6 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     @NonNull
     @Override
     protected HomeFragmentViewModel createViewModel() {

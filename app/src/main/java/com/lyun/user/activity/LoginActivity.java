@@ -30,13 +30,9 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
 
     private static final String KICK_OUT = "KICK_OUT";
 
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, LoginActivity.class));
-    }
-
     public static void start(Context context, boolean kickOut) {
         Intent intent = new Intent(context, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(KICK_OUT, kickOut);
         context.startActivity(intent);
     }

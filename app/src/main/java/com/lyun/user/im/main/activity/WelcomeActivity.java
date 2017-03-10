@@ -61,7 +61,7 @@ public class WelcomeActivity extends UI {
                     if (canAutoLogin()) {
                         onIntent();
                     } else {
-                        LoginActivity.start(WelcomeActivity.this);
+                        LoginActivity.start(WelcomeActivity.this, false);
                         finish();
                     }
                 }
@@ -109,7 +109,7 @@ public class WelcomeActivity extends UI {
         if (TextUtils.isEmpty(NimCache.getAccount())) {
             // 判断当前app是否正在运行
             if (!SysInfoUtil.stackResumed(this)) {
-                LoginActivity.start(this);
+                LoginActivity.start(this, false);
             }
             finish();
         } else {

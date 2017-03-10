@@ -6,6 +6,7 @@ import com.lyun.user.api.API;
 import com.lyun.user.api.request.CheckVerificationBean;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -16,6 +17,10 @@ public class CheckVerificationModel extends Model {
     public Observable<APIResult> checkVerification(String name, String verification) {
         CheckVerificationBean bean = new CheckVerificationBean(name, verification);
         return API.auth.checkVerification(bean)
+                .onErrorReturn(throwable -> {
+                    ;
+                    return new APIResult();
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

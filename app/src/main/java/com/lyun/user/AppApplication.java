@@ -2,9 +2,10 @@ package com.lyun.user;
 
 import com.lyun.ApplicationDelegate;
 import com.lyun.BaseApplication;
-import com.lyun.http.HeaderInterceptor;
+import com.lyun.http.AuthorizationInterceptor;
 import com.lyun.http.HttpsSocketFactoryBuilder;
 import com.lyun.http.LogInterceptor;
+import com.lyun.user.activity.LoginActivity;
 import com.lyun.user.api.API;
 import com.lyun.user.im.NimApplicationDelegate;
 import com.lyun.utils.L;
@@ -12,8 +13,6 @@ import com.lyun.utils.L;
 import java.util.List;
 
 import javax.net.ssl.SSLSocketFactory;
-
-import okhttp3.Headers;
 
 /**
  * @author 赵尉尉
@@ -29,18 +28,21 @@ public class AppApplication extends BaseApplication {
         L.display(BuildConfig.DEBUG);
         // 初始化接口
         if (BuildConfig.DEBUG) {
-            API.init(Constants.API_BASE_URL, getSSLSocketFactory(), mHeaderInterceptor, new LogInterceptor());
+            API.init(Constants.API_BASE_URL, getSSLSocketFactory(), mAuthorizationInterceptor, new LogInterceptor());
         } else {
-            API.init(Constants.API_BASE_URL, getSSLSocketFactory(), mHeaderInterceptor);
+            API.init(Constants.API_BASE_URL, getSSLSocketFactory(), mAuthorizationInterceptor);
         }
     }
 
-    private HeaderInterceptor mHeaderInterceptor = new HeaderInterceptor() {
+    private AuthorizationInterceptor mAuthorizationInterceptor = new AuthorizationInterceptor() {
         @Override
-        public Headers getHeaders() {
-            return new Headers.Builder()
-                    .add("Authorization", Account.preference().getToken() + "")
-                    .build();
+        protected String getAuthorization() {
+            return Account.preference().getToken();
+        }
+
+        @Override
+        protected void onAuthorizationFailed() {
+            LoginActivity.start(getApplicationContext(), false);
         }
     };
 
