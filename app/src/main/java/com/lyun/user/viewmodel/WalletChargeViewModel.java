@@ -39,6 +39,7 @@ public class WalletChargeViewModel extends ViewModel {
     public final ObservableInt wxSelect = new ObservableInt();
     private long unUseTime;//传来的剩余时间
     private long lastClickTime;
+
     public WalletChargeViewModel(long unUseTime) {
         this.unUseTime = unUseTime;
         init();
@@ -97,7 +98,7 @@ public class WalletChargeViewModel extends ViewModel {
                 wxSelect.set(R.mipmap.wallet_charge_select);
                 break;
             case R.id.wallet_charge_yes:
-                if(isFastDoubleClick())
+                if (isFastDoubleClick())
                     return;
                 doSubmit();
                 break;
@@ -140,7 +141,7 @@ public class WalletChargeViewModel extends ViewModel {
                         apiResult -> {
                             isShowDialog.set(false);
                             APIResult result = (APIResult) apiResult;
-                            if (result.getStatus().equals("0")) {
+                            if (result.isSuccess()) {
                                 if (payType == PayType.ALI) {//支付宝
                                     WalletChargeAliPayResponse response = (WalletChargeAliPayResponse) result.getContent();
                                     ObservableNotifier.alwaysNotify(aliPay, new AliPayInfo(callBack, response.getSign()));
@@ -151,8 +152,9 @@ public class WalletChargeViewModel extends ViewModel {
                                     userOrderId = response.getUserOrderid();
                                     Account.preference().saveWxAppId(response.getAppid());
                                 }
-                            } else
+                            } else {
                                 ObservableNotifier.alwaysNotify(showText, result.getDescribe());
+                            }
 
                         }, throwable -> {
                         }
@@ -223,10 +225,11 @@ public class WalletChargeViewModel extends ViewModel {
             this.value = value;
         }
     }
+
     public boolean isFastDoubleClick() {
         long time = System.currentTimeMillis();
         long timeD = time - lastClickTime;
-        if ( 0 < timeD && timeD < 500) {
+        if (0 < timeD && timeD < 500) {
             return true;
         }
         lastClickTime = time;

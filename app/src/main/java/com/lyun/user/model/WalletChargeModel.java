@@ -1,5 +1,6 @@
 package com.lyun.user.model;
 
+import com.lyun.api.ErrorParser;
 import com.lyun.api.response.APIPageResult;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
@@ -29,10 +30,12 @@ public class WalletChargeModel extends Model {
         bean.setBuyTime(butTime);
         if(payType.equals("2")){
             return API.auth.getAliChargeOrder(bean)
+                    .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io());
         }else {
             return API.auth.getWxChargeOrder(bean)
+                    .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io());
         }
@@ -45,6 +48,7 @@ public class WalletChargeModel extends Model {
         bean.setPageid(String.valueOf(pageid));
         bean.setPagesize("20");
         return API.auth.getChargeRecorder(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

@@ -73,7 +73,7 @@ public class ResetPasswordViewModel extends ViewModel {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
-                            if (apiResult.getStatus().equals("0")) {
+                            if (apiResult.isSuccess()) {
                                 Account.preference().clear();
                                 login(userName, newPassword);
                                 onResetPasswordResult.set("修改成功!");
@@ -92,12 +92,8 @@ public class ResetPasswordViewModel extends ViewModel {
     private void login(String username, String password) {
         new LoginModel().login(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginResponse -> {
-                            loginNim(username, password, loginResponse);
-                        },
-                        throwable -> {
-                            progressDialogShow.set(false);
-                        });
+                .subscribe(loginResponse -> loginNim(username, password, loginResponse),
+                        throwable -> progressDialogShow.set(false));
     }
 
     private void loginNim(String username, String password, LoginResponse loginResponse) {
@@ -111,8 +107,6 @@ public class ResetPasswordViewModel extends ViewModel {
                     Account.preference().setLogin(true);
                     onLogout.notifyChange();
                 },
-                throwable -> {
-                    progressDialogShow.set(false);
-                });
+                throwable -> progressDialogShow.set(false));
     }
 }

@@ -1,5 +1,6 @@
 package com.lyun.user.model;
 
+import com.lyun.api.ErrorParser;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.Account;
@@ -13,6 +14,9 @@ import com.lyun.user.api.response.TranslatorStatusResponse;
 import java.io.Serializable;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -26,25 +30,30 @@ public class TranslationOrderModel extends Model {
         request.setCardNo(Account.preference().getPhone());
         request.setLanguageId(languageId);
         request.setOrderTypeId(orderTypeId);
-        return parseAPIObservable(API.translationOrder.generateOrder(request))
+        return parseAPIObservable(API.translationOrder.generateOrder(request).onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
 
     public Observable<APIResult> heartBeat(String userOrderId) {
         return API.translationOrder.heartBeat(new HeartBeatBean(userOrderId, Account.preference().getPhone(), "0"))
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
 
-    public Observable<APIResult<String>> cancelOrder(String userOrderId) {
-        return API.translationOrder.cancelOrder(new CancelTranslationOrderBean(userOrderId))
+    public Observable<String> cancelOrder(String userOrderId) {
+        return parseAPIObservable(API.translationOrder.cancelOrder(new CancelTranslationOrderBean(userOrderId))
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
+                .retryWhen(throwableObservable -> throwableObservable.zipWith(Observable.range(1, 3), (throwable, integer) -> integer))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
 
     public Observable<APIResult<TranslatorStatusResponse>> setTranslatorStatus(String userOrderId, String phoneState) {
         return API.translationOrder.setTranslatorStatus(new TranslatorStatusBean(userOrderId, phoneState))
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
+                .retryWhen(throwableObservable -> throwableObservable.zipWith(Observable.range(1, 3), (throwable, integer) -> integer))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

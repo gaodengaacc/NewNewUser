@@ -1,5 +1,6 @@
 package com.lyun.user.model;
 
+import com.lyun.api.ErrorParser;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
@@ -21,6 +22,7 @@ public class ResetPasswordModel extends Model {
         bean.setPassword(password);
         bean.setNewPassword(newPassword);
         return API.auth.resetPassword(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

@@ -66,7 +66,11 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     private void getSmsCode(String username) {
         new RegisterVerifyPhoneModel().getSmsCode(username)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(apiResult -> {
+                    if (!apiResult.isSuccess()) {
+                        ObservableNotifier.alwaysNotify(onVerifyResult, apiResult.getDescribe());
+                    }
+                });
     }
 
     public RelayCommand onNextButtonClick = new RelayCommand(() -> {
@@ -98,7 +102,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     progressDialogShow.set(false);
-                    if ("0".equals(apiResult.getStatus())) {//验证成功
+                    if (apiResult.isSuccess()) {//验证成功
                         timeCount.cancel();
                         onVerifySuccess.set(intent);
                         onSuccess.notifyChange();

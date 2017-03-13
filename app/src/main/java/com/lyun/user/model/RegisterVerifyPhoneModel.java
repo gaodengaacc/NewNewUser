@@ -1,5 +1,6 @@
 package com.lyun.user.model;
 
+import com.lyun.api.ErrorParser;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
@@ -16,6 +17,7 @@ public class RegisterVerifyPhoneModel extends Model {
     public Observable<APIResult> getSmsCode(String cardNo) {
         RegisterVerifyPhoneBean bean = new RegisterVerifyPhoneBean(cardNo);
         return API.auth.getSmsCode(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

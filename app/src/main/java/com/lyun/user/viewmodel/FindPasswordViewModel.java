@@ -111,7 +111,12 @@ public class FindPasswordViewModel extends ViewModel {
     private void getSmsCode(String username) {
         new FindPasswordModel().getSmsCode(username)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(apiResult -> {
+                    if (!apiResult.isSuccess()) {
+                        ObservableNotifier.alwaysNotify(onFindPasswordResult, apiResult.getDescribe());
+                    }
+                }, throwable -> {
+                });
     }
 
     @Override

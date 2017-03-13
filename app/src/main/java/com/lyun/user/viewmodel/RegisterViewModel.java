@@ -66,7 +66,7 @@ public class RegisterViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                             progressDialogShow.set(false);
-                            if ("0".equals(apiResult.getStatus())) {
+                            if (apiResult.isSuccess()) {
                                 onRegisterSuccess.notifyChange();
                             } else {
                                 onRegisterResult.set(apiResult.getDescribe());

@@ -1,5 +1,6 @@
 package com.lyun.user.model;
 
+import com.lyun.api.ErrorParser;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
@@ -16,6 +17,7 @@ public class RemainingTimeModel extends Model {
     public Observable<APIResult> getRemainingTime(String cardNo) {
         RemainingTimeBean bean = new RemainingTimeBean(cardNo);
         return API.translationOrder.getRemainingTime(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
