@@ -24,16 +24,9 @@ public class AgreementViewModel extends ViewModel {
     public final ObservableField<String> titleName = new ObservableField<>("");
     public final ObservableField<Boolean> isClient = new ObservableField<>();
     public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
-
-    private Bundle bundle = new Bundle();
-
     @WatchThis
     public final BaseObservable backResult = new BaseObservable();
-
-
     public AgreementViewModel(Bundle bundle) {
-        this.bundle = bundle;
-
         JsEnabled.set(true);
         isClient.set(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

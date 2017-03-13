@@ -136,13 +136,11 @@ public class FindPasswordViewModel extends ViewModel {
         public TimeCount(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
-
         @Override
         public void onTick(long millisUntilFinished) {
             mSendSmsCode.set(millisUntilFinished / 1000 + "S");
             clickable.set(false);
         }
-
         @Override
         public void onFinish() {
             mSendSmsCode.set("重新获取");
