@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.BuildConfig;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -42,10 +43,10 @@ public class AgreementViewModel extends ViewModel {
         }
         if ("charge".equals(bundle.getString("agreementType"))) {
             titleName.set("购买协议");
-            mWebView.set("https://172.16.252.51:8443/lytapp/apiDesc/purchasingContract");
+            mWebView.set(BuildConfig.HOST + "/lytapp/apiDesc/purchasingContract");
         } else {
             titleName.set("注册协议和隐私政策");
-            mWebView.set("https://172.16.252.51:8443/lytapp/apiDesc/registrationAndPrivacy");
+            mWebView.set(BuildConfig.HOST + "/lytapp/apiDesc/registrationAndPrivacy");
         }
 
     }
