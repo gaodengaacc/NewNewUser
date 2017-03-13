@@ -68,7 +68,11 @@ public class HomeFragmentViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     if (apiResult.isSuccess()) {
-                        unusedTime.set(apiResult.getContent().toString());
+                        if (Integer.parseInt(apiResult.getContent().toString()) <= 0) {
+                            unusedTime.set("0");
+                        } else {
+                            unusedTime.set(apiResult.getContent().toString());
+                        }
                     } else {
                         getToast().setText(apiResult.getDescribe());
                     }
