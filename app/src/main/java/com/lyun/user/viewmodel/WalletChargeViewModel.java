@@ -133,7 +133,7 @@ public class WalletChargeViewModel extends ViewModel {
     private void getPayOrder(PayType payType) {
         if (model == null)
             model = new WalletChargeModel();
-        model.getWalletChargeOrder(payType.value, Account.preference().getPhone(), moneyResultText.get(), availableMin.get())
+        model.getWalletChargeOrder(payType.value, Account.preference().getPhone(), "0.01", availableMin.get())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
