@@ -23,4 +23,5 @@ public class WalletMainRecorderItemViewModel extends ViewModel {
     public void init(int position) {
 
     }
+
 }
