@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.AgreementViewModel"></variable>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout_height_top"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#ffffff"
+            android:visibility="@{mvvm.topVisible}"></RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="#ffffff">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:focusable="true"
+                android:src="@mipmap/back_blue"
+                app:clickCommand="@{mvvm.onBack}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:text="@{mvvm.titleName}"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:JsEnabled="@{mvvm.JsEnabled}"
+            app:loadUrl="@{mvvm.mWebView}"
+            app:webViewClient="@{mvvm.isClient}"></WebView>
+    </LinearLayout>
+</layout>

@@ -53,6 +53,7 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
     public void onRegisterFailed(ObservableField<Throwable> observableField, int fieldId) {
         Toast.makeText(AppApplication.getInstance(), observableField.get().getMessage(), Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
         if (observableField.get())
@@ -64,5 +65,10 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
     @Override
     public void onRegisterResult(ObservableField<String> observableField, int fieldId) {
         Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAgreementResult(ObservableField<Intent> observableField, int fieldId) {
+        startActivity(observableField.get());
     }
 }

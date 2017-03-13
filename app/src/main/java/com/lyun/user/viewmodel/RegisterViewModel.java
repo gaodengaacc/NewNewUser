@@ -1,5 +1,6 @@
 package com.lyun.user.viewmodel;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.AppIntent;
 import com.lyun.user.model.RegisterModel;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
@@ -23,7 +25,9 @@ public class RegisterViewModel extends ViewModel {
     public final ObservableField<String> username = new ObservableField<>("");
     public final ObservableField<String> password = new ObservableField<>("");
     public final ObservableField<String> confirmPassword = new ObservableField<>("");
+    private Intent intent;
     private Bundle bundle = new Bundle();
+    private Bundle bundle1 = new Bundle();
 
     @WatchThis
     public final BaseObservable onRegisterSuccess = new BaseObservable();//注册成功
@@ -33,6 +37,8 @@ public class RegisterViewModel extends ViewModel {
     public final ObservableBoolean progressDialogShow = new ObservableBoolean();
     @WatchThis
     public final ObservableField<String> onRegisterResult = new ObservableField();
+    @WatchThis
+    public final ObservableField<Intent> onAgreementResult = new ObservableField();
 
     public RegisterViewModel(Bundle bundle) {
         this.bundle = bundle;
@@ -52,6 +58,12 @@ public class RegisterViewModel extends ViewModel {
             register(username.get(), password.get());
         }
 
+    });
+    public RelayCommand onAgreement = new RelayCommand(() -> {
+        intent = new Intent(AppIntent.ACTION_AGREEMENT);
+        bundle1.putString("agreementType", "register");
+        intent.putExtras(bundle1);
+        onAgreementResult.set(intent);
     });
 
     /**

@@ -11,5 +11,6 @@ public class AppIntent {
     public static final String ACTION_WALLET_MAIN = BuildConfig.APPLICATION_ID + ".intent.action.WALLET_MAIN";
     public static final String ACTION_WALLET_CHARGE = BuildConfig.APPLICATION_ID + ".intent.action.WALLET_CHARGE";
     public static final String ACTION_REGISTER = BuildConfig.APPLICATION_ID + ".intent.action.REGISTER";
+    public static final String ACTION_AGREEMENT =BuildConfig.APPLICATION_ID+".intent.action.AGREEMENT";
 
 }
