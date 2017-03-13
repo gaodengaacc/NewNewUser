@@ -63,7 +63,7 @@ public class FindPasswordViewModel extends ViewModel {
         } else if (("".equals(newPassword.get()) || (newPassword.get() == null))) {
             ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入新密码!");
         } else if (!RegExMatcherUtils.matchPassword(newPassword.get())) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "密码格式不正确,请重新输入!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请正确输入6~16位字母或数字");
         } else {
             submit(username.get(), smscode.get(), newPassword.get());//提交新密码
         }
