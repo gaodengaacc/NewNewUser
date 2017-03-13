@@ -110,7 +110,7 @@ public class WalletMainViewModel extends ViewModel {
                             list.clear();
                         for (WalletChargeRecorderResponse recorder : apiResult.getContent().getData()) {
                             WalletMainRecorderItemViewModel viewModel = new WalletMainRecorderItemViewModel();
-                            viewModel.time.set(recorder.getAmountNowTime());
+                            viewModel.time.set(TimeUtil.formatTime(recorder.getAmountNowTime(),"yyyy-MM-dd  HH:mm"));
                             viewModel.description.set("+" + TimeUtil.convertMin2Str(recorder.getAmountNow()));
                             list.add(viewModel);
                         }
