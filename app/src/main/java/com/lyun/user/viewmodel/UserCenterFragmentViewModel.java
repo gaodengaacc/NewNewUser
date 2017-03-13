@@ -61,14 +61,14 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
-                    if ("0".equals(apiResult.getStatus())) {//获取成功
+                    if (apiResult.isSuccess()) {//获取成功
                         userTime.set(apiResult.getContent().getUseTime());
                         userNum.set(apiResult.getContent().getCallFrequency());
                         userLanguage.set(apiResult.getContent().getLanguages());
+                    } else {
+                        getToast().setText(apiResult.getDescribe());
                     }
-                }, throwable -> {
-                    throwable.printStackTrace();
-                });
+                }, throwable -> throwable.printStackTrace());
     }
 
     private void setUserInformation() {

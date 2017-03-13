@@ -1,5 +1,9 @@
 package com.lyun.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by ZHAOWEIWEI on 2017/3/1.
  */
@@ -44,5 +48,18 @@ public class TimeUtil {
             long mins = timeMin % 60;
             return hour+"小时"+mins+"分钟";
         }
+    }
+    //格式化String 时间
+    public static String formatTime(String data,String style) {
+        SimpleDateFormat time = new SimpleDateFormat(style);
+        Date date = null;
+        try {
+           date = time.parse(data);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(date ==null)
+            return "";
+        return time.format(date);
     }
 }

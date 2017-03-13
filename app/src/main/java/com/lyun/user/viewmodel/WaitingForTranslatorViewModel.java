@@ -34,7 +34,7 @@ public class WaitingForTranslatorViewModel extends ViewModel {
         mCountDownTimer.schedule(mCountDownTimerTask, 1000, 1000);
     }
 
-    public void stopTimer(){
+    public void stopTimer() {
         mCountDownTimer.cancel();
     }
 
@@ -63,19 +63,13 @@ public class WaitingForTranslatorViewModel extends ViewModel {
 
     public RelayCommand<Boolean> onHandFreeCheckCommand = new RelayCommand<>(isChecked -> handFreeMode = isChecked);
 
-    private int cancelOrderRetryCount = 0;
-
     private void cancelOrder() {
         new TranslationOrderModel().cancelOrder(userOrderId)
                 .subscribe(result -> {
 
-                        },
-                        throwable -> {
-                            if (cancelOrderRetryCount < 3) {
-                                cancelOrderOnTimerOut();
-                                cancelOrderRetryCount++;
-                            }
-                        });
+                }, throwable -> {
+
+                });
     }
 
     private void cancelOrderOnTimerOut() {

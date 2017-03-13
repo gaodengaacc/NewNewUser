@@ -113,12 +113,12 @@ public class WalletMainViewModel extends ViewModel {
                 .subscribeOn(Schedulers.newThread())//子线程执行
                 .observeOn(AndroidSchedulers.mainThread())//主线程处理结果
                 .subscribe(apiResult -> {
-                    if (apiResult.getStatus().equals("0")) {
+                    if (apiResult.isSuccess()) {
                         if (refresh)
                             list.clear();
                         for (WalletChargeRecorderResponse recorder : apiResult.getContent().getData()) {
                             WalletMainRecorderItemViewModel viewModel = new WalletMainRecorderItemViewModel();
-                            viewModel.time.set(recorder.getAmountNowTime());
+                            viewModel.time.set(TimeUtil.formatTime(recorder.getAmountNowTime(),"yyyy-MM-dd HH:mm"));
                             viewModel.description.set("+" + TimeUtil.convertMin2Str(recorder.getAmountNow()));
                             list.add(viewModel);
                         }
@@ -138,9 +138,7 @@ public class WalletMainViewModel extends ViewModel {
                             ObservableNotifier.alwaysNotify(loadMoreResult, PullToRefreshLayout.FAIL);
                         }
                     }
-                }, throwable -> {
-                    throwable.printStackTrace();
-                });
+                }, throwable -> throwable.printStackTrace());
     }
 
     /**

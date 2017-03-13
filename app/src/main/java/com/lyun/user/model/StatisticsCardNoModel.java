@@ -1,5 +1,6 @@
 package com.lyun.user.model;
 
+import com.lyun.api.ErrorParser;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
@@ -17,6 +18,7 @@ public class StatisticsCardNoModel extends Model {
     public Observable<APIResult<StatisticsCardNoResponse>> getStatistics(String cardNo) {
         StatisticsCardNoBean bean = new StatisticsCardNoBean(cardNo);
         return API.auth.getStatistics(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
