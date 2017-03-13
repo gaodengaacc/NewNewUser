@@ -138,6 +138,15 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".activity.AgreementActivity"
+            android:theme="@style/AppTheme.TranslucentStatus">
+            <intent-filter>
+                <action android:name="${APPLICATION_ID}.intent.action.AGREEMENT"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
         <!-- 声明云信后台服务 -->
         <service

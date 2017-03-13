@@ -131,7 +131,8 @@
                     android:padding="5dp"
                     android:text="《注册协议和隐私政策》"
                     android:textColor="#333333"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:clickCommand="@{mvvm.onAgreement}" />
 
             </LinearLayout>
 

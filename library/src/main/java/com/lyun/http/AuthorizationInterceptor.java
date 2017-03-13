@@ -2,6 +2,7 @@ package com.lyun.http;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.lyun.api.response.APIResult;
 
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ public abstract class AuthorizationInterceptor implements Interceptor {
 
     private final String TAG = getClass().getSimpleName();
 
-    private final String STATUS_TOKEN_EXPIRED = "10";
+    private final String STATUS_TOKEN_EXPIRED = APIResult.Status.STATUS_TOKEN_EXPIRED;
 
     protected JsonParser mJsonParser;
 

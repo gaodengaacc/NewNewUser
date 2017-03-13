@@ -10,10 +10,6 @@ public class APINotSuccessException extends APIException {
 
     private String status = "";
 
-    private APINotSuccessException() {
-        super();
-    }
-
     public APINotSuccessException(APIResult result) {
         super(result.getDescribe());
         this.status = result.getStatus();

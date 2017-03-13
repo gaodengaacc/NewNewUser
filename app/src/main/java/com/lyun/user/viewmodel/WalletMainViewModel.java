@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -51,15 +52,22 @@ public class WalletMainViewModel extends ViewModel {
     private int nextTranslationOrderPage = 0;//下一页码
     private int totalTranslationOrderPage = 0;//总页码
     private long unTime;
+    private Intent intent;
+    private Bundle bundle = new Bundle();
 
     public WalletMainViewModel(GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel) {
         toolbarViewModel.title.set("钱包");
         toolbarViewModel.onBackClick.set((v) -> getActivity().finish());
         toolbarViewModel.functionImage.set(R.mipmap.wallet_main_function_des_icon);
         toolbarViewModel.functionLeftImage.set(R.mipmap.wallet_main_function_charge_icon);
-        toolbarViewModel.onFunctionClick.set((v) -> showPop(v));
+        toolbarViewModel.onFunctionClick.set((v) -> {
+            intent = new Intent(AppIntent.ACTION_AGREEMENT);
+            bundle.putString("agreementType", "charge");
+            intent.putExtras(bundle);
+            getActivity().startActivity(intent);
+        });
         toolbarViewModel.onFunctionLeftClick.set((v) -> {
-            Intent intent = new Intent(AppIntent.ACTION_WALLET_CHARGE);
+            intent = new Intent(AppIntent.ACTION_WALLET_CHARGE);
             intent.putExtra("unUseTime", unTime);
             getActivity().startActivity(intent);
         });
@@ -105,7 +113,7 @@ public class WalletMainViewModel extends ViewModel {
                 .subscribeOn(Schedulers.newThread())//子线程执行
                 .observeOn(AndroidSchedulers.mainThread())//主线程处理结果
                 .subscribe(apiResult -> {
-                    if (apiResult.getStatus().equals("0")) {
+                    if (apiResult.isSuccess()) {
                         if (refresh)
                             list.clear();
                         for (WalletChargeRecorderResponse recorder : apiResult.getContent().getData()) {
@@ -130,9 +138,7 @@ public class WalletMainViewModel extends ViewModel {
                             ObservableNotifier.alwaysNotify(loadMoreResult, PullToRefreshLayout.FAIL);
                         }
                     }
-                }, throwable -> {
-                    throwable.printStackTrace();
-                });
+                }, throwable -> throwable.printStackTrace());
     }
 
     /**

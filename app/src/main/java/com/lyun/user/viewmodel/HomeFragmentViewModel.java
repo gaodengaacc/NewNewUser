@@ -66,8 +66,13 @@ public class HomeFragmentViewModel extends ViewModel {
         new RemainingTimeModel().getRemainingTime(userName)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apiResult -> unusedTime.set(apiResult.getContent().toString()),
-                        throwable -> throwable.printStackTrace());
+                .subscribe(apiResult -> {
+                    if (apiResult.isSuccess()) {
+                        unusedTime.set(apiResult.getContent().toString());
+                    } else {
+                        getToast().setText(apiResult.getDescribe());
+                    }
+                });
     }
 
     public void initData() {//初始化数据
@@ -96,17 +101,19 @@ public class HomeFragmentViewModel extends ViewModel {
             // 0=图文 1=语音
             final OrderType orderType = mTranslationOrderType;
             new TranslationOrderModel().generateOrder(mCurrentLanguage.get().getId() + "", orderType.getValue())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(orderId -> {
                                 // 仅传递orderId、orderType、targetLanguage
                                 TranslationOrder order = new TranslationOrder(orderId, orderType, mCurrentLanguage.get().getName(), 0, null, null);
                                 progressDialogShow.set(false);
+                                onRequestTranslationClickable.set(true);
                                 ObservableNotifier.alwaysNotify(onTranslationOrderGenerated, order);
                             },
                             throwable -> {
                                 progressDialogShow.set(false);
+                                onRequestTranslationClickable.set(true);
                                 ObservableNotifier.alwaysNotify(onTranslationOrderGenerateFail, throwable.getMessage());
-                            },
-                            () -> onRequestTranslationClickable.set(true));
+                            });
         }
 
     });

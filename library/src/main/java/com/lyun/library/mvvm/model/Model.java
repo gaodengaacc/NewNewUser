@@ -30,13 +30,13 @@ public class Model {
                     public ObservableSource<T> apply(final APIResult<T> result) throws Exception {
                         return Observable.create(new ObservableOnSubscribe<T>() {
                             @Override
-                            public void subscribe(ObservableEmitter<T> e) throws Exception {
-                                if ("0".equals(result.getStatus())) {
-                                    e.onNext(result.getContent());
+                            public void subscribe(ObservableEmitter<T> emitter) throws Exception {
+                                if (result.isSuccess()) {
+                                    emitter.onNext(result.getContent());
+                                    emitter.onComplete();
                                 } else {
-                                    e.onError(new APINotSuccessException(result));
+                                    emitter.onError(new APINotSuccessException(result));
                                 }
-                                e.onComplete();
                             }
                         });
                     }
