@@ -36,10 +36,8 @@ public class GuideViewModel extends ViewModel {
     private int currentItem;
     private int[] guideImages = {R.mipmap.guide_page1, R.mipmap.guide_page2, R.mipmap.guide_page3};
 
-
     @WatchThis
     public final BaseObservable skipResult = new BaseObservable();
-
 
     public GuideViewModel(Context context) {
         this.context = context;
@@ -69,7 +67,6 @@ public class GuideViewModel extends ViewModel {
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
         }
 
         @Override
@@ -79,7 +76,6 @@ public class GuideViewModel extends ViewModel {
 
         @Override
         public void onPageScrollStateChanged(int state) {
-
         }
     };
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
