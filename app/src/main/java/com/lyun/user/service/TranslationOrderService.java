@@ -43,6 +43,11 @@ public class TranslationOrderService extends Service {
         context.startService(intent);
     }
 
+    public static void stop(Context context) {
+        Intent intent = new Intent(context, TranslationOrderService.class);
+        context.stopService(intent);
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String orderId = intent.getStringExtra(TranslationOrder.ORDER_ID);

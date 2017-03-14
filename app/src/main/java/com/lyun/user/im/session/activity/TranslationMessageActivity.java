@@ -493,13 +493,11 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
     protected void onAudioHangUp() {
         AVChatProfile.getInstance().setAVChatting(false);
-        if (isFinishing()) {
-            return;
-        }
-        if (orderType == TranslationOrderModel.OrderType.AUDIO) {
-            finish();
-        }
-        runOnUiThread(() -> changeToNormalChatMode());
+        TranslationOrderService.stop(this);
+//        if (orderType == TranslationOrderModel.OrderType.AUDIO) {
+//            finish();
+//        }
+//        runOnUiThread(() -> changeToNormalChatMode());
     }
 
     /**
