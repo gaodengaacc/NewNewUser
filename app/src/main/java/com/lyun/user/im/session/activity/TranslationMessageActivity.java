@@ -25,6 +25,7 @@ import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 import com.lyun.user.viewmodel.watchdog.ITranslationAudioMessageViewModelCallbacks;
+import com.lyun.utils.FormatUtil;
 import com.lyun.utils.L;
 import com.lyun.utils.TimeUtil;
 import com.netease.nim.uikit.common.fragment.TFragment;
@@ -33,6 +34,7 @@ import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.session.activity.P2PMessageActivity;
 import com.netease.nim.uikit.session.constant.Extras;
+import com.netease.nim.uikit.uinfo.UserInfoHelper;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
@@ -44,6 +46,7 @@ import com.netease.nimlib.sdk.avchat.model.AVChatCommonEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatNotifyOption;
 import com.netease.nimlib.sdk.avchat.model.AVChatOptionalConfig;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.ArrayList;
@@ -210,6 +213,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         currentNormalMode = true;
         switchContent(getMessageFragment());
         getToolBar().setVisibility(View.VISIBLE);
+        setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
     }
 
     private TFragment mCurrentFragment;
@@ -325,6 +329,13 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
     protected void dismissProgress() {
         mProgressDialog.dismiss();
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        if (getToolBar() != null) {
+            getToolBar().setTitle(FormatUtil.formatUserName(title.toString()));
+        }
     }
 
     protected final int REQUEST_AVCHAT_PERMISSION = 0x001;

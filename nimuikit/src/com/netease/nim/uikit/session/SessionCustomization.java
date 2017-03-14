@@ -20,9 +20,9 @@ public class SessionCustomization implements Serializable {
     }
 
     public SessionCustomization(ToolbarCustomization toolbarCustomization, MessagePanelCustomization messagePanelCustomization, InputPanelCustomization inputPanelCustomization) {
-        this.toolbarCustomization = toolbarCustomization;
-        this.messagePanelCustomization = messagePanelCustomization;
-        this.inputPanelCustomization = inputPanelCustomization;
+        setToolbarCustomization(toolbarCustomization);
+        setMessagePanelCustomization(messagePanelCustomization);
+        setInputPanelCustomization(inputPanelCustomization);
     }
 
     public ToolbarCustomization getToolbarCustomization() {
