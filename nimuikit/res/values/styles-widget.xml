@@ -3,7 +3,8 @@
     <!-- view style -->
     <style name="list_view" parent="@android:style/Widget.ListView">
         <item name="android:scrollbarThumbVertical">@drawable/nim_scrollbar_handle_holo_dark</item>
-        <item name="android:scrollbarThumbHorizontal">@drawable/nim_scrollbar_handle_holo_dark</item>
+        <item name="android:scrollbarThumbHorizontal">@drawable/nim_scrollbar_handle_holo_dark
+        </item>
     </style>
 
     <style name="horizontal_light_thin_divider">
@@ -102,7 +103,8 @@
 
     <style name="scroll_view" parent="@android:style/Widget.ScrollView">
         <item name="android:scrollbarThumbVertical">@drawable/nim_scrollbar_handle_holo_dark</item>
-        <item name="android:scrollbarThumbHorizontal">@drawable/nim_scrollbar_handle_holo_dark</item>
+        <item name="android:scrollbarThumbHorizontal">@drawable/nim_scrollbar_handle_holo_dark
+        </item>
     </style>
 
     <style name="blue_bottom_line_edit_text_style" parent="@android:style/Widget.EditText">
@@ -117,5 +119,6 @@
 
     <style name="edit_text_style">
         <item name="android:textCursorDrawable">@color/black</item>
+        <item name="android:textColor">@color/color_grey_555555</item>
     </style>
 </resources>
