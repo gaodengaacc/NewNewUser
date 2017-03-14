@@ -12,6 +12,7 @@ public class AppFileDirs {
     private static String CACHE = "cache";
     private static String LOG = "log";
 
+    private File root;
     private File image;
     private File video;
     private File audio;
@@ -28,6 +29,10 @@ public class AppFileDirs {
             }
         }
         return mInstance;
+    }
+
+    public File root() {
+        return root;
     }
 
     public File image() {
@@ -51,9 +56,9 @@ public class AppFileDirs {
     }
 
     public AppFileDirs create(String parent) {
-        File dir = new File(parent);
-        if (!dir.exists()) {
-            dir.mkdirs();
+        root = new File(parent);
+        if (!root.exists()) {
+            root.mkdirs();
         }
         image = getOrCreateDir(parent, IMAGE);
         video = getOrCreateDir(parent, VIDEO);
