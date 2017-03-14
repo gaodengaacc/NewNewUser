@@ -52,6 +52,8 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.NET_BROKEN_TIMEOUT;
+
 /**
  * Created by ZHAOWEIWEI on 2017/2/28.
  */
@@ -277,7 +279,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
     @Override
     public void hangUpAudioCall(ObservableBoolean observableField, int fieldId) {
-        hangUpAudioCall();
+        //hangUpAudioCall();
+        onBackPressed();
     }
 
     @Override
@@ -293,8 +296,12 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
             @Override
             public void OnYesClick(View view) {
-                // 终止翻译服务
-                finish();
+                // 终止翻译服务stopService(new Intent(TranslationMessageActivity.this, TranslationOrderService.class));
+                if (AVChatProfile.getInstance().isAVChatting()) {
+                    hangUpAudioCall(true);
+                } else {
+                    TranslationOrderService.stop(TranslationMessageActivity.this);
+                }
             }
 
             @Override
@@ -303,15 +310,6 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             }
         });
         viewModel.show();
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        stopService(new Intent(TranslationMessageActivity.this, TranslationOrderService.class));
-        if (AVChatProfile.getInstance().isAVChatting()) {
-            hangUpAudioCall();
-        }
     }
 
     @Override
@@ -409,7 +407,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
                 @Override
                 public void OnCancelClick(View view) {
-                    hangUpAudioCall();
+                    hangUpAudioCall(false);
                 }
             });
             if (!isFinishing()) {
@@ -471,17 +469,20 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     /**
      * 挂断语音通话
      */
-    protected void hangUpAudioCall() {
+    protected void hangUpAudioCall(boolean stopServiceOnHangUp) {
         AVChatManager.getInstance().hangUp(new AVChatCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 L.i("AVChat", "语音挂断成功");
-                onAudioHangUp();
+                onAudioHangUp(stopServiceOnHangUp);
             }
 
             @Override
             public void onFailed(int code) {
                 L.i("AVChat", "语音挂断失败，Code:" + code);
+                if (!AVChatProfile.getInstance().isAVChatting()) {
+                    onAudioHangUp(stopServiceOnHangUp);
+                }
             }
 
             @Override
@@ -491,13 +492,13 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         });
     }
 
-    protected void onAudioHangUp() {
+    protected void onAudioHangUp(boolean stopServiceOnHangUp) {
         AVChatProfile.getInstance().setAVChatting(false);
-        TranslationOrderService.stop(this);
-//        if (orderType == TranslationOrderModel.OrderType.AUDIO) {
-//            finish();
-//        }
-//        runOnUiThread(() -> changeToNormalChatMode());
+        // 切换到图文模式
+        runOnUiThread(() -> changeToNormalChatMode());
+        if (stopServiceOnHangUp) {
+            TranslationOrderService.stop(this);
+        }
     }
 
     /**
@@ -542,7 +543,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
      */
     Observer<AVChatCommonEvent> mAVChatCallHangupObserver = (Observer<AVChatCommonEvent>) hangUpInfo -> {
         // 结束通话
-        onAudioHangUp();
+        onAudioHangUp(true);
     };
 
     /**
@@ -551,6 +552,6 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
      */
     Observer<AVChatTimeOutEvent> mAVChatCallTimeoutObserver = (Observer<AVChatTimeOutEvent>) event -> {
         // 超时类型
-        AVChatProfile.getInstance().setAVChatting(false);
+        onAudioHangUp(event == NET_BROKEN_TIMEOUT);
     };
 }
