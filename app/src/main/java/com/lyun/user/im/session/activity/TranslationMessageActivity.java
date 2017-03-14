@@ -128,7 +128,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             intent.putExtra(Extras.EXTRA_ANCHOR, anchor);
         }
         intent.setClass(context, TranslationMessageActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         context.startActivity(intent);
     }
