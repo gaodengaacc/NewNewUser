@@ -92,6 +92,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         if (orderType == TranslationOrderModel.OrderType.AUDIO) {
             changeToAudioChatMode();
         }
+
+        setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
     }
 
     protected void parseIntent() {
@@ -146,7 +148,6 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             }
         };
         avCallButton.setIconId(R.drawable.ic_av_call);
-        if(optionsButtons!=null && optionsButtons.size()==0)
         optionsButtons.add(avCallButton);
         toolbarCustomization.setOptionsButtons(optionsButtons);
         getCustomization().setToolbarCustomization(toolbarCustomization);
@@ -336,6 +337,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     public void setTitle(CharSequence title) {
         if (getToolBar() != null) {
             getToolBar().setTitle(FormatUtil.formatUserName(title.toString()));
+            if (mTranslationAudioMessageFragment != null) {
+                mTranslationAudioMessageFragment.setTranslatorName(getToolBar().getTitle().toString());
+            }
         }
     }
 

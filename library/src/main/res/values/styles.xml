@@ -11,6 +11,7 @@
         <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:textColorHint">@color/textColorHint</item>
         <item name="android:editTextColor">@color/textColorHint</item>
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
     <style name="LibTheme.NoTitle" parent="LibTheme">
