@@ -1,15 +1,18 @@
 package com.lyun.user.viewmodel;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.os.Bundle;
 import android.view.View;
 
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
+import com.lyun.user.AppIntent;
 import com.lyun.user.R;
 import com.lyun.user.api.response.WalletChargeAliPayResponse;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
@@ -96,6 +99,13 @@ public class WalletChargeViewModel extends ViewModel {
                 PAY_WAY = PayType.WX;
                 aliSelect.set(R.mipmap.wallet_charge_unselect);
                 wxSelect.set(R.mipmap.wallet_charge_select);
+                break;
+            case R.id.wallet_charge_protocol:
+                Intent intent = new Intent(AppIntent.ACTION_AGREEMENT);
+                Bundle bundle = new Bundle();
+                bundle.putString("agreementType", "charge");
+                intent.putExtras(bundle);
+                getActivity().startActivity(intent);
                 break;
             case R.id.wallet_charge_yes:
                 if (isFastDoubleClick())
