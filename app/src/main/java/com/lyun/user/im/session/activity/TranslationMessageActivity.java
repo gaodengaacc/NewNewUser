@@ -146,6 +146,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             }
         };
         avCallButton.setIconId(R.drawable.ic_av_call);
+        if(optionsButtons!=null && optionsButtons.size()==0)
         optionsButtons.add(avCallButton);
         toolbarCustomization.setOptionsButtons(optionsButtons);
         getCustomization().setToolbarCustomization(toolbarCustomization);
