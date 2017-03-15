@@ -1,6 +1,6 @@
 package com.lyun.user.im.session.activity;
 
-import android.annotation.TargetApi;
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,8 +36,6 @@ import com.lyun.utils.TimeUtil;
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.util.sys.ScreenUtil;
 import com.netease.nim.uikit.session.SessionCustomization;
-import com.netease.nim.uikit.session.ToolbarCustomization;
-import com.netease.nim.uikit.session.activity.BaseMessageActivity;
 import com.netease.nim.uikit.session.activity.P2PMessageActivity;
 import com.netease.nim.uikit.session.constant.Extras;
 import com.netease.nim.uikit.uinfo.UserInfoHelper;
@@ -58,9 +56,10 @@ import com.netease.nimlib.sdk.avchat.model.AVChatVideoFrame;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.NET_BROKEN_TIMEOUT;
 
@@ -212,19 +211,29 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
     private boolean currentNormalMode;
 
+    protected final int REQUEST_AVCHAT_PERMISSION = 0x001;
+
+    @AfterPermissionGranted(REQUEST_AVCHAT_PERMISSION)
     private void changeToAudioChatMode() {
-        checkPermission();
-        if (AVChatProfile.getInstance().isAVChatting()) {
-            // 正在语音
-            currentNormalMode = false;
-            if (getToolBar() != null) {
-                getTranslationAudioMessageFragment().setTranslatorName(getToolBar().getTitle().toString());
+
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.RECORD_AUDIO)) {
+            L.i("permission", "录音权限已授权");
+            if (AVChatProfile.getInstance().isAVChatting()) {
+                // 正在语音
+                currentNormalMode = false;
+                if (getToolBar() != null) {
+                    getTranslationAudioMessageFragment().setTranslatorName(getToolBar().getTitle().toString());
+                }
+                switchContent(getTranslationAudioMessageFragment());
+                getToolBar().setVisibility(View.GONE);
+            } else {
+                // 发起语音
+                makeAudioCall();
             }
-            switchContent(getTranslationAudioMessageFragment());
-            getToolBar().setVisibility(View.GONE);
         } else {
-            // 发起语音
-            makeAudioCall();
+            L.i("permission", "申请录音权限");
+            EasyPermissions.requestPermissions(this, "语音通话需要录音权限",
+                    REQUEST_AVCHAT_PERMISSION, Manifest.permission.RECORD_AUDIO);
         }
     }
 
@@ -380,24 +389,10 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         }
     }
 
-    protected final int REQUEST_AVCHAT_PERMISSION = 0x001;
-
-    @TargetApi(Build.VERSION_CODES.M)
-    protected void checkPermission() {
-        List<String> permissions = AVChatManager.checkPermission(this);
-        if (permissions != null && permissions.size() != 0) {
-            String[] strArr = new String[permissions.size()];
-            permissions.toArray(strArr);
-            requestPermissions(strArr, REQUEST_AVCHAT_PERMISSION);
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_AVCHAT_PERMISSION) {
-
-        }
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     ///////////////////////////语音通话部分//////////////////////////////
