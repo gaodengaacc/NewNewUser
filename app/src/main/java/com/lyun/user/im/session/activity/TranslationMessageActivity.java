@@ -12,8 +12,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
@@ -32,6 +37,7 @@ import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.util.sys.ScreenUtil;
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.ToolbarCustomization;
+import com.netease.nim.uikit.session.activity.BaseMessageActivity;
 import com.netease.nim.uikit.session.activity.P2PMessageActivity;
 import com.netease.nim.uikit.session.constant.Extras;
 import com.netease.nim.uikit.uinfo.UserInfoHelper;
@@ -135,32 +141,37 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
     @Override
     protected void initToolBar() {
-
-        // 添加右上角切换为语音界面
-        ToolbarCustomization toolbarCustomization = getCustomization().getToolbarCustomization();
-        ArrayList<ToolbarCustomization.OptionsButton> optionsButtons = toolbarCustomization.getOptionsButtons();
-        ToolbarCustomization.OptionsButton avCallButton = new ToolbarCustomization.OptionsButton() {
-            @Override
-            public void onClick(Context context, View view, String sessionId) {
-                if (currentNormalMode) {
-                    changeToAudioChatMode();
-                } else {
-                    changeToNormalChatMode();
-                }
-            }
-        };
-        avCallButton.setIconId(R.drawable.ic_av_call);
-        optionsButtons.add(avCallButton);
-        toolbarCustomization.setOptionsButtons(optionsButtons);
-        getCustomization().setToolbarCustomization(toolbarCustomization);
-
         super.initToolBar();
+
+        addAudioCallButtonOnToolbar();
 
         centerToolbarTitle(getToolBar());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getToolBar().setPadding(0, ScreenUtil.getStatusBarHeight(this), 0, 0);
         }
+    }
+
+    /**
+     * 添加右上角切换为语音界面
+     */
+    private void addAudioCallButtonOnToolbar() {
+
+        LinearLayout view = (LinearLayout) LayoutInflater.from(this).inflate(com.netease.nim.uikit.R.layout.nim_action_bar_custom_view, null);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.ic_av_call);
+        imageView.setPadding(ScreenUtil.dip2px(15), 0, ScreenUtil.dip2px(15), 0);
+        imageView.setOnClickListener(v -> {
+            if (currentNormalMode) {
+                changeToAudioChatMode();
+            } else {
+                changeToNormalChatMode();
+            }
+        });
+        view.addView(imageView, params);
+
+        getToolBar().addView(view, new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.RIGHT | Gravity.CENTER));
     }
 
     /**
