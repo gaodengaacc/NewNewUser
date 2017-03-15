@@ -58,8 +58,8 @@ public class RegisterViewModel extends ViewModel {
         } else {
             register(username.get(), password.get());
         }
-
     });
+
     public RelayCommand onAgreement = new RelayCommand(() -> {
         intent = new Intent(AppIntent.ACTION_AGREEMENT);
         bundle1.putString("agreementType", "register");
