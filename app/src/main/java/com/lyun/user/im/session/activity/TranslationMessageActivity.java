@@ -491,14 +491,13 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             @Override
             public void onFailed(int code) {
                 L.i("AVChat", "语音挂断失败，Code:" + code);
-                if (!AVChatProfile.getInstance().isAVChatting()) {
-                    onAudioHangUp(stopServiceOnHangUp);
-                }
+                onAudioHangUp(stopServiceOnHangUp);
             }
 
             @Override
             public void onException(Throwable exception) {
                 L.i("AVChat", "语音挂断失败", exception);
+                onAudioHangUp(stopServiceOnHangUp);
             }
         });
     }
@@ -554,7 +553,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
      */
     Observer<AVChatCommonEvent> mAVChatCallHangupObserver = (Observer<AVChatCommonEvent>) hangUpInfo -> {
         // 结束通话
-        onAudioHangUp(true);
+        if (hangUpInfo.getEvent() == AVChatEventType.PEER_HANG_UP) {
+            onAudioHangUp(true);
+        }
     };
 
     /**
