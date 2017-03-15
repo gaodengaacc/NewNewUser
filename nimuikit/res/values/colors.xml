@@ -60,5 +60,11 @@
     <color name="color_black_ff666666">#ff666666</color>
     <color name="color_black_ff999999">#ff999999</color>
     <color name="color_gray_bfc2c5">#bfc2c5</color>
-
+    <color name="colorPrimaryLight">#6699FF</color>
+    <color name="colorPrimary">#00ACF9</color>
+    <color name="colorPrimaryDark">#009Cf9</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWindowBackground">#F0F0F0</color>
+    <color name="colorTextPrimary">#000000</color>
+    <color name="textColorHint">#999999</color>
 </resources>

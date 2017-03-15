@@ -13,6 +13,7 @@ import com.netease.nim.uikit.common.util.media.ImageUtil;
 import com.netease.nim.uikit.common.util.storage.StorageType;
 import com.netease.nim.uikit.common.util.storage.StorageUtil;
 import com.netease.nim.uikit.common.util.string.StringUtil;
+import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.session.constant.Extras;
 import com.netease.nim.uikit.session.constant.RequestCode;
 import com.netease.nim.uikit.session.helper.SendImageHelper;
@@ -29,22 +30,34 @@ public abstract class PickImageAction extends BaseAction {
 
     public static final String MIME_JPEG = "image/jpeg";
     public static final String JPG = ".jpg";
-
     private boolean multiSelect;
     private boolean crop = false;
 
     protected abstract void onPicked(File file);
 
+    private ToolbarCustomization toolbarCustomization;
     protected PickImageAction(int iconResId, int titleId, boolean multiSelect) {
         super(iconResId, titleId);
         this.multiSelect = multiSelect;
     }
 
+    protected PickImageAction(int iconResId, int titleId, boolean multiSelect, ToolbarCustomization toolbarCustomization) {
+        super(iconResId, titleId);
+        this.multiSelect = multiSelect;
+        this.toolbarCustomization = toolbarCustomization;
+    }
     @Override
     public void onClick() {
         int requestCode = makeRequestCode(RequestCode.PICK_IMAGE);
         showSelector(getTitleId(), requestCode, multiSelect, tempFile());
+//        showSelectorNew(requestCode);
+
     }
+    protected void showSelectorNew(final int requestCode) {
+        PickImageHelper.pickImageLocal(getActivity(), requestCode);
+    }
+
+    ;
 
     private String tempFile() {
         String filename = StringUtil.get32UUID() + JPG;
@@ -64,7 +77,7 @@ public abstract class PickImageAction extends BaseAction {
         option.cropOutputImageHeight = PORTRAIT_IMAGE_WIDTH;
         option.outputPath = outPath;
 
-        PickImageHelper.pickImage(getActivity(), requestCode, option);
+        PickImageHelper.pickImage(getActivity(), requestCode, option,toolbarCustomization);
     }
 
     @Override
@@ -155,7 +168,6 @@ public abstract class PickImageAction extends BaseAction {
             @Override
             public void sendImage(File file, boolean isOrig) {
                 onPicked(file);
-
             }
         });
     }

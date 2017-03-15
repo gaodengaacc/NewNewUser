@@ -3,13 +3,16 @@ package com.netease.nim.uikit.common.media.picker.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,7 +27,9 @@ import com.netease.nim.uikit.common.media.picker.util.PickerUtil;
 import com.netease.nim.uikit.common.ui.imageview.BaseZoomableImageView;
 import com.netease.nim.uikit.common.util.media.BitmapDecoder;
 import com.netease.nim.uikit.common.util.media.ImageUtil;
+import com.netease.nim.uikit.common.util.sys.ScreenUtil;
 import com.netease.nim.uikit.model.ToolBarOptions;
+import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.session.constant.Extras;
 import com.netease.nim.uikit.session.constant.RequestCode;
 
@@ -35,6 +40,7 @@ import java.util.List;
 public class PickerAlbumPreviewActivity extends UI implements OnClickListener, OnPageChangeListener {
 	
 	public static final int RESULT_FROM_USER  = RESULT_FIRST_USER + 1;
+	private ToolbarCustomization toolbarCustomization;
 	
 	public static void start(Activity activity, List<PhotoInfo> photos, int position, boolean supportOrig, 
 			boolean isOrig, List<PhotoInfo> selectPhotoList, int mutiSelectLimitSize) {
@@ -46,7 +52,17 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 		intent.putExtra(Extras.EXTRA_MUTI_SELECT_SIZE_LIMIT, mutiSelectLimitSize);
 		activity.startActivityForResult(intent, RequestCode.PICKER_IMAGE_PREVIEW);
 	}
-	
+	public static void start(Activity activity, List<PhotoInfo> photos, int position, boolean supportOrig,
+							 boolean isOrig, List<PhotoInfo> selectPhotoList, int mutiSelectLimitSize, ToolbarCustomization toolbarCustomization) {
+		Intent intent = PickerContract.makePreviewDataIntent(photos, selectPhotoList);
+		intent.setClass(activity, PickerAlbumPreviewActivity.class);
+		intent.putExtra(Extras.EXTRA_PREVIEW_CURRENT_POS, position);
+		intent.putExtra(Extras.EXTRA_SUPPORT_ORIGINAL, supportOrig);
+		intent.putExtra(Extras.EXTRA_IS_ORIGINAL, isOrig);
+		intent.putExtra(Extras.EXTRA_MUTI_SELECT_SIZE_LIMIT, mutiSelectLimitSize);
+		intent.putExtra(Extras.EXTRA_CUSTOMIZATION, toolbarCustomization);
+		activity.startActivityForResult(intent, RequestCode.PICKER_IMAGE_PREVIEW);
+	}
 	public static void start(Fragment fragment, List<PhotoInfo> photos, int position, boolean supportOrig, 
 			boolean isOrig, List<PhotoInfo> selectPhotoList, int mutiSelectLimitSize) {
 		Intent intent = PickerContract.makePreviewDataIntent(photos, selectPhotoList);
@@ -97,8 +113,8 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nim_picker_image_preview_activity);
 
-		ToolBarOptions options = new ToolBarOptions();
-		setToolBar(R.id.toolbar, options);
+//		ToolBarOptions options = new ToolBarOptions();
+//		setToolBar(R.id.toolbar, options);
 
 		proceedExtras();
 		initActionBar();
@@ -111,7 +127,7 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 		isSendOriginalImage = intent.getBooleanExtra(Extras.EXTRA_IS_ORIGINAL, false);
 		firstDisplayImageIndex = intent.getIntExtra(Extras.EXTRA_PREVIEW_CURRENT_POS, 0);
 		mutiSelectLimitSize = intent.getIntExtra(Extras.EXTRA_MUTI_SELECT_SIZE_LIMIT, 9);
-		
+		toolbarCustomization = (ToolbarCustomization) getIntent().getSerializableExtra(Extras.EXTRA_CUSTOMIZATION);
 		photoLists.addAll(PickerContract.getPhotos(intent));
 		totalSize = photoLists.size();
 		
@@ -120,19 +136,50 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 	}
 	
 	private void initActionBar(){
+		ToolBarOptions options = toolbarCustomization.getToolBarOptions();
+		setToolBar(R.id.toolbar, options);
+		centerToolbarTitle(getToolBar());
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			getToolBar().setPadding(0, ScreenUtil.getStatusBarHeight(this), 0, 0);
+		}
 		previewSelectBtn = (ImageButton) findViewById(R.id.picker_image_preview_photos_select);
+//		previewSelectBtn.setVisibility(View.GONE);
 		previewSelectBtn.setOnClickListener(this);
 	}
-	
+	/**
+	 * 居中显示Toolbar
+	 *
+	 * @param toolbar
+	 */
+	public void centerToolbarTitle(final Toolbar toolbar) {
+		final CharSequence originalTitle = toolbar.getTitle();
+		for (int i = 0; i < toolbar.getChildCount(); i++) {
+			View view = toolbar.getChildAt(i);
+
+			if (view instanceof TextView) {
+				final TextView textView = (TextView) view;
+				if (textView.getText().equals(originalTitle)) {
+					textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+						@Override
+						public void onGlobalLayout() {
+							textView.setLeft((toolbar.getWidth() - textView.getWidth()) / 2);
+							textView.setRight(textView.getLeft() + textView.getMeasuredWidth());
+						}
+					});
+				}
+
+			}
+		}
+	}
 	private void initUI(){		
 		previewOperationBar = (LinearLayout) findViewById(R.id.picker_image_preview_operator_bar);
 		originalImage = (ImageButton) findViewById(R.id.picker_image_preview_orignal_image);
 		originalImage.setOnClickListener(this);
 		originalImageSizeTip = (TextView) findViewById(R.id.picker_image_preview_orignal_image_tip);
-		if(!isSupportOriginal){
+//		if(!isSupportOriginal){
 			originalImage.setVisibility(View.INVISIBLE);
 			originalImageSizeTip.setVisibility(View.INVISIBLE);
-		}
+//		}
 		previewSendBtn = (TextView) findViewById(R.id.picker_image_preview_send);
 		previewSendBtn.setOnClickListener(this);
 		updateSelectBtnStatus();
@@ -148,6 +195,7 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 		setTitleIndex(firstDisplayImageIndex);
 		updateTitleSelect(firstDisplayImageIndex);
 		imageViewPager.setCurrentItem(firstDisplayImageIndex);
+		previewOperationBar.setVisibility(View.GONE);
 	}
 	
 	private void updateTitleSelect(int index){
@@ -163,12 +211,13 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 	}
 	
 	private void setTitleIndex(int index) {
-		if (totalSize <= 0) {
-			setTitle("");
-		}else {
-			index++;
-			setTitle(index + "/" + totalSize);
-		}
+		setTitle("");
+//		if (totalSize <= 0) {
+//			setTitle("");
+//		}else {
+//			index++;
+//			setTitle(index + "/" + totalSize);
+//		}
 	}
 	
 	public void updateCurrentImageView(final int position) {
@@ -235,10 +284,10 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 	private void updateSelectBtnStatus(){
 		int selectSize = selectPhotoList.size();
 		if(selectSize > 0){
-			previewSendBtn.setEnabled(true);
-			previewSendBtn.setText(String.format(this.getResources().getString(
-					R.string.picker_image_send_select), selectSize));
-		}else{
+//			previewSendBtn.setEnabled(true);
+//			previewSendBtn.setText(String.format(this.getResources().getString(
+//					R.string.picker_image_send_select), selectSize));
+//		}else{
 			previewSendBtn.setEnabled(true);
 			previewSendBtn.setText(R.string.picker_image_send);
 		}
@@ -317,32 +366,37 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
             if (photoLists == null || currentPosition >= photoLists.size())
                 return;
 
-            PhotoInfo selectPhoto = photoLists.get(currentPosition);
-            boolean isChoose = selectPhoto.isChoose();
-            if (selectPhotoList != null && selectPhotoList.size() >= mutiSelectLimitSize && !isChoose) {
-                Toast.makeText(this, String.format(getResources().getString(R.string.picker_image_exceed_max_image_select)
-                        , mutiSelectLimitSize), Toast.LENGTH_SHORT).show();
-                return;
-            }
-            selectPhoto.setChoose(!isChoose);
-            updatePreviewSelectBtnStatus(!isChoose);
-
-            // check
-            if (!isChoose) {
-                boolean isSelect = checkSelectPhoto(selectPhoto);
-                if (!isSelect) {
-                    selectPhotoList.add(selectPhoto);
-                }
-            } else {
-                removeSelectPhoto(selectPhoto);
-            }
-            // update bottom bar
-            updateSelectBtnStatus();
-            // 如果没有选择，则自动取消原图发送
-            if (selectPhotoList.size() == 0 && isSendOriginalImage) {
-                isSendOriginalImage = false;
-            }
-            updateOriImageSizeTip(isSendOriginalImage);
+//            PhotoInfo selectPhoto = photoLists.get(currentPosition);
+//            boolean isChoose = selectPhoto.isChoose();
+//            if (selectPhotoList != null && selectPhotoList.size() >= mutiSelectLimitSize && !isChoose) {
+//                Toast.makeText(this, String.format(getResources().getString(R.string.picker_image_exceed_max_image_select)
+//                        , mutiSelectLimitSize), Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            selectPhoto.setChoose(!isChoose);
+//            updatePreviewSelectBtnStatus(!isChoose);
+//
+//            // check
+//            if (!isChoose) {
+//                boolean isSelect = checkSelectPhoto(selectPhoto);
+//                if (!isSelect) {
+//                    selectPhotoList.add(selectPhoto);
+//                }
+//            } else {
+//                removeSelectPhoto(selectPhoto);
+//            }
+//            // update bottom bar
+//            updateSelectBtnStatus();
+//            // 如果没有选择，则自动取消原图发送
+//            if (selectPhotoList.size() == 0 && isSendOriginalImage) {
+//                isSendOriginalImage = false;
+//            }
+//            updateOriImageSizeTip(isSendOriginalImage);
+			PhotoInfo current = photoLists.get(currentPosition);
+			current.setChoose(true);
+			selectPhotoList.add(current);
+			setResult(RESULT_OK, PickerContract.makeDataIntent(selectPhotoList, isSendOriginalImage));
+			finish();
         } else if (v.getId() == R.id.picker_image_preview_send) {
             if (selectPhotoList != null && selectPhotoList.size() == 0) { // 没有选择，点击发送则发送当前图片
                 PhotoInfo current = photoLists.get(currentPosition);

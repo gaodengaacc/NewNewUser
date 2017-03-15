@@ -17,6 +17,7 @@ import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.media.picker.model.PhotoInfo;
 import com.netease.nim.uikit.common.media.picker.model.PickerContract;
 import com.netease.nim.uikit.model.ToolBarOptions;
+import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.session.constant.Extras;
 
 import java.io.File;
@@ -37,7 +38,7 @@ public class PickImageActivity extends UI {
     private static final int REQUEST_CODE_CAMERA = FROM_CAMERA;
 
     private boolean inited = false;
-
+    private ToolbarCustomization toolBar;
     public static void start(Activity activity, int requestCode, int from, String outPath) {
         Intent intent = new Intent(activity, PickImageActivity.class);
         intent.putExtra(Extras.EXTRA_FROM, from);
@@ -60,10 +61,30 @@ public class PickImageActivity extends UI {
         activity.startActivityForResult(intent, requestCode);
     }
 
+    public static void start(Activity activity, int requestCode, int from,
+                             String outPath, boolean mutiSelectMode, int multiSelectLimitSize,
+                             boolean isSupportOrig, boolean crop, int outputX, int outputY, ToolbarCustomization tool) {
+        Intent intent = new Intent(activity, PickImageActivity.class);
+        intent.putExtra(Extras.EXTRA_FROM, from);
+        intent.putExtra(Extras.EXTRA_FILE_PATH, outPath);
+        intent.putExtra(Extras.EXTRA_MUTI_SELECT_MODE, mutiSelectMode);
+        intent.putExtra(Extras.EXTRA_MUTI_SELECT_SIZE_LIMIT, multiSelectLimitSize);
+        intent.putExtra(Extras.EXTRA_SUPPORT_ORIGINAL, isSupportOrig);
+        intent.putExtra(Extras.EXTRA_NEED_CROP, crop);
+        intent.putExtra(Extras.EXTRA_OUTPUTX, outputX);
+        intent.putExtra(Extras.EXTRA_OUTPUTY, outputY);
+        intent.putExtra(Extras.EXTRA_CUSTOMIZATION, tool);
+        activity.startActivityForResult(intent, requestCode);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        toolBar = (ToolbarCustomization) getIntent().getSerializableExtra(Extras.EXTRA_CUSTOMIZATION);
         setContentView(R.layout.nim_pick_image_activity);
+        initToolbar();
+        super.onCreate(savedInstanceState);
+    }
+
+    private void initToolbar() {
         ToolBarOptions options = new ToolBarOptions();
         setToolBar(R.id.toolbar, options);
     }
@@ -119,7 +140,6 @@ public class PickImageActivity extends UI {
             finish();
         }
     }
-
     private void pickFromCamera() {
         try {
             String outPath = getIntent().getStringExtra(Extras.EXTRA_FILE_PATH);
@@ -156,7 +176,7 @@ public class PickImageActivity extends UI {
         intent.putExtra(Extras.EXTRA_MUTI_SELECT_SIZE_LIMIT,
                 mutiSelectLimitSize);
         intent.putExtra(Extras.EXTRA_SUPPORT_ORIGINAL, isSupportOrig);
-
+        intent.putExtra(Extras.EXTRA_CUSTOMIZATION, toolBar);
         return intent;
     }
 
@@ -203,7 +223,6 @@ public class PickImageActivity extends UI {
             }
         }
     }
-
     private void onPickedLocal(Intent data, int code) {
         boolean mutiSelect = getIntent().getBooleanExtra(Extras.EXTRA_MUTI_SELECT_MODE, false);
         try {
@@ -289,4 +308,5 @@ public class PickImageActivity extends UI {
                 break;
         }
     }
+
 }

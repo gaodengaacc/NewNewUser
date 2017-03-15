@@ -9,7 +9,6 @@ import com.netease.nim.uikit.model.ToolBarOptions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ZHAOWEIWEI on 2017/2/24.
@@ -39,7 +38,6 @@ public class ToolbarCustomization implements Serializable {
         public void setIconId(int iconId) {
             this.iconId = iconId;
         }
-
         // 响应事件
         public abstract void onClick(Context context, View view, String sessionId);
     }

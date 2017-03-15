@@ -2,6 +2,7 @@ package com.netease.nim.uikit.common.media.picker;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.common.media.picker.activity.PickImageActivity;
@@ -9,6 +10,7 @@ import com.netease.nim.uikit.common.ui.dialog.CustomAlertDialog;
 import com.netease.nim.uikit.common.util.storage.StorageType;
 import com.netease.nim.uikit.common.util.storage.StorageUtil;
 import com.netease.nim.uikit.common.util.string.StringUtil;
+import com.netease.nim.uikit.session.ToolbarCustomization;
 
 /**
  * Created by huangjun on 2015/9/22.
@@ -77,7 +79,7 @@ public class PickImageHelper {
 
             }
         });
-
+//
         dialog.addItem(context.getString(R.string.choose_from_photo_album), new CustomAlertDialog
                 .onSeparateItemClickListener() {
             @Override
@@ -90,10 +92,27 @@ public class PickImageHelper {
                     PickImageActivity.start((Activity) context, requestCode, from, option.outputPath, false, 1,
                             false, true, option.cropOutputImageWidth, option.cropOutputImageHeight);
                 }
-
             }
         });
-
         dialog.show();
+    }
+    /*
+     * 打开图片选择器
+     */
+    public static void pickImage(final Context context, final int requestCode, final PickImageOption option, ToolbarCustomization toolbarCustomization) {
+        if (context == null) {
+            return;
+        }
+        int from = PickImageActivity.FROM_LOCAL;
+        PickImageActivity.start((Activity) context, requestCode, from, option.outputPath, option.multiSelect,
+                option.multiSelectMaxCount, true, false, 0, 0,toolbarCustomization);
+     }
+
+    /**
+     * 打开本地默认图片选择器
+     */
+    public static void pickImageLocal(final Activity activity, final int requestCode) {
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        activity.startActivityForResult(i, requestCode);
     }
 }
