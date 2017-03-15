@@ -1,12 +1,10 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * Created by 郑成裕 on 2017/2/21.
  */
 
-public class RemainingTimeBean extends BaseRequest {
+public class RemainingTimeBean extends BaseRequestBean {
     private String cardNo;
 
 

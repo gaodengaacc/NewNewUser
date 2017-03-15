@@ -1,12 +1,10 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * Created by 郑成裕 on 2017/2/21.
  */
 
-public class FindPasswordBean extends BaseRequest {
+public class FindPasswordBean extends BaseRequestBean {
     private String userName;
     private String verification;
     private String password;

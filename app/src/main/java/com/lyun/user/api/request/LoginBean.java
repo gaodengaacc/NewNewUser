@@ -1,17 +1,14 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * @author 赵尉尉
  * @date 2016/12/20
  */
 
-public class LoginBean extends BaseRequest {
+public class LoginBean extends BaseRequestBean {
 
     private String password;
     private String name;
-    private String userType = "0";
 
     public LoginBean(String name, String password) {
         this.password = password;

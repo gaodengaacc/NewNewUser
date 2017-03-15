@@ -1,12 +1,10 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * Created by ZHAOWEIWEI on 2017/3/1.
  */
 
-public class HeartBeatBean extends BaseRequest {
+public class HeartBeatBean extends BaseRequestBean {
 
     /**
      * userOrderId :订单号
@@ -15,15 +13,10 @@ public class HeartBeatBean extends BaseRequest {
 
     private String userOrderId;
     private String cardNo;
-    /**
-     * 用户类型(0客户 1翻译)
-     */
-    private String userType;
 
-    public HeartBeatBean(String userOrderId, String cardNo, String userType) {
+    public HeartBeatBean(String userOrderId, String cardNo) {
         this.userOrderId = userOrderId;
         this.cardNo = cardNo;
-        this.userType = userType;
     }
 
     public String getUserOrderId() {
@@ -42,11 +35,4 @@ public class HeartBeatBean extends BaseRequest {
         this.cardNo = cardNo;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
 }

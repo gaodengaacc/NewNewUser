@@ -1,14 +1,12 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * @author Gordon
  * @since 2017/2/23
  * do()
  */
 
-public class WalletChargeRecorderBean extends BaseRequest {
+public class WalletChargeRecorderBean extends BaseRequestBean {
     private String cardNo;
     private String pageid;
     private String pagesize;

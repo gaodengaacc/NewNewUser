@@ -1,12 +1,10 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * Created by ZHAOWEIWEI on 2017/3/1.
  */
 
-public class CancelTranslationOrderBean extends BaseRequest {
+public class CancelTranslationOrderBean extends BaseRequestBean {
 
     private String userOrderId;
 

@@ -1,12 +1,10 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * Created by 郑成裕 on 2017/2/15.
  */
 
-public class RegisterBean extends BaseRequest {
+public class RegisterBean extends BaseRequestBean {
     private String name;
     private String password;
 

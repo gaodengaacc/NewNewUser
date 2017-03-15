@@ -1,12 +1,10 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * Created by 郑成裕 on 2017/2/15.
  */
 
-public class RegisterVerifyPhoneBean extends BaseRequest {
+public class RegisterVerifyPhoneBean extends BaseRequestBean {
     private String cardNo;
 
     public RegisterVerifyPhoneBean(String cardNo) {

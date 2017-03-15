@@ -1,12 +1,10 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * Created by ZHAOWEIWEI on 2017/2/16.
  */
 
-public class GenerateOrderRequest extends BaseRequest {
+public class GenerateOrderRequest extends BaseRequestBean {
 
     /**
      * 用户账号

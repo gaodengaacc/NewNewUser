@@ -1,12 +1,10 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * Created by 郑成裕 on 2017/2/20.
  */
 
-public class CheckVerificationBean extends BaseRequest {
+public class CheckVerificationBean extends BaseRequestBean {
     private String name;
     private String verification;
 

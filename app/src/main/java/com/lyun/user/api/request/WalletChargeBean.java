@@ -1,14 +1,12 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * @author Gordon
  * @since 2017/2/22
  * do()
  */
 
-public class WalletChargeBean extends BaseRequest {
+public class WalletChargeBean extends BaseRequestBean {
     private String payType;
     private String handid;
     private String amount;

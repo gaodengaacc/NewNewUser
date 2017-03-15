@@ -1,14 +1,12 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * @author Gordon
  * @since 2017/2/15
  * do()
  */
 
-public class ResetPasswordBean extends BaseRequest {
+public class ResetPasswordBean extends BaseRequestBean {
     private String userName;
     private String password;
     private String newPassword;

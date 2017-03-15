@@ -1,14 +1,12 @@
 package com.lyun.user.api.request;
 
-import com.lyun.api.request.BaseRequest;
-
 /**
  * @author Gordon
  * @since 2017/2/16
  * do()
  */
 
-public class FindByLanguageBean extends BaseRequest{
+public class FindByLanguageBean extends BaseRequestBean{
     private String pageid;
     private String pagesize;
 
