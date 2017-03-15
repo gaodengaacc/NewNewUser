@@ -11,6 +11,7 @@ import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppIntent;
 import com.lyun.user.model.RegisterModel;
+import com.lyun.utils.RegExMatcherUtils;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -52,13 +53,13 @@ public class RegisterViewModel extends ViewModel {
             ObservableNotifier.alwaysNotify(onRegisterResult, "请确认密码!");
         } else if (!(password.get().equals(confirmPassword.get()))) {
             ObservableNotifier.alwaysNotify(onRegisterResult, "两次输入密码不同,请重新输入!");
-        } else if ((password.get().length() < 6) || (password.get().length() > 16)) {
-            ObservableNotifier.alwaysNotify(onRegisterResult, "密码格式不正确,请重新输入!");
+        } else if (!RegExMatcherUtils.matchPassword(password.get())) {
+            ObservableNotifier.alwaysNotify(onRegisterResult, "请正确输入6~16位字母或数字");
         } else {
             register(username.get(), password.get());
         }
-
     });
+
     public RelayCommand onAgreement = new RelayCommand(() -> {
         intent = new Intent(AppIntent.ACTION_AGREEMENT);
         bundle1.putString("agreementType", "register");
