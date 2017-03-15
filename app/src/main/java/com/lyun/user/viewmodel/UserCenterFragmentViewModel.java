@@ -12,6 +12,7 @@ import com.lyun.user.Account;
 import com.lyun.user.AppIntent;
 import com.lyun.user.R;
 import com.lyun.user.model.StatisticsCardNoModel;
+import com.lyun.utils.TimeUtil;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -62,7 +63,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     if (apiResult.isSuccess()) {//获取成功
-                        userTime.set(apiResult.getContent().getUseTime());
+                        userTime.set(TimeUtil.convertMin2Str(apiResult.getContent().getUseTime()));
                         userNum.set(apiResult.getContent().getCallFrequency());
                         userLanguage.set(apiResult.getContent().getLanguages());
                     } else {
@@ -86,7 +87,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
 
     private void init() {
         userName.set("");
-        userTime.set("-- ");
+        userTime.set("-- 分钟");
         userNum.set("-- ");
         userLanguage.set("-- ");
         exitVisible.set(View.VISIBLE);

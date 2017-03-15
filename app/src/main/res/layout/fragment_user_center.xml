@@ -105,13 +105,6 @@
                                     android:text="@{mvvm.userTime}"
                                     android:textColor="@color/tc1"
                                     android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="分钟"
-                                    android:textColor="@color/tc1"
-                                    android:textSize="14sp" />
                             </LinearLayout>
 
 

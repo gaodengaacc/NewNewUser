@@ -42,7 +42,7 @@ public class GuideViewModel extends ViewModel {
     public GuideViewModel(Context context) {
         this.context = context;
         mViewList = new ArrayList<>();
-        initData();
+        initData();//初始化数据
         adapter = new GuidePageAdapter(mViewList);
         pageAdapter.set(adapter);
         pageChange.set(pageChangeListener);
@@ -99,7 +99,7 @@ public class GuideViewModel extends ViewModel {
                     Point size = new Point();
                     windowManager.getDefaultDisplay().getSize(size);
                     int width = size.x;
-                    //首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
+                    //首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，这里的判断距离是屏幕宽度的四分之一（这里可以适当控制）
                     if (currentItem == (mViewList.size() - 1) && startX - endX > 0 && startX - endX >= (width / 4)) {
                         skipResult.notifyChange();
                     }
