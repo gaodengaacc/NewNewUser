@@ -45,7 +45,7 @@ public class CustomNotificationReceiver extends BroadcastReceiver {
 
                 if (mNotificationHandlers.containsKey(type)) {
                     AttachContentHandler handler = mNotificationHandlers.get(type);
-                    handler.handleNotification(new Gson().fromJson(content, handler.getDataType()));
+                    handler.handleNotification(context, new Gson().fromJson(content, handler.getDataType()));
                 }
             } catch (Exception e) {
                 L.e(getClass().getSimpleName(), e);

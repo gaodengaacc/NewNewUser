@@ -18,6 +18,8 @@ public class TranslationOrder implements Serializable {
     private long endTime;
     private String userId;
     private String translatorId;
+    private String finishReason;
+    private int whoFinish;
 
     public static final String ORDER_ID = "orderId";
     public static final String ORDER_TYPE = "orderType";
@@ -27,6 +29,12 @@ public class TranslationOrder implements Serializable {
     public static final String END_TIME = "endTime";
     public static final String USER_ID = "userId";
     public static final String TRANSLATOR_ID = "translatorId";
+    public static final String FINISH_REASON = "finishReason";
+    public static final String WHO_FINISH = "whoFinish";
+
+    public static final int USER = 0;
+    public static final int TRANSLATOR = 1;
+    public static final int OTHER = 2;
 
     public TranslationOrder(String orderId, TranslationOrderModel.OrderType orderType, String targetLanguage, long startTime, String userId, String translatorId) {
         this.orderId = orderId;
@@ -99,5 +107,21 @@ public class TranslationOrder implements Serializable {
 
     public void setTranslatorId(String translatorId) {
         this.translatorId = translatorId;
+    }
+
+    public String getFinishReason() {
+        return finishReason;
+    }
+
+    public void setFinishReason(String finishReason) {
+        this.finishReason = finishReason;
+    }
+
+    public int getWhoFinish() {
+        return whoFinish;
+    }
+
+    public void setWhoFinish(int whoFinish) {
+        this.whoFinish = whoFinish;
     }
 }

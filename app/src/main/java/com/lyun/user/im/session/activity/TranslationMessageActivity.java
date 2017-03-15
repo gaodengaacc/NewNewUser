@@ -44,19 +44,23 @@ import com.netease.nim.uikit.uinfo.UserInfoHelper;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
+import com.netease.nimlib.sdk.avchat.AVChatStateObserver;
 import com.netease.nimlib.sdk.avchat.constant.AVChatEventType;
 import com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
+import com.netease.nimlib.sdk.avchat.model.AVChatAudioFrame;
 import com.netease.nimlib.sdk.avchat.model.AVChatCalleeAckEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatCommonEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatNotifyOption;
 import com.netease.nimlib.sdk.avchat.model.AVChatOptionalConfig;
+import com.netease.nimlib.sdk.avchat.model.AVChatVideoFrame;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.NET_BROKEN_TIMEOUT;
 
@@ -82,7 +86,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(com.netease.nim.uikit.R.id.message_fragment_container, getMessageFragment());
         ft.add(com.netease.nim.uikit.R.id.message_fragment_container, getTranslationAudioMessageFragment());
-        ft.commit();
+        ft.commitAllowingStateLoss();
 
         currentNormalMode = true;
 
@@ -242,7 +246,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             ft.hide(mCurrentFragment);
         }
         ft.show(fragment);
-        ft.commit();
+        ft.commitAllowingStateLoss();
         mCurrentFragment = fragment;
         return fragment;
     }
@@ -274,7 +278,31 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     private BroadcastReceiver mTranslationOrderFinishReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            finish();
+
+            int whoFinish = intent.getIntExtra(TranslationOrder.WHO_FINISH, TranslationOrder.OTHER);
+
+            if (whoFinish == TranslationOrder.USER) {
+                finish();
+                return;
+            }
+
+            SimpleDialogViewModel viewModel = new SimpleDialogViewModel(TranslationMessageActivity.this);
+            viewModel.setInfo(whoFinish == TranslationOrder.TRANSLATOR ? "对方主动挂断" : "异常挂断");
+            viewModel.setYesBtnText("确定");
+            viewModel.setBtnCancelVisibility(View.GONE);
+            viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
+                @Override
+                public void OnYesClick(View view) {
+                    finish();
+                }
+
+                @Override
+                public void OnCancelClick(View view) {
+
+                }
+
+            });
+            viewModel.show();
         }
     };
 
@@ -311,7 +339,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
                 if (AVChatProfile.getInstance().isAVChatting()) {
                     hangUpAudioCall(true);
                 } else {
-                    TranslationOrderService.stop(TranslationMessageActivity.this);
+                    TranslationOrderService.stop(TranslationMessageActivity.this, TranslationOrder.USER, "用户挂断");
                 }
             }
 
@@ -383,6 +411,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         AVChatManager.getInstance().observeHangUpNotification(mAVChatCallHangupObserver, true);
         // 监听呼叫或接听超时通知
         AVChatManager.getInstance().observeTimeoutNotification(mAVChatCallTimeoutObserver, true);
+        // 通话状态监听
+        AVChatManager.getInstance().observeAVChatState(mAVChatStateObserver, true);
     }
 
     protected void unregisterAVChatListeners() {
@@ -390,6 +420,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         AVChatManager.getInstance().observeCalleeAckNotification(mAVChatCallAckObserver, false);
         AVChatManager.getInstance().observeHangUpNotification(mAVChatCallHangupObserver, false);
         AVChatManager.getInstance().observeTimeoutNotification(mAVChatCallTimeoutObserver, false);
+        AVChatManager.getInstance().observeAVChatState(mAVChatStateObserver, false);
     }
 
     /**
@@ -485,29 +516,30 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             @Override
             public void onSuccess(Void aVoid) {
                 L.i("AVChat", "语音挂断成功");
-                onAudioHangUp(stopServiceOnHangUp);
+                onAudioHangUp(stopServiceOnHangUp, TranslationOrder.USER, "用户挂断");
             }
 
             @Override
             public void onFailed(int code) {
                 L.i("AVChat", "语音挂断失败，Code:" + code);
-                onAudioHangUp(stopServiceOnHangUp);
+                onAudioHangUp(stopServiceOnHangUp, TranslationOrder.USER, "用户挂断");
             }
 
             @Override
             public void onException(Throwable exception) {
                 L.i("AVChat", "语音挂断失败", exception);
-                onAudioHangUp(stopServiceOnHangUp);
+                onAudioHangUp(stopServiceOnHangUp, TranslationOrder.USER, "用户挂断");
             }
         });
     }
 
-    protected void onAudioHangUp(boolean stopServiceOnHangUp) {
+    protected void onAudioHangUp(boolean stopServiceOnHangUp, int whoHangUp, String reason) {
         AVChatProfile.getInstance().setAVChatting(false);
         // 切换到图文模式
-        runOnUiThread(() -> changeToNormalChatMode());
         if (stopServiceOnHangUp) {
-            TranslationOrderService.stop(this);
+            TranslationOrderService.stop(this, whoHangUp, reason);
+        } else {
+            runOnUiThread(() -> changeToNormalChatMode());
         }
     }
 
@@ -553,8 +585,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
      */
     Observer<AVChatCommonEvent> mAVChatCallHangupObserver = (Observer<AVChatCommonEvent>) hangUpInfo -> {
         // 结束通话
+        L.i("AVChat", "语音聊天被挂断 hangUpInfo -> " + hangUpInfo);
         if (hangUpInfo.getEvent() == AVChatEventType.PEER_HANG_UP) {
-            onAudioHangUp(true);
+            onAudioHangUp(true, TranslationOrder.TRANSLATOR, "翻译主动挂断");
         }
     };
 
@@ -564,6 +597,136 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
      */
     Observer<AVChatTimeOutEvent> mAVChatCallTimeoutObserver = (Observer<AVChatTimeOutEvent>) event -> {
         // 超时类型
-        onAudioHangUp(event == NET_BROKEN_TIMEOUT);
+        L.i("AVChat", "语音聊天中断：event -> " + event);
+        onAudioHangUp(event == NET_BROKEN_TIMEOUT, TranslationOrder.OTHER, "网络超时");
+    };
+
+    /**
+     * 通话状态监听
+     */
+    AVChatStateObserver mAVChatStateObserver = new AVChatStateObserver() {
+        @Override
+        public void onTakeSnapshotResult(String account, boolean success, String file) {
+            L.i("AVChat", "onTakeSnapshotResult");
+        }
+
+        @Override
+        public void onConnectionTypeChanged(int netType) {
+            L.i("AVChat", "onConnectionTypeChanged");
+        }
+
+        @Override
+        public void onLocalRecordEnd(String[] files, int event) {
+            L.i("AVChat", "onLocalRecordEnd");
+        }
+
+        @Override
+        public void onFirstVideoFrameAvailable(String account) {
+            L.i("AVChat", "onFirstVideoFrameAvailable");
+        }
+
+        @Override
+        public void onVideoFpsReported(String account, int fps) {
+            L.i("AVChat", "onVideoFpsReported");
+        }
+
+        @Override
+        public void onJoinedChannel(int code, String audioFile, String videoFile) {
+            L.i("AVChat", "onJoinedChannel");
+        }
+
+        @Override
+        public void onLeaveChannel() {
+            L.i("AVChat", "onLeaveChannel");
+        }
+
+        @Override
+        public void onUserJoined(String account) {
+            L.i("AVChat", "onUserJoined");
+        }
+
+        /**
+         * @param account
+         * @param event －1,用户超时离开  0,正常退出
+         */
+        @Override
+        public void onUserLeave(String account, int event) {
+            L.i("AVChat", "onUserLeave account -> " + account + " event -> " + event);
+            if (event == -1) {
+                onAudioHangUp(true, TranslationOrder.OTHER, "网络超时");
+            }
+        }
+
+        @Override
+        public void onProtocolIncompatible(int status) {
+            L.i("AVChat", "onProtocolIncompatible");
+        }
+
+        @Override
+        public void onDisconnectServer() {
+            L.i("AVChat", "onDisconnectServer");
+        }
+
+        @Override
+        public void onNetworkQuality(String user, int value) {
+            L.i("AVChat", "onNetworkQuality");
+        }
+
+        @Override
+        public void onCallEstablished() {
+            L.i("AVChat", "onCallEstablished");
+        }
+
+        @Override
+        public void onDeviceEvent(int code, String desc) {
+            L.i("AVChat", "onDeviceEvent");
+        }
+
+        @Override
+        public void onFirstVideoFrameRendered(String user) {
+            L.i("AVChat", "onFirstVideoFrameRendered");
+        }
+
+        @Override
+        public void onVideoFrameResolutionChanged(String user, int width, int height, int rotate) {
+            L.i("AVChat", "onVideoFrameResolutionChanged");
+        }
+
+        @Override
+        public int onVideoFrameFilter(AVChatVideoFrame frame) {
+            L.i("AVChat", "onVideoFrameFilter");
+            return 0;
+        }
+
+        @Override
+        public int onAudioFrameFilter(AVChatAudioFrame frame) {
+            L.i("AVChat", "onAudioFrameFilter");
+            return 0;
+        }
+
+        @Override
+        public void onAudioOutputDeviceChanged(int device) {
+            L.i("AVChat", "onAudioOutputDeviceChanged");
+        }
+
+        @Override
+        public void onReportSpeaker(Map<String, Integer> speakers, int mixedEnergy) {
+            L.i("AVChat", "onReportSpeaker");
+        }
+
+        @Override
+        public void onStartLiveResult(int code) {
+            L.i("AVChat", "onStartLiveResult");
+        }
+
+        @Override
+        public void onStopLiveResult(int code) {
+            L.i("AVChat", "onStopLiveResult");
+        }
+
+        @Override
+        public void onAudioMixingEvent(int event) {
+            L.i("AVChat", "onAudioMixingEvent");
+        }
     };
 }

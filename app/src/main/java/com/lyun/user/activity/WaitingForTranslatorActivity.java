@@ -77,7 +77,7 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
                 SessionHelper.startTranslationSession(WaitingForTranslatorActivity.this, account, userOrderId, orderType, targetLanguage);
                 finish();
             } else {
-                stopService(new Intent(getApplicationContext(), TranslationOrderService.class));
+                TranslationOrderService.stop(context, TranslationOrder.OTHER, "非当前订单，终止该异常订单");
             }
         }
     };

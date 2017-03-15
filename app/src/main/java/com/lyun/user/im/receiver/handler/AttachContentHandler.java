@@ -1,5 +1,7 @@
 package com.lyun.user.im.receiver.handler;
 
+import android.content.Context;
+
 import java.lang.reflect.Type;
 
 /**
@@ -8,7 +10,7 @@ import java.lang.reflect.Type;
 
 public interface AttachContentHandler<T> {
 
-    void handleNotification(T data);
+    void handleNotification(Context context, T data);
 
     Type getDataType();
 

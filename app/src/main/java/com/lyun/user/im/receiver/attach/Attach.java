@@ -34,5 +34,7 @@ public class Attach<T> implements Serializable {
 
     public static class Type {
         public final static int TRANSLATION_ORDER_START = 1;
+        public final static int TRANSLATION_ORDER_FINISH_BY_USER = 2;
+        public final static int TRANSLATION_ORDER_FINISH_BY_TRANSLATOR = 3;
     }
 }

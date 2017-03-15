@@ -1,10 +1,11 @@
 package com.lyun.user.im.receiver.handler;
 
-import android.content.Intent;
+import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
-import com.lyun.user.AppApplication;
+import com.lyun.user.im.receiver.attach.Attach;
 import com.lyun.user.im.receiver.attach.TranslationOrderFinish;
+import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.service.TranslationOrderService;
 
 import java.lang.reflect.Type;
@@ -16,9 +17,8 @@ import java.lang.reflect.Type;
 public class TranslationOrderFinishByTranslatorHandler implements AttachContentHandler<TranslationOrderFinish> {
 
     @Override
-    public void handleNotification(TranslationOrderFinish data) {
-        Intent intent = new Intent(AppApplication.getInstance(), TranslationOrderService.class);
-        AppApplication.getInstance().stopService(intent);
+    public void handleNotification(Context context, TranslationOrderFinish data) {
+        TranslationOrderService.stop(context, TranslationOrder.TRANSLATOR, "翻译中断了本次服务");
     }
 
     @Override
@@ -29,7 +29,7 @@ public class TranslationOrderFinishByTranslatorHandler implements AttachContentH
 
     @Override
     public int getHandleType() {
-        return 3;
+        return Attach.Type.TRANSLATION_ORDER_FINISH_BY_TRANSLATOR;
     }
 
 }

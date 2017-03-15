@@ -1,5 +1,7 @@
 package com.lyun.user.im.receiver.handler;
 
+import android.content.Context;
+
 import com.google.gson.reflect.TypeToken;
 import com.lyun.user.Account;
 import com.lyun.user.AppApplication;
@@ -17,8 +19,8 @@ import java.lang.reflect.Type;
 public class TranslationOrderStartHandler implements AttachContentHandler<TranslationOrderStart> {
 
     @Override
-    public void handleNotification(TranslationOrderStart data) {
-        TranslationOrderService.start(AppApplication.getInstance(),
+    public void handleNotification(Context context, TranslationOrderStart data) {
+        TranslationOrderService.start(context,
                 data.getUserOrderId(), null,
                 TranslationOrderModel.OrderType.MESSAGE,
                 data.getOrderHand(),
