@@ -28,12 +28,14 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
     protected int getContentLayoutId() {
         return R.layout.activity_main;
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        if(getIntent().getBooleanExtra("isFromResetPassword",false)){
-            ObservableNotifier.alwaysNotify(getActivityViewModel().selectIndex,0);
-        };
+        if (getIntent().getBooleanExtra("isFromResetPassword", false)) {
+            ObservableNotifier.alwaysNotify(getActivityViewModel().selectIndex, 0);
+        }
+        ;
     }
 }

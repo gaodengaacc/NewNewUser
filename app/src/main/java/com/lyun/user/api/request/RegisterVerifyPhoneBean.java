@@ -6,10 +6,20 @@ package com.lyun.user.api.request;
 
 public class RegisterVerifyPhoneBean extends BaseRequestBean {
     private String cardNo;
+    private String status;
 
-    public RegisterVerifyPhoneBean(String cardNo) {
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public RegisterVerifyPhoneBean(String cardNo, String status) {
         this.cardNo = cardNo;
+        this.status = status;
+
     }
 
     public String getCardNo() {

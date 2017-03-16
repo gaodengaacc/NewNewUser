@@ -31,6 +31,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     private TimeCount timeCount = new TimeCount(60000, 1000);//设置获取验证码的倒计时
     private Intent intent;
     private Bundle bundle = new Bundle();
+    private String status = "2";
 
     @WatchThis
     public final ObservableField<Intent> onVerifySuccess = new ObservableField<>();//验证成功
@@ -49,12 +50,11 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号!");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号");
         } else {
-            timeCount.start();
-            getSmsCode(username.get());
+            getSmsCode(username.get(), status);
         }
     });
 
@@ -63,11 +63,14 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
      *
      * @param username
      */
-    private void getSmsCode(String username) {
-        new RegisterVerifyPhoneModel().getSmsCode(username)
+    private void getSmsCode(String username, String status) {
+        new RegisterVerifyPhoneModel().getSmsCode(username, status)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
-                    if (!apiResult.isSuccess()) {
+                    if (apiResult.isSuccess()) {
+                        ObservableNotifier.alwaysNotify(onVerifyResult, apiResult.getDescribe());
+                        timeCount.start();
+                    } else {
                         ObservableNotifier.alwaysNotify(onVerifyResult, apiResult.getDescribe());
                     }
                 });
@@ -75,11 +78,11 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
     public RelayCommand onNextButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号!");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码!");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码");
         } else {
             intent = new Intent(AppIntent.ACTION_REGISTER);
             bundle.putString("username", username.get());
