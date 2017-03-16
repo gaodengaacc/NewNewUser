@@ -14,8 +14,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class RegisterVerifyPhoneModel extends Model {
-    public Observable<APIResult> getSmsCode(String cardNo) {
-        RegisterVerifyPhoneBean bean = new RegisterVerifyPhoneBean(cardNo);
+    public Observable<APIResult> getSmsCode(String cardNo,String status) {
+        RegisterVerifyPhoneBean bean = new RegisterVerifyPhoneBean(cardNo,status);
         return API.auth.getSmsCode(bean)
                 .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())

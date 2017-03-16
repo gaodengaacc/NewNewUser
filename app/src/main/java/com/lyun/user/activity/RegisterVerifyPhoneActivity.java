@@ -52,7 +52,7 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
 
     @Override
     public void onSuccess(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "验证成功!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.getInstance(), "验证成功", Toast.LENGTH_SHORT).show();
     }
 
     @Override
