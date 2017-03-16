@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lyun.user.R;
+import com.lyun.user.im.NimCache;
 import com.lyun.user.im.avchat.constant.CallStateEnum;
 import com.netease.nim.uikit.common.util.sys.ScreenUtil;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
@@ -188,10 +189,14 @@ public class AVChatSurface {
         largeAccount = account;
         findViews();
         /**
-         * 获取视频SurfaceView，加入到自己的布局中，用于呈现视频图像
+         * 设置画布，加入到自己的布局中，用于呈现视频图像
          * account 要显示视频的用户帐号
          */
-        AVChatManager.getInstance().setupVideoRender(account, largeRender, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        if (NimCache.getAccount().equals(account)) {
+            AVChatManager.getInstance().setupLocalVideoRender(largeRender, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        } else {
+            AVChatManager.getInstance().setupRemoteVideoRender(account, largeRender, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        }
         addIntoLargeSizePreviewLayout(largeRender);
 
     }
@@ -207,10 +212,14 @@ public class AVChatSurface {
         findViews();
 
         /**
-         * 获取视频SurfaceView，加入到自己的布局中，用于呈现视频图像
+         * 设置画布，加入到自己的布局中，用于呈现视频图像
          * account 要显示视频的用户帐号
          */
-        AVChatManager.getInstance().setupVideoRender(account, smallRender, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        if (NimCache.getAccount().equals(account)) {
+            AVChatManager.getInstance().setupLocalVideoRender(smallRender, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        } else {
+            AVChatManager.getInstance().setupRemoteVideoRender(account, smallRender, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        }
         addIntoSmallSizePreviewLayout(smallRender);
 
     }
@@ -226,8 +235,9 @@ public class AVChatSurface {
             ((ViewGroup) surfaceView.getParent()).removeView(surfaceView);
         largeSizePreviewLayout.addView(surfaceView);
         surfaceView.setZOrderMediaOverlay(false);
-        if (manager.getCallingState() == CallStateEnum.VIDEO)
+        if (manager.getCallingState() == CallStateEnum.VIDEO || manager.getCallingState() == CallStateEnum.OUTGOING_VIDEO_CALLING) {
             largeSizePreviewCoverLayout.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -318,6 +328,9 @@ public class AVChatSurface {
      * @param closeType
      */
     private void showNotificationLayout(int closeType) {
+        if(largeSizePreviewCoverLayout == null) {
+            return;
+        }
         TextView textView = (TextView) largeSizePreviewCoverLayout;
         switch (closeType) {
             case PEER_CLOSE_CAMERA:
@@ -353,15 +366,22 @@ public class AVChatSurface {
     private void switchRender(String user1, String user2) {
 
         //先取消用户的画布
-        AVChatManager.getInstance().setupVideoRender(user1, null, false, 0);
-        AVChatManager.getInstance().setupVideoRender(user2, null, false, 0);
-
+        if (NimCache.getAccount().equals(user1)) {
+            AVChatManager.getInstance().setupLocalVideoRender(null, false, 0);
+        } else {
+            AVChatManager.getInstance().setupRemoteVideoRender(user1, null, false, 0);
+        }
+        if (NimCache.getAccount().equals(user2)) {
+            AVChatManager.getInstance().setupLocalVideoRender(null, false, 0);
+        } else {
+            AVChatManager.getInstance().setupRemoteVideoRender(user2, null, false, 0);
+        }
         //交换画布
         //如果存在多个用户,建议用Map维护account,render关系.
         //目前只有两个用户,并且认为这两个account肯定是对的
         AVChatVideoRender render1;
         AVChatVideoRender render2;
-        if (user1.equals(smallAccount)) {
+        if(user1.equals(smallAccount)) {
             render1 = largeRender;
             render2 = smallRender;
         } else {
@@ -370,8 +390,16 @@ public class AVChatSurface {
         }
 
         //重新设置上画布
-        AVChatManager.getInstance().setupVideoRender(user1, render1, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
-        AVChatManager.getInstance().setupVideoRender(user2, render2, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        if (user1 == NimCache.getAccount()) {
+            AVChatManager.getInstance().setupLocalVideoRender(render1, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        } else {
+            AVChatManager.getInstance().setupRemoteVideoRender(user1, render1, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        }
+        if (user2 == NimCache.getAccount()) {
+            AVChatManager.getInstance().setupLocalVideoRender(render2, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        } else {
+            AVChatManager.getInstance().setupRemoteVideoRender(user2, render2, false, AVChatVideoScalingType.SCALE_ASPECT_BALANCED);
+        }
     }
 
     /**

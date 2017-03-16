@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +18,7 @@ import com.lyun.user.im.avchat.AVChatProfile;
 import com.lyun.user.im.avchat.activity.AVChatActivity;
 import com.lyun.user.im.config.preference.UserPreferences;
 import com.lyun.user.im.contact.activity.AddFriendActivity;
-import com.lyun.user.im.login.NimLoginHelper;
+import com.lyun.user.im.login.NimLogoutHelper;
 import com.lyun.user.im.main.fragment.HomeFragment;
 import com.lyun.user.im.main.model.Extras;
 import com.lyun.user.im.session.SessionHelper;
@@ -30,6 +31,7 @@ import com.netease.nim.uikit.contact_selector.activity.ContactSelectActivity;
 import com.netease.nim.uikit.permission.MPermission;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionNeverAskAgain;
 import com.netease.nim.uikit.team.helper.TeamHelper;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.NimIntent;
@@ -114,8 +116,8 @@ public class MainActivity extends UI {
     /**
      * 若增加第三方推送免打扰（V3.2.0新增功能），则：
      * 1.添加下面逻辑使得 push 免打扰与先前的设置同步。
-     * 2.设置界面{@link SettingsActivity} 以及
-     * 免打扰设置界面{@link NoDisturbActivity} 也应添加 push 免打扰的逻辑
+     * 2.设置界面{@link com.lyun.user.im.main.activity.SettingsActivity} 以及
+     * 免打扰设置界面{@link com.lyun.user.im.main.activity.NoDisturbActivity} 也应添加 push 免打扰的逻辑
      * <p>
      * 注意：isPushDndValid 返回 false， 表示未设置过push 免打扰。
      */
@@ -132,34 +134,40 @@ public class MainActivity extends UI {
     /**
      * 基本权限管理
      */
+    private final String[] BASIC_PERMISSIONS = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+
     private void requestBasicPermission() {
+        MPermission.printMPermissionResult(true, this, BASIC_PERMISSIONS);
         MPermission.with(MainActivity.this)
-                .addRequestCode(BASIC_PERMISSION_REQUEST_CODE)
-                .permissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                )
+                .setRequestCode(BASIC_PERMISSION_REQUEST_CODE)
+                .permissions(BASIC_PERMISSIONS)
                 .request();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         MPermission.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
     @OnMPermissionGranted(BASIC_PERMISSION_REQUEST_CODE)
     public void onBasicPermissionSuccess() {
         Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+        MPermission.printMPermissionResult(false, this, BASIC_PERMISSIONS);
     }
 
     @OnMPermissionDenied(BASIC_PERMISSION_REQUEST_CODE)
+    @OnMPermissionNeverAskAgain(BASIC_PERMISSION_REQUEST_CODE)
     public void onBasicPermissionFailed() {
-        Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "未全部授权，部分功能可能无法正常运行！", Toast.LENGTH_SHORT).show();
+        MPermission.printMPermissionResult(false, this, BASIC_PERMISSIONS);
     }
 
     private void onInit() {
@@ -219,7 +227,7 @@ public class MainActivity extends UI {
                 NimUIKit.startContactSelect(MainActivity.this, advancedOption, REQUEST_CODE_ADVANCED);
                 break;
             case R.id.search_advanced_team:
-                //AdvancedTeamSearchActivity.start(MainActivity.this);
+                // AdvancedTeamSearchActivity.start(MainActivity.this);
                 break;
             case R.id.add_buddy:
                 AddFriendActivity.start(MainActivity.this);
@@ -279,13 +287,13 @@ public class MainActivity extends UI {
             if (requestCode == REQUEST_CODE_NORMAL) {
                 final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
                 if (selected != null && !selected.isEmpty()) {
-                    //TeamCreateHelper.createNormalTeam(MainActivity.this, selected, false, null);
+                    // TeamCreateHelper.createNormalTeam(MainActivity.this, selected, false, null);
                 } else {
                     Toast.makeText(MainActivity.this, "请选择至少一个联系人！", Toast.LENGTH_SHORT).show();
                 }
             } else if (requestCode == REQUEST_CODE_ADVANCED) {
                 final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
-                //TeamCreateHelper.createAdvancedTeam(MainActivity.this, selected);
+                // TeamCreateHelper.createAdvancedTeam(MainActivity.this, selected);
             }
         }
 
@@ -294,7 +302,7 @@ public class MainActivity extends UI {
     // 注销
     private void onLogout() {
         // 清理缓存&注销监听
-        NimLoginHelper.logout();
+        NimLogoutHelper.logout();
 
         // 启动登录
         LoginActivity.start(this, false);

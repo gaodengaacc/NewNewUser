@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.R;
@@ -33,6 +32,7 @@ import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.string.StringUtil;
 import com.netease.nim.uikit.recent.AitHelper;
+import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.actions.BaseAction;
 import com.netease.nim.uikit.session.emoji.EmoticonPickerView;
 import com.netease.nim.uikit.session.emoji.IEmoticonSelectedListener;
@@ -54,7 +54,6 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -116,7 +115,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     public InputPanel(Container container, View view, List<BaseAction> actions, boolean isTextAudioSwitchShow) {
         this.container = container;
         this.view = view;
-        this.actions = actions == null ? new ArrayList<BaseAction>() : actions;
+        this.actions = actions;
         this.uiHandler = new Handler();
         this.isTextAudioSwitchShow = isTextAudioSwitchShow;
         init();
@@ -163,15 +162,6 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         this.customization = customization;
         if (customization != null) {
             emoticonPickerView.setWithSticker(customization.isWithSticker());
-            // 语音输入按钮
-            switchToAudioButtonInInputBar.setVisibility(customization.isShowAudioInputBar() ? View.VISIBLE : View.GONE);
-            switchToTextButtonInInputBar.setVisibility(customization.isShowAudioInputBar() ? View.VISIBLE : View.GONE);
-            // 表情输入按钮
-            emojiButtonInInputBar.setVisibility(customization.isShowEmojiInputBar() ? View.VISIBLE : View.GONE);
-            // 输入框背景
-            if (customization.getMsgInputBoxBackgroud() != 0) {
-                messageEditText.setBackgroundResource(customization.getMsgInputBoxBackgroud());
-            }
         }
     }
 
@@ -305,8 +295,6 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
 
             JsonObject json = new JsonObject();
             json.addProperty("id", "1");
-            JsonArray jsonArray = new JsonArray();
-            jsonArray.add(json);
             command.setContent(json.toString());
 
             NIMClient.getService(MsgService.class).sendCustomNotification(command);
@@ -343,10 +331,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         audioRecordBtn.setVisibility(View.GONE);
         messageEditText.setVisibility(View.VISIBLE);
         switchToTextButtonInInputBar.setVisibility(View.GONE);
-        // 如果定制显示语音输入再显示
-        if (customization.isShowAudioInputBar()) {
-            switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
-        }
+        switchToAudioButtonInInputBar.setVisibility(View.VISIBLE);
 
         messageInputBar.setVisibility(View.VISIBLE);
 
@@ -603,7 +588,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
                     touched = false;
                     onEndAudioRecord(isCancelled(v, event));
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    touched = false;
+                    touched = true;
                     cancelAudioRecord(isCancelled(v, event));
                 }
 
@@ -640,23 +625,8 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     private void onStartAudioRecord() {
         container.activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        started = audioMessageHelper.startRecord();
+        audioMessageHelper.startRecord();
         cancelled = false;
-        if (started == false) {
-            Toast.makeText(container.activity, R.string.recording_init_failed, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!touched) {
-            return;
-        }
-
-        audioRecordBtn.setText(R.string.record_audio_end);
-        audioRecordBtn.setBackgroundResource(R.drawable.nim_message_input_edittext_box_pressed);
-
-        updateTimerTip(false); // 初始化语音动画状态
-        playAudioRecordAnim();
     }
 
     /**
@@ -665,6 +635,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
      * @param cancel
      */
     private void onEndAudioRecord(boolean cancel) {
+        started = false;
         container.activity.getWindow().setFlags(0, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         audioMessageHelper.completeRecord(cancel);
@@ -733,7 +704,16 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
 
     @Override
     public void onRecordStart(File audioFile, RecordType recordType) {
+        started = true;
+        if (!touched) {
+            return;
+        }
 
+        audioRecordBtn.setText(R.string.record_audio_end);
+        audioRecordBtn.setBackgroundResource(R.drawable.nim_message_input_edittext_box_pressed);
+
+        updateTimerTip(false); // 初始化语音动画状态
+        playAudioRecordAnim();
     }
 
     @Override
@@ -744,7 +724,9 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
 
     @Override
     public void onRecordFail() {
-
+        if (started) {
+            Toast.makeText(container.activity, R.string.recording_error, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

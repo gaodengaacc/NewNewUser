@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import com.lyun.user.R;
-import com.lyun.user.activity.SplashActivity;
 import com.lyun.user.im.avchat.activity.AVChatActivity;
+import com.lyun.user.im.main.activity.WelcomeActivity;
 import com.lyun.user.im.main.model.Extras;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.session.activity.P2PMessageActivity;
@@ -59,7 +59,7 @@ public class AVChatNotification {
 
     private void buildMissCallNotification() {
         if (missCallNotification == null) {
-            Intent notifyIntent = new Intent(context, SplashActivity.class);
+            Intent notifyIntent = new Intent(context, WelcomeActivity.class);
             Intent data = new Intent(context, P2PMessageActivity.class);
             data.putExtra(Extras.EXTRA_ACCOUNT, account);
             data.putExtra(Extras.EXTRA_FROM, Extras.EXTRA_FROM_NOTIFICATION);

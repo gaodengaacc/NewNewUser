@@ -554,18 +554,13 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_AGREE) {
             // 对方同意接听
             L.i("AVChat", "对方同意接听");
-            if (ackInfo.isDeviceReady()) {
-                // 设备初始化成功，开始通话
-                L.i("AVChat", "设备初始化成功，开始通话");
-                AVChatProfile.getInstance().setAVChatting(true);
-                AVChatManager.getInstance().muteRemoteAudio(sessionId, false);
-                AVChatManager.getInstance().muteLocalAudio(false);
-                // 切换到语音聊天界面
-                runOnUiThread(() -> changeToAudioChatMode());
-            } else {
-                // 设备初始化失败，无法进行通话
-                L.e("AVChat", "设备初始化失败，无法进行通话");
-            }
+            // 设备初始化成功，开始通话
+            L.i("AVChat", "设备初始化成功，开始通话");
+            AVChatProfile.getInstance().setAVChatting(true);
+            AVChatManager.getInstance().muteRemoteAudio(sessionId, false);
+            AVChatManager.getInstance().muteLocalAudio(false);
+            // 切换到语音聊天界面
+            runOnUiThread(() -> changeToAudioChatMode());
         }
         dismissProgress();
     };
@@ -603,12 +598,22 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
         @Override
         public void onConnectionTypeChanged(int netType) {
-            L.i("AVChat", "onConnectionTypeChanged");
+            L.i("AVChat", "onConnectionTypeChanged netType -> " + netType);
         }
 
         @Override
-        public void onLocalRecordEnd(String[] files, int event) {
-            L.i("AVChat", "onLocalRecordEnd");
+        public void onAVRecordingCompletion(String account, String filePath) {
+            L.i("AVChat", "onAVRecordingCompletion");
+        }
+
+        @Override
+        public void onAudioRecordingCompletion(String filePath) {
+            L.i("AVChat", "onAudioRecordingCompletion");
+        }
+
+        @Override
+        public void onLowStorageSpaceWarning(long availableSize) {
+            L.i("AVChat", "onLowStorageSpaceWarning");
         }
 
         @Override
@@ -684,20 +689,20 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         }
 
         @Override
-        public int onVideoFrameFilter(AVChatVideoFrame frame) {
+        public boolean onVideoFrameFilter(AVChatVideoFrame frame) {
             L.i("AVChat", "onVideoFrameFilter");
-            return 0;
+            return true;
         }
 
         @Override
-        public int onAudioFrameFilter(AVChatAudioFrame frame) {
+        public boolean onAudioFrameFilter(AVChatAudioFrame frame) {
             L.i("AVChat", "onAudioFrameFilter");
-            return 0;
+            return true;
         }
 
         @Override
-        public void onAudioOutputDeviceChanged(int device) {
-            L.i("AVChat", "onAudioOutputDeviceChanged");
+        public void onAudioDeviceChanged(int device) {
+            L.i("AVChat", "onAudioDeviceChanged");
         }
 
         @Override
