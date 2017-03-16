@@ -2,6 +2,7 @@ package com.netease.nim.uikit.common.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +41,7 @@ public abstract class UI extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         LogUtil.ui("activity: " + getClass().getSimpleName() + " onCreate()");
     }
