@@ -39,7 +39,7 @@ public class FindPasswordActivity extends GeneralToolbarActivity<ActivityFindPas
 
     @Override
     public void onFindPasswordSuccess(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "修改成功!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.getInstance(), "修改成功", Toast.LENGTH_SHORT).show();
         finish();
     }
 
