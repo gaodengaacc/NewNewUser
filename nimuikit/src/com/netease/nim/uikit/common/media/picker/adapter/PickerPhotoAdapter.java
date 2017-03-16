@@ -93,7 +93,7 @@ public class PickerPhotoAdapter extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		
+
 		if(isMutiMode){
 			viewHolder.selectHotPot.setVisibility(View.VISIBLE);
 		}else{
@@ -120,7 +120,7 @@ public class PickerPhotoAdapter extends BaseAdapter {
 							R.string.picker_image_exceed_max_image_select), maxSelectSize), Toast.LENGTH_SHORT).show();
 					return;
 				}
-				
+
 				refreshView(position);
 				onPhotoSelectClickListener.onPhotoSelectClick(photo);
 			}

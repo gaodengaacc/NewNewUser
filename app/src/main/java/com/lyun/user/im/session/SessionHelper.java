@@ -166,7 +166,7 @@ public class SessionHelper {
             inputPanelCustomization.setShowEmojiInputBar(false);
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
-            actions.add(new ImageAction());
+            actions.add(new ImageAction(toolbarCustomization));
             inputPanelCustomization.setActions(actions);
             inputPanelCustomization.setWithSticker(false);
             inputPanelCustomization.setMsgInputBoxBackgroud(R.drawable.message_input_edittext_bg);

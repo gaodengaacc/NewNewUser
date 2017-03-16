@@ -2,9 +2,12 @@ package com.netease.nim.uikit.common.media.picker.activity;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,7 +23,9 @@ import com.netease.nim.uikit.common.media.picker.loader.PickerlImageLoadTool;
 import com.netease.nim.uikit.common.media.picker.model.AlbumInfo;
 import com.netease.nim.uikit.common.media.picker.model.PhotoInfo;
 import com.netease.nim.uikit.common.media.picker.model.PickerContract;
+import com.netease.nim.uikit.common.util.sys.ScreenUtil;
 import com.netease.nim.uikit.model.ToolBarOptions;
+import com.netease.nim.uikit.session.ToolbarCustomization;
 import com.netease.nim.uikit.session.constant.Extras;
 import com.netease.nim.uikit.session.constant.RequestCode;
 
@@ -59,15 +64,12 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 	private int mutiSelectLimitSize;
 	
 	private boolean isAlbumPage;
+	private ToolbarCustomization toolbarCustomization;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nim_picker_album_activity);
-
-		ToolBarOptions options = new ToolBarOptions();
-		setToolBar(R.id.toolbar, options);
-
 		proceedExtra();
 		initActionBar();
 		initUI();
@@ -78,14 +80,46 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 		if(intent != null){
 			isMutiMode = intent.getBooleanExtra(Extras.EXTRA_MUTI_SELECT_MODE, false);
 			mutiSelectLimitSize = intent.getIntExtra(Extras.EXTRA_MUTI_SELECT_SIZE_LIMIT, 9);
-			isSupportOriginal = intent.getBooleanExtra(Extras.EXTRA_SUPPORT_ORIGINAL, false);	
+			isSupportOriginal = intent.getBooleanExtra(Extras.EXTRA_SUPPORT_ORIGINAL, false);
+			toolbarCustomization = (ToolbarCustomization) getIntent().getSerializableExtra(Extras.EXTRA_CUSTOMIZATION);
 		}
 	}
 	
 	private void initActionBar(){
-		setTitle(R.string.picker_image_folder);
+		ToolBarOptions options = toolbarCustomization.getToolBarOptions();
+		options.setTitleString("相册");
+		setToolBar(R.id.toolbar, options);
+		centerToolbarTitle(getToolBar());
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			getToolBar().setPadding(0, ScreenUtil.getStatusBarHeight(this), 0, 0);
+		}
 	}
 
+	/**
+	 * 居中显示Toolbar
+	 *
+	 * @param toolbar
+	 */
+	public void centerToolbarTitle(final Toolbar toolbar) {
+		final CharSequence originalTitle = toolbar.getTitle();
+		for (int i = 0; i < toolbar.getChildCount(); i++) {
+			View view = toolbar.getChildAt(i);
+
+			if (view instanceof TextView) {
+				final TextView textView = (TextView) view;
+				if (textView.getText().equals(originalTitle)) {
+					textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+						@Override
+						public void onGlobalLayout() {
+							textView.setLeft((toolbar.getWidth() - textView.getWidth()) / 2);
+							textView.setRight(textView.getLeft() + textView.getMeasuredWidth());
+						}
+					});
+				}
+
+			}
+		}
+	}
 	private void initUI(){
 		// bottom bar
 		pickerBottomBar = (RelativeLayout) findViewById(R.id.picker_bottombar);
@@ -149,19 +183,21 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 
 	@Override
 	public void onPhotoSingleClick(List<PhotoInfo> photos, int position) {
-		if(isMutiMode){
-			PickerAlbumPreviewActivity.start(this, photos, position, isSupportOriginal, 
-					isSendOriginalImage, hasSelectList, mutiSelectLimitSize);
-		}else{			
-			if(photos != null){
-				PhotoInfo photo = photos.get(position);
-				List<PhotoInfo> selectList = new ArrayList<PhotoInfo>();
-				selectList.add(photo);
-				
-				setResult(RESULT_OK, PickerContract.makeDataIntent(selectList, false));
-				finish();
-			}
-		}	
+//		if(isMutiMode){
+		    hasSelectList.clear();
+//		    hasSelectList.add(photos.get(position));
+			PickerAlbumPreviewActivity.start(this, photos, position, isSupportOriginal,
+					isSendOriginalImage, hasSelectList, mutiSelectLimitSize,toolbarCustomization);
+//		}else{
+//			if(photos != null){
+//				PhotoInfo photo = photos.get(position);
+//				List<PhotoInfo> selectList = new ArrayList<PhotoInfo>();
+//				selectList.add(photo);
+//
+//				setResult(RESULT_OK, PickerContract.makeDataIntent(selectList, false));
+//				finish();
+//			}
+//		}
 	}
 	
 	@Override
@@ -253,7 +289,6 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 	}
 	
 	private void backToAlbumPage(){
-		setTitle(R.string.picker_image_folder);	
 		isAlbumPage = true;
 		pickerAlbumLayout.setVisibility(View.VISIBLE);
 		pickerPhotosLayout.setVisibility(View.GONE);
