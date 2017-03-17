@@ -244,6 +244,11 @@ public class PullToRefreshLayout extends RelativeLayout {
                 loadStateTextView.setText(R.string.load_succeed);
                 loadStateImageView.setBackgroundResource(R.mipmap.load_succeed);
                 break;
+            case DONE:
+                loadStateImageView.setVisibility(View.VISIBLE);
+                loadStateTextView.setText("已无更多");
+                loadStateImageView.setBackgroundResource(R.mipmap.load_failed);
+                break;
             case FAIL:
             default:
                 // 加载失败

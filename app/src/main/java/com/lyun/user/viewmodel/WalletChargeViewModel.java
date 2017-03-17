@@ -52,7 +52,7 @@ public class WalletChargeViewModel extends ViewModel {
     private PayType PAY_WAY = PayType.ALI; // 0=绿豆，1=微信，2=支付宝，3=银联，4=总账，5=其他
     private String userOrderId;//订单id
     @WatchThis
-    public final ObservableField<AliPayInfo> aliPay = new ObservableField(); //支付宝
+    public final ObservableField<String> aliPay = new ObservableField(); //支付宝
     @WatchThis
     public final ObservableField<WalletChargeWxPayResponse> wxPay = new ObservableField();//微信
     @WatchThis
@@ -79,6 +79,14 @@ public class WalletChargeViewModel extends ViewModel {
         aliSelect.set(R.mipmap.wallet_charge_select);
         wxSelect.set(R.mipmap.wallet_charge_unselect);
         model = new WalletChargeModel();
+    }
+
+    //activity 干掉以后恢复数据用
+    public void reSetData(String availableMin, String moneyResultText,int aliSelect,int wxSelect) {
+        this.availableMin.set(availableMin);
+        this.moneyResultText.set(moneyResultText);
+        this.aliSelect.set(aliSelect);
+        this.wxSelect.set(wxSelect);
     }
 
     //点击事件
@@ -154,7 +162,7 @@ public class WalletChargeViewModel extends ViewModel {
                             if (result.isSuccess()) {
                                 if (payType == PayType.ALI) {//支付宝
                                     WalletChargeAliPayResponse response = (WalletChargeAliPayResponse) result.getContent();
-                                    ObservableNotifier.alwaysNotify(aliPay, new AliPayInfo(callBack, response.getSign()));
+                                    ObservableNotifier.alwaysNotify(aliPay, response.getSign());
                                     userOrderId = response.getUserOrderid();
                                 } else if (payType == PayType.WX) {//微信
                                     WalletChargeWxPayResponse response = (WalletChargeWxPayResponse) result.getContent();
@@ -175,42 +183,18 @@ public class WalletChargeViewModel extends ViewModel {
     private OnPayCallBack callBack = new OnPayCallBack() {
         @Override
         public void onSuccess() {
+            System.out.print("ALi callBack success");
             ObservableNotifier.alwaysNotify(showText, "支付成功");
             doPayResult();
         }
 
         @Override
         public void onFailure(String des) {
+            System.out.print("ALi callBack failure");
             ObservableNotifier.alwaysNotify(showText, des);
         }
     };
 
-    //支付宝支付传值信息类
-    public class AliPayInfo {
-        private String sign;
-        private OnPayCallBack callBack;
-
-        AliPayInfo(OnPayCallBack callBack, String sign) {
-            this.callBack = callBack;
-            this.sign = sign;
-        }
-
-        public String getSign() {
-            return sign;
-        }
-
-        public void setSign(String sign) {
-            this.sign = sign;
-        }
-
-        public OnPayCallBack getCallBack() {
-            return callBack;
-        }
-
-        public void setCallBack(OnPayCallBack callBack) {
-            this.callBack = callBack;
-        }
-    }
 
     @Override
     public void onResume() {

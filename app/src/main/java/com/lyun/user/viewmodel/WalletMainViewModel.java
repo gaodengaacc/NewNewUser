@@ -1,13 +1,11 @@
 package com.lyun.user.viewmodel;
 
 import android.content.Intent;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
@@ -25,8 +23,6 @@ import com.lyun.user.model.WalletChargeModel;
 import com.lyun.utils.TimeUtil;
 import com.lyun.widget.refresh.PullToRefreshLayout;
 
-import net.funol.databinding.watchdog.annotations.WatchThis;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +39,6 @@ public class WalletMainViewModel extends ViewModel {
     public final ObservableField<BaseRecyclerAdapter> recorderAdapter = new ObservableField<>(); //记录adapter
     public final ObservableField<String> unUserTime = new ObservableField<>(); //剩余时间
     public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>(); //记录条目更新
-    @WatchThis
-    public final ObservableBoolean activityBg = new ObservableBoolean();
     public final ObservableInt refreshResult = new ObservableInt();//刷新结果
     public final ObservableInt loadMoreResult = new ObservableInt();//加载更多结果
     private List list;
@@ -116,13 +110,17 @@ public class WalletMainViewModel extends ViewModel {
                     if (apiResult.isSuccess()) {
                         if (refresh)
                             list.clear();
+                        if(apiResult.getContent().getData()!=null && apiResult.getContent().getData().size()==0 && !refresh){
+                                ObservableNotifier.alwaysNotify(loadMoreResult, PullToRefreshLayout.DONE);
+                            return;
+                        }
                         for (WalletChargeRecorderResponse recorder : apiResult.getContent().getData()) {
                             WalletMainRecorderItemViewModel viewModel = new WalletMainRecorderItemViewModel();
                             viewModel.time.set(TimeUtil.formatTime(recorder.getAmountNowTime(), "yyyy-MM-dd HH:mm"));
                             viewModel.description.set("+" + TimeUtil.convertMin2Str(recorder.getAmountNow()));
                             list.add(viewModel);
                         }
-                        notifyData.set(list);
+                        ObservableNotifier.alwaysNotify(notifyData,list);
                         currentTranslationOrderPage = page;
                         nextTranslationOrderPage = currentTranslationOrderPage + 1;
                         totalTranslationOrderPage = apiResult.getContent().getPagecount();
@@ -172,11 +170,4 @@ public class WalletMainViewModel extends ViewModel {
     }
 
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
-
-    private void showPop(View v) {
-//        activityBg.set(true);
-//        WalletMainPopViewModel popWindow = new WalletMainPopViewModel(v.getContext());
-//        popWindow.setOnDismissListener(() -> activityBg.set(false));
-//        popWindow.showAsDropDown(v);
-    }
 }

@@ -6,12 +6,14 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.io.Serializable;
+
 /**
  * @author Gordon
  * @since 2016/3/1
  * do(微信支付)
  */
-public class WXPayManager {
+public class WXPayManager implements Serializable {
 	private IWXAPI msgApi;
 	/**
 	 * 

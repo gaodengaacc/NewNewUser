@@ -3,6 +3,7 @@ package com.lyun.user.activity;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,10 +17,10 @@ import com.lyun.user.R;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
 import com.lyun.user.databinding.ActivityWalletChargeBinding;
 import com.lyun.user.pay.alipay.AliPayManager;
+import com.lyun.user.pay.alipay.OnPayCallBack;
 import com.lyun.user.pay.wxpay.WXPayManager;
 import com.lyun.user.viewmodel.WalletChargeViewModel;
 import com.lyun.user.viewmodel.watchdog.IWalletChargeViewModelCallbacks;
-
 /**
  * @author Gordon
  * @since 2017/1/10
@@ -36,10 +37,28 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            getBodyViewModel().reSetData(savedInstanceState.getString("availableMin"), savedInstanceState.getString("moneyResultText"),
+                    savedInstanceState.getInt("aliSelect"), savedInstanceState.getInt("wxSelect"));
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (wxPayManager != null)
             wxPayManager.detach();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("availableMin", getBodyViewModel().availableMin.get());
+        outState.putString("moneyResultText", getBodyViewModel().moneyResultText.get());
+        outState.putInt("aliSelect", getBodyViewModel().aliSelect.get());
+        outState.putInt("wxSelect", getBodyViewModel().wxSelect.get());
     }
 
     @NonNull
@@ -60,11 +79,11 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
     }
 
     @Override
-    public void aliPay(ObservableField<WalletChargeViewModel.AliPayInfo> observableField, int fieldId) {
+    public void aliPay(ObservableField<String> observableField, int fieldId) {
         if (observableField.get() != null) {
             if (aliPayManager == null)
-                aliPayManager = new AliPayManager(observableField.get().getCallBack());
-            aliPayManager.alipay(this, observableField.get().getSign());
+                aliPayManager = new AliPayManager(callBack);
+            aliPayManager.alipay(this, observableField.get());
         }
 
     }
@@ -84,6 +103,18 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
         }
     }
 
+    OnPayCallBack callBack = new OnPayCallBack() {
+        @Override
+        public void onSuccess() {
+            Toast.makeText(AppApplication.getInstance(), "支付成功", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        @Override
+        public void onFailure(String des) {
+            Toast.makeText(AppApplication.getInstance(), des, Toast.LENGTH_LONG).show();
+        }
+    };
     @Override
     public void isShowDialog(ObservableBoolean observableField, int fieldId) {
         if (observableField.get()) {
