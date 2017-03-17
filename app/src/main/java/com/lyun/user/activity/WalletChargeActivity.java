@@ -40,8 +40,7 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            getBodyViewModel().reSetData(savedInstanceState.getString("availableMin"), savedInstanceState.getString("moneyResultText"),
-                    savedInstanceState.getInt("aliSelect"), savedInstanceState.getInt("wxSelect"));
+            getBodyViewModel().reSetData(savedInstanceState.getString("availableMin"), savedInstanceState.getString("moneyResultText"));
         }
     }
 
@@ -57,8 +56,6 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
         super.onSaveInstanceState(outState);
         outState.putString("availableMin", getBodyViewModel().availableMin.get());
         outState.putString("moneyResultText", getBodyViewModel().moneyResultText.get());
-        outState.putInt("aliSelect", getBodyViewModel().aliSelect.get());
-        outState.putInt("wxSelect", getBodyViewModel().wxSelect.get());
     }
 
     @NonNull

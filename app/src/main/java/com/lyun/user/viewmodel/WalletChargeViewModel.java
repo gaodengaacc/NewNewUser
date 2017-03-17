@@ -82,11 +82,9 @@ public class WalletChargeViewModel extends ViewModel {
     }
 
     //activity 干掉以后恢复数据用
-    public void reSetData(String availableMin, String moneyResultText,int aliSelect,int wxSelect) {
+    public void reSetData(String availableMin, String moneyResultText) {
         this.availableMin.set(availableMin);
         this.moneyResultText.set(moneyResultText);
-        this.aliSelect.set(aliSelect);
-        this.wxSelect.set(wxSelect);
     }
 
     //点击事件
