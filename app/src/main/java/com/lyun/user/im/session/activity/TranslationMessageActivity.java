@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
@@ -61,7 +62,9 @@ import java.util.Map;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.INCOMING_TIMEOUT;
 import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.NET_BROKEN_TIMEOUT;
+import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.OUTGOING_TIMEOUT;
 
 /**
  * Created by ZHAOWEIWEI on 2017/2/28.
@@ -99,6 +102,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         registerReceiver(mTranslationOrderFinishReceiver, orderFinishIntentFilter);
 
         mProgressDialog = new ProgressBarDialogViewModel(this);
+        initIncomingCallDialog();
 
         if (orderType == TranslationOrderModel.OrderType.AUDIO) {
             changeToAudioChatMode();
@@ -219,9 +223,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             if (AVChatProfile.getInstance().isAVChatting()) {
                 // 正在语音
                 currentNormalMode = false;
-                if (getToolBar() != null) {
-                    getTranslationAudioMessageFragment().setTranslatorName(getToolBar().getTitle().toString());
-                }
+                getTranslationAudioMessageFragment().setTranslatorName(getTitle().toString());
                 switchContent(getTranslationAudioMessageFragment());
                 getToolBar().setVisibility(View.GONE);
             } else {
@@ -414,6 +416,25 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         AVChatManager.getInstance().observeAVChatState(mAVChatStateObserver, false);
     }
 
+    protected SimpleDialogViewModel mIncomingCallDialog = new SimpleDialogViewModel(this);
+
+    protected void initIncomingCallDialog() {
+        mIncomingCallDialog.setInfo("对方发送语音服务请求，是否接受");
+        mIncomingCallDialog.setYesBtnText("是");
+        mIncomingCallDialog.setCancelBtnText("否");
+        mIncomingCallDialog.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
+            @Override
+            public void OnYesClick(View view) {
+                acceptAudioCall();
+            }
+
+            @Override
+            public void OnCancelClick(View view) {
+                hangUpAudioCall(false);
+            }
+        });
+    }
+
     /**
      * 语音来电自动接听
      *
@@ -428,23 +449,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             return;
         }
         runOnUiThread(() -> {
-            SimpleDialogViewModel viewModel = new SimpleDialogViewModel(TranslationMessageActivity.this);
-            viewModel.setInfo("对方发送语音服务请求，是否接受");
-            viewModel.setYesBtnText("是");
-            viewModel.setCancelBtnText("否");
-            viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
-                @Override
-                public void OnYesClick(View view) {
-                    acceptAudioCall();
-                }
-
-                @Override
-                public void OnCancelClick(View view) {
-                    hangUpAudioCall(false);
-                }
-            });
             if (!isFinishing()) {
-                viewModel.show();
+                mIncomingCallDialog.show();
             }
         });
     };
@@ -585,6 +591,12 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         // 超时类型
         L.i("AVChat", "语音聊天中断：event -> " + event);
         onAudioHangUp(event == NET_BROKEN_TIMEOUT, TranslationOrder.OTHER, "网络超时");
+        if (event == OUTGOING_TIMEOUT) {
+            dismissProgress();
+            Toast.makeText(this, "对方拒绝接听", Toast.LENGTH_LONG).show();
+        } else if (event == INCOMING_TIMEOUT) {
+            mIncomingCallDialog.dismiss();
+        }
     };
 
     /**
