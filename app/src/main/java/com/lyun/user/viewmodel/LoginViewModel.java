@@ -4,19 +4,24 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
+import com.google.gson.Gson;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
+import com.lyun.user.AppApplication;
+import com.lyun.user.Constants;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.im.login.NimLoginHelper;
 import com.lyun.user.model.LanguageModel;
 import com.lyun.user.model.LoginModel;
+import com.lyun.utils.ACache;
 import com.lyun.utils.RegExMatcherUtils;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ZHAOWEIWEI on 2016/12/21.
@@ -85,14 +90,25 @@ public class LoginViewModel extends ViewModel {
                     Account.preference().saveToken(loginResponse.getAppToken());
                     Account.preference().saveNimToken(loginResponse.getYunXinToken());
                     Account.preference().setLogin(true);
-                    onLoginSuccess.notifyChange();
                     getFindByLanguage();
                 },
                 throwable -> onLoginFailed.set(throwable));
     }
 
     private void getFindByLanguage() {
-        new LanguageModel().updateLanguages();
+        new LanguageModel().updateLanguages(true)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(listAPIResult -> {
+                            if (listAPIResult.isSuccess() && listAPIResult.getContent() != null) {
+                                ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
+                                onLoginSuccess.notifyChange();
+                            }
+
+                        }, throwable -> {
+                            onLoginSuccess.notifyChange();
+                        }
+                );
     }
 
 }

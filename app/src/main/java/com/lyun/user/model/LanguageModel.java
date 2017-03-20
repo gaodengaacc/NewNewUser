@@ -40,10 +40,18 @@ public class LanguageModel extends Model {
                             if (listAPIResult.isSuccess() && listAPIResult.getContent() != null) {
                                 ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
                             }
+
                         }, throwable -> {
 
                         }
                 );
     }
 
+    public Observable<APIResult<List<FindLanguageResponse>>> updateLanguages(boolean login) {
+        return API.language.findByLanguage(new BaseRequest())
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+
+    }
 }

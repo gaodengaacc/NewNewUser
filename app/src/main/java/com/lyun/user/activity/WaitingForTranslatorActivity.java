@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
-import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityWaittingForTranslatorBinding;
 import com.lyun.user.im.avchat.AVChatProfile;
