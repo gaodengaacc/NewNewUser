@@ -122,8 +122,8 @@ public class MessageFragment extends TFragment implements ModuleProxy {
         }
 
         if (inputPanel == null) {
-            inputPanel = new InputPanel(container, rootView, getActionList());
-            inputPanel.setCustomization(customization.getInputPanelCustomization());
+            inputPanel = new InputPanel(container, rootView, getActionList(),customization.getInputPanelCustomization());
+//            inputPanel.setCustomization(customization.getInputPanelCustomization());
         } else {
             inputPanel.reload(container, customization.getInputPanelCustomization());
         }

@@ -110,9 +110,8 @@ public class LoginViewModel extends ViewModel {
                 .subscribe(listAPIResult -> {
                             if (listAPIResult.isSuccess() && listAPIResult.getContent() != null) {
                                 ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
-                                onLoginSuccess.notifyChange();
                             }
-
+                    onLoginSuccess.notifyChange();
                         }, throwable -> {
                             onLoginSuccess.notifyChange();
                         }

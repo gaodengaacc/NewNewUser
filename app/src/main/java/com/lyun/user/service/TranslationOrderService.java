@@ -21,7 +21,7 @@ public class TranslationOrderService extends Service {
     private final String TAG = getClass().getSimpleName();
 
     //心跳包时间间隔 s
-    public final int HEART_BEAT_INTERVAL = 59;
+    public final int HEART_BEAT_INTERVAL = 19;
 
     private TranslationOrder mTranslationOrder;
 
