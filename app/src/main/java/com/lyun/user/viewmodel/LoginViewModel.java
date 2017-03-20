@@ -90,7 +90,15 @@ public class LoginViewModel extends ViewModel {
                     Account.preference().saveToken(loginResponse.getAppToken());
                     Account.preference().saveNimToken(loginResponse.getYunXinToken());
                     Account.preference().setLogin(true);
-                    getFindByLanguage();
+                    if (!Account.preference().isFirstSplash()) {
+                        Account.preference().setFirstSplash(true);
+                        getFindByLanguage();
+                    } else {
+                        new LanguageModel().updateLanguages();
+                        onLoginSuccess.notifyChange();
+                    }
+
+
                 },
                 throwable -> onLoginFailed.set(throwable));
     }

@@ -30,7 +30,7 @@ public class SplashActivity extends BaseActivity {
         mHandler.postDelayed(() -> {
             //判断是否首次启动
             if (!Account.preference().isFirstSplash()) {
-                Account.preference().setFirstSplash(true);
+//                Account.preference().setFirstSplash(true);
                 intent = new Intent(AppIntent.ACTION_GUIDE);
             } else {
                 if (Account.preference().isLogin()) {
