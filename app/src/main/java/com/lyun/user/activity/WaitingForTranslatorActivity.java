@@ -8,7 +8,6 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -42,6 +41,8 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
     private TranslationOrderModel.OrderType orderType;
     private String translatorId;
 
+    private boolean isOrderStarted = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -72,6 +73,7 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         public void onReceive(Context context, Intent intent) {
             String orderId = intent.getStringExtra(TranslationOrder.ORDER_ID);
             if (userOrderId.equals(orderId)) {
+                isOrderStarted = true;
                 String account = intent.getStringExtra(TranslationOrder.TRANSLATOR_ID);
                 SessionHelper.startTranslationSession(WaitingForTranslatorActivity.this, account, userOrderId, orderType, targetLanguage);
                 finish();
@@ -86,7 +88,9 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         super.onDestroy();
         unregisterReceiver(mOrderStartReceiver);
         AVChatManager.getInstance().observeIncomingCall(mIncomingCallObserver, false);
-        getActivityViewModel().onHangUpCheckCommand.execute(true);
+        if (!isOrderStarted) {
+            getActivityViewModel().onHangUpCheckCommand.execute(true);
+        }
     }
 
     @NonNull
