@@ -63,8 +63,8 @@ public class WaitingForTranslatorViewModel extends ViewModel {
 
     public RelayCommand<Boolean> onHandFreeCheckCommand = new RelayCommand<>(isChecked -> handFreeMode = isChecked);
 
-    public void cancelOrder() {
-
+    private void cancelOrder() {
+        stopTimer();
         new TranslationOrderModel().cancelOrder(userOrderId)
                 .subscribe(result -> {
 
