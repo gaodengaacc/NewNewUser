@@ -163,15 +163,4 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         });
     }
 
-    //添加系统返回
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getRepeatCount() == 0) {
-            getActivityViewModel().cancelOrder();
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }
