@@ -118,7 +118,7 @@
     </style>
 
     <style name="edit_text_style">
-        <item name="android:textCursorDrawable">@color/black</item>
+        <item name="android:textCursorDrawable">@drawable/nim_cursor_color</item>
         <item name="android:textColor">@color/color_grey_555555</item>
     </style>
 </resources>
