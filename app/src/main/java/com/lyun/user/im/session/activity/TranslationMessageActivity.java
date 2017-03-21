@@ -102,6 +102,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         registerReceiver(mTranslationOrderFinishReceiver, orderFinishIntentFilter);
 
         mProgressDialog = new ProgressBarDialogViewModel(this);
+        mIncomingCallDialog = new SimpleDialogViewModel(this);
         initIncomingCallDialog();
 
         if (orderType == TranslationOrderModel.OrderType.AUDIO) {
@@ -416,7 +417,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         AVChatManager.getInstance().observeAVChatState(mAVChatStateObserver, false);
     }
 
-    protected SimpleDialogViewModel mIncomingCallDialog = new SimpleDialogViewModel(this);
+    protected SimpleDialogViewModel mIncomingCallDialog;
 
     protected void initIncomingCallDialog() {
         mIncomingCallDialog.setInfo("对方发送语音服务请求，是否接受");

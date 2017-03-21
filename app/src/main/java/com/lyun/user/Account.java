@@ -30,6 +30,7 @@ public class Account {
         private String nimToken;
         private boolean login;
         private String wxAppId;
+        private boolean firstSplash;
 
         private final String KEY_PHONE = "phone";
         private final String KEY_PASSWORD = "password";
@@ -37,6 +38,7 @@ public class Account {
         private final String KEY_NIM_TOKEN = "nim_token";
         private final String KEY_LOGIN = "login";
         private final String KEY_WX_APPID = "wx_app_id";
+        private final String KEY_SPLASH = "splash";
 
         public void clear() {
             savePassword(null);
@@ -66,6 +68,7 @@ public class Account {
             this.wxAppId = wxAppId;
             saveString(KEY_WX_APPID, wxAppId);
         }
+
         public String getPassword() {
             if (password == null)
                 password = getString(KEY_PASSWORD);
@@ -107,6 +110,15 @@ public class Account {
         public void saveNimToken(String nimToken) {
             this.nimToken = nimToken;
             saveString(KEY_NIM_TOKEN, nimToken);
+        }
+
+        public void setFirstSplash(boolean firstSplash) {
+            this.firstSplash = firstSplash;
+            saveBoolean(KEY_SPLASH, firstSplash);
+        }
+
+        public boolean isFirstSplash() {
+            return getBoolean(KEY_SPLASH);
         }
     }
 
