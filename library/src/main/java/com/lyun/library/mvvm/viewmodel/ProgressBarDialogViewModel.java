@@ -18,7 +18,10 @@ public class ProgressBarDialogViewModel extends DialogViewModel {
 
     public final ObservableField<String> progressText = new ObservableField<>();
     public final ObservableInt progressTextVisibility = new ObservableInt();
-    private LoadingCancelCallBack loadingCancel;
+    public final ObservableInt lineVisibility = new ObservableInt();
+    public final ObservableInt textBottomVisibility = new ObservableInt();
+    public final ObservableField<String> textBottomText = new ObservableField<>();
+    private OnBottomClickCallBack onBottomClickCallBack;
 
     public ProgressBarDialogViewModel(Context context, String text) {
         super(context);
@@ -29,6 +32,8 @@ public class ProgressBarDialogViewModel extends DialogViewModel {
 
     private void init() {
         progressText.set(progressText.get() == null ? "加载中..." : progressText.get());
+        textBottomVisibility.set(View.GONE);
+        textBottomVisibility.set(View.GONE);
     }
 
     public ProgressBarDialogViewModel(Context context) {
@@ -37,28 +42,42 @@ public class ProgressBarDialogViewModel extends DialogViewModel {
         new ProgressBarDialog(getContext(), this);
     }
 
-    public interface LoadingCancelCallBack {
-        public void loadCancel();
+    public interface OnBottomClickCallBack {
+        public void onClick(View view);
     }
 
-    public void setLoadingCancel(LoadingCancelCallBack loadingCancel) {
-        this.loadingCancel = loadingCancel;
+    public void setOnBottomClickCallBack(OnBottomClickCallBack onBottomClickCallBack) {
+        this.onBottomClickCallBack = onBottomClickCallBack;
     }
 
     public void setMessage(String message) {
-        progressText.set(message);
         if (message == null || TextUtils.isEmpty(message)) {
             progressTextVisibility.set(View.GONE);
         } else {
+            progressText.set(message);
             progressTextVisibility.set(View.VISIBLE);
         }
     }
 
     public void dismiss() {
         super.dismiss();
-        if (loadingCancel != null)
-            loadingCancel.loadCancel();
         isShow.set(false);
     }
 
+    public void setBottomMessage(String message) {
+        if (message == null || TextUtils.isEmpty(message)) {
+            lineVisibility.set(View.GONE);
+            textBottomVisibility.set(View.GONE);
+        } else {
+            textBottomText.set(message);
+            lineVisibility.set(View.VISIBLE);
+            textBottomVisibility.set(View.VISIBLE);
+        }
+    }
+
+    public void onBottomClick(View view) {
+       if(onBottomClickCallBack!=null)
+           onBottomClickCallBack.onClick(view);
+        dismiss();
+    }
 }

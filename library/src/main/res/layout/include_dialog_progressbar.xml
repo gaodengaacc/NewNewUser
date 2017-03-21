@@ -30,10 +30,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:maxWidth="200dp"
             android:padding="10dp"
             android:text="@{mvvm.progressText}"
             android:visibility="@{mvvm.progressTextVisibility}"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/lcn"
+            android:visibility="@{mvvm.lineVisibility}"></View>
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         style="@style/textStyleSmall"
+         android:gravity="center"
+         android:padding="10dp"
+         android:text="@{mvvm.textBottomText}"
+         android:visibility="@{mvvm.textBottomVisibility}"
+         android:onClick="@{mvvm.onBottomClick}"
+         />
     </LinearLayout>
 </layout>
