@@ -123,15 +123,6 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     public InputPanel(Container container, View view, List<BaseAction> actions) {
         this(container, view, actions, true);
     }
-    public InputPanel(Container container, View view, List<BaseAction> actions,InputPanelCustomization customization) {
-        this.container = container;
-        this.view = view;
-        this.actions = actions;
-        this.uiHandler = new Handler();
-        this.customization = customization;
-        init();
-    }
-
 
     public void onPause() {
         // 停止录音
@@ -169,7 +160,15 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     public void setCustomization(InputPanelCustomization customization) {
         this.customization = customization;
         if (customization != null) {
-            emoticonPickerView.setWithSticker(customization.isWithSticker());
+            emoticonPickerView.setWithSticker(customization.isWithSticker()); // 语音输入按钮
+            switchToAudioButtonInInputBar.setVisibility(customization.isShowAudioInputBar() ? View.VISIBLE : View.GONE);
+            switchToTextButtonInInputBar.setVisibility(customization.isShowAudioInputBar() ? View.VISIBLE : View.GONE);
+            // 表情输入按钮
+            emojiButtonInInputBar.setVisibility(customization.isShowEmojiInputBar() ? View.VISIBLE : View.GONE);
+            // 输入框背景
+            if (customization.getMsgInputBoxBackgroud() != 0) {
+                messageEditText.setBackgroundResource(customization.getMsgInputBoxBackgroud());
+            }
         }
     }
 
