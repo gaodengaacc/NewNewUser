@@ -289,7 +289,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            hangUpAudioCall(false);
+            hangUpAudioCall(true);
 
             int whoFinish = intent.getIntExtra(TranslationOrder.WHO_FINISH, TranslationOrder.OTHER);
 
@@ -299,7 +299,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             }
 
             SimpleDialogViewModel viewModel = new SimpleDialogViewModel(TranslationMessageActivity.this);
-            viewModel.setInfo(whoFinish == TranslationOrder.TRANSLATOR ? "对方主动挂断" : "异常挂断");
+            // viewModel.setInfo(whoFinish == TranslationOrder.TRANSLATOR ? "对方主动挂断" : "异常挂断");
+            viewModel.setInfo("对方结束通话");
             viewModel.setYesBtnText("确定");
             viewModel.setBtnCancelVisibility(View.GONE);
             viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
