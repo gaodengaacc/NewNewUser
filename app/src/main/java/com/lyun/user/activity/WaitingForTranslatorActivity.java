@@ -87,7 +87,7 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         super.onDestroy();
         unregisterReceiver(mOrderStartReceiver);
         AVChatManager.getInstance().observeIncomingCall(mIncomingCallObserver, false);
-        getActivityViewModel().stopTimer();
+        getActivityViewModel().onHangUpCheckCommand.execute(true);
     }
 
     @NonNull
