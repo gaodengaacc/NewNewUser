@@ -8,6 +8,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -163,4 +164,15 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         });
     }
 
+    //添加系统返回
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            getActivityViewModel().cancelOrder();
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
