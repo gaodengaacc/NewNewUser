@@ -36,6 +36,5 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
         if (getIntent().getBooleanExtra("isFromResetPassword", false)) {
             ObservableNotifier.alwaysNotify(getActivityViewModel().selectIndex, 0);
         }
-        ;
     }
 }
