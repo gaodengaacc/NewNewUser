@@ -26,6 +26,7 @@ import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.user.R;
 import com.lyun.user.im.avchat.AVChatProfile;
+import com.lyun.user.im.avchat.receiver.PhoneCallStateObserver;
 import com.lyun.user.im.session.fragment.TranslationAudioMessageFragment;
 import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.service.TranslationOrder;
@@ -44,6 +45,7 @@ import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.AVChatStateObserver;
+import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;
 import com.netease.nimlib.sdk.avchat.constant.AVChatEventType;
 import com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
@@ -384,6 +386,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         mProgressDialog.show();
     }
     protected void dismissProgress() {
+        if(mProgressDialog!=null)
         mProgressDialog.dismiss();
     }
 
@@ -455,6 +458,11 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         // 仅处理当前服务的语音请求
         if (data.getAccount() == null || !data.getAccount().equals(sessionId)) {
             L.i("AVChat", "收到非当前服务的语音请求，已忽略");
+            return;
+        }
+        if (PhoneCallStateObserver.getInstance().getPhoneCallState() != PhoneCallStateObserver.PhoneCallStateEnum.IDLE) {
+            AVChatManager.getInstance().sendControlCommand(AVChatControlCommand.BUSY, null);
+            L.i("AVChat", "设置发送busy");
             return;
         }
         runOnUiThread(() -> {
@@ -563,9 +571,11 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_BUSY) {
             // 对方正在忙
             L.e("AVChat", "对方正在忙");
+            Toast.makeText(getBaseContext(),"对方正忙",Toast.LENGTH_LONG).show();
         } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_REJECT) {
             // 对方拒绝接听
             L.e("AVChat", "对方拒绝接听");
+            Toast.makeText(this,"对方拒绝接听",Toast.LENGTH_LONG).show();
         } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_AGREE) {
             // 对方同意接听
             L.i("AVChat", "对方同意接听");
@@ -578,6 +588,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             runOnUiThread(() -> changeToAudioChatMode());
         }
         dismissProgress();
+        if(mIncomingCallDialog!=null)
+            mIncomingCallDialog.dismiss();
     };
 
     /**
@@ -588,7 +600,15 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         // 结束通话
         L.i("AVChat", "语音聊天被挂断 hangUpInfo -> " + hangUpInfo);
         if (hangUpInfo.getEvent() == AVChatEventType.PEER_HANG_UP) {
-            onAudioHangUp(true, TranslationOrder.TRANSLATOR, "翻译主动挂断");
+            if (AVChatProfile.getInstance().isAVChatting())
+                onAudioHangUp(true, TranslationOrder.TRANSLATOR, "翻译主动挂断");
+            else{
+                AVChatProfile.getInstance().setAVChatting(false);
+                dismissProgress();
+                if(mIncomingCallDialog!=null)
+                    mIncomingCallDialog.dismiss();
+                Toast.makeText(this, "对方取消语音请求", Toast.LENGTH_LONG).show();
+            }
         }
     };
 
@@ -601,11 +621,12 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         L.i("AVChat", "语音聊天中断：event -> " + event);
         onAudioHangUp(event == NET_BROKEN_TIMEOUT, TranslationOrder.OTHER, "网络超时");
         if (event == OUTGOING_TIMEOUT) {
-            dismissProgress();
             Toast.makeText(this, "对方拒绝接听", Toast.LENGTH_LONG).show();
         } else if (event == INCOMING_TIMEOUT) {
-            mIncomingCallDialog.dismiss();
         }
+        dismissProgress();
+        if(mIncomingCallDialog!=null)
+            mIncomingCallDialog.dismiss();
     };
 
     /**
