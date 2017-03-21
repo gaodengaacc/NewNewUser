@@ -71,7 +71,6 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         public void onReceive(Context context, Intent intent) {
             String orderId = intent.getStringExtra(TranslationOrder.ORDER_ID);
             if (userOrderId.equals(orderId)) {
-                getActivityViewModel().stopTimer();
                 String account = intent.getStringExtra(TranslationOrder.TRANSLATOR_ID);
                 SessionHelper.startTranslationSession(WaitingForTranslatorActivity.this, account, userOrderId, orderType, targetLanguage);
                 finish();
