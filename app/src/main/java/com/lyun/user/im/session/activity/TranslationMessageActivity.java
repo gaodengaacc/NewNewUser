@@ -289,6 +289,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         @Override
         public void onReceive(Context context, Intent intent) {
 
+            hangUpAudioCall(false);
+
             int whoFinish = intent.getIntExtra(TranslationOrder.WHO_FINISH, TranslationOrder.OTHER);
 
             if (whoFinish == TranslationOrder.USER) {
