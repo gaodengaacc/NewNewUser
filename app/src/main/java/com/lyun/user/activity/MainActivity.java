@@ -2,6 +2,7 @@ package com.lyun.user.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
 
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
@@ -37,4 +38,21 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
             ObservableNotifier.alwaysNotify(getActivityViewModel().selectIndex, 0);
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // 过滤按键动作
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // 按返回键不结束activity
+        moveTaskToBack(true);
+        super.onBackPressed();
+    }
+
 }

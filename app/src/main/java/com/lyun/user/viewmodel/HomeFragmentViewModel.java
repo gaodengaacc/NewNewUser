@@ -51,7 +51,6 @@ public class HomeFragmentViewModel extends ViewModel {
     @WatchThis
     public final ObservableBoolean progressDialogShow = new ObservableBoolean();
 
-
     public HomeFragmentViewModel() {
         initData();
     }
@@ -124,7 +123,6 @@ public class HomeFragmentViewModel extends ViewModel {
 
     //选取目标语言
     public RelayCommand onPickLanguageClickCommand = new RelayCommand(() -> {
-
         onPickLanguage.notifyChange();
     });
 

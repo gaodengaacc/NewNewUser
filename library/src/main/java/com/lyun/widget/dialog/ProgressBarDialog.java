@@ -13,6 +13,7 @@ import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 public class ProgressBarDialog extends MvvmDialog<IncludeDialogProgressbarBinding,ProgressBarDialogViewModel> {
     public ProgressBarDialog(Context context, ProgressBarDialogViewModel viewModel) {
         super(context,viewModel, R.layout.include_dialog_progressbar,R.style.dialog_theme);
+        setCancelable(false);
     }
 
     @Override
