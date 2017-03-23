@@ -24,6 +24,8 @@ public class DialogViewModel extends ViewModel {
     public final ObservableBoolean isShow = new ObservableBoolean();
     @WatchThis
     public final ObservableBoolean isDismiss = new ObservableBoolean();
+    @WatchThis
+    public final ObservableBoolean isOutSideCancel = new ObservableBoolean();
     public void show() {
         if (getContext() != null) {
             isShow.notifyChange();

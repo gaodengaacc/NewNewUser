@@ -17,6 +17,7 @@ public class MsgViewHolderAVChat extends MsgViewHolderBase {
 
     private ImageView typeImage;
     private TextView statusLabel;
+    private boolean isReceive;
 
     @Override
     protected int getContentResId() {
@@ -49,6 +50,7 @@ public class MsgViewHolderAVChat extends MsgViewHolderBase {
             } else {
                 typeImage.setImageResource(R.drawable.avchat_left_type_video);
             }
+            isReceive = false;
             statusLabel.setTextColor(context.getResources().getColor(R.color.color_grey_999999));
         } else {
             if (attachment.getType() == AVChatType.AUDIO) {
@@ -56,6 +58,7 @@ public class MsgViewHolderAVChat extends MsgViewHolderBase {
             } else {
                 typeImage.setImageResource(R.drawable.avchat_right_type_video);
             }
+            isReceive = true;
             statusLabel.setTextColor(Color.WHITE);
         }
     }
@@ -65,13 +68,24 @@ public class MsgViewHolderAVChat extends MsgViewHolderBase {
 
         String textString = "";
         switch (attachment.getState()) {
-        case Success: //成功接听
-            textString = TimeUtil.secToTime(attachment.getDuration());
-            break;
-        case Missed: //未接听
-        case Rejected: //主动拒绝
-            textString = context.getString(R.string.avchat_no_pick_up);
-            break;
+            case Success: //成功接听
+                textString = TimeUtil.secToTime(attachment.getDuration());
+                break;
+            case Missed: //未接听
+                textString = "对方正忙";
+                break;
+            case Rejected: //主动拒绝
+                if (isReceive)
+                    textString = "对方拒绝接听";
+                else
+                    textString = "您拒绝接听";
+                break;
+            case Canceled: //未接听
+                if (isReceive)
+                    textString = "对方取消语音请求";
+                else
+                    textString = "您取消语音请求";
+                break;
         default:
             break;
         }
