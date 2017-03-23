@@ -32,20 +32,4 @@ public class BaseActivity extends FragmentActivity  {
         refWatcher.watch(this);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // 过滤按键动作
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(true);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public void onBackPressed() {
-        // 按返回键不结束activity
-        moveTaskToBack(true);
-        super.onBackPressed();
-    }
-
 }
