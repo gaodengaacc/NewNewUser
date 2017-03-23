@@ -145,7 +145,10 @@ public class TranslationOrderService extends Service {
      * 翻译服务结束
      */
     protected void stopTranslation() {
-        setTranslationState(mTranslationOrder.getOrderId(), "1");
+        // 非自己结束订单不调用修改订单状态接口
+        if (mTranslationOrder.getWhoFinish() == TranslationOrder.USER) {
+            setTranslationState(mTranslationOrder.getOrderId(), "1");
+        }
 
         Intent intent = new Intent();
         intent.putExtra(TranslationOrder.FINISH_REASON, mTranslationOrder.getFinishReason());
