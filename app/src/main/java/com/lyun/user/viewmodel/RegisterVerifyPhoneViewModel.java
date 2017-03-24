@@ -52,7 +52,8 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号");
+            // 产品2017/03/24需求变更 bugfree ID：7810
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入有效手机号");
         } else {
             getSmsCode(username.get(), status);
         }
@@ -80,7 +81,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
         if (("".equals(username.get()) || (username.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入有效手机号");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
             ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码");
         } else {
