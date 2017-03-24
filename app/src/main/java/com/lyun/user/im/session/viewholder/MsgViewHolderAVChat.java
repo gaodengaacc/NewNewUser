@@ -72,7 +72,7 @@ public class MsgViewHolderAVChat extends MsgViewHolderBase {
                 textString = TimeUtil.secToTime(attachment.getDuration());
                 break;
             case Missed: //未接听
-                textString = "对方正忙";
+                textString = "未接听";
                 break;
             case Rejected: //主动拒绝
                 if (isReceive)
