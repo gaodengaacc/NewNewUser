@@ -9,7 +9,6 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -20,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
@@ -59,8 +59,9 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.INCOMING_TIMEOUT;
@@ -394,6 +395,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         mProgressDialog.setOnBottomClickCallBack(view -> {
             isMakeAudioCall = false;
             hangUpAudioCall(false);
+            mAudioCallTimeOutTimer.cancel();
         });
         mProgressDialog.show();
     }
@@ -494,11 +496,28 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         });
     };
 
+    public Timer mAudioCallTimeOutTimer;
+    public class AudioCallTimeOutTimerTask extends TimerTask{
+        @Override
+        public void run() {
+            runOnUiThread(() -> {
+                isMakeAudioCall = false;
+                hangUpAudioCall(false);
+                dismissProgress();
+                Toast.makeText(getApplicationContext(), "对方拒绝了您的语音请求", Toast.LENGTH_LONG).show();
+            });
+        }
+    };
+
     /**
      * 发起语音请求
      */
     protected void makeAudioCall() {
         isMakeAudioCall = true;
+
+        mAudioCallTimeOutTimer = new Timer();
+        mAudioCallTimeOutTimer.schedule(new AudioCallTimeOutTimerTask(), 20 * 1000);
+
         AVChatManager.getInstance().call(sessionId, AVChatType.AUDIO, new AVChatOptionalConfig(), new AVChatNotifyOption(), new AVChatCallback<AVChatData>() {
             @Override
             public void onSuccess(AVChatData avChatData) {
@@ -596,11 +615,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_BUSY) {
             // 对方正在忙
             L.e("AVChat", "对方正在忙");
-//            Toast.makeText(getBaseContext(),"对方正忙",Toast.LENGTH_LONG).show();
         } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_REJECT) {
             // 对方拒绝接听
             L.e("AVChat", "对方拒绝接听");
-//            Toast.makeText(this,"对方拒绝接听",Toast.LENGTH_LONG).show();
         } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_AGREE) {
             // 对方同意接听
             L.i("AVChat", "对方同意接听");
@@ -630,7 +647,6 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
                 AVChatProfile.getInstance().setAVChatting(false);
                 dismissProgress();
                 dismissInComing();
-//                Toast.makeText(this, "对方取消语音请求", Toast.LENGTH_LONG).show();
             }
         }
     };
