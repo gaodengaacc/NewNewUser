@@ -48,11 +48,11 @@ public class RegisterViewModel extends ViewModel {
 
     public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
         if (("".equals(password.get())) || (null == password.get())) {
-            ObservableNotifier.alwaysNotify(onRegisterResult, "请输入密码!");
+            ObservableNotifier.alwaysNotify(onRegisterResult, "请输入密码");
         } else if (("".equals(confirmPassword.get())) || (null == confirmPassword.get())) {
-            ObservableNotifier.alwaysNotify(onRegisterResult, "请确认密码!");
+            ObservableNotifier.alwaysNotify(onRegisterResult, "请确认密码");
         } else if (!(password.get().equals(confirmPassword.get()))) {
-            ObservableNotifier.alwaysNotify(onRegisterResult, "两次输入密码不同,请重新输入!");
+            ObservableNotifier.alwaysNotify(onRegisterResult, "两次输入密码不同,请重新输入");
         } else if (!RegExMatcherUtils.matchPassword(password.get())) {
             ObservableNotifier.alwaysNotify(onRegisterResult, "请正确输入6~16位字母或数字");
         } else {

@@ -56,15 +56,15 @@ public class FindPasswordViewModel extends ViewModel {
 
     public RelayCommand onSubmitClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "错误手机号!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入有效手机号");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入验证码!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入验证码");
         } else if (("".equals(newPassword.get()) || (newPassword.get() == null))) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入新密码!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入新密码");
         } else if (!RegExMatcherUtils.matchPassword(newPassword.get())) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请正确输入6~16位字母或数字!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请正确输入6~16位字母或数字");
         } else {
             submit(username.get(), smscode.get(), newPassword.get());//提交新密码
         }
@@ -95,9 +95,9 @@ public class FindPasswordViewModel extends ViewModel {
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "错误手机号!");
+            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入有效手机号");
         } else {
             getSmsCode(username.get(), status);//获取验证码
         }
