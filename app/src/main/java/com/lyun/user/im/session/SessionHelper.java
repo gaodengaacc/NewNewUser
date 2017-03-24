@@ -86,7 +86,7 @@ public class SessionHelper {
         registerViewHolders();
 
         // 设置会话中点击事件响应处理
-        setSessionListener();
+        // setSessionListener();
 
         // 注册消息转发过滤器
         registerMsgForwardFilter();
