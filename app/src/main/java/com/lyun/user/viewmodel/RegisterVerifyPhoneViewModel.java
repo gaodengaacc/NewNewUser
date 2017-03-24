@@ -50,9 +50,9 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号!");
         } else {
             getSmsCode(username.get(), status);
         }
@@ -78,11 +78,11 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
     public RelayCommand onNextButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号!");
         } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "错误手机号!");
         } else if (("".equals(smscode.get()) || (smscode.get() == null))) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码");
+            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入验证码!");
         } else {
             intent = new Intent(AppIntent.ACTION_REGISTER);
             bundle.putString("username", username.get());

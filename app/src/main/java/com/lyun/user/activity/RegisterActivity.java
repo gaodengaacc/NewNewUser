@@ -45,7 +45,7 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
 
     @Override
     public void onRegisterSuccess(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "注册成功！", Toast.LENGTH_LONG).show();
+        Toast.makeText(AppApplication.getInstance(), "注册成功", Toast.LENGTH_LONG).show();
         finish();
     }
 
