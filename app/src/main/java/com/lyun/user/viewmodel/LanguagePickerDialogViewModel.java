@@ -53,7 +53,7 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
         // initListData();//设置选项值
         visibleItem.set(7);//设置item的显示数目
         currentItem.set(0);
-        isCyclic.set(true);//设置循环
+        isCyclic.set(false);//设置循环
         foreground.set(R.mipmap.bg_wheel_divider);
 
         String languageStr = ACache.get(AppApplication.getInstance()).getAsString(Constants.Cache.SUPPORT_LANGUAGES);
