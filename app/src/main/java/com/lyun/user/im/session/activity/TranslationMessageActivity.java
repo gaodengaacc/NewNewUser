@@ -16,7 +16,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -66,7 +65,6 @@ import java.util.TimerTask;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.INCOMING_TIMEOUT;
-import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.NET_BROKEN_TIMEOUT;
 import static com.netease.nimlib.sdk.avchat.constant.AVChatTimeOutEvent.OUTGOING_TIMEOUT;
 
 /**
@@ -309,7 +307,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            hangUpAudioCall(true);
+            hangUpAudioCall();
 
             int whoFinish = intent.getIntExtra(TranslationOrder.WHO_FINISH, TranslationOrder.OTHER);
 
@@ -370,10 +368,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             public void OnYesClick(View view) {
                 // 终止翻译服务stopService(new Intent(TranslationMessageActivity.this, TranslationOrderService.class));
                 if (AVChatProfile.getInstance().isAVChatting()) {
-                    hangUpAudioCall(true);
-                } else {
-                    TranslationOrderService.stop(TranslationMessageActivity.this, TranslationOrder.USER, "用户挂断");
+                    hangUpAudioCall();
                 }
+                TranslationOrderService.stop(TranslationMessageActivity.this, TranslationOrder.USER, "用户挂断");
             }
 
             @Override
@@ -400,7 +397,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         mProgressDialog.setOnOutSideCancel(false);
         mProgressDialog.setOnBottomClickCallBack(view -> {
             isMakeAudioCall = false;
-            hangUpAudioCall(false);
+            hangUpAudioCall();
             if (mAudioCallTimeOutTimer != null) {
                 mAudioCallTimeOutTimer.cancel();
             }
@@ -471,7 +468,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             @Override
             public void OnCancelClick(View view) {
                 dismissInComing();
-                hangUpAudioCall(false);
+                hangUpAudioCall();
             }
         });
     }
@@ -511,7 +508,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         public void run() {
             runOnUiThread(() -> {
                 isMakeAudioCall = false;
-                hangUpAudioCall(false);
+                hangUpAudioCall();
                 dismissProgress();
                 Toast.makeText(getApplicationContext(), "对方拒绝了您的语音请求", Toast.LENGTH_LONG).show();
             });
@@ -580,36 +577,32 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     /**
      * 挂断语音通话
      */
-    protected void hangUpAudioCall(boolean stopServiceOnHangUp) {
+    protected void hangUpAudioCall() {
         AVChatManager.getInstance().hangUp(new AVChatCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 L.i("AVChat", "语音挂断成功");
-                onAudioHangUp(stopServiceOnHangUp, TranslationOrder.USER, "用户挂断");
+                onAudioHangUp();
             }
 
             @Override
             public void onFailed(int code) {
                 L.i("AVChat", "语音挂断失败，Code:" + code);
-                onAudioHangUp(stopServiceOnHangUp, TranslationOrder.USER, "用户挂断");
+                onAudioHangUp();
             }
 
             @Override
             public void onException(Throwable exception) {
                 L.i("AVChat", "语音挂断失败", exception);
-                onAudioHangUp(stopServiceOnHangUp, TranslationOrder.USER, "用户挂断");
+                onAudioHangUp();
             }
         });
     }
 
-    protected void onAudioHangUp(boolean stopServiceOnHangUp, int whoHangUp, String reason) {
+    protected void onAudioHangUp() {
         AVChatProfile.getInstance().setAVChatting(false);
         // 切换到图文模式
-        if (stopServiceOnHangUp) {
-            TranslationOrderService.stop(this, whoHangUp, reason);
-        } else {
-            runOnUiThread(() -> changeToNormalChatMode());
-        }
+        runOnUiThread(() -> changeToNormalChatMode());
     }
 
     /**
@@ -656,7 +649,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         L.i("AVChat", "语音聊天被挂断 hangUpInfo -> " + hangUpInfo);
         if (hangUpInfo.getEvent() == AVChatEventType.PEER_HANG_UP) {
             if (AVChatProfile.getInstance().isAVChatting())
-                onAudioHangUp(true, TranslationOrder.TRANSLATOR, "翻译主动挂断");
+                onAudioHangUp();
             else {
                 AVChatProfile.getInstance().setAVChatting(false);
                 dismissProgress();
@@ -672,7 +665,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     Observer<AVChatTimeOutEvent> mAVChatCallTimeoutObserver = (Observer<AVChatTimeOutEvent>) event -> {
         // 超时类型
         L.i("AVChat", "语音聊天中断：event -> " + event);
-        onAudioHangUp(event == NET_BROKEN_TIMEOUT, TranslationOrder.OTHER, "网络超时");
+        onAudioHangUp();
         if (event == OUTGOING_TIMEOUT) {
 //            Toast.makeText(this, "对方拒绝接听", Toast.LENGTH_LONG).show();
         } else if (event == INCOMING_TIMEOUT) {
@@ -743,7 +736,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         public void onUserLeave(String account, int event) {
             L.i("AVChat", "onUserLeave account -> " + account + " event -> " + event);
             if (event == -1) {
-                onAudioHangUp(true, TranslationOrder.OTHER, "网络超时");
+                onAudioHangUp();
             }
         }
 
