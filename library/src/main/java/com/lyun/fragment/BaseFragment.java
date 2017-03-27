@@ -10,6 +10,8 @@ import com.lyun.BaseApplication;
 import com.lyun.library.R;
 import com.squareup.leakcanary.RefWatcher;
 
+import java.lang.reflect.Field;
+
 public class BaseFragment extends Fragment {
 
     public BaseFragment() {
@@ -43,5 +45,28 @@ public class BaseFragment extends Fragment {
         // LeakCanary
         RefWatcher refWatcher = BaseApplication.getRefWatcher();
         refWatcher.watch(this);
+    }
+
+    /**
+     * Override onDetach to fix this bug:
+     * java.lang.IllegalStateException: Activity has been destroyed
+     * at android.support.v4.app.FragmentManagerImpl.enqueueAction(FragmentManager.java:1854)
+     * at android.support.v4.app.BackStackRecord.commitInternal(BackStackRecord.java:643)
+     * at android.support.v4.app.BackStackRecord.commitAllowingStateLoss(BackStackRecord.java:608)
+     * at com.lyun.lawyer.im.session.activity.TranslationMessageActivity.switchContent(TranslationMessageActivity.java:278)
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

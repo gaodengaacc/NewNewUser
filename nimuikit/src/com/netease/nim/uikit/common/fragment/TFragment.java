@@ -11,6 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 
+import java.lang.reflect.Field;
+
 public abstract class TFragment extends Fragment {
     private static final Handler handler = new Handler();
 
@@ -44,6 +46,29 @@ public abstract class TFragment extends Fragment {
         LogUtil.ui("fragment: " + getClass().getSimpleName() + " onDestroy()");
 
         destroyed = true;
+    }
+
+    /**
+     * Override onDetach to fix this bug:
+     * java.lang.IllegalStateException: Activity has been destroyed
+     * at android.support.v4.app.FragmentManagerImpl.enqueueAction(FragmentManager.java:1854)
+     * at android.support.v4.app.BackStackRecord.commitInternal(BackStackRecord.java:643)
+     * at android.support.v4.app.BackStackRecord.commitAllowingStateLoss(BackStackRecord.java:608)
+     * at com.lyun.lawyer.im.session.activity.TranslationMessageActivity.switchContent(TranslationMessageActivity.java:278)
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected final Handler getHandler() {
