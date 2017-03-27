@@ -254,4 +254,8 @@ public class MessageFragment extends TFragment implements ModuleProxy {
     public void receiveReceipt() {
         messageListPanel.receiveReceipt();
     }
+
+    public void hideInputMethod() {
+        inputPanel.collapse(true);
+    }
 }

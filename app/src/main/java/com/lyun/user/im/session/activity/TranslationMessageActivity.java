@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -240,6 +241,11 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         }
 
         if (AVChatProfile.getInstance().isAVChatting()) {
+
+            if (getMessageFragment() != null) {
+                getMessageFragment().hideInputMethod();
+            }
+
             // 正在语音
             currentNormalMode = false;
             mTranslationAudioMessageFragment.setTranslatorName(getTitle().toString());
