@@ -395,7 +395,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         mProgressDialog.setOnBottomClickCallBack(view -> {
             isMakeAudioCall = false;
             hangUpAudioCall(false);
-            mAudioCallTimeOutTimer.cancel();
+            if (mAudioCallTimeOutTimer != null) {
+                mAudioCallTimeOutTimer.cancel();
+            }
         });
         mProgressDialog.show();
     }
@@ -497,7 +499,8 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     };
 
     public Timer mAudioCallTimeOutTimer;
-    public class AudioCallTimeOutTimerTask extends TimerTask{
+
+    public class AudioCallTimeOutTimerTask extends TimerTask {
         @Override
         public void run() {
             runOnUiThread(() -> {
@@ -507,7 +510,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
                 Toast.makeText(getApplicationContext(), "对方拒绝了您的语音请求", Toast.LENGTH_LONG).show();
             });
         }
-    };
+    }
+
+    ;
 
     /**
      * 发起语音请求
@@ -629,7 +634,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             // 切换到语音聊天界面
             runOnUiThread(() -> changeToAudioChatMode());
         }
-        mAudioCallTimeOutTimer.cancel();
+        if (mAudioCallTimeOutTimer != null) {
+            mAudioCallTimeOutTimer.cancel();
+        }
         dismissProgress();
         dismissInComing();
     };
