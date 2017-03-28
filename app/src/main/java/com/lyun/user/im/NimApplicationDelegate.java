@@ -125,7 +125,7 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
         StatusBarNotificationConfig config = new StatusBarNotificationConfig();
 
         config.downTimeToggle = true;
-        config.downTimeBegin = "00:00";
+        config.downTimeBegin = "00:01";
         config.downTimeEnd = "24:00";
 
         config.notificationEntrance = null; // 点击通知栏跳转到该Activity
