@@ -5,4 +5,5 @@
     android:layout_height="21dp"
     android:background="#f0f0f0"
     android:gravity="center"
+    android:padding="1dp"
     android:textColor="#333333"></TextView>
