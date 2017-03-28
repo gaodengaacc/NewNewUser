@@ -63,16 +63,20 @@ public class SplashActivity extends BaseActivity {
         }
     }
 
-    protected final int REQUEST_AVCHAT_PERMISSION = 0x001;
+    protected final int REQUEST_PERMISSION = 0x001;
 
-    @AfterPermissionGranted(REQUEST_AVCHAT_PERMISSION)
+    @AfterPermissionGranted(REQUEST_PERMISSION)
     public void checkPermission() {
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.RECORD_AUDIO)) {
-            L.i("permission", "录音权限已授权");
+        if (EasyPermissions.hasPermissions(this,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
         } else {
-            L.i("permission", "申请录音权限");
-            EasyPermissions.requestPermissions(this, "语音通话需要录音权限",
-                    REQUEST_AVCHAT_PERMISSION, Manifest.permission.RECORD_AUDIO);
+            EasyPermissions.requestPermissions(this, "为保证app正常运行，需要这些权限",
+                    REQUEST_PERMISSION,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
 
