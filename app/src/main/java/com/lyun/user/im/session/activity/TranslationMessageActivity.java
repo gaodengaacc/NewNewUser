@@ -396,7 +396,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         mProgressDialog.setBottomMessage("取消");
         mProgressDialog.setOnOutSideCancel(false);
         mProgressDialog.setOnBottomClickCallBack(view -> {
-            isMakeAudioCall = false;
+            dismissProgress();
             hangUpAudioCall();
             if (mAudioCallTimeOutTimer != null) {
                 mAudioCallTimeOutTimer.cancel();
@@ -406,9 +406,13 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     }
 
     protected void dismissProgress() {
+        isMakeAudioCall = false;
         if (mProgressDialog != null)
             mProgressDialog.dismiss();
-        isMakeAudioCall = false;
+        if (mAudioCallButton != null) {
+            mAudioCallButton.setEnabled(true);
+            mAudioCallButton.setClickable(true);
+        }
     }
 
     protected void dismissInComing() {
