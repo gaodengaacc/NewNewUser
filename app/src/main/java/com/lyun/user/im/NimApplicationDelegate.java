@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Environment;
 import android.util.Log;
 
 import com.lyun.AppFileDirs;
@@ -17,8 +16,6 @@ import com.lyun.user.AppApplication;
 import com.lyun.user.BuildConfig;
 import com.lyun.user.R;
 import com.lyun.user.activity.LoginActivity;
-import com.lyun.user.activity.MainActivity;
-import com.lyun.user.activity.SplashActivity;
 import com.lyun.user.im.avchat.AVChatProfile;
 import com.lyun.user.im.avchat.activity.AVChatActivity;
 import com.lyun.user.im.config.preference.UserPreferences;
@@ -37,12 +34,9 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
-import com.netease.nimlib.sdk.mixpush.NIMPushClient;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
-import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
-import com.netease.nimlib.sdk.team.model.IMMessageFilter;
 import com.netease.nimlib.sdk.team.model.UpdateTeamAttachment;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 
@@ -65,9 +59,9 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
         NimCache.setContext(getApplication());
 
         // 注册小米推送appID 、appKey 以及在云信管理后台添加的小米推送证书名称，该逻辑放在 NIMClient init 之前
-        NIMPushClient.registerMiPush(getApplication(), BuildConfig.MIPUSH_CERT_NAME, BuildConfig.MIPUSH_APP_ID, BuildConfig.MIPUSH_APP_KEY);
+        // NIMPushClient.registerMiPush(getApplication(), BuildConfig.MIPUSH_CERT_NAME, BuildConfig.MIPUSH_APP_ID, BuildConfig.MIPUSH_APP_KEY);
         // 注册自定义小米推送消息处理，这个是可选项
-        //NIMPushClient.registerMixPushMessageHandler(new DemoMixPushMessageHandler());
+        // NIMPushClient.registerMixPushMessageHandler(new DemoMixPushMessageHandler());
         NIMClient.init(getApplication(), getLoginInfo(), getOptions());
 
         if (getApplication().inMainProcess()) {
@@ -83,7 +77,8 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
             registerIMMessageFilter();
 
             // 初始化消息提醒
-            NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+            // NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+            NIMClient.toggleNotification(false);
 
             // 注册网络通话来电
             // enableAVChat();
@@ -128,7 +123,12 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
 
         // 如果将新消息通知提醒托管给 SDK 完成，需要添加以下配置。否则无需设置。
         StatusBarNotificationConfig config = new StatusBarNotificationConfig();
-        config.notificationEntrance = MainActivity.class; // 点击通知栏跳转到该Activity
+
+        config.downTimeToggle = true;
+        config.downTimeBegin = "00:00";
+        config.downTimeEnd = "24:00";
+
+        config.notificationEntrance = null; // 点击通知栏跳转到该Activity
         config.notificationSmallIconId = R.mipmap.ic_launcher;
         // 呼吸灯配置
         config.ledARGB = Color.GREEN;
