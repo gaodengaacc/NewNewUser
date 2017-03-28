@@ -77,8 +77,8 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
             registerIMMessageFilter();
 
             // 初始化消息提醒
-            // NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
-            NIMClient.toggleNotification(false);
+            UserPreferences.setNotificationToggle(false);
+            NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
 
             // 注册网络通话来电
             // enableAVChat();
