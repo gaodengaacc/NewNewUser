@@ -171,7 +171,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mAudioCallButton = new ImageView(this);
         mAudioCallButton.setImageResource(R.drawable.ic_av_call);
-        mAudioCallButton.setPadding(ScreenUtil.dip2px(15), 0, ScreenUtil.dip2px(15), 0);
+        mAudioCallButton.setPadding(ScreenUtil.dip2px(15), ScreenUtil.dip2px(10), ScreenUtil.dip2px(15), ScreenUtil.dip2px(10));
         mAudioCallButton.setOnClickListener(v -> {
             if (isFastDoubleClick())
                 return;
@@ -514,8 +514,6 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             });
         }
     }
-
-    ;
 
     /**
      * 发起语音请求

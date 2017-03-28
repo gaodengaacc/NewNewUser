@@ -256,6 +256,7 @@ public class MessageFragment extends TFragment implements ModuleProxy {
     }
 
     public void hideInputMethod() {
-        inputPanel.collapse(true);
+        if (inputPanel != null)
+            inputPanel.collapse(true);
     }
 }
