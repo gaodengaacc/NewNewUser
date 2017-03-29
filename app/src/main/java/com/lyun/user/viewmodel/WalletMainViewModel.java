@@ -68,6 +68,12 @@ public class WalletMainViewModel extends ViewModel {
         init();
     }
 
+    public RelayCommand onChargeButtonClick = new RelayCommand(() -> {
+        intent = new Intent(AppIntent.ACTION_WALLET_CHARGE);
+        intent.putExtra("unUseTime", unTime);
+        getActivity().startActivity(intent);
+    });
+
     @Override
     public void onResume() {
         super.onResume();
@@ -110,8 +116,8 @@ public class WalletMainViewModel extends ViewModel {
                     if (apiResult.isSuccess()) {
                         if (refresh)
                             list.clear();
-                        if(apiResult.getContent().getData()!=null && apiResult.getContent().getData().size()==0 && !refresh){
-                                ObservableNotifier.alwaysNotify(loadMoreResult, PullToRefreshLayout.DONE);
+                        if (apiResult.getContent().getData() != null && apiResult.getContent().getData().size() == 0 && !refresh) {
+                            ObservableNotifier.alwaysNotify(loadMoreResult, PullToRefreshLayout.DONE);
                             return;
                         }
                         for (WalletChargeRecorderResponse recorder : apiResult.getContent().getData()) {
@@ -120,7 +126,7 @@ public class WalletMainViewModel extends ViewModel {
                             viewModel.description.set("+" + TimeUtil.convertMin2Str(recorder.getAmountNow()));
                             list.add(viewModel);
                         }
-                        ObservableNotifier.alwaysNotify(notifyData,list);
+                        ObservableNotifier.alwaysNotify(notifyData, list);
                         currentTranslationOrderPage = page;
                         nextTranslationOrderPage = currentTranslationOrderPage + 1;
                         totalTranslationOrderPage = apiResult.getContent().getPagecount();
