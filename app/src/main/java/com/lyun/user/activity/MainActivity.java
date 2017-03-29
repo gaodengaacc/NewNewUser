@@ -9,13 +9,17 @@ import com.lyun.library.mvvm.view.activity.MvvmActivity;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityMainBinding;
+import com.lyun.user.im.config.preference.UserPreferences;
 import com.lyun.user.viewmodel.MainActivityViewModel;
+import com.netease.nimlib.sdk.NIMClient;
 
 public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivityViewModel> {
 
     @NonNull
     @Override
     protected MainActivityViewModel createViewModel() {
+        UserPreferences.setNotificationToggle(false);
+        NIMClient.toggleNotification(false);
         return new MainActivityViewModel(getActivityViewDataBinding().mainContainer, getSupportFragmentManager());
     }
 
