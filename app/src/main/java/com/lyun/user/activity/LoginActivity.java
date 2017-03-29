@@ -20,6 +20,8 @@ import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityLoginBinding;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.config.preference.UserPreferences;
+import com.lyun.user.service.TranslationOrder;
+import com.lyun.user.service.TranslationOrderService;
 import com.lyun.user.viewmodel.LoginViewModel;
 import com.lyun.user.viewmodel.watchdog.ILoginViewModelCallbacks;
 import com.netease.nimlib.sdk.NIMClient;
@@ -32,13 +34,15 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
 
     private static final String KICK_OUT = "KICK_OUT";
     private SimpleDialogViewModel dialog;
+
     public static void start(Context context, boolean kickOut) {
         Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(KICK_OUT, kickOut);
         context.startActivity(intent);
 //        if(kickOut)
-            Account.preference().clear();
+        Account.preference().clear();
+        TranslationOrderService.stop(context, TranslationOrder.USER, "用户在其他地方登陆");
     }
 
     @Override
@@ -50,7 +54,7 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(dialog!=null)
+        if (dialog != null)
             dialog.dismiss();
     }
 
@@ -77,8 +81,8 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
     }
 
     private void showKikeDialog(String client) {
-        if(dialog == null)
-        dialog = new SimpleDialogViewModel(this);
+        if (dialog == null)
+            dialog = new SimpleDialogViewModel(this);
         dialog.setInfo(String.format(getString(R.string.kickout_content), client));
         dialog.setYesBtnText("确定");
         dialog.setBtnCancelVisibility(View.GONE);
@@ -93,12 +97,13 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
         });
         dialog.show();
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getRepeatCount() == 0) {
-            if(getIntent().getBooleanExtra(KICK_OUT, false)){
+            if (getIntent().getBooleanExtra(KICK_OUT, false)) {
                 Intent home = new Intent(Intent.ACTION_MAIN);
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 home.addCategory(Intent.CATEGORY_HOME);

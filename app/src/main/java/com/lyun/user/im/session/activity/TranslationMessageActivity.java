@@ -672,6 +672,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 //            Toast.makeText(this, "对方拒绝接听", Toast.LENGTH_LONG).show();
         } else if (event == INCOMING_TIMEOUT) {
         }
+        isMakeAudioCall = false;
         dismissProgress();
         dismissInComing();
     };
