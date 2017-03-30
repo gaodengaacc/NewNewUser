@@ -89,6 +89,13 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
         parseIntent();
 
+        L.e("TranslationMessageActivity", "orderId:" + orderId);
+        L.e("TranslationMessageActivity", "service running:" + TranslationOrderService.isRunning());
+        if (!TranslationOrderService.isRunning()) {
+            finish();
+        }
+
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(com.netease.nim.uikit.R.id.message_fragment_container, getMessageFragment());
         ft.add(com.netease.nim.uikit.R.id.message_fragment_container, getTranslationAudioMessageFragment());

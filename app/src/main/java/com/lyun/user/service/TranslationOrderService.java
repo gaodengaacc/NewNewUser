@@ -23,6 +23,8 @@ public class TranslationOrderService extends Service {
 
     private final String TAG = getClass().getSimpleName();
 
+    private static TranslationOrderService mInstance;
+
     //心跳包时间间隔 s
     public final int HEART_BEAT_INTERVAL = 19;
 
@@ -30,6 +32,10 @@ public class TranslationOrderService extends Service {
 
     public TranslationOrderService() {
         mTimer = new Timer();
+    }
+
+    public static boolean isRunning() {
+        return mInstance == null ? false : true;
     }
 
     public static void start(Context context, String orderId, String targetLanguage,
@@ -65,6 +71,12 @@ public class TranslationOrderService extends Service {
     };
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        mInstance = this;
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String orderId = intent.getStringExtra(TranslationOrder.ORDER_ID);
         TranslationOrderModel.OrderType orderType = (TranslationOrderModel.OrderType) intent.getSerializableExtra(TranslationOrder.ORDER_TYPE);
@@ -83,6 +95,7 @@ public class TranslationOrderService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mInstance = null;
 
         mTimer.cancel();
 
