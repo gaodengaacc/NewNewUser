@@ -21,7 +21,14 @@ import com.lyun.user.service.TranslationOrder;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -59,6 +66,10 @@ public class HomeFragmentViewModel extends ViewModel {
     public void onResume() {
         super.onResume();
         getRemainingTime(Account.preference().getPhone());//获取剩余时间
+        Observable.empty()
+                .delay(2, TimeUnit.SECONDS)
+                .doOnComplete(() -> getRemainingTime(Account.preference().getPhone()))
+                .subscribe();
     }
 
     private void getRemainingTime(String userName) {
