@@ -525,26 +525,30 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     protected void makeAudioCall() {
         isMakeAudioCall = true;
 
-        mAudioCallTimeOutTimer = new Timer();
-        mAudioCallTimeOutTimer.schedule(new AudioCallTimeOutTimerTask(), 20 * 1000);
+        runOnUiThread(() -> showProgress("正在请求通话..."));
 
         AVChatManager.getInstance().call(sessionId, AVChatType.AUDIO, new AVChatOptionalConfig(), new AVChatNotifyOption(), new AVChatCallback<AVChatData>() {
             @Override
             public void onSuccess(AVChatData avChatData) {
                 L.i("AVChat", "语音请求发起成功，等待对方接听");
-                runOnUiThread(() -> showProgress("正在请求通话..."));
+                mAudioCallTimeOutTimer = new Timer();
+                mAudioCallTimeOutTimer.schedule(new AudioCallTimeOutTimerTask(), 20 * 1000);
             }
 
             @Override
             public void onFailed(int code) {
                 isMakeAudioCall = false;
                 L.e("AVChat", "语音请求发起失败 code:" + code);
+                dismissProgress();
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "语音请求发起失败", Toast.LENGTH_SHORT).show());
             }
 
             @Override
             public void onException(Throwable exception) {
                 isMakeAudioCall = false;
                 L.e("AVChat", "语音请求发起失败", exception);
+                dismissProgress();
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "语音请求发起失败", Toast.LENGTH_SHORT).show());
             }
         });
     }
