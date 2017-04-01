@@ -27,7 +27,7 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 /**
  * 会话窗口消息列表项的ViewHolder基类，负责每个消息项的外层框架，包括头像，昵称，发送/接收进度条，重发按钮等。<br>
- *     具体的消息展示项可继承该基类，然后完成具体消息内容展示即可。
+ * 具体的消息展示项可继承该基类，然后完成具体消息内容展示即可。
  */
 public abstract class MsgViewHolderBase extends TViewHolder {
 
@@ -110,7 +110,7 @@ public abstract class MsgViewHolderBase extends TViewHolder {
 
     // 设置FrameLayout子控件的gravity参数
     protected final void setGravity(View view, int gravity) {
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view.getLayoutParams();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
         params.gravity = gravity;
     }
 
@@ -126,7 +126,7 @@ public abstract class MsgViewHolderBase extends TViewHolder {
 
     // 根据layout id查找对应的控件
     protected <T extends View> T findViewById(int id) {
-        return (T)view.findViewById(id);
+        return (T) view.findViewById(id);
     }
 
     // 判断消息方向，是否是接收到的消息
@@ -200,18 +200,18 @@ public abstract class MsgViewHolderBase extends TViewHolder {
 
         MsgStatusEnum status = message.getStatus();
         switch (status) {
-        case fail:
-            progressBar.setVisibility(View.GONE);
-            alertButton.setVisibility(View.VISIBLE);
-            break;
-        case sending:
-            progressBar.setVisibility(View.VISIBLE);
-            alertButton.setVisibility(View.GONE);
-            break;
-        default:
-            progressBar.setVisibility(View.GONE);
-            alertButton.setVisibility(View.GONE);
-            break;
+            case fail:
+                progressBar.setVisibility(View.GONE);
+                alertButton.setVisibility(View.VISIBLE);
+                break;
+            case sending:
+                progressBar.setVisibility(View.VISIBLE);
+                alertButton.setVisibility(View.GONE);
+                break;
+            default:
+                progressBar.setVisibility(View.GONE);
+                alertButton.setVisibility(View.GONE);
+                break;
         }
     }
 

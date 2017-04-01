@@ -14,8 +14,6 @@ import com.lyun.user.BuildConfig;
 import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.utils.L;
 
-import org.w3c.dom.Text;
-
 import java.util.Timer;
 import java.util.TimerTask;
 

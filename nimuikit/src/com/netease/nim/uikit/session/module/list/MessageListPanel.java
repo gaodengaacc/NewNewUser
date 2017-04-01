@@ -681,10 +681,10 @@ public class MessageListPanel implements TAdapterDelegate {
 
         @Override
         public boolean onViewHolderLongClick(View clickView, View viewHolderView, IMMessage item) {
-            if (container.proxy.isLongClickEnabled()) {
+//            if (container.proxy.isLongClickEnabled()) {
                 showLongClickAction(item);
-            }
-            return true;
+//            }
+            return false;
         }
 
         // 重新下载(对话框提示)
@@ -753,28 +753,28 @@ public class MessageListPanel implements TAdapterDelegate {
             MessageAudioControl.getInstance(container.activity).stopAudio();
 
             // 0 EarPhoneMode
-            longClickItemEarPhoneMode(alertDialog, msgType);
+//            longClickItemEarPhoneMode(alertDialog, msgType);
             // 1 resend
-            longClickItemResend(selectedItem, alertDialog);
+//            longClickItemResend(selectedItem, alertDialog);
             // 2 copy
             longClickItemCopy(selectedItem, alertDialog, msgType);
             // 3 revoke
-            if (selectedItem.getDirect() == MsgDirectionEnum.Out && selectedItem.getStatus() == MsgStatusEnum.success
-                    && !NimUIKit.getMsgRevokeFilter().shouldIgnore(selectedItem) && !recordOnly) {
-                longClickRevokeMsg(selectedItem, alertDialog);
-            }
-            // 4 delete
-            longClickItemDelete(selectedItem, alertDialog);
-            // 5 trans
-            longClickItemVoidToText(selectedItem, alertDialog, msgType);
+//            if (selectedItem.getDirect() == MsgDirectionEnum.Out && selectedItem.getStatus() == MsgStatusEnum.success
+//                    && !NimUIKit.getMsgRevokeFilter().shouldIgnore(selectedItem) && !recordOnly) {
+//                longClickRevokeMsg(selectedItem, alertDialog);
+//            }
+//            // 4 delete
+//            longClickItemDelete(selectedItem, alertDialog);
+//            // 5 trans
+//            longClickItemVoidToText(selectedItem, alertDialog, msgType);
 
-            if (NimUIKit.getMsgForwardFilter() != null &&
-                    !NimUIKit.getMsgForwardFilter().shouldIgnore(selectedItem) && !recordOnly) {
-                // 6 forward to person
-                longClickItemForwardToPerson(selectedItem, alertDialog);
-                // 7 forward to team
-                longClickItemForwardToTeam(selectedItem, alertDialog);
-            }
+//            if (NimUIKit.getMsgForwardFilter() != null &&
+//                    !NimUIKit.getMsgForwardFilter().shouldIgnore(selectedItem) && !recordOnly) {
+//                // 6 forward to person
+//                longClickItemForwardToPerson(selectedItem, alertDialog);
+//                // 7 forward to team
+//                longClickItemForwardToTeam(selectedItem, alertDialog);
+//            }
         }
 
         // 长按菜单项--重发
