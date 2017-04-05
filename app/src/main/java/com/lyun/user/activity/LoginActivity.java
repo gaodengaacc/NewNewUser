@@ -42,7 +42,7 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
         context.startActivity(intent);
 //        if(kickOut)
         Account.preference().clear();
-        TranslationOrderService.stop(context, TranslationOrder.USER, "用户在其他地方登陆");
+        TranslationOrderService.forceStop(context);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class TranslationOrderFinishByTranslatorHandler implements AttachContentH
 
     @Override
     public void handleNotification(Context context, TranslationOrderFinish data) {
-        TranslationOrderService.stop(context, TranslationOrder.TRANSLATOR, "翻译中断了本次服务");
+        TranslationOrderService.stop(context, data.getUserOrderId(), TranslationOrder.TRANSLATOR, "翻译中断了本次服务");
     }
 
     @Override

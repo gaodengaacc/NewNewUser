@@ -95,7 +95,6 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             finish();
         }
 
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(com.netease.nim.uikit.R.id.message_fragment_container, getMessageFragment());
         ft.add(com.netease.nim.uikit.R.id.message_fragment_container, getTranslationAudioMessageFragment());
@@ -377,7 +376,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
                 if (AVChatProfile.getInstance().isAVChatting()) {
                     hangUpAudioCall();
                 }
-                TranslationOrderService.stop(TranslationMessageActivity.this, TranslationOrder.USER, "用户挂断");
+                TranslationOrderService.stop(TranslationMessageActivity.this, orderId, TranslationOrder.USER, "用户挂断");
             }
 
             @Override
