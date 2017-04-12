@@ -31,6 +31,7 @@ public class FindPasswordViewModel extends ViewModel {
     public final ObservableField<TransformationMethod> inputType = new ObservableField<>();//设置密码显隐
     private TimeCount timeCount = new TimeCount(60000, 1000);//设置能够获取验证码倒计时
     private String status = "1";
+    private boolean canClick = false;
 
     @WatchThis
     public final BaseObservable onFindPasswordSuccess = new BaseObservable();//提交成功
@@ -94,13 +95,19 @@ public class FindPasswordViewModel extends ViewModel {
     }
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
-        if (("".equals(username.get()) || (username.get() == null))) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号");
-        } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入有效手机号");
+        if (!canClick) {
+            if (("".equals(username.get()) || (username.get() == null))) {
+                ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入手机号");
+            } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
+                ObservableNotifier.alwaysNotify(onFindPasswordResult, "请输入有效手机号");
+            } else {
+                canClick = true;
+                getSmsCode(username.get(), status);//获取验证码
+            }
         } else {
-            getSmsCode(username.get(), status);//获取验证码
+            return;
         }
+
     });
 
     /**
@@ -117,6 +124,7 @@ public class FindPasswordViewModel extends ViewModel {
                         timeCount.start();
                     } else {
                         ObservableNotifier.alwaysNotify(onFindPasswordResult, apiResult.getDescribe());
+                        canClick = false;
                     }
                 }, throwable -> {
                 });
@@ -150,6 +158,7 @@ public class FindPasswordViewModel extends ViewModel {
         public void onFinish() {
             mSendSmsCode.set("重新获取");
             clickable.set(true);
+            canClick = false;
         }
     }
 }

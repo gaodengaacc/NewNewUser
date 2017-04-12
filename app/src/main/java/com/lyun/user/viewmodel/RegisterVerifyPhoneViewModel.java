@@ -32,6 +32,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     private Intent intent;
     private Bundle bundle = new Bundle();
     private String status = "2";
+    private boolean canClick = false;
 
     @WatchThis
     public final ObservableField<Intent> onVerifySuccess = new ObservableField<>();//验证成功
@@ -49,14 +50,21 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     }
 
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
-        if (("".equals(username.get()) || (username.get() == null))) {
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号");
-        } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
-            // 产品2017/03/24需求变更 bugfree ID：7810
-            ObservableNotifier.alwaysNotify(onVerifyResult, "请输入有效手机号");
+        if (!canClick) {
+            if (("".equals(username.get()) || (username.get() == null))) {
+                ObservableNotifier.alwaysNotify(onVerifyResult, "请输入手机号");
+            } else if (!RegExMatcherUtils.isMobileNO(username.get())) {
+                // 产品2017/03/24需求变更 bugfree ID：7810
+                ObservableNotifier.alwaysNotify(onVerifyResult, "请输入有效手机号");
+            } else {
+                canClick = true;
+                getSmsCode(username.get(), status);
+            }
         } else {
-            getSmsCode(username.get(), status);
+            return;
         }
+
+
     });
 
     /**
@@ -73,6 +81,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
                         timeCount.start();
                     } else {
                         ObservableNotifier.alwaysNotify(onVerifyResult, apiResult.getDescribe());
+                        canClick = false;
                     }
                 });
     }
@@ -145,6 +154,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
         public void onFinish() {
             mSendSmsCode.set("重新获取");
             clickable.set(true);
+            canClick = false;
         }
     }
 
