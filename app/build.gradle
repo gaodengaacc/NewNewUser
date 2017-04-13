@@ -206,7 +206,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    alphaCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    alphaCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'
