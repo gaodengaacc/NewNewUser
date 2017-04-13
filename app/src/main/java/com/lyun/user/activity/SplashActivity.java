@@ -37,21 +37,7 @@ public class SplashActivity extends BaseActivity {
             new LanguageModel().updateLanguages();
         if (mHandler == null)
             mHandler = new Handler();
-        mHandler.postDelayed(() -> {
-            // 判断是否首次启动
-            if (!Account.preference().isFirstSplash()) {
-                // Account.preference().setFirstSplash(true);
-                intent = new Intent(AppIntent.ACTION_GUIDE);
-            } else {
-                if (Account.preference().isLogin()) {
-                    intent = new Intent(SplashActivity.this, MainActivity.class);
-                } else {
-                    intent = new Intent(SplashActivity.this, LoginActivity.class);
-                }
-            }
-            startActivity(intent);
-            finish();
-        }, sleepTime);
+        mHandler.postDelayed(() -> processDone(), sleepTime);
     }
 
     @Override
@@ -63,6 +49,32 @@ public class SplashActivity extends BaseActivity {
         }
     }
 
+    protected boolean canFinish = false;
+
+    protected void processDone() {
+
+        synchronized (this) {
+            if (!canFinish) {
+                canFinish = true;
+                return;
+            }
+        }
+
+        // 判断是否首次启动
+        if (!Account.preference().isFirstSplash()) {
+            // Account.preference().setFirstSplash(true);
+            intent = new Intent(AppIntent.ACTION_GUIDE);
+        } else {
+            if (Account.preference().isLogin()) {
+                intent = new Intent(SplashActivity.this, MainActivity.class);
+            } else {
+                intent = new Intent(SplashActivity.this, LoginActivity.class);
+            }
+        }
+        startActivity(intent);
+        finish();
+    }
+
     protected final int REQUEST_PERMISSION = 0x001;
 
     @AfterPermissionGranted(REQUEST_PERMISSION)
@@ -71,6 +83,7 @@ public class SplashActivity extends BaseActivity {
                 Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            processDone();
         } else {
             EasyPermissions.requestPermissions(this, "为保证app正常运行，需要这些权限",
                     REQUEST_PERMISSION,
@@ -84,5 +97,6 @@ public class SplashActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+        processDone();
     }
 }
