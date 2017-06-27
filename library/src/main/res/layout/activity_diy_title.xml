@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.library.mvvm.viewmodel.DiyTitleViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/activity_diy_title_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".mvvm.view.activity.DiyTitleActivity">
+
+        <android.support.v7.widget.ViewStubCompat
+            android:id="@+id/general_toolbar_view_stub"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_title_height">
+
+        </android.support.v7.widget.ViewStubCompat>
+
+        <android.support.v7.widget.ViewStubCompat
+            android:id="@+id/general_toolbar_content_view_stub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.ViewStubCompat>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.WaitingForTranslatorViewModel"></variable>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/activity_waitting_for_translator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_av_chat">
+
+        <TextView
+            android:id="@+id/waiting_for_translator_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
+            android:text="@{mvvm.status}"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"/>
+
+        <LinearLayout
+            android:id="@+id/waiting_for_translator_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="80dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="15dp"
+                android:drawableTop="@drawable/ic_av_chat_mute_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="静音"
+                app:onCheckCommand="@{mvvm.onMuteCheckCommand}"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="15dp"
+                android:drawableTop="@mipmap/ic_av_chat_hang_up"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text=" "
+                app:onCheckCommand="@{mvvm.onHangUpCheckCommand}"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawablePadding="15dp"
+                android:drawableTop="@drawable/ic_av_chat_hand_free_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="免提"
+                app:onCheckCommand="@{mvvm.onHandFreeCheckCommand}"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/waiting_for_translator_options"
+            android:layout_below="@id/waiting_for_translator_status"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="38dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
+
+            <ImageView
+                android:id="@+id/waiting_for_translator_time_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bg_av_chat_time"/>
+
+            <ImageView
+                android:id="@+id/waiting_for_translator_time_anim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/waiting_for_translator_time_bg"
+                android:layout_alignTop="@id/waiting_for_translator_time_bg"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/ic_av_chat_anim"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@{mvvm.countDownTime +`S`}"
+                android:textColor="@android:color/white"
+                android:textSize="31sp"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

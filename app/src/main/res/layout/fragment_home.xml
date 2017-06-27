@@ -1,0 +1,267 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.HomeFragmentViewModel"></import>
+
+        <import type="com.lyun.user.api.response.FindLanguageResponse"></import>
+
+        <variable
+            name="mvvm"
+            type="HomeFragmentViewModel"></variable>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:imageUrl="@{mvvm.backGround}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/textView_title_change"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:text="@{mvvm.textViewModelChange}"
+                android:textColor="#000000"
+                android:textSize="30sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="215dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="剩余使用"
+                        android:textColor="#666"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{mvvm.unusedTime}"
+                        android:textColor="#666"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        android:text="分钟"
+                        android:textColor="#666"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/index_bg"
+                    android:orientation="vertical"
+                    android:paddingBottom="22dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:gravity="center"
+                            android:text="律译通"
+                            android:textColor="#00abfa"
+                            android:textSize="18sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="#ebebeb"></View>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="157dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout_language"
+                                android:layout_width="match_parent"
+                                android:layout_height="106dp"
+                                android:orientation="horizontal"
+                                android:weightSum="5">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="2"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_marginTop="26dp"
+                                        android:gravity="center"
+                                        android:text="我的语言"
+                                        android:textColor="#bdbdbd"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp" />
+
+                                    <TextView
+                                        android:id="@+id/textView_language1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center"
+                                        android:text="汉语"
+                                        android:textColor="#333333"
+                                        android:textSize="28sp" />
+                                </LinearLayout>
+
+
+                                <ImageView
+                                    android:id="@+id/imageView"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:paddingTop="32dp"
+                                    android:src="@mipmap/selector_fragment_specialist_translation" />
+
+
+                                <LinearLayout
+                                    android:id="@+id/linearLayout_languagePicker"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="2"
+                                    android:orientation="vertical"
+                                    app:clickCommand="@{mvvm.onPickLanguageClickCommand}">
+
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_marginTop="26dp"
+                                        android:gravity="center"
+                                        android:text="目标语言"
+                                        android:textColor="#bdbdbd"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp" />
+
+                                    <TextView
+                                        android:id="@+id/textView_targetLanguage"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center"
+                                        android:text="@{((FindLanguageResponse)mvvm.mCurrentLanguage).getName()}"
+                                        android:textColor="#00abfa"
+                                        android:textSize="28sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/relativeLayout_model"
+                                android:layout_width="match_parent"
+                                android:layout_height="52dp">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1px"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:background="#ebebeb"></View>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignRight="@+id/imageView_model_change"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="61dp"
+                                    android:text="语音呼叫"
+                                    android:textColor="@{mvvm.textViewColor1}"
+                                    android:textSize="12sp"
+                                    app:typeFace="@{mvvm.typeface1}" />
+
+                                <ImageView
+                                    android:id="@+id/imageView_model_change"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:onClick="@{mvvm.modelChangeImageViewClick}"
+                                    app:imageSrc="@{mvvm.modelChange}" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignLeft="@+id/imageView_model_change"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="61dp"
+                                    android:text="图文翻译"
+                                    android:textColor="@{mvvm.textViewColor2}"
+                                    android:textSize="12sp"
+                                    app:typeFace="@{mvvm.typeface2}" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView_way_change"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:clickable="@{mvvm.onRequestTranslationClickable}"
+                    app:clickCommand="@{mvvm.onRequestTranslation}"
+                    app:imageSrc="@{mvvm.imageViewModelChange}" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

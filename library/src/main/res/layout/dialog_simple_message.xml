@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="SimpleDialogViewModel"></variable>
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/no_border_round_corner_white_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/simple_message_tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:maxWidth="200dp"
+            android:text="@{mvvm.contentText}"
+            android:textColor="#6c6666"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="#cccccc" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <Button
+                android:id="@+id/simple_message_btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:onClick="@{mvvm.onCancelClick}"
+                android:padding="10dp"
+                android:text="@{mvvm.btnCancelText}"
+                android:textColor="@color/cbp"
+                android:textSize="14sp"
+                android:visibility="@{mvvm.btnCancelVisible}" />
+
+            <TextView
+                android:id="@+id/simple_message_btn_divider"
+                android:layout_width="1px"
+                android:layout_height="fill_parent"
+                android:background="#cccccc"
+                android:visibility="@{mvvm.dividerVisible}" />
+
+            <Button
+                android:id="@+id/simple_message_btn_yes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:onClick="@{mvvm.onOkClick}"
+                android:padding="10dp"
+                android:text="@{mvvm.btnOkText}"
+                android:textColor="@color/cbp"
+                android:textSize="14sp"
+                android:visibility="@{mvvm.btnOkVisible}" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

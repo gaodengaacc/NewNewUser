@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.WalletMainViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="WalletMainViewModel"></variable>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgc1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/main_fragment_discover_item"
+                android:drawableLeft="@mipmap/wallet_main_unuser_time_icon"
+                android:drawableRight="@null"
+                android:text="剩余使用" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:text="@{mvvm.unUserTime}"
+                android:textColor="@color/tc1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="15dp"
+            android:layout_height="1px"
+            android:background="@color/bgcw" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:background="@color/colorPrimary"
+                android:paddingTop="2dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:text="记录"
+                android:textColor="@color/tc2"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.lyun.widget.refresh.PullToRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f0f0f0"
+                android:paddingBottom="115dp"
+                app:loadMoreResult="@{mvvm.loadMoreResult}"
+                app:refreshListener="@{mvvm.onRefreshListener}"
+                app:refreshResult="@{mvvm.refreshResult}">
+
+                <include layout="@layout/refresh_head" />
+
+                <com.lyun.widget.refresh.PullRecyclerView
+                    android:id="@+id/pullListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#f0f0f0"
+                    android:divider="@null"
+                    android:overScrollMode="never"
+                    app:adapter="@{mvvm.recorderAdapter}"
+                    app:layoutManager="@{mvvm.recyclerViewLayoutManageCommand}"
+                    app:notifyData="@{mvvm.notifyData}">
+
+                </com.lyun.widget.refresh.PullRecyclerView>
+
+                <include layout="@layout/load_more" />
+
+            </com.lyun.widget.refresh.PullToRefreshLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_no_border_round_corner"
+                android:text="购  买"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:clickCommand="@{mvvm.onChargeButtonClick}"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</layout>

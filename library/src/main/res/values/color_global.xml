@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- bg-->
+    <color name="title_bg1">#22242b</color>
+    <color name="common_bg1">#f0f0f0</color>
+    <color name="bottom_bg1">#dae3f9</color>
+
+    <!-- 黑灰白 -->
+    <color name="cblk">#222222</color>
+
+    <!-- 蓝 -->
+    <color name="cbn">#ceddff</color>
+    <color name="cbp">#435e95</color>
+    <color name="cbd">#1588ff</color>
+
+    <!-- 红橙黄绿 -->
+    <color name="crn">#ee524d</color>
+    <color name="con">#ff7826</color>
+    <color name="cgn">#5ebb5c</color>
+    <color name="cyn">#ffbf26</color>
+    <color name="cyp">#f8af00</color>
+    <color name="cy3">#fff4d4</color>
+    <color name="cr2">#fd7e7f</color>
+    <color name="cgirl">#ff8ec9</color>
+    <color name="cboy">#69b7f2</color>
+    <color name="cb3">#295aa3</color>
+    <color name="crp">#e04242</color>
+    <color name="cop">#f06b1a</color>
+    <color name="cgp">#23ac37</color>
+    <color name="cy2">#fee876</color>
+    <color name="lcy">#f8ccb5</color>
+    <color name="co2">#ffa178</color>
+
+    <!-- 透明色 -->
+    <color name="alb10">#FF333333</color>
+    <color name="alb8">#cc222222</color>
+    <color name="alb5">#80000000</color>
+    <color name="alb4">#66000000</color>
+    <color name="alb0">#00000000</color>
+    <color name="alw9">#e5ffffff</color>
+    <color name="alw5">#80ffffff</color>
+    <color name="alw2">#33ffffff</color>
+    <color name="aly9">#e5f7d777</color>
+
+    <!-- 背景色 -->
+    <color name="bgcw">#ffffff</color>
+    <color name="bgc0">#fcfcfc</color>
+    <color name="bgc1">#f0f0f0</color>
+    <color name="bgc2">#ededed</color>
+    <color name="bgc3">#e3e3e3</color>
+    <color name="bgc4">#d9d9d9</color>
+    <color name="bgc5">#22242b</color>
+    <color name="bgcB">#000000</color>
+
+    <!-- 分割线 -->
+    <color name="lcn">#d9d9d9</color>
+    <color name="lc2">#e3e3e3</color>
+    <color name="lc1">#cccccc</color>
+    <color name="lc3">#3d4049</color>
+
+    <!-- 文字用色 -->
+    <color name="tcw">#ffffff</color>
+    <color name="tc1">#333333</color>
+    <color name="tc2">#666666</color>
+    <color name="tc3">#b2b2b2</color>
+    <color name="tc5">#9e9e9e</color>
+    <color name="tc6">#c3c7c9</color>
+    <color name="tc7">#eeeeee</color>
+</resources>

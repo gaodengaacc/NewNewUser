@@ -1,29 +1,223 @@
 apply plugin: 'com.android.application'
+apply plugin: 'im.fir.plugin.gradle'
+apply plugin: 'me.tatarka.retrolambda'
+
+def buildTime() {
+    return new Date().format("yyMMddHHmmss", TimeZone.getTimeZone("GMT+8"))
+}
+
+def _versionCode() {
+    return Integer.parseInt(new Date(getGitCommitTime()).format("yyMMddhhmm", TimeZone.getTimeZone("GMT+8")));
+}
+
+def getGitCommitHash() {
+    try {
+        return 'git rev-parse --short HEAD'.execute().text.trim()
+    } catch (Throwable th) {
+        return "";
+    }
+}
+
+def getGitCommitTime() {
+    // maybe cause Exception
+    return 'git show -s --format=%cd HEAD'.execute().text.trim()
+}
 
 android {
+
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion '25.0.0'
+
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('keystore/debug.keystore')
+            storePassword 'android'
+        }
+        release {
+            keyAlias '律云在线'
+            keyPassword 'lyun-app-release-psw'
+            storeFile file('keystore/release.keystore')
+            storePassword 'lyun-app-release-psw'
+        }
+    }
+
     defaultConfig {
-        applicationId "cn.com.law_cloud.user"
+        applicationId "com.lyun.user"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode _versionCode()
+        versionName "3.8.0"
+        multiDexEnabled true
+        signingConfig signingConfigs.debug
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "MIPUSH_APP_ID", '"2882303761517467815"'
+        buildConfigField "String", "MIPUSH_APP_KEY", '"5111746715815"'
     }
+
+    dataBinding {
+        enabled true
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs += 'src/main/res-nim'
+        }
+    }
+
     buildTypes {
+        debug {
+            debuggable true
+            shrinkResources false
+            signingConfig signingConfigs.debug
+
+            versionNameSuffix = " debug-${buildTime()}"
+            applicationIdSuffix = 'debug'
+
+            buildConfigField "String", "HOST", '"https://172.16.252.51:8443"'
+            buildConfigField "String", "MIPUSH_CERT_NAME", '"userdebug"'
+            buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
+            buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
+            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+
+            manifestPlaceholders.putAll([
+                    APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
+                    NIM_APPKEY        : "2bbbb39221e2ea7d61904f61acc72d52",
+                    UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
+                    BaiduMobAd_STAT_ID: "ac161ce77e"])
+        }
         release {
+            debuggable false
+            signingConfig signingConfigs.release
+            //是否清理无用资源
+            shrinkResources false
+            //是否启用zipAlign压缩
+            zipAlignEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "HOST", '"https://lyt.law-cloud.com.cn:8444"'
+            buildConfigField "String", "MIPUSH_CERT_NAME", '"user"'
+            buildConfigField "String", "BAIDU_MAP_AK", '"I8mvwSd8WolPcyoTUCPf5QI1"'
+            buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
+            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+
+            manifestPlaceholders.putAll([
+                    APPLICATION_ID    : defaultConfig.applicationId,
+                    NIM_APPKEY        : "124ec74d7185ba1c8f7ee5c5207490ff",
+                    MIPUSH_CERT_NAME  : "user",
+                    UMENG_APP_KEY     : "55a45f2967e58e1f1400529a",
+                    BaiduMobAd_STAT_ID: "dc2fb90b27"])
         }
+        alpha {
+            debuggable true
+            signingConfig signingConfigs.release
+
+            versionNameSuffix = " alpha-${getGitCommitHash()}"
+            applicationIdSuffix = 'alpha'
+
+            buildConfigField "String", "HOST", '"https://newlyt1.law-cloud.com.cn:8441"'
+            buildConfigField "String", "MIPUSH_CERT_NAME", '"alpha"'
+            buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
+            buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
+            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+
+            manifestPlaceholders.putAll([
+                    APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
+                    NIM_APPKEY        : "2bbbb39221e2ea7d61904f61acc72d52",
+                    MIPUSH_CERT_NAME  : "useralpha",
+                    UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
+                    BaiduMobAd_STAT_ID: "ac161ce77e"])
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    productFlavors {
+        official {
+        }
+        baidu {
+        }
+        apk91 {
+        }
+        hiapk {
+        }
+        wandoujia {
+        }
+        tencent {
+        }
+        xiaomi {
+        }
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders.putAll([
+                VERSION_CODE      : defaultConfig.versionCode,
+                VERSION_NAME      : defaultConfig.versionName,
+                BaiduMobAd_CHANNEL: name,
+                UMENG_CHANNEL     : name])
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            def path = getProjectDir().absolutePath;
+            def fileName = "${variant.buildType.name}_User_v${defaultConfig.versionName}_${buildTime()}_${variant.productFlavors[0].name}.apk"
+            if (variant.buildType.name == 'debug') {
+                fileName = 'app-debug.apk'
+            }
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                output.outputFile = new File(path, fileName)
+            }
+        }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile project(':library')
+    compile project(':nimuikit')
+    compile project(':wheel')
     compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:support-v4:25.0.1'
     testCompile 'junit:junit:4.12'
+    //testCompile 'org.mockito:mockito-core:1.10.19'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    alphaCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'
+    compile 'pub.devrel:easypermissions:0.3.0'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+    compile files('libs/alipaySdk-20161222.jar')
+}
+
+fir {
+    //必填 上传 fir.im apk 字段，否则无法上传 APP 到 fir.im
+    apiToken '7825b3e3a96e631f6db24571927b5583'
+    //可选 上传fir.im 中显示的changelog
+    changeLog ''
 }

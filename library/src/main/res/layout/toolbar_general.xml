@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel.ToolbarViewModel" />
+    </data>
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_title_height"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <RelativeLayout
+            android:id="@+id/title_container"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/activity_title_height"
+            android:background="?attr/colorPrimary">
+
+            <TextView
+                android:id="@+id/title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/ic_arrow_back_black"
+                android:gravity="center"
+                android:onClick="@{mvvm.onBackClick}"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="@{mvvm.back}"
+                android:visibility="@{mvvm.backVisibility}"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/title_title"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:text="@{mvvm.title}"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/title_fuction"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginRight="5dp"
+                android:text="@{mvvm.function}"
+                app:drawableLeft="@{mvvm.functionImage}"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:onClick="@{mvvm.onFunctionClick}"
+                android:clickable="true"
+                android:background="@drawable/toolbar_item_selector"/>
+            <TextView
+                android:id="@+id/title_fuction_left"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@{mvvm.functionLeft}"
+                android:textColor="@android:color/white"
+                android:layout_toLeftOf="@+id/title_fuction"
+                android:textSize="18sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:drawableLeft="@{mvvm.functionLeftImage}"
+                android:onClick="@{mvvm.onFunctionLeftClick}"
+                android:clickable="true"
+                android:background="@drawable/toolbar_item_selector"/>
+
+            <TextView
+                android:id="@+id/title_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="2px"
+                android:layout_alignParentBottom="true"
+                android:background="#cccccc"
+                android:visibility="@{mvvm.dividerVisibility}" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+</layout>

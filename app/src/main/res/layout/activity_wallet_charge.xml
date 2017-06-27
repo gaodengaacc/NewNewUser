@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <import type="com.lyun.user.viewmodel.WalletChargeViewModel"></import>
+    <variable
+        name="mvvm"
+        type="WalletChargeViewModel"></variable>
+</data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgc1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="95dp"
+            android:background="@color/bgcw"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/tc1"
+                    android:text="购买金额(元)"
+                    android:textSize="11sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_toLeftOf="@+id/wallet_use"
+                        android:text="可用"
+                        android:textColor="@color/tc1"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="@{mvvm.availableMin}"
+                        android:textColor="#ff0000"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="分钟"
+                        android:textColor="@color/tc1"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="18dp">
+
+                <TextView
+                    android:id="@+id/wallet_charge_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/blue_border_round_corner_white_bg"
+                    android:drawableLeft="@mipmap/icon_wallet_charge_reduce"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@{mvvm.moneyReduceText}"
+                    android:textColor="@color/tc1"
+                    android:textSize="11sp"
+                    android:onClick="@{mvvm.OnClickView}"/>
+
+                <TextView
+                    android:id="@+id/wallet_charge_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/blue_border_round_corner_white_bg"
+                    android:drawableLeft="@mipmap/icon_wallet_charge_add"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@{mvvm.moneyAddText}"
+                    android:textColor="@color/tc1"
+                    android:onClick="@{mvvm.OnClickView}"
+                    android:textSize="11sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_toLeftOf="@+id/wallet_charge_right"
+                    android:layout_toRightOf="@+id/wallet_charge_left"
+                    android:background="@drawable/blue_border_round_corner_white_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="@{mvvm.moneyResultText}"
+                            android:padding="5dp"
+                            android:textColor="@color/tc1"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="元"
+                            android:layout_gravity="bottom"
+                            android:textColor="@color/tc1"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+        </RelativeLayout>
+
+        </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="56dp"
+           android:orientation="vertical"
+           android:paddingLeft="15dp"
+           android:paddingRight="15dp"
+           android:paddingTop="5dp"
+           android:paddingBottom="5dp">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/tc5"
+               android:textSize="9sp"
+               android:text="购买说明:"/>
+           <TextView
+               android:layout_marginTop="5dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/tc5"
+               android:textSize="9sp"
+               android:text="@{mvvm.buyDes}"/>
+       </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bgcw"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="选择方式"
+                android:textColor="@color/tc2"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/lc2" />
+
+            <RelativeLayout
+                android:id="@+id/wallet_charge_ali"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/common_item_bg_selector"
+                android:onClick="@{mvvm.OnClickView}">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@mipmap/wallet_charge_zhi_icon"
+                    android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
+                    android:text="支付宝"
+                    android:textColor="@color/tc2"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:imageSrc="@{mvvm.aliSelect}"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/lc2" />
+            <RelativeLayout
+                android:id="@+id/wallet_charge_wx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_item_bg_selector"
+                android:onClick="@{mvvm.OnClickView}"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@mipmap/wallet_charge_we_icon"
+                    android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
+                    android:text="微信"
+                    android:textColor="@color/tc2"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:imageSrc="@{mvvm.wxSelect}"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击购买,即表示已阅读并同意"
+                android:textColor="@color/tc2"
+                android:textSize="11sp"/>
+            <TextView
+                android:id="@+id/wallet_charge_protocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textSize="11sp"
+                android:textColor="#ee524d"
+                android:text="购买协议"
+                android:onClick="@{mvvm.OnClickView}"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/wallet_charge_yes"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:text="购买"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:background="@drawable/bg_no_border_round_corner"
+            android:onClick="@{mvvm.OnClickView}"/>
+    </LinearLayout>
+</layout>

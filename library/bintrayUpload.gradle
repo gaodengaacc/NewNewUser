@@ -1,0 +1,74 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('bintray.properties').newDataInputStream())
+
+def _group = properties.get('bintray.packageName')
+def _version = properties.get('bintray.version')
+
+group = _group
+version = _version
+
+def siteUrl = properties.get('bintray.siteUrl')
+def gitUrl = properties.get('bintray.gitUrl')
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name "this is the ${_version} version"
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id properties.get('bintray.org')
+                        name properties.get('bintray.username')
+                        email properties.get('bintray.email')
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+bintray {
+    user = properties.get('bintray.username')
+    key = properties.get('bintray.apikey')
+
+    configurations = ['archives']
+    pkg {
+        repo = properties.get('bintray.repo')
+        name = properties.get('bintray.library.name')
+        userOrg = properties.get('bintray.org')
+        desc = "this is the ${_version} version"
+        websiteUrl = siteUrl
+        issueTrackerUrl = "this is the ${_version} version"
+        licenses = ['Apache-2.0']
+        vcsUrl = gitUrl
+        labels = ['aar', 'android']
+        publicDownloadNumbers = true
+        version {
+            name = "${_version}"
+            desc = "this is the ${_version} version"
+            vcsTag = "${_version}"
+            //attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+    }
+}

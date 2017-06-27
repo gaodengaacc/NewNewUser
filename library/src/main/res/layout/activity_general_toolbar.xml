@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel" />
+
+        <variable
+            name="toolbar"
+            type="com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel.ToolbarViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/swipeback_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".mvvm.view.activity.GeneralToolbarActivity">
+
+        <include
+            android:id="@+id/general_toolbar"
+            layout="@layout/toolbar_general"
+            app:mvvm="@{toolbar}" />
+
+        <android.support.v7.widget.ViewStubCompat
+            android:id="@+id/general_toolbar_content_stub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.ViewStubCompat>
+
+    </LinearLayout>
+</layout>
