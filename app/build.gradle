@@ -76,7 +76,7 @@ android {
             versionNameSuffix = " debug-${buildTime()}"
             applicationIdSuffix = 'debug'
 
-            buildConfigField "String", "HOST", '"http://172.16.252.51:8080"'
+            buildConfigField "String", "HOST", '"https://newlyt1.law-cloud.com.cn:8441"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"userdebug"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
@@ -199,20 +199,20 @@ dependencies {
     compile project(':library')
     compile project(':nimuikit')
     compile project(':wheel')
+    //testCompile 'org.mockito:mockito-core:1.10.19'
+    compile files('libs/alipaySdk-20161222.jar')
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:support-v4:25.0.1'
-    testCompile 'junit:junit:4.12'
-    //testCompile 'org.mockito:mockito-core:1.10.19'
     compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    alphaCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'
     compile 'pub.devrel:easypermissions:0.3.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
-    compile files('libs/alipaySdk-20161222.jar')
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    alphaCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
 
 fir {

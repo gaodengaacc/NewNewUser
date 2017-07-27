@@ -151,7 +151,7 @@
         <attr name="setAdapter" format="reference"></attr>
         <attr name="pageChange" format="reference"></attr>
         <attr name="touchListener" format="reference"></attr>
-
+        <attr name="currentItem" format="integer"></attr>
     </declare-styleable>
 
     <declare-styleable name="NestedScrollView">
@@ -197,7 +197,7 @@
     <declare-styleable name="EditText">
         <attr name="transformMethod" format="reference"></attr>
     </declare-styleable>
-
-
-
+    <declare-styleable name="RadioGroup">
+        <attr name="checkedItem" format="integer"></attr>
+    </declare-styleable>
 </resources>
