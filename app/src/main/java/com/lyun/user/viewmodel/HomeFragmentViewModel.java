@@ -13,6 +13,7 @@ import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventHomePobDismissMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventPickMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventSelectMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventTranslationOrderMessage;
 import com.lyun.user.R;
 import com.lyun.user.api.response.FindLanguageResponse;
@@ -158,9 +159,9 @@ public class HomeFragmentViewModel extends ViewModel {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void pickSelectText(FindLanguageResponse response) {
-        mCurrentLanguage.set(response);
-        selectText.set(response.getName());
+    public void pickSelectText(EventSelectMessage response) {
+        mCurrentLanguage.set(response.getMessage());
+        selectText.set(response.getMessage().getName());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

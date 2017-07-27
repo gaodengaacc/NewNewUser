@@ -16,6 +16,7 @@ import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainPopAdapter;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.dialog.WalletMainPopWindow;
+import com.lyun.user.eventbusmessage.homefragment.EventSelectMessage;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -58,7 +59,9 @@ public class WalletMainPopViewModel extends ViewModel {
         }
         WalletMainPopAdapter popAdapter = new WalletMainPopAdapter(list, R.layout.item_wallet_main_popwindow);
         popAdapter.setItemClickListener((view, viewModels, position) -> {
-            EventBus.getDefault().post(languageResponses.get(position));
+            EventSelectMessage message = new EventSelectMessage();
+            message.setMessage(languageResponses.get(position));
+            EventBus.getDefault().post(message);
             ObservableNotifier.alwaysNotify(isDismiss,true);
             EventBus.getDefault().post(new EventHomePobDismissMessage());
         });
