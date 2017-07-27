@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 
 import com.lyun.user.R;
 
-public class LawVisionFragment extends Fragment {
+public class LawWorldFragment extends Fragment {
 
-    public LawVisionFragment() {
+    public LawWorldFragment() {
     }
 
-    public static LawVisionFragment newInstance() {
-        LawVisionFragment fragment = new LawVisionFragment();
+    public static LawWorldFragment newInstance() {
+        LawWorldFragment fragment = new LawWorldFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -30,6 +30,6 @@ public class LawVisionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_law_vision, container, false);
+        return inflater.inflate(R.layout.fragment_law_world, container, false);
     }
 }

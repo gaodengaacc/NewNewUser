@@ -1,13 +1,10 @@
 package com.lyun.user.activity;
 
 import android.content.Intent;
-import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.view.KeyEvent;
-import android.widget.CheckBox;
-import android.widget.RadioGroup;
 
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
@@ -16,7 +13,7 @@ import com.lyun.user.R;
 import com.lyun.user.adapter.MainPagerAdapter;
 import com.lyun.user.databinding.ActivityMainBinding;
 import com.lyun.user.fragment.HomeFragment;
-import com.lyun.user.fragment.LawVisionFragment;
+import com.lyun.user.fragment.LawWorldFragment;
 import com.lyun.user.fragment.ServiceCardFragment;
 import com.lyun.user.fragment.UserCenterFragment;
 import com.lyun.user.im.config.preference.UserPreferences;
@@ -75,7 +72,7 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
     public PagerAdapter getPagerAdapter() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance());
-        fragments.add(LawVisionFragment.newInstance());
+        fragments.add(LawWorldFragment.newInstance());
         fragments.add(ServiceCardFragment.newInstance());
         fragments.add(UserCenterFragment.newInstance());
         return new MainPagerAdapter(this, getSupportFragmentManager(), fragments);
