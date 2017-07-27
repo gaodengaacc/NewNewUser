@@ -1,32 +1,43 @@
 package com.lyun.user.fragment;
 
 import android.content.Intent;
-import android.databinding.BaseObservable;
-import android.databinding.Observable;
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
+import com.lyun.user.AppApplication;
+import com.lyun.user.Constants;
+import com.lyun.user.EventBusMessage.EventProgressMessage;
+import com.lyun.user.EventBusMessage.EventToastMessage;
+import com.lyun.user.EventBusMessage.homefragment.EventPickMessage;
+import com.lyun.user.EventBusMessage.homefragment.EventTranslationOrderMessage;
 import com.lyun.user.R;
 import com.lyun.user.activity.WaitingForTranslatorActivity;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.databinding.FragmentHomeBinding;
-import com.lyun.user.dialog.LanguagePickerDialog;
 import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.viewmodel.HomeFragmentViewModel;
 import com.lyun.user.viewmodel.LanguagePickerDialogViewModel;
-import com.lyun.user.viewmodel.watchdog.IHomeFragmentViewModelCallbacks;
+import com.lyun.user.viewmodel.WalletMainPopViewModel;
+import com.lyun.utils.ACache;
 
-public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragmentViewModel>
-        implements IHomeFragmentViewModelCallbacks {
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+
+
+public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragmentViewModel> {
 
     private HomeFragmentViewModel mHomeFragmentViewModel;
 
-    private LanguagePickerDialog mLanguagePickerDialog;
+    //    private LanguagePickerDialog mLanguagePickerDialog;
     private LanguagePickerDialogViewModel mLanguagePickerDialogViewModel;
+    private WalletMainPopViewModel mPopViewModel;
 
     public HomeFragment() {
     }
@@ -43,21 +54,28 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        mHomeFragmentViewModel.unRegisterEventBus();
     }
 
     @NonNull
     @Override
     protected HomeFragmentViewModel createViewModel() {
         mHomeFragmentViewModel = new HomeFragmentViewModel().setPropertyChangeListener(this);
-        mLanguagePickerDialogViewModel = new LanguagePickerDialogViewModel();
-        mLanguagePickerDialog = new LanguagePickerDialog(getActivity(), mLanguagePickerDialogViewModel);
-        mLanguagePickerDialogViewModel.onLanguagePicked.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                mHomeFragmentViewModel.mCurrentLanguage.set(((ObservableField<FindLanguageResponse>) observable).get());
-            }
-        });
-        mLanguagePickerDialogViewModel.onLanguagePicked.notifyChange();
+        String languageStr = ACache.get(AppApplication.getInstance()).getAsString(Constants.Cache.SUPPORT_LANGUAGES);
+        List<FindLanguageResponse> languageResponses = new Gson().fromJson(languageStr == null ? WalletMainPopViewModel.defaultLanguageCache : languageStr, new TypeToken<List<FindLanguageResponse>>() {
+        }.getType());
+        mPopViewModel = new WalletMainPopViewModel(getContext(), languageResponses);
+        if (languageResponses != null && languageResponses.size() > 0){
+            mHomeFragmentViewModel.selectText.set(languageResponses.get(0).getName());
+            mHomeFragmentViewModel.mCurrentLanguage.set(languageResponses.get(0));
+        }
         return mHomeFragmentViewModel;
     }
 
@@ -66,29 +84,30 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         return R.layout.fragment_home;
     }
 
-    @Override
-    public void onPickLanguage(BaseObservable observableField, int fieldId) {
-        mLanguagePickerDialog.show();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPickLanguage(EventPickMessage message) {
+        if (message.getMessage())
+            mPopViewModel.showAsDropDown(getFragmentViewDataBinding().selectLayout);
     }
 
-    @Override
-    public void onTranslationOrderGenerated(ObservableField<TranslationOrder> observableField, int fieldId) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTranslationOrderGenerated(EventTranslationOrderMessage message) {
         Intent intent = new Intent(getActivity(), WaitingForTranslatorActivity.class);
-        intent.putExtra(TranslationOrder.ORDER_ID, observableField.get().getOrderId());
-        intent.putExtra(TranslationOrder.ORDER_TYPE, observableField.get().getOrderType());
-        intent.putExtra(TranslationOrder.TARGET_LANGUAGE, observableField.get().getTargetLanguage());
+        intent.putExtra(TranslationOrder.ORDER_ID, message.getMessage().getOrderId());
+        intent.putExtra(TranslationOrder.ORDER_TYPE, message.getMessage().getOrderType());
+        intent.putExtra(TranslationOrder.TARGET_LANGUAGE, message.getMessage().getTargetLanguage());
         startActivity(intent);
     }
 
 
-    @Override
-    public void onTranslationOrderGenerateFail(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(getContext(), observableField.get(), Toast.LENGTH_LONG).show();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTranslationOrderGenerateFail(EventToastMessage message) {
+        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
-        if (observableField.get())
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void progressDialogShow(EventProgressMessage message) {
+        if (message.getMessage())
             dialogViewModel.show();
         else
             dialogViewModel.dismiss();
