@@ -9,11 +9,11 @@ import android.view.View;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
-import com.lyun.user.EventBusMessage.EventProgressMessage;
-import com.lyun.user.EventBusMessage.EventToastMessage;
-import com.lyun.user.EventBusMessage.homefragment.EventHomePobDismissMessage;
-import com.lyun.user.EventBusMessage.homefragment.EventPickMessage;
-import com.lyun.user.EventBusMessage.homefragment.EventTranslationOrderMessage;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.eventbusmessage.EventToastMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventHomePobDismissMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventPickMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventTranslationOrderMessage;
 import com.lyun.user.R;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.model.RemainingTimeModel;
@@ -48,15 +48,6 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     public final ObservableField<FindLanguageResponse> mCurrentLanguage = new ObservableField<>();//目标语言
     public final ObservableField<String> unusedTime = new ObservableField<>();//剩余时间
-
-//    @WatchThis
-//    public final BaseObservable onPickLanguage = new BaseObservable();
-//    @WatchThis
-//    public final ObservableField<TranslationOrder> onTranslationOrderGenerated = new ObservableField<>();
-//    @WatchThis
-//    public final ObservableField<String> onTranslationOrderGenerateFail = new ObservableField<>();
-//    @WatchThis
-//    public final ObservableBoolean progressDialogShow = new ObservableBoolean();
 
     public HomeFragmentViewModel() {
         EventBus.getDefault().register(this);

@@ -1,4 +1,6 @@
-package com.lyun.user.EventBusMessage;
+package com.lyun.user.eventbusmessage.homefragment;
+
+import com.lyun.user.eventbusmessage.EventMessage;
 
 /**
  * @author Gordon
@@ -6,10 +8,8 @@ package com.lyun.user.EventBusMessage;
  * do()
  */
 
-public class EventProgressMessage implements EventMessage<Boolean> {
-
+public class EventPickMessage implements EventMessage<Boolean> {
     private boolean isShow;
-
     @Override
     public void setMessage(Boolean o) {
         isShow = o;

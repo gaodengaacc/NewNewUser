@@ -1,4 +1,4 @@
-package com.lyun.user.EventBusMessage;
+package com.lyun.user.eventbusmessage;
 
 /**
  * @author Gordon

@@ -1,6 +1,6 @@
-package com.lyun.user.EventBusMessage.homefragment;
+package com.lyun.user.eventbusmessage.homefragment;
 
-import com.lyun.user.EventBusMessage.EventMessage;
+import com.lyun.user.eventbusmessage.EventMessage;
 
 /**
  * @author Gordon

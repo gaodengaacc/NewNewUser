@@ -11,7 +11,7 @@ import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppApplication;
-import com.lyun.user.EventBusMessage.homefragment.EventHomePobDismissMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventHomePobDismissMessage;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainPopAdapter;
 import com.lyun.user.api.response.FindLanguageResponse;
@@ -38,7 +38,6 @@ public class WalletMainPopViewModel extends ViewModel {
     public final ObservableField<ShowData> isShow = new ObservableField();
     @WatchThis
     public final ObservableBoolean isDismiss = new ObservableBoolean();
-    private OnLanguagePickListener languagePickListener;
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
     public static final String defaultLanguageCache = "[{\"id\":1,\"code\":\"102\",\"name\":\"英文\",\"description\":\"英文语言\"}]";
@@ -66,13 +65,6 @@ public class WalletMainPopViewModel extends ViewModel {
         adapter.set(popAdapter);
     }
 
-    public void setOnLanguagePickListener(OnLanguagePickListener onLanguagePickListener) {
-        this.languagePickListener = onLanguagePickListener;
-    }
-
-    public interface OnLanguagePickListener {
-        void onLanguagePicked(FindLanguageResponse language);
-    }
     public void showAsDropDown(View v) {
         isShow.set(new ShowData(v));
     }
