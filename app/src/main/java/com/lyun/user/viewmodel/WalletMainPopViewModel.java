@@ -6,20 +6,25 @@ import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.PopupWindow;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
-import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppApplication;
+import com.lyun.user.eventbusmessage.homefragment.EventHomePobDismissMessage;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainPopAdapter;
+import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.dialog.WalletMainPopWindow;
+import com.lyun.user.eventbusmessage.homefragment.EventSelectMessage;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @author Gordon
@@ -34,22 +39,32 @@ public class WalletMainPopViewModel extends ViewModel {
     public final ObservableField<ShowData> isShow = new ObservableField();
     @WatchThis
     public final ObservableBoolean isDismiss = new ObservableBoolean();
-    @WatchThis
-    public final ObservableField<PopupWindow.OnDismissListener> onDismissListener = new ObservableField();
-
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
+    public static final String defaultLanguageCache = "[{\"id\":1,\"code\":\"102\",\"name\":\"英文\",\"description\":\"英文语言\"}]";
 
-    public WalletMainPopViewModel(Context context) {
+    public WalletMainPopViewModel(Context context,List<FindLanguageResponse> responses) {
         new WalletMainPopWindow(context, this);
-        init();
+        init(responses);
     }
 
-    private void init() {
+    private void init(List<FindLanguageResponse> languageResponses) {
         //1,首次充值-以15分钟为最小购买单元,购买价格为:45元/15分钟;\n2,续费充值-以5分钟为充值单元,购买价格为:15元/5分钟.
+//        String languageStr = ACache.get(AppApplication.getInstance()).getAsString(Constants.Cache.SUPPORT_LANGUAGES);
+//        List<FindLanguageResponse> languageResponses = new Gson().fromJson(languageStr == null ? defaultLanguageCache : languageStr, new TypeToken<List<FindLanguageResponse>>() {
+//        }.getType());
         List<WalletMainPopDesItemViewModel> list = new ArrayList<>();
-        list.add(new WalletMainPopDesItemViewModel("购买说明\n1,首次充值-以15分钟为最小购买单元,购买价格为:45元/15分钟;\n2,续费充值-以5分钟为充值单元,购买价格为:15元/5分钟."));
+        for(FindLanguageResponse response:languageResponses){
+            list.add(new WalletMainPopDesItemViewModel(response));
+        }
         WalletMainPopAdapter popAdapter = new WalletMainPopAdapter(list, R.layout.item_wallet_main_popwindow);
+        popAdapter.setItemClickListener((view, viewModels, position) -> {
+            EventSelectMessage message = new EventSelectMessage();
+            message.setMessage(languageResponses.get(position));
+            EventBus.getDefault().post(message);
+            ObservableNotifier.alwaysNotify(isDismiss,true);
+            EventBus.getDefault().post(new EventHomePobDismissMessage());
+        });
         adapter.set(popAdapter);
     }
 
@@ -67,9 +82,6 @@ public class WalletMainPopViewModel extends ViewModel {
 
     public void dismiss() {
       isDismiss.notifyChange();
-    }
-    public void setOnDismissListener(PopupWindow.OnDismissListener listener){
-         onDismissListener.set(listener);
     }
     public class ShowData {
         public View getAnchor() {

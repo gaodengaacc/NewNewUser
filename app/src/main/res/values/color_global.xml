@@ -28,7 +28,7 @@
     <color name="cgp">#23ac37</color>
     <color name="cy2">#fee876</color>
     <color name="lcy">#f8ccb5</color>
-    <color name="co2">#ffa178</color>
+    <color name="co2">#ffb64d</color>
     <!-- 透明色 -->
     <color name="alb10">#FF333333</color>
     <color name="alb8">#cc222222</color>
@@ -68,4 +68,5 @@
     <color name="tc7">#eeeeee</color>
     <color name="tc8">#40d12d</color>
     <color name="tc9">#ffb900</color>
+    <color name="tc10">#a8b4c4</color>
 </resources>

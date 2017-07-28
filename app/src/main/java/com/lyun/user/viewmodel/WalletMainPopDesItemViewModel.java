@@ -3,6 +3,7 @@ package com.lyun.user.viewmodel;
 import android.databinding.ObservableField;
 
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.api.response.FindLanguageResponse;
 
 /**
  * @author Gordon
@@ -11,8 +12,8 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
  */
 
 public class WalletMainPopDesItemViewModel extends ViewModel {
-    public WalletMainPopDesItemViewModel(String text){
-        this.text.set(text);
+    public WalletMainPopDesItemViewModel(FindLanguageResponse response){
+        this.text.set(response.getName());
     }
     public final ObservableField<String> text = new ObservableField<>();
 }

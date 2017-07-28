@@ -7,13 +7,13 @@ import android.databinding.ObservableField;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.lyun.user.R;
 import com.lyun.user.databinding.WalletMainPopubWindowBinding;
 import com.lyun.user.viewmodel.WalletMainPopViewModel;
 import com.lyun.user.viewmodel.watchdog.IWalletMainPopViewModelCallbacks;
+import com.lyun.utils.DisplayUtil;
 
 /**
  * @author Gordon
@@ -29,13 +29,14 @@ public class WalletMainPopWindow extends PopupWindow implements IWalletMainPopVi
         // 设置SelectPicPopupWindow的View
         this.setContentView(viewBinding.getRoot());
         // 设置SelectPicPopupWindow弹出窗体的宽
-        setWidth(400);
+        //宽度全屏
+        setWidth(DisplayUtil.dip2px(context,260));
         // 设置SelectPicPopupWindow弹出窗体的高
-        this.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+        this.setHeight(DisplayUtil.dip2px(context,185));
         // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
         this.setOutsideTouchable(true);
-        this.setBackgroundDrawable(context.getResources().getDrawable(R.mipmap.wallet_main_des_bg));
+        this.setBackgroundDrawable(context.getResources().getDrawable(R.mipmap.bg_home_fragment_center));
     }
 
 
@@ -56,9 +57,6 @@ public class WalletMainPopWindow extends PopupWindow implements IWalletMainPopVi
         dismiss();
     }
 
-    @Override
-    public void onDismissListener(ObservableField<OnDismissListener> observableField, int fieldId) {
-        setOnDismissListener(observableField.get());
-    }
+
 
 }
