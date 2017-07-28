@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -15,28 +15,91 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/main_tab"
+        <TextView
+            android:id="@+id/main_tab_bg"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="49dp"
             android:layout_alignParentBottom="true"
-            android:background="@android:color/white"
-            app:tabGravity="fill"
-            app:tabIndicatorHeight="0dp"
-            app:tabMode="fixed"
-            app:tabSelectListener="@{mvvm.tabListener}"
-            app:tabSelectedTextColor="#7343ea"
-            app:tabTextAppearance="@style/TextAppearance.Design.Tab"
-            app:tabTextColor="#9a9a9a"
-            app:viewPage="@{mvvm.viewPage}"
-            app:initTab="@{mvvm.tabData}"
-            app:select="@{mvvm.selectIndex}"/>
+            android:background="@color/white"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/main_tab"
-            app:adapter="@{mvvm.relayCommandViewPage}"></android.support.v4.view.ViewPager>
+            android:layout_above="@id/main_tab_bg"
+            app:adapter="@{mvvm.pagerAdapter}"
+            app:currentItem="@={mvvm.currentItem}">
+
+        </android.support.v4.view.ViewPager>
+
+        <RadioGroup
+            android:id="@+id/main_tab"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:checkedItem="@={mvvm.currentItem}">
+
+            <RadioButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_main_index"
+                android:button="@null"
+                android:drawableLeft="@drawable/ic_main_selector"
+                android:elevation="8dp"
+                android:gravity="left"
+                android:paddingBottom="12dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="23dp"
+                android:textColor="#a8b4c4"
+                android:textSize="10sp"/>
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="49dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/ic_law_world_selector"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingTop="7dp"
+                android:text="律世界"
+                android:textColor="#a8b4c4"
+                android:textSize="10sp"/>
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="49dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/ic_service_card_selector"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingTop="7dp"
+                android:text="服务卡"
+                android:textColor="#a8b4c4"
+                android:textSize="10sp"/>
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="49dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/ic_user_center_selector"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingTop="7dp"
+                android:text="我的"
+                android:textColor="#a8b4c4"
+                android:textSize="10sp"/>
+
+        </RadioGroup>
     </RelativeLayout>
 </layout>
