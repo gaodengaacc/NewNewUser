@@ -1,19 +1,21 @@
 package com.lyun.user.fragment;
 
 import android.content.Intent;
-import android.databinding.BaseObservable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
-import com.lyun.user.activity.LoginActivity;
+import com.lyun.user.activity.AccountBindingActivity;
 import com.lyun.user.databinding.FragmentUserCenterBinding;
+import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
 import com.lyun.user.viewmodel.UserCenterFragmentViewModel;
-import com.lyun.user.viewmodel.watchdog.IUserCenterFragmentViewModelCallbacks;
 
-public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, UserCenterFragmentViewModel>
-        implements IUserCenterFragmentViewModelCallbacks {
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, UserCenterFragmentViewModel> {
 
     public UserCenterFragment() {
         // Required empty public constructor
@@ -24,6 +26,18 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @NonNull
@@ -37,9 +51,8 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
         return R.layout.fragment_user_center;
     }
 
-    @Override
-    public void onLogout(BaseObservable observableField, int fieldId) {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
-        getActivity().finish();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onResetPasswordResult(EventIntentActivityMessage message) {
+        startActivity(new Intent(getContext(),AccountBindingActivity.class));
     }
 }

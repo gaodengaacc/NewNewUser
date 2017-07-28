@@ -14,14 +14,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgc1"
+        android:background="#f6f8fb"
         android:orientation="vertical">
 
         <TextView
             style="@style/main_fragment_discover_item"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@mipmap/setting_change_passward_icon"
+            android:layout_marginTop="10dp"
             android:text="修改密码"
+            android:drawableRight="@mipmap/item_right_icon"
             app:clickCommand="@{mvvm.onModifyPasswordButtonClick}" />
 
         <RelativeLayout
@@ -32,7 +32,6 @@
             <TextView
                 style="@style/main_fragment_discover_item"
                 android:clickable="false"
-                android:drawableLeft="@mipmap/setting_app_version_icon"
                 android:drawableRight="@null"
                 android:text="版本信息" />
 
@@ -43,7 +42,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:text="@{mvvm.appVersion}"
-                android:textColor="@color/tc1"
+                android:textColor="@color/tc10"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>

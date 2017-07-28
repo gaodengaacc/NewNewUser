@@ -1,7 +1,6 @@
 package com.lyun.user.viewmodel;
 
 import android.content.Intent;
-import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Build;
@@ -11,10 +10,11 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppIntent;
 import com.lyun.user.R;
+import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
 import com.lyun.user.model.StatisticsCardNoModel;
 import com.lyun.utils.TimeUtil;
 
-import net.funol.databinding.watchdog.annotations.WatchThis;
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -29,12 +29,9 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public final ObservableField<String> userTime = new ObservableField<>();//使用时长
     public final ObservableField<String> userNum = new ObservableField<>();//使用次数
     public final ObservableField<String> userLanguage = new ObservableField<>();//接触语种
-    public final ObservableInt exitVisible = new ObservableInt();//退出登录按钮的显示
     public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
 
     private Intent intent;
-    @WatchThis
-    public final BaseObservable onLogout = new BaseObservable();
 
     public UserCenterFragmentViewModel() {
         init();
@@ -47,7 +44,6 @@ public class UserCenterFragmentViewModel extends ViewModel {
             getUserDes(Account.preference().getPhone());//获取数据统计
             setUserInformation();
         } else {
-            exitVisible.set(View.INVISIBLE);
             userName.set("");
         }
     }
@@ -64,8 +60,8 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 .subscribe(apiResult -> {
                     if (apiResult.isSuccess()) {//获取成功
                         userTime.set(TimeUtil.convertMin2Str(apiResult.getContent().getUseTime()));
-                        userNum.set(apiResult.getContent().getCallFrequency());
-                        userLanguage.set(apiResult.getContent().getLanguages());
+                        userNum.set(apiResult.getContent().getCallFrequency()+"次");
+                        userLanguage.set(apiResult.getContent().getLanguages()+"种");
                     } else {
                         getToast().setText(apiResult.getDescribe());
                     }
@@ -74,7 +70,6 @@ public class UserCenterFragmentViewModel extends ViewModel {
 
     private void setUserInformation() {
         userName.set(hideUserName(Account.preference().getPhone()));//更新昵称
-        exitVisible.set(View.VISIBLE);
     }
 
     private String hideUserName(String phone) {
@@ -88,9 +83,8 @@ public class UserCenterFragmentViewModel extends ViewModel {
     private void init() {
         userName.set("");
         userTime.set("-- 分钟");
-        userNum.set("-- ");
-        userLanguage.set("-- ");
-        exitVisible.set(View.VISIBLE);
+        userNum.set("-- 次");
+        userLanguage.set("-- 种");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             topVisible.set(View.VISIBLE);
         } else {
@@ -100,7 +94,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
 
     public void onViewClick(View view) {
         switch (view.getId()) {
-            case R.id.user_center_settting:
+            case R.id.user_center_settting_layout:
                 intent = new Intent(AppIntent.ACTION_SETTINGS);
                 getActivity().startActivity(intent);
                 break;
@@ -108,13 +102,11 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 //  if(!Account.preference().isLogin())
                 //  getActivity().startActivity(new Intent(AppIntent.ACTION_LOGIN));
                 break;
-            case R.id.user_center_wallet:
-                intent = new Intent(AppIntent.ACTION_WALLET_MAIN);
-                getActivity().startActivity(intent);
-
+            case R.id.user_center_account_layout:
+                EventBus.getDefault().post(new EventIntentActivityMessage());
                 break;
-            case R.id.user_center_exit:
-                exit();
+            case R.id.user_center_card_layout:
+//                exit();
                 break;
             case R.id.user_center_name:
                 break;
@@ -122,30 +114,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 break;
         }
     }
-
-    private void login(View view) {
-        getActivity().startActivity(new Intent(AppIntent.ACTION_LOGIN));
-//        if (viewModel == null)
-//            viewModel = new SimpleDialogViewModel(view.getContext());
-//        viewModel.setYesBtnText("是");
-//        viewModel.setCancelBtnText("否");
-//        viewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
-//            @Override
-//            public void OnYesClick(View view) {
-//                getToast().show("yes");
-//            }
-//
-//            @Override
-//            public void OnCancelClick(View view) {
-//              getToast().show("no");
-//            }
-//        });
-//        viewModel.show();
-    }
-
     private void exit() {
         Account.preference().clear();
-        onLogout.notifyChange();
     }
-
 }

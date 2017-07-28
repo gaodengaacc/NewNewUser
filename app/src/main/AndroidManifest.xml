@@ -102,6 +102,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.AccountBindingActivity"
+            android:theme="@style/GlobalTitleTheme">
+        </activity>
+        <activity
             android:name=".activity.WalletMainActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
