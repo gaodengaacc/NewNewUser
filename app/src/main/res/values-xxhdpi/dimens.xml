@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="law_world_avatar_width">95dp</dimen>
+    <dimen name="law_world_avatar_marginTop">40dp</dimen>
+    <dimen name="law_world_name_textSize">16sp</dimen>
+    <dimen name="law_world_card_paddingBottom">60dp</dimen>
+</resources>
