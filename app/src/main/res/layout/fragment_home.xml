@@ -12,7 +12,7 @@
             type="HomeFragmentViewModel"></variable>
     </data>
 
-    <RelativeLayout
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             app:imageUrl="@{mvvm.backGround}" />
-        <LinearLayout
+        <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -35,24 +35,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="52dp"
+                app:layout_marginTopPercent="9%"
                 android:gravity="center"
                 android:text="@{mvvm.textViewModelChange}"
                 android:textColor="#feffff"
                 android:textSize="18sp" />
 
-            <RelativeLayout
+            <android.support.percent.PercentRelativeLayout
+                android:layout_below="@+id/textView_title_change"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                     <RelativeLayout
                         android:id="@+id/center_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="280dp"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="56.5%"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="30dp"
-                        android:background="@mipmap/bg_home_fragment_center">
+                        android:background="@mipmap/bg_home_fragment_center"
+                        >
 
                         <TextView
                             android:id="@+id/text"
@@ -153,6 +156,7 @@
                     android:src="@mipmap/icon_home_fragment_yi" />
 
                 <TextView
+                    android:id="@+id/unuser_time_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -164,20 +168,18 @@
 
                 <ImageView
                     android:id="@+id/imageView_way_change"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/unuser_time_text"
+                    android:layout_marginTop="15dp"
                     android:clickable="@{mvvm.onRequestTranslationClickable}"
                     app:clickCommand="@{mvvm.onRequestTranslation}"
                     app:imageSrc="@{mvvm.imageViewModelChange}" />
 
-            </RelativeLayout>
-
-
-        </LinearLayout>
-    </RelativeLayout>
+            </android.support.percent.PercentRelativeLayout>
+        </android.support.percent.PercentRelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
 </layout>

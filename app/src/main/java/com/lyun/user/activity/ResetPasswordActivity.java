@@ -1,9 +1,6 @@
 package com.lyun.user.activity;
 
-import android.content.Intent;
-import android.databinding.BaseObservable;
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -12,8 +9,13 @@ import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityResetPasswordBinding;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.viewmodel.ResetPasswordViewModel;
-import com.lyun.user.viewmodel.watchdog.IResetPasswordViewModelCallbacks;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * @author Gordon
@@ -21,8 +23,20 @@ import com.lyun.user.viewmodel.watchdog.IResetPasswordViewModelCallbacks;
  * do()
  */
 
-public class ResetPasswordActivity extends GeneralToolbarActivity<ActivityResetPasswordBinding, ResetPasswordViewModel> implements IResetPasswordViewModelCallbacks {
+public class ResetPasswordActivity extends GeneralToolbarActivity<ActivityResetPasswordBinding, ResetPasswordViewModel> {
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @NonNull
     @Override
@@ -45,20 +59,15 @@ public class ResetPasswordActivity extends GeneralToolbarActivity<ActivityResetP
         return new ResetPasswordViewModel().setPropertyChangeListener(this);
     }
 
-    @Override
-    public void onResetPasswordResult(ObservableField<String> observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_LONG).show();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onResetPasswordResult(EventToastMessage message) {
+        Toast.makeText(AppApplication.getInstance(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onLogout(BaseObservable observableField, int fieldId) {
-        startActivity(new Intent(this, MainActivity.class).putExtra("isFromResetPassword",true));
-        finish();
-    }
 
-    @Override
-    public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
-        if (observableField.get())
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void progressDialogShow(EventProgressMessage message) {
+        if (message.getMessage())
             dialogViewModel.show();
         else
             dialogViewModel.dismiss();

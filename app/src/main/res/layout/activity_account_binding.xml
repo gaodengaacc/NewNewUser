@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.AccountBindingViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/activity_layout_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f6f8fb"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/text_wb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_item_bg_selector"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
+                android:text="@{mvvm.weiBoText}"
+                android:gravity="right|center_vertical"
+                android:onClick="@{mvvm.onClickView}"
+                android:textSize="14sp"
+                android:textColor="#485464"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/icon_account_binding_wb"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/text_qq"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_item_bg_selector"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
+                android:text="@{mvvm.qqText}"
+                android:gravity="right|center_vertical"
+                android:onClick="@{mvvm.onClickView}"
+                android:textSize="14sp"
+                android:textColor="#485464"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/icon_account_binding_qq"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/text_wx"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_item_bg_selector"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
+                android:text="@{mvvm.wxText}"
+                android:gravity="right|center_vertical"
+                android:onClick="@{mvvm.onClickView}"
+                android:textSize="14sp"
+                android:textColor="#485464"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/icon_account_binding_wx"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

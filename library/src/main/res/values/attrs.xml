@@ -197,8 +197,11 @@
     <declare-styleable name="EditText">
         <attr name="transformMethod" format="reference"></attr>
     </declare-styleable>
-    <declare-styleable name="RadioGroup">
-        <attr name="checkedItem" format="integer"></attr>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension"/>
+        <attr name="border_color" format="color"/>
+        <attr name="border_overlay" format="boolean"/>
+        <attr name="fill_color" format="color"/>
     </declare-styleable>
     <declare-styleable name="FlowLayout">
         <attr name="flow" format="boolean"/>

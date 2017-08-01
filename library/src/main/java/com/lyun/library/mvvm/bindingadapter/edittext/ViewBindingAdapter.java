@@ -29,15 +29,14 @@ public final class ViewBindingAdapter {
             editText.setEnabled(false);
             editText.setEnabled(true);
         }
-
     }
 
 
     @android.databinding.BindingAdapter(value = {"beforeTextChangedCommand", "onTextChangedCommand", "afterTextChangedCommand"}, requireAll = false)
-    public static void editTextCommand(EditText editText,
+    public static void editTextCommand(final EditText editText,
                                        final RelayCommand<TextChangeDataWrapper> beforeTextChangedCommand,
                                        final RelayCommand<TextChangeDataWrapper> onTextChangedCommand,
-                                       final RelayCommand<String> afterTextChangedCommand) {
+                                       final RelayCommand<TextChangeData> afterTextChangedCommand) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -56,10 +55,18 @@ public final class ViewBindingAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 if (afterTextChangedCommand != null) {
-                    afterTextChangedCommand.execute(s.toString());
+                    afterTextChangedCommand.execute(new TextChangeData(s.toString(),editText.getId()));
                 }
             }
         });
+    }
+    public static class TextChangeData{
+        public String text;
+        public int viewId;
+        public TextChangeData(String text,int viewId){
+            this.text = text;
+            this.viewId = viewId;
+        }
     }
 
     public static class TextChangeDataWrapper {

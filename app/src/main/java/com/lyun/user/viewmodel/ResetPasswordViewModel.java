@@ -1,17 +1,20 @@
 package com.lyun.user.viewmodel;
 
-import android.databinding.BaseObservable;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
+import android.view.View;
 
+import com.lyun.library.mvvm.bindingadapter.edittext.ViewBindingAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
-import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
+import com.lyun.user.R;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.model.ResetPasswordModel;
 import com.lyun.utils.RegExMatcherUtils;
 
-import net.funol.databinding.watchdog.annotations.WatchThis;
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -26,48 +29,96 @@ public class ResetPasswordViewModel extends ViewModel {
     public final ObservableField<String> password = new ObservableField<>("");
     public final ObservableField<String> newPassword1 = new ObservableField<>("");
     public final ObservableField<String> newPassword2 = new ObservableField<>("");
+    public final ObservableInt clearVisible1 = new ObservableInt();
+    public final ObservableInt clearVisible2 = new ObservableInt();
+    public final ObservableInt clearVisible3 = new ObservableInt();
+    public ObservableInt clearVisible = new ObservableInt();
+    private EventToastMessage message;
+    private EventProgressMessage progressMessage;
+    public ResetPasswordViewModel() {
+        init();
+    }
 
-    @WatchThis
-    public final ObservableField<String> onResetPasswordResult = new ObservableField();
-    @WatchThis
-    public final ObservableBoolean progressDialogShow = new ObservableBoolean();
-    @WatchThis
-    public final BaseObservable onLogout = new BaseObservable();
+    private void init() {
+        clearVisible1.set(View.INVISIBLE);
+        clearVisible2.set(View.INVISIBLE);
+        clearVisible3.set(View.INVISIBLE);
+    }
 
     public RelayCommand onSubmitClick = new RelayCommand(() -> {
+        message = new EventToastMessage();
         if ("".equals(password.get())) {
-            ObservableNotifier.alwaysNotify(onResetPasswordResult, "请输入原密码");
+            message.setMessage("请输入原密码");
         } else if ("".equals(newPassword1.get())) {
-            ObservableNotifier.alwaysNotify(onResetPasswordResult, "请输入新密码");
+            message.setMessage("请输入新密码");
         } else if ("".equals(newPassword2.get())) {
-            ObservableNotifier.alwaysNotify(onResetPasswordResult, "请确认新密码");
+            message.setMessage("请确认新密码");
         } else if (!newPassword1.get().equals(newPassword2.get())) {
-            ObservableNotifier.alwaysNotify(onResetPasswordResult, "两次新密码输入不同");
+            message.setMessage("两次新密码输入不同");
         } else if (!RegExMatcherUtils.matchPassword(newPassword1.get())) {
-            ObservableNotifier.alwaysNotify(onResetPasswordResult, "请正确输入6~16位字母或数字");
+            message.setMessage("请正确输入6~16位字母或数字");
         } else {
             resetPassword(Account.preference().getPhone(), password.get(), newPassword1.get());
         }
+        EventBus.getDefault().post(message);
     });
     private void resetPassword(String userName, String password, String newPassword) {
-        progressDialogShow.set(true);
+        progressMessage = new EventProgressMessage();
+        progressMessage.setMessage(true);
+        EventBus.getDefault().post(progressMessage);
         new ResetPasswordModel().resetPassword(userName, password, newPassword)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
+                            progressMessage.setMessage(false);
+                            EventBus.getDefault().post(progressMessage);
                             if (apiResult.isSuccess()) {
-                                onResetPasswordResult.set("修改成功");
-                                progressDialogShow.set(false);
-                                onLogout.notifyChange();
+                                message.setMessage("修改成功");
                             } else {
-                                onResetPasswordResult.set(apiResult.getDescribe());
-                                progressDialogShow.set(false);
+                                message.setMessage(apiResult.getDescribe());
                             }
                         }
                         , throwable -> {
-                            onResetPasswordResult.set(throwable.getMessage());
+                            message.setMessage(throwable.getMessage());
                             throwable.printStackTrace();
-                            progressDialogShow.set(false);
+                            progressMessage.setMessage(false);
+                            EventBus.getDefault().post(progressMessage);
                         });
+    }
+
+    public RelayCommand<ViewBindingAdapter.TextChangeData> editTextCommand = new RelayCommand<ViewBindingAdapter.TextChangeData>((data) -> {
+        switch (data.viewId) {
+            case R.id.edit_password:
+                clearVisible = clearVisible1;
+                break;
+            case R.id.edit_newpassword1:
+                clearVisible = clearVisible2;
+                break;
+            case R.id.edit_newpassword2:
+                clearVisible = clearVisible3;
+                break;
+            default:
+                break;
+        }
+        if(data.text.length()>0)
+            clearVisible.set(View.VISIBLE);
+        else
+            clearVisible.set(View.INVISIBLE);
+    });
+
+    public void onClearClick(View view) {
+        switch (view.getId()) {
+            case R.id.clear_text1:
+                password.set("");
+                break;
+            case R.id.clear_text2:
+                newPassword1.set("");
+                break;
+            case R.id.clear_text3:
+                newPassword2.set("");
+                break;
+            default:
+                break;
+        }
     }
 }

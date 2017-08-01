@@ -6,6 +6,7 @@ import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.PopupWindow;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
@@ -44,7 +45,12 @@ public class WalletMainPopViewModel extends ViewModel {
     public static final String defaultLanguageCache = "[{\"id\":1,\"code\":\"102\",\"name\":\"英文\",\"description\":\"英文语言\"}]";
 
     public WalletMainPopViewModel(Context context,List<FindLanguageResponse> responses) {
-        new WalletMainPopWindow(context, this);
+        new WalletMainPopWindow(context, this).setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                EventBus.getDefault().post(new EventHomePobDismissMessage());
+            }
+        });
         init(responses);
     }
 
