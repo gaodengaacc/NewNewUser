@@ -6,7 +6,6 @@ import android.databinding.InverseBindingListener;
 import android.databinding.adapters.ListenerUtil;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextWatcher;
 import android.view.View;
 
 import com.lyun.library.R;
@@ -47,8 +46,13 @@ public class ViewPagerBindingAdapter {
     }
 
     @BindingAdapter("adapter")
-    public static void setAdapter(ViewPager viewPage, RelayCommand<ViewPager> relayCommand) {
-        relayCommand.execute(viewPage);
+    public static void setAdapter(ViewPager viewPager, PagerAdapter adapter) {
+        viewPager.setAdapter(adapter);
+    }
+
+    @BindingAdapter("offscreenPageLimit")
+    public static void setOffscreenPageLimit(ViewPager viewPager, int limit) {
+        viewPager.setOffscreenPageLimit(limit);
     }
 
     public static class ViewPagerDataWrapper {
@@ -63,11 +67,6 @@ public class ViewPagerBindingAdapter {
             this.positionOffsetPixels = positionOffsetPixels;
             this.state = state;
         }
-    }
-
-    @BindingAdapter("setAdapter")
-    public static void setViewPagerAdapter(ViewPager viewPager, PagerAdapter adapter) {
-        viewPager.setAdapter(adapter);
     }
 
     @BindingAdapter("pageChange")
@@ -137,7 +136,6 @@ public class ViewPagerBindingAdapter {
             view.addOnPageChangeListener(newValue);
         }
     }
-
 
     public interface onPageScrolled {
         void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);

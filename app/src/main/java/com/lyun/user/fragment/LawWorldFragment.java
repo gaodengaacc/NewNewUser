@@ -1,29 +1,21 @@
 package com.lyun.user.fragment;
 
-import android.content.Context;
+import android.databinding.ObservableField;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
+import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
+import com.lyun.user.activity.LawWorldDetailActivity;
+import com.lyun.user.databinding.FragmentLawWorldBinding;
+import com.lyun.user.viewmodel.LawWorldViewModel;
+import com.lyun.user.viewmodel.watchdog.ILawWorldViewModelCallbacks;
 import com.lyun.utils.DisplayUtil;
 
-public class LawWorldFragment extends Fragment {
-
-    private static final int[] drawableIds = new int[]{
-            R.mipmap.guide_page1, R.mipmap.guide_page2,
-            R.mipmap.guide_page3, R.mipmap.guide_page1,
-            R.mipmap.guide_page2, R.mipmap.guide_page3};
-
-    private ViewPager mViewPager;
-    private RelativeLayout mViewPagerContainer;
-    private MyPagerAdapter mPagerAdapter;
-
+public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawWorldViewModel>
+        implements ILawWorldViewModelCallbacks {
 
     public LawWorldFragment() {
     }
@@ -42,27 +34,33 @@ public class LawWorldFragment extends Fragment {
         }
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_law_world, container, false);
-        mViewPager = (ViewPager) root.findViewById(R.id.law_world_viewpager);
-        mPagerAdapter = new MyPagerAdapter(drawableIds, getContext());
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setOffscreenPageLimit(2);
+    protected LawWorldViewModel createViewModel() {
+
+        ViewPager mViewPager = (ViewPager) getFragmentViewDataBinding().getRoot().findViewById(R.id.law_world_viewpager);
+
         mViewPager.setPageMargin(DisplayUtil.dip2px(getContext(), 5));
-        mViewPager.setCurrentItem(1);
         mViewPager.setPageTransformer(true, new LawCardPageTransformer());
 
-        mViewPagerContainer = (RelativeLayout) root.findViewById(R.id.law_world_viewpager_container);
-        mViewPagerContainer.setOnTouchListener((v, event) -> mViewPager.dispatchTouchEvent(event));
+        //mViewPagerContainer = (RelativeLayout) root.findViewById(R.id.law_world_viewpager_container);
+        // 引发bug
+        // mViewPagerContainer.setOnTouchListener((v, event) -> mViewPager.dispatchTouchEvent(event));
 
-        return root;
+        return new LawWorldViewModel();
+    }
+
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.fragment_law_world;
+    }
+
+    @Override
+    public void navigateDetail(ObservableField<String> observableField, int fieldId) {
+        LawWorldDetailActivity.start(getContext());
     }
 
     public class LawCardPageTransformer implements ViewPager.PageTransformer {
-
-        private String TAG = "LawCardPageTransformer";
 
         private final float MAX_SCALE = 480f / 600;
 
@@ -87,36 +85,4 @@ public class LawWorldFragment extends Fragment {
         }
     }
 
-    public class MyPagerAdapter extends PagerAdapter {
-
-        private int[] mBitmapIds;
-        private Context mContext;
-
-        public MyPagerAdapter(int[] data, Context context) {
-            mBitmapIds = data;
-            mContext = context;
-        }
-
-        @Override
-        public int getCount() {
-            return mBitmapIds.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View root = LayoutInflater.from(mContext).inflate(R.layout.item_law_world, container, false);
-            container.addView(root);
-            return root;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-    }
 }

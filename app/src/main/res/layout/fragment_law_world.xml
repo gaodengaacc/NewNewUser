@@ -1,52 +1,68 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#f6f8fb"
-                tools:context="com.lyun.user.fragment.LawWorldFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <com.netease.nim.uikit.common.ui.imageview.CircleImageView
-        android:id="@+id/law_world_avatar"
-        android:layout_width="@dimen/law_world_avatar_width"
-        android:layout_height="@dimen/law_world_avatar_width"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/law_world_avatar_marginTop"
-        android:src="@mipmap/user_default_avatar"
-        app:civ_border_color="#209ced"
-        app:civ_border_width="1dp"/>
+    <data>
 
-    <TextView
-        android:id="@+id/law_world_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/law_world_avatar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="名称"
-        android:textColor="#485465"
-        android:textSize="@dimen/law_world_name_textSize"/>
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.LawWorldViewModel"/>
+    </data>
 
     <RelativeLayout
-        android:id="@+id/law_world_viewpager_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/law_world_name"
-        android:paddingBottom="@dimen/law_world_card_paddingBottom"
-        android:paddingTop="25dp"
-        android:clipChildren="false"
-        android:clipToPadding="false">
+        android:background="#f6f8fb"
+        tools:context="com.lyun.user.fragment.LawWorldFragment">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/law_world_viewpager"
-            android:layout_width="220dp"
-            android:layout_height="match_parent"
+        <com.netease.nim.uikit.common.ui.imageview.CircleImageView
+            android:id="@+id/law_world_avatar"
+            android:layout_width="@dimen/law_world_avatar_width"
+            android:layout_height="@dimen/law_world_avatar_width"
             android:layout_centerHorizontal="true"
-            android:clipChildren="false"
-            android:clipToPadding="false">
+            android:layout_marginTop="@dimen/law_world_avatar_marginTop"
+            android:src="@mipmap/user_default_avatar"
+            app:civ_border_color="#209ced"
+            app:civ_border_width="1dp"/>
 
-        </android.support.v4.view.ViewPager>
+        <TextView
+            android:id="@+id/law_world_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/law_world_avatar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="名称"
+            android:textColor="#485465"
+            android:textSize="@dimen/law_world_name_textSize"/>
+
+        <RelativeLayout
+            android:id="@+id/law_world_viewpager_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/law_world_name"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/law_world_card_paddingBottom"
+            android:paddingTop="25dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/law_world_viewpager"
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:clickCommand="@{mvvm.onPagerClickListener}"
+                app:currentItem="1"
+                app:itemView="@{mvvm.itemView}"
+                app:items="@{mvvm.items}"
+                app:offscreenPageLimit="2">
+
+            </android.support.v4.view.ViewPager>
+        </RelativeLayout>
+
     </RelativeLayout>
 
-</RelativeLayout>
+</layout>

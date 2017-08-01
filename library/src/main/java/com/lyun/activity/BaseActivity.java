@@ -3,6 +3,7 @@ package com.lyun.activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import com.lyun.BaseApplication;
@@ -16,7 +17,7 @@ import com.squareup.leakcanary.RefWatcher;
  * @author 赵尉尉
  * @since 2015/5/13 16:16
  */
-public class BaseActivity extends FragmentActivity  {
+public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

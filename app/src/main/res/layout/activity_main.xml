@@ -13,20 +13,23 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:elevation="0dp">
 
         <TextView
             android:id="@+id/main_tab_bg"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:elevation="5dp"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/main_tab_bg"
+            android:elevation="0dp"
             app:adapter="@{mvvm.pagerAdapter}"
             app:currentItem="@={mvvm.currentItem}">
 
@@ -37,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
+            android:elevation="5dp"
             android:orientation="horizontal"
             android:weightSum="3"
             app:checkedItem="@={mvvm.currentItem}">
@@ -47,7 +51,7 @@
                 android:background="@drawable/bg_main_index"
                 android:button="@null"
                 android:drawableLeft="@drawable/ic_main_selector"
-                android:elevation="8dp"
+                android:elevation="10dp"
                 android:gravity="left"
                 android:paddingBottom="12dp"
                 android:paddingLeft="12dp"

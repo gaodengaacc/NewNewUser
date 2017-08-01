@@ -1,37 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.LawWorldCardViewModel"/>
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/mask_law_world_card"
-        android:orientation="vertical"
-        android:weightSum="600">
+        android:elevation="5dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="270"
-            android:background="@drawable/bg_law_world_card_top">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="600">
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="270"
+                android:background="@drawable/bg_law_world_card_top">
 
-        <RelativeLayout
+                <TextView
+                    android:id="@+id/law_world_years"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/law_world_card_round_corner_white_bg"
+                    android:gravity="center"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp"
+                    android:text="从业年限 10年"
+                    android:textColor="#209ced"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/law_world_good_at_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/law_world_years"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:text="擅长领域"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"/>
+
+                <com.lyun.widget.FlowLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/law_world_good_at_label"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    app:childSpacing="5dp"
+                    app:childSpacingForLastRow="align"
+                    app:rowSpacing="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/law_world_card_round_corner_blue_bg"
+                        android:gravity="center"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="家庭婚姻"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/law_world_card_round_corner_blue_bg"
+                        android:gravity="center"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="合同事务"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/law_world_card_round_corner_blue_bg"
+                        android:gravity="center"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="刑事辩护"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp"/>
+
+                </com.lyun.widget.FlowLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="330"
+                android:background="@drawable/bg_law_world_card_bottom">
+
+                <TextView
+                    android:id="@+id/law_world_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginRight="15dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/ic_more_blue"
+                    android:text="详情"
+                    android:textColor="#209ced"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/law_world_detail"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:ellipsize="end"
+                    android:text="同样是一个ListView，可以用不同的Adapter让它显示出来，比如说最常用的ArrayAdapter，SimpleAdapter，SimpleCursorAdapter，以及重写BaseAdapter等方法。ArrayAdapter比较简单，但它只能用于显示文字。而SimpleAdapter则有很强的扩展性，可以自定义出各种效果，SimpleCursorAdapter则可以从数据库中读取数据显示在列表上，通过从写BaseAdapter可以在列表上加处理的事件等。"
+                    android:textColor="#485465"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/law_world_card_mask"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="330"
-            android:background="@drawable/bg_law_world_card_bottom">
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:background="@drawable/mask_law_world_card"/>
 
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/law_world_card_mask"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/mask_law_world_card"/>
-
-</FrameLayout>
+    </FrameLayout>
+</layout>
