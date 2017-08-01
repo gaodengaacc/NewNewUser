@@ -44,12 +44,6 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
         return new MainActivityViewModel(getPagerAdapter());
     }
 
-    @NonNull
-    @Override
-    protected ViewModel getBodyViewModel() {
-        return null;
-    }
-
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_main;

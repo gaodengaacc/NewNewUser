@@ -1,6 +1,5 @@
 package com.lyun.library.mvvm.view.fragment;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -31,6 +30,7 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
     private VDB mFragmentViewDataBinding;
     protected VM mFragmentViewModel;
     protected ProgressBarDialogViewModel dialogViewModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
         mFragmentViewDataBinding = DataBindingUtil.inflate(inflater, getContentLayoutId(), container, false);
         mFragmentViewModel = createViewModel();
         registerViewModel(mFragmentViewModel);
-        mFragmentViewDataBinding.setVariable(BR.mvvm,mFragmentViewModel);
+        mFragmentViewDataBinding.setVariable(BR.mvvm, mFragmentViewModel);
         return mFragmentViewDataBinding.getRoot();
     }
 
@@ -77,20 +77,16 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
     public void onDestroy() {
         super.onDestroy();
         destroyViewDataBinding(mFragmentViewDataBinding);
-        if(dialogViewModel!=null){
+        if (dialogViewModel != null) {
             dialogViewModel = null;
         }
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mFragmentViewModel.onActivityResult(requestCode,resultCode,data);
     }
 
     protected void destroyViewDataBinding(ViewDataBinding viewDataBinding) {
         viewDataBinding.unbind();
         viewDataBinding.executePendingBindings();
     }
+
     @Deprecated
     protected <T extends ViewModel> T registerViewModel(final T viewModel) {
         viewModel.getActivity().addOnPropertyChangedCallback(new PropertyChangedCallback<ObservableActivity>() {
@@ -120,7 +116,7 @@ public abstract class MvvmFragment<VDB extends ViewDataBinding, VM extends ViewM
                     if (observable.getText() != null)
                         dialogViewModel.setMessage(observable.getText());
                     dialogViewModel.show();
-                }else {
+                } else {
                     dialogViewModel.dismiss();
                 }
             }

@@ -1,6 +1,5 @@
 package com.lyun.library.mvvm.view.activity;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -36,8 +35,6 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     @Override
     public void onResume() {
         super.onResume();
-        if (getBodyViewModel() != null)
-            getBodyViewModel().onResume();
         if (mActivityViewModel != null)
             mActivityViewModel.onResume();
     }
@@ -45,8 +42,6 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     @Override
     protected void onStop() {
         super.onStop();
-        if (getBodyViewModel() != null)
-            getBodyViewModel().onStop();
         if (mActivityViewModel != null)
             mActivityViewModel.onStop();
     }
@@ -54,8 +49,6 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     @Override
     public void onPause() {
         super.onPause();
-        if (getBodyViewModel() != null)
-            getBodyViewModel().onPause();
         if (mActivityViewModel != null)
             mActivityViewModel.onPause();
     }
@@ -64,8 +57,6 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     protected void onDestroy() {
         super.onDestroy();
         destroyViewDataBinding(mActivityViewDataBinding);
-        if (getBodyViewModel() != null)
-            getBodyViewModel().onDestroy();
         if (mActivityViewModel != null)
             mActivityViewModel.onDestroy();
     }
@@ -73,15 +64,6 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
     protected void destroyViewDataBinding(ViewDataBinding viewDataBinding) {
         viewDataBinding.unbind();
         viewDataBinding.executePendingBindings();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (getBodyViewModel() != null)
-            getBodyViewModel().onActivityResult(requestCode, resultCode, data);
-        if (mActivityViewModel != null)
-            mActivityViewModel.onActivityResult(requestCode, resultCode, data);
     }
 
     @Deprecated
@@ -122,9 +104,6 @@ public abstract class MvvmActivity<VDB extends ViewDataBinding, VM extends ViewM
 
     @NonNull
     protected abstract VM createViewModel();
-
-    @NonNull
-    protected abstract ViewModel getBodyViewModel();
 
     @LayoutRes
     protected abstract int getContentLayoutId();

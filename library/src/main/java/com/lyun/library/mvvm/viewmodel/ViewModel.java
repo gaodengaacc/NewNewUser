@@ -57,9 +57,6 @@ public abstract class ViewModel extends BaseObservable {
         return mObservableProgressDialog;
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    }
-
     public void onResume() {
 
     }

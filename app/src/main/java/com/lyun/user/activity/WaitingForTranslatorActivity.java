@@ -99,12 +99,6 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         return new WaitingForTranslatorViewModel(userOrderId).setPropertyChangeListener(this);
     }
 
-    @NonNull
-    @Override
-    protected ViewModel getBodyViewModel() {
-        return null;
-    }
-
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_waitting_for_translator;

@@ -312,7 +312,8 @@
             android:exported="true">
         </service>
 
-        <activity android:name=".activity.LawWorldDetailActivity">
+        <activity android:name=".activity.LawWorldDetailActivity"
+            android:theme="@style/AppTheme.NoTitle">
         </activity>
     </application>
 

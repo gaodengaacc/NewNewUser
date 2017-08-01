@@ -23,12 +23,6 @@ public class GuideActivity extends MvvmActivity<ActivityGuideBinding, GuideViewM
         return new GuideViewModel(this).setPropertyChangeListener(this);
     }
 
-    @NonNull
-    @Override
-    protected ViewModel getBodyViewModel() {
-        return null;
-    }
-
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_guide;

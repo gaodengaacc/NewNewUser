@@ -54,7 +54,6 @@
                 android:layout_centerHorizontal="true"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:clickCommand="@{mvvm.onPagerClickListener}"
                 app:currentItem="1"
                 app:itemView="@{mvvm.itemView}"
                 app:items="@{mvvm.items}"

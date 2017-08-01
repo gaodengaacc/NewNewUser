@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/mask_law_world_card"
-        android:elevation="5dp">
+        android:clickable="true"
+        android:elevation="5dp"
+        app:clickCommand="@{mvvm.onClick}">
 
         <LinearLayout
             android:layout_width="match_parent"

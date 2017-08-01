@@ -9,10 +9,13 @@ import android.view.View;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
 import com.lyun.user.activity.LawWorldDetailActivity;
+import com.lyun.user.api.response.LawWorldCardResponse;
 import com.lyun.user.databinding.FragmentLawWorldBinding;
 import com.lyun.user.viewmodel.LawWorldViewModel;
 import com.lyun.user.viewmodel.watchdog.ILawWorldViewModelCallbacks;
 import com.lyun.utils.DisplayUtil;
+
+import net.funol.databinding.watchdog.Watchdog;
 
 public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawWorldViewModel>
         implements ILawWorldViewModelCallbacks {
@@ -47,7 +50,10 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
         // 引发bug
         // mViewPagerContainer.setOnTouchListener((v, event) -> mViewPager.dispatchTouchEvent(event));
 
-        return new LawWorldViewModel();
+        LawWorldViewModel viewModel = new LawWorldViewModel();
+        Watchdog.newBuilder().watch(viewModel).notify(this).build();
+
+        return viewModel;
     }
 
     @Override
@@ -56,7 +62,7 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
     }
 
     @Override
-    public void navigateDetail(ObservableField<String> observableField, int fieldId) {
+    public void navigateDetail(ObservableField<LawWorldCardResponse> observableField, int fieldId) {
         LawWorldDetailActivity.start(getContext());
     }
 

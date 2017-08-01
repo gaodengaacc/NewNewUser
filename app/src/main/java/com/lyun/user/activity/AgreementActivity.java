@@ -28,12 +28,6 @@ public class AgreementActivity extends MvvmActivity<ActivityAgreementBinding, Ag
         return new AgreementViewModel(bundle).setPropertyChangeListener(this);
     }
 
-    @NonNull
-    @Override
-    protected ViewModel getBodyViewModel() {
-        return null;
-    }
-
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_agreement;

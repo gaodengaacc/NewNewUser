@@ -37,10 +37,33 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         destroyViewDataBinding(mTitleViewDataBinding);
         destroyViewDataBinding(mBodyViewDataBinding);
+        if (getBodyViewModel() != null)
+            getBodyViewModel().onDestroy();
     }
 
     @NonNull
@@ -50,7 +73,6 @@ public abstract class DiyTitleActivity<TVDB extends ViewDataBinding, CVDB extend
     }
 
     @NonNull
-    @Override
     protected CVM getBodyViewModel() {
         return mBodyViewModel;
     }
