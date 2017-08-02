@@ -15,15 +15,15 @@
         android:background="#f6f8fb"
         tools:context="com.lyun.user.fragment.LawWorldFragment">
 
-        <com.netease.nim.uikit.common.ui.imageview.CircleImageView
+        <com.lyun.widget.CircleImageView
             android:id="@+id/law_world_avatar"
             android:layout_width="@dimen/law_world_avatar_width"
             android:layout_height="@dimen/law_world_avatar_width"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/law_world_avatar_marginTop"
             android:src="@mipmap/user_default_avatar"
-            app:civ_border_color="#209ced"
-            app:civ_border_width="1dp"/>
+            app:border_color="#209ced"
+            app:border_width="1dp"/>
 
         <TextView
             android:id="@+id/law_world_name"
