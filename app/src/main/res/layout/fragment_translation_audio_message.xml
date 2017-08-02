@@ -15,7 +15,7 @@
         android:id="@+id/translation_audio_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg_av_chat">
+        android:background="@mipmap/bg_home_fragment">
 
         <LinearLayout
             android:id="@+id/translation_audio_message_info"
