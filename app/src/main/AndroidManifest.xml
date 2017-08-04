@@ -85,7 +85,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.TranslucentStatus" />
+            android:theme="@style/AppTheme.NoTitle.TranslucentStatus" />
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/GlobalTitleTheme">

@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
-import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.R;
 import com.lyun.user.api.response.WalletChargeAliPayResponse;
@@ -51,11 +50,6 @@ public class ServiceCardDetailActivity extends MvvmActivity<ActivityServiceCardD
         return new ServiceCardDetailViewModel(getIntent().getIntExtra("cardId", 0));
     }
 
-    @NonNull
-    @Override
-    protected ViewModel getBodyViewModel() {
-        return null;
-    }
 
     @Override
     protected int getContentLayoutId() {
