@@ -165,7 +165,7 @@
             android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".activity.AgreementActivity"
-            android:theme="@style/AppTheme.TranslucentStatus">
+            android:theme="@style/AppTheme.NoTitle.TranslucentStatus">
             <intent-filter>
                 <action android:name="${APPLICATION_ID}.intent.action.AGREEMENT" />
 
@@ -323,8 +323,7 @@
 
         <activity
             android:name=".activity.ServiceCardDetailActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.TranslucentStatus"></activity>
+            android:theme="@style/AppTheme.NoTitle.TranslucentStatus"></activity>
         <activity android:name=".activity.LawWorldDetailActivity"
             android:theme="@style/AppTheme.NoTitle">
         </activity>
