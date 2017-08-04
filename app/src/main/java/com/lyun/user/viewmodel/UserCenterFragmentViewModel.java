@@ -11,6 +11,7 @@ import com.lyun.user.Account;
 import com.lyun.user.AppIntent;
 import com.lyun.user.R;
 import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
+import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.model.StatisticsCardNoModel;
 import com.lyun.utils.TimeUtil;
 
@@ -30,6 +31,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public final ObservableField<String> userNum = new ObservableField<>();//使用次数
     public final ObservableField<String> userLanguage = new ObservableField<>();//接触语种
     public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
+    public final ObservableInt avatar = new ObservableInt();
 
     private Intent intent;
 
@@ -63,7 +65,9 @@ public class UserCenterFragmentViewModel extends ViewModel {
                         userNum.set(apiResult.getContent().getCallFrequency()+"次");
                         userLanguage.set(apiResult.getContent().getLanguages()+"种");
                     } else {
-                        getToast().setText(apiResult.getDescribe());
+                        EventToastMessage message = new EventToastMessage();
+                        message.setMessage(apiResult.getDescribe());
+                        EventBus.getDefault().post(message);
                     }
                 }, throwable -> throwable.printStackTrace());
     }
@@ -90,6 +94,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
         } else {
             topVisible.set(View.GONE);
         }
+        avatar.set(R.mipmap.user_default_avatar);
     }
 
     public void onViewClick(View view) {
@@ -99,14 +104,19 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 getActivity().startActivity(intent);
                 break;
             case R.id.user_center_avatar:
-                //  if(!Account.preference().isLogin())
-                //  getActivity().startActivity(new Intent(AppIntent.ACTION_LOGIN));
+                intent = new Intent();
+                intent.putExtra("flag","ImageCropActivity");
+                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
                 break;
             case R.id.user_center_account_layout:
-                EventBus.getDefault().post(new EventIntentActivityMessage());
+                intent = new Intent();
+                intent.putExtra("flag","AccountBindingActivity");
+                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
                 break;
             case R.id.user_center_card_layout:
-//                exit();
+                intent = new Intent();
+                intent.putExtra("flag","UserServiceCardListActivity");
+                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
                 break;
             case R.id.user_center_name:
                 break;

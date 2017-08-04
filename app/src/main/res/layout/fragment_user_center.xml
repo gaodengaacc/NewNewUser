@@ -48,7 +48,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:onClick="@{mvvm.onViewClick}"
-                        android:src="@mipmap/user_default_avatar"
+                        app:imageSrc="@{mvvm.avatar}"
                         app:border_color="#ffffff"
                         app:border_width="2dp" />
 

@@ -125,7 +125,8 @@
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView"/>
         <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
-        <attr name="viewModels" format="reference"/>
+        <attr name="viewModels" format="reference" />
+        <attr name="backGround" format="reference" />
 
     </declare-styleable>
     <declare-styleable name="ListView" parent="AdapterView">
@@ -218,4 +219,11 @@
         <attr name="rtl" format="boolean"/>
         <attr name="maxRows" format="integer"/>
     </declare-styleable>
+    <declare-styleable name="MultiTouchZoomableImageView">
+        <attr name="output" format="reference"></attr>
+        <attr name="bitmap" format="reference"></attr>
+    </declare-styleable>
+
+
+
 </resources>

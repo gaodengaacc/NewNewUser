@@ -29,6 +29,7 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
     public static final int TYPE_HEADER = 0;  //说明是带有Header的
     public static final int TYPE_FOOTER = 1;  //说明是带有Footer的
     public static final int TYPE_NORMAL = 2;  //说明是不带有header和footer的
+    private int newPosition;
     public BaseRecyclerAdapter(List<VM> viewModels, int layoutId) {
         this.viewModels = viewModels;
         this.layoutId = layoutId;
@@ -69,7 +70,11 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
     public void onBindViewHolder(BaseRecyclerHolder holder, final int position) {
         if (viewModels != null) {
             if (getItemViewType(position) == TYPE_NORMAL) {
-                viewBind(viewModels.get(position), (DB) holder.getViewDataBinding(), position);
+                if (mHeaderView != null)
+                    newPosition = position - 1 < 0 ? 0 : position - 1;
+                else
+                    newPosition = position;
+                viewBind(viewModels.get(newPosition), (DB) holder.getViewDataBinding(), position);
                 if (itemClickListener != null) {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -97,11 +102,11 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
         if (mHeaderView == null && mFooterView == null) {
             return TYPE_NORMAL;
         }
-        if (position == 0) {
+        if (position == 0 && mHeaderView != null) {
             //第一个item应该加载Header
             return TYPE_HEADER;
         }
-        if (position == getItemCount() - 1) {
+        if (position == getItemCount() - 1 && mFooterView != null) {
             //最后一个,应该加载Footer
             return TYPE_FOOTER;
         }

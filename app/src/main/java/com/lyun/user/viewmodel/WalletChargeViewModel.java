@@ -211,7 +211,7 @@ public class WalletChargeViewModel extends ViewModel {
     public enum PayType {
         ALI("2"),//支付宝
         WX("1");//微信
-        private String value;
+        public String value;
 
         PayType(String value) {
             this.value = value;

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.CardPayDialogViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="CardPayDialogViewModel"></variable>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgcw"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="需支付："
+                android:textColor="@color/tc14"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="@{mvvm.buyMoney}"
+                android:textColor="#fe811c"
+                android:layout_alignParentRight="true"
+                android:textSize="15sp" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:background="#dce2ee" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="15dp"
+            android:text="选择支付方式"
+            android:textColor="@color/tc14"
+            android:textSize="14sp" />
+
+
+        <RelativeLayout
+            android:id="@+id/wallet_charge_ali"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/common_item_bg_selector"
+            android:onClick="@{mvvm.onClickView}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@mipmap/wallet_charge_zhi_icon"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="支付宝"
+                android:textColor="@color/tc14"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:imageSrc="@{mvvm.aliSelect}" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wallet_charge_wx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/common_item_bg_selector"
+            android:onClick="@{mvvm.onClickView}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@mipmap/wallet_charge_we_icon"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="微信"
+                android:textColor="@color/tc14"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:imageSrc="@{mvvm.wxSelect}" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@color/bgcw"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/wallet_charge_yes"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/corner_blue_bg_card"
+                android:gravity="center"
+                android:onClick="@{mvvm.onClickView}"
+                android:text="购  买"
+                android:textColor="@color/tcw"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

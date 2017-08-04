@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.SelectImageDialogViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="SelectImageDialogViewModel"></variable>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_white_bg_dialog"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/select_image"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="从手机相册中选择"
+            android:textColor="@color/tc14"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:onClick="@{mvvm.onClickView}"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#dce2ee"></View>
+        <TextView
+            android:id="@+id/save_image"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="将头像保存到手机"
+            android:textColor="@color/tc14"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:onClick="@{mvvm.onClickView}"/>
+    </LinearLayout>
+
+</layout>
