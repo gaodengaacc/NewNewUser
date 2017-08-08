@@ -1,1 +1,1 @@
-include ':app', ':library', ':wheel', 'nimuikit'
+include ':app', ':library', ':wheel', ':roundrectview', 'nimuikit'

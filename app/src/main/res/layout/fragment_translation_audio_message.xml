@@ -17,42 +17,17 @@
         android:layout_height="match_parent"
         android:background="@mipmap/bg_home_fragment">
 
-        <LinearLayout
+        <TextView
             android:id="@+id/translation_audio_message_info"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="中文"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"/>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_audio_chat_translation"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="@{mvvm.targetLanguage}"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"/>
-
-        </LinearLayout>
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@{`服务分类` + mvvm.targetLanguage}"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
 
         <RelativeLayout
             android:id="@+id/translation_audio_message_switch"
@@ -115,6 +90,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="静音"
+                android:textColor="@color/white"
                 app:onCheckCommand="@{mvvm.onMuteCheckCommand}"/>
 
             <CheckBox
@@ -141,6 +117,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="免提"
+                android:textColor="@color/white"
                 app:onCheckCommand="@{mvvm.onHandFreeCheckCommand}"/>
 
         </LinearLayout>
@@ -169,21 +146,25 @@
                 android:layout_below="@+id/translation_audio_message_avatar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:text="@{`译员`+ mvvm.translatorName+`为您服务`}"
+                android:text="@{`律师`+ mvvm.translatorName+`为您服务`}"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"/>
 
-            <TextView
+            <com.lyun.roundrectview.RoundRectTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/translation_audio_message_username"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:drawableLeft="@drawable/ic_audio_chat"
-                android:drawablePadding="5dp"
-                android:text="@{mvvm.translationTime}"
+                android:paddingBottom="1dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="1dp"
+                android:text="5:00"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                app:backgroundColor="#5effffff"
+                app:cornerRadius="50%"/>
         </RelativeLayout>
 
     </RelativeLayout>
