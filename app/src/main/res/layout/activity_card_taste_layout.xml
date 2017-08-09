@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.ServiceCardTasteViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="ServiceCardTasteViewModel"></variable>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgc7">
+
+        <ImageView
+            android:id="@+id/taste_top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bg_service_card_taste_top" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/taste_top_bg"
+            android:layout_margin="15dp"
+            android:background="@drawable/corner_white_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="35dp">
+                <com.lyun.widget.CircleImageView
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:src="#209ced" />
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="免费十分钟咨询时间"
+                    android:textColor="#485465"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="15dp">
+                <com.lyun.widget.CircleImageView
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:src="#209ced"
+                    />
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="在线法律咨询,各类法律问题迎刃而解"
+                    android:textColor="#485465"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:layout_below="@+id/taste_top_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_service_card_taste"
+            android:layout_marginTop="145dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/bgcw"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/card_detail_buy"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/corner_blue_bg_card"
+                android:gravity="center"
+                android:text="购  买"
+                android:textColor="@color/tcw"
+                android:textSize="16sp"
+                android:onClick="@{mvvm.onClickView}"/>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

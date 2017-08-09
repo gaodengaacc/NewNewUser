@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.ServiceCardItemViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="ServiceCardItemViewModel"></variable>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#edf3f9"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_white_bg_user_card">
+
+            <ImageView
+                android:id="@+id/top_image"
+                android:layout_width="match_parent"
+                android:layout_height="165dp"
+                android:padding="5dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/bg_service_card_normal"
+                app:imageSrc="@{mvvm.cardBg}" />
+
+            <TextView
+                android:id="@+id/item_service_card_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="30dp"
+                android:text="律云法律服务"
+                android:textColor="@color/tcw"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_service_card_title"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:text="@{mvvm.cardValue}"
+                android:textColor="@color/tcw"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/top_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/top_image"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="订单编号:"
+                    android:textColor="#a8b4c4"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:text="1251543131"
+                    android:textColor="@color/tc14"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/top_image"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="成交日期:"
+                    android:textColor="#a8b4c4"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:text="2017-08-02 09:58"
+                    android:textColor="@color/tc14"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/top_text"
+                android:layout_marginBottom="14dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="有效期:"
+                    android:textColor="#a8b4c4"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:text="2017-08-02至2018-08-02"
+                    android:textColor="@color/tc14"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_time"
+            android:background="@drawable/corner_gray_bg_user_card"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+
+            <LinearLayout
+                android:id="@+id/bottom_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <com.lyun.widget.CircleImageView
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="#fe811c" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="在线法律咨询:"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="120分钟"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bottom_text1"
+                android:layout_width="108dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <com.lyun.widget.CircleImageView
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="#fe811c" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="资深律师咨询:"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="2次"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@+id/bottom_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <com.lyun.widget.CircleImageView
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="#fe811c" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="法律文书定制:"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="2次"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@+id/bottom_text1"
+                android:layout_width="108dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <com.lyun.widget.CircleImageView
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="#fe811c" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="法律讲座:"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="2次"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

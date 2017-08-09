@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyun.user.viewmodel.ServiceCardDetailViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="ServiceCardDetailViewModel"></variable>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:backGround="@{mvvm.topBg}"
+            android:fitsSystemWindows="false"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:layout_collapseMode="pin">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:id="@+id/card_detail_back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/ic_arrow_back_black"
+                            android:paddingRight="15dp"
+                            android:onClick="@{mvvm.onClickView}"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="服务卡详情"
+                            android:textColor="@color/tcw"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/content_scrolling" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/bgcw"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/card_detail_buy"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/corner_blue_bg_card"
+                android:gravity="center"
+                android:text="购  买"
+                android:textColor="@color/tcw"
+                android:textSize="16sp"
+                android:onClick="@{mvvm.onClickView}"/>
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

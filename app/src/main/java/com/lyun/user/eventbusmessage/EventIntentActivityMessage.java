@@ -19,4 +19,10 @@ public class EventIntentActivityMessage implements EventMessage<Intent> {
     public Intent getMessage() {
         return intent;
     }
+
+    public EventIntentActivityMessage(Intent intent) {
+                 setMessage(intent);
+    }
+    public EventIntentActivityMessage() {
+    }
 }

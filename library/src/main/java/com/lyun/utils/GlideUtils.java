@@ -7,6 +7,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lyun.library.R;
 
+import java.io.File;
+
 /**
  * @author Gordon
  * @since 2016/3/24
@@ -39,6 +41,21 @@ public class GlideUtils {
         Glide.with(context)
                 .load(url)
                 .placeholder(defaultResid)
+                .animate(R.anim.fade_in)
+                .crossFade()
+                .into(view);
+    }
+    /**
+     * 加载本地图片
+     *
+     * @param view
+     * @param file
+     */
+    public static void showImage(Context context,ImageView view, File file) {
+        Glide.with(context)
+                .load(file)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .animate(R.anim.fade_in)
                 .crossFade()
                 .into(view);

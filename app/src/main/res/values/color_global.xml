@@ -49,6 +49,7 @@
     <color name="bgc5">#d9d9d9</color>
     <color name="bgc6">#22242b</color>
     <color name="bgcB">#000000</color>
+    <color name="bgc7">#f6f8fb</color>
 
 
     <!-- 分割线 -->
@@ -69,4 +70,8 @@
     <color name="tc8">#40d12d</color>
     <color name="tc9">#ffb900</color>
     <color name="tc10">#a8b4c4</color>
+    <color name="tc11">#4edec8</color>
+    <color name="tc12">#f6d592</color>
+    <color name="tc13">#c7cbe0</color>
+    <color name="tc14">#485465</color>
 </resources>

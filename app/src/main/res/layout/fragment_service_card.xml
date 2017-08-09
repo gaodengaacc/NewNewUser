@@ -1,13 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.lyun.user.fragment.ServiceCardFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <import type="com.lyun.user.viewmodel.FragmentServiceCardViewModel"></import>
+
+        <variable
+            name="mvvm"
+            type="FragmentServiceCardViewModel"></variable>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:orientation="vertical"
+        android:background="#f6f8fb">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/fragment_card_top"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@mipmap/bg_service_card_list_top"
+            android:scaleType="fitXY"
+            android:onClick="@{mvvm.onClickView}"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:scrollbars="none"
+            app:adapter="@{mvvm.adapter}"
+            app:footer="@{mvvm.footerLayout}"
+            app:layoutManager="@{mvvm.recyclerViewLayoutManager}"
+            app:notifyData="@{mvvm.notifyData}"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</layout>

@@ -1,14 +1,27 @@
 package com.lyun.user.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.annotation.NonNull;
+import android.widget.LinearLayout;
 
+import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
+import com.lyun.user.activity.ServiceCardDetailActivity;
+import com.lyun.user.activity.ServiceCardTasteDetailActivity;
+import com.lyun.user.api.response.ServiceCardListItemResponse;
+import com.lyun.user.databinding.FragmentServiceCardBinding;
+import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
+import com.lyun.user.eventbusmessage.EventListItemMessage;
+import com.lyun.user.viewmodel.FragmentServiceCardViewModel;
+import com.lyun.utils.DisplayUtil;
+import com.lyun.utils.Screen;
 
-public class ServiceCardFragment extends Fragment {
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding, FragmentServiceCardViewModel> {
 
     public ServiceCardFragment() {
     }
@@ -23,13 +36,40 @@ public class ServiceCardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+        EventBus.getDefault().register(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_service_card, container, false);
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @NonNull
+    @Override
+    protected FragmentServiceCardViewModel createViewModel() {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DisplayUtil.dip2px(getContext(), 50));
+        layoutParams.setMargins(0, Screen.getStatusBarHeightByReflaction(getContext()), 0, 0);
+        getFragmentViewDataBinding().fragmentCardTop.setLayoutParams(layoutParams);
+        return new FragmentServiceCardViewModel();
+    }
+
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.fragment_service_card;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMyStartActivity(EventIntentActivityMessage message) {
+        if (message.getMessage().getStringExtra("flag").equals(FragmentServiceCardViewModel.TOP_CLICK_FLAG))
+            startActivity(new Intent(getContext(), ServiceCardTasteDetailActivity.class));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onItemClick(EventListItemMessage message) {
+        if (message.getMessage() instanceof ServiceCardListItemResponse) {
+            ServiceCardListItemResponse response = (ServiceCardListItemResponse) message.getMessage();
+            startActivity(new Intent(getContext(), ServiceCardDetailActivity.class).putExtra("cardId",response.getCardId()));
+        }
     }
 }
