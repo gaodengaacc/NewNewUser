@@ -48,7 +48,7 @@ public class WalletMainPopViewModel extends ViewModel {
         new WalletMainPopWindow(context, this).setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                EventBus.getDefault().post(new EventHomePobDismissMessage());
+                EventBus.getDefault().post(new EventHomePobDismissMessage(true));
             }
         });
         init(responses);
@@ -65,11 +65,9 @@ public class WalletMainPopViewModel extends ViewModel {
         }
         WalletMainPopAdapter popAdapter = new WalletMainPopAdapter(list, R.layout.item_wallet_main_popwindow);
         popAdapter.setItemClickListener((view, viewModels, position) -> {
-            EventSelectMessage message = new EventSelectMessage();
-            message.setMessage(languageResponses.get(position));
-            EventBus.getDefault().post(message);
+            EventBus.getDefault().post(new EventSelectMessage(languageResponses.get(position)));
             ObservableNotifier.alwaysNotify(isDismiss,true);
-            EventBus.getDefault().post(new EventHomePobDismissMessage());
+            EventBus.getDefault().post(new EventHomePobDismissMessage(true));
         });
         adapter.set(popAdapter);
     }

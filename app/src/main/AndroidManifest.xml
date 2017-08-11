@@ -147,8 +147,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.FindPasswordActivity" />
-        <activity android:name=".activity.ResetPasswordActivity" />
+        <activity
+            android:name=".activity.FindPasswordActivity"
+            android:theme="@style/GlobalTitleTheme" />
+        <activity
+            android:name=".activity.ResetPasswordActivity"
+            android:theme="@style/GlobalTitleTheme" />
         <activity
             android:name="com.netease.nim.uikit.session.activity.P2PMessageActivity"
             android:theme="@style/AppTheme.NoTitle"

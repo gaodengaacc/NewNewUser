@@ -206,7 +206,6 @@ dependencies {
     compile 'pub.devrel:easypermissions:0.3.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     compile files('libs/alipaySdk-20161222.jar')
-    compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:support-v4:25.0.1'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'pub.devrel:easypermissions:0.3.0'

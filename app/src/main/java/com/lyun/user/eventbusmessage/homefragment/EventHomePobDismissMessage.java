@@ -20,5 +20,8 @@ public class EventHomePobDismissMessage implements EventMessage<Boolean> {
     public Boolean getMessage() {
         return isDismiss;
     }
+    public EventHomePobDismissMessage(boolean isDismiss){
+        this.isDismiss = isDismiss;
+    }
 
 }

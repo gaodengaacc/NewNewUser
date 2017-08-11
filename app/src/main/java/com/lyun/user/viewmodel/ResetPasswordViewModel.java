@@ -63,8 +63,7 @@ public class ResetPasswordViewModel extends ViewModel {
         EventBus.getDefault().post(message);
     });
     private void resetPassword(String userName, String password, String newPassword) {
-        progressMessage = new EventProgressMessage();
-        progressMessage.setMessage(true);
+        progressMessage = new EventProgressMessage(true);
         EventBus.getDefault().post(progressMessage);
         new ResetPasswordModel().resetPassword(userName, password, newPassword)
                 .subscribeOn(Schedulers.newThread())

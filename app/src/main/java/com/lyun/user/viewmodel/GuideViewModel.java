@@ -3,6 +3,7 @@ package com.lyun.user.viewmodel;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.graphics.Point;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -30,6 +31,11 @@ public class GuideViewModel extends ViewModel {
     public final ObservableField<PagerAdapter> pageAdapter = new ObservableField<>();
     public final ObservableField<ViewPager.OnPageChangeListener> pageChange = new ObservableField<>();
     public final ObservableField<View.OnTouchListener> onTouch = new ObservableField<>();
+    public final ObservableInt icon_bottom1 = new ObservableInt();
+    public final ObservableInt icon_bottom2 = new ObservableInt();
+    public final ObservableInt icon_bottom3 = new ObservableInt();
+    public final ObservableInt bottom_icon_visible = new ObservableInt();
+    public final ObservableInt bottom_visible = new ObservableInt();
     private List<ImageView> mViewList;
     private ImageView imageView;
     private GuidePageAdapter adapter;
@@ -56,6 +62,11 @@ public class GuideViewModel extends ViewModel {
 
 
     private void initData() {
+        icon_bottom1.set(R.mipmap.icon_guide_bottom_select);
+        icon_bottom2.set(R.mipmap.icon_guide_bottom_unselect);
+        icon_bottom3.set(R.mipmap.icon_guide_bottom_unselect);
+        bottom_icon_visible.set(View.VISIBLE);
+        bottom_visible.set(View.GONE);
         for (int imgIds : guideImages) {
             imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -71,6 +82,28 @@ public class GuideViewModel extends ViewModel {
 
         @Override
         public void onPageSelected(int position) {
+            switch (position){
+                case 0:
+                    icon_bottom1.set(R.mipmap.icon_guide_bottom_select);
+                    icon_bottom2.set(R.mipmap.icon_guide_bottom_unselect);
+                    icon_bottom3.set(R.mipmap.icon_guide_bottom_unselect);
+                    bottom_icon_visible.set(View.VISIBLE);
+                    bottom_visible.set(View.GONE);
+                    break;
+                case 1:
+                    icon_bottom2.set(R.mipmap.icon_guide_bottom_select);
+                    icon_bottom1.set(R.mipmap.icon_guide_bottom_unselect);
+                    icon_bottom3.set(R.mipmap.icon_guide_bottom_unselect);
+                    bottom_icon_visible.set(View.VISIBLE);
+                    bottom_visible.set(View.GONE);
+                    break;
+                case 2:
+                    bottom_icon_visible.set(View.GONE);
+                    bottom_visible.set(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
             currentItem = position;
         }
 

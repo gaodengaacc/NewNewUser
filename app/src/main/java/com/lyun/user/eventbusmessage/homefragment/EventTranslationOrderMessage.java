@@ -20,4 +20,7 @@ public class EventTranslationOrderMessage implements EventMessage<TranslationOrd
     public TranslationOrder getMessage() {
         return translationOrder;
     }
+    public EventTranslationOrderMessage(TranslationOrder translationOrder){
+        this.translationOrder = translationOrder;
+    }
 }

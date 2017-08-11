@@ -18,4 +18,8 @@ public class EventActivityFinishMessage implements EventMessage<Boolean> {
     public Boolean getMessage() {
         return o;
     }
+
+    public EventActivityFinishMessage(boolean o) {
+        this.o = o;
+    }
 }

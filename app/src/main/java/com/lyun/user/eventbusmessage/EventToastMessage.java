@@ -18,4 +18,9 @@ public class EventToastMessage implements EventMessage<String> {
     public String getMessage() {
         return message;
     }
+    public EventToastMessage(String message){
+        this.message = message;
+    }
+    public EventToastMessage(){
+    }
 }

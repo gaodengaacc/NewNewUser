@@ -19,4 +19,7 @@ public class EventProgressMessage implements EventMessage<Boolean> {
     public Boolean getMessage() {
         return isShow;
     }
+    public EventProgressMessage(boolean isShow){
+        this.isShow = isShow;
+    }
 }

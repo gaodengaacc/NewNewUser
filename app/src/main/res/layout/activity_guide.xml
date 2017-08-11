@@ -20,13 +20,54 @@
             app:adapter="@{mvvm.pageAdapter}"
             app:touchListener="@{mvvm.onTouch}"></android.support.v4.view.ViewPager>
 
-        <ImageView
+        <TextView
+            android:layout_width="49dp"
+            android:layout_height="22dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_splash_skip"
+            android:gravity="center"
+            android:text="跳过"
+            android:textColor="#209ced"
+            android:textSize="12sp"
+            app:clickCommand="@{mvvm.onSkip}" />
+
+        <LinearLayout
+            android:visibility="@{mvvm.bottom_icon_visible}"
+            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="45dp"
-            android:src="@mipmap/skip"
+            android:orientation="horizontal"
+            android:layout_marginBottom="100dp"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:imageSrc="@{mvvm.icon_bottom1}"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                app:imageSrc="@{mvvm.icon_bottom2}"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                app:imageSrc="@{mvvm.icon_bottom3}"/>
+        </LinearLayout>
+        <TextView
+            android:visibility="@{mvvm.bottom_visible}"
+            android:layout_width="240dp"
+            android:layout_height="44dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="85dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_guide_skip"
+            android:gravity="center"
+            android:text="立即体验"
+            android:textColor="#209ced"
+            android:textSize="17sp"
             app:clickCommand="@{mvvm.onSkip}" />
     </RelativeLayout>
 

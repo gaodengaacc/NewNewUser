@@ -65,9 +65,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
                         userNum.set(apiResult.getContent().getCallFrequency()+"次");
                         userLanguage.set(apiResult.getContent().getLanguages()+"种");
                     } else {
-                        EventToastMessage message = new EventToastMessage();
-                        message.setMessage(apiResult.getDescribe());
-                        EventBus.getDefault().post(message);
+                        EventBus.getDefault().post(new EventToastMessage(apiResult.getDescribe()));
                     }
                 }, throwable -> throwable.printStackTrace());
     }

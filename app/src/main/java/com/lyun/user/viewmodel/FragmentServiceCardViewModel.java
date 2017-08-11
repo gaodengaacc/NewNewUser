@@ -47,9 +47,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
         data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务", "9999", 2)));
         ServiceCardListAdapter adapter = new ServiceCardListAdapter(data, R.layout.item_service_card_layout);
         adapter.setItemClickListener((view, viewModels, position) -> {
-            EventListItemMessage message = new EventListItemMessage();
-            message.setMessage(data.get(position).data);
-            EventBus.getDefault().post(message);
+            EventBus.getDefault().post(new EventListItemMessage(data.get(position).data));
         });
         this.adapter.set(adapter);
         footerLayout.set(R.layout.service_card_item_footer_layout);

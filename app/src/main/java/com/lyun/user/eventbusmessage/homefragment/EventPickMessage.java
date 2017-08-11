@@ -19,4 +19,7 @@ public class EventPickMessage implements EventMessage<Boolean> {
     public Boolean getMessage() {
         return isShow;
     }
+    public EventPickMessage(boolean isShow){
+        this.isShow = isShow;
+    }
 }

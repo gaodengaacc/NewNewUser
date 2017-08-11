@@ -42,7 +42,7 @@ public class ServiceCardDetailViewModel extends ViewModel {
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.card_detail_back:
-                EventBus.getDefault().post(new EventActivityFinishMessage());
+                EventBus.getDefault().post(new EventActivityFinishMessage(true));
                 break;
             case R.id.card_detail_buy:
                 EventBus.getDefault().post(new EventShowPayDialogMessage(999.0));

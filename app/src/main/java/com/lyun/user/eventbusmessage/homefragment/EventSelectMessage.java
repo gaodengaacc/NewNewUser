@@ -20,4 +20,7 @@ public class EventSelectMessage implements EventMessage<FindLanguageResponse> {
     public FindLanguageResponse getMessage() {
         return response;
     }
+    public EventSelectMessage(FindLanguageResponse response){
+        this.response = response;
+    }
 }

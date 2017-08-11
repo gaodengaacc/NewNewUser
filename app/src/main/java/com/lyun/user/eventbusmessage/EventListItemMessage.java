@@ -18,4 +18,8 @@ public class EventListItemMessage implements EventMessage {
     public Object getMessage() {
         return object;
     }
+
+    public EventListItemMessage(Object o) {
+        this.object = o;
+    }
 }

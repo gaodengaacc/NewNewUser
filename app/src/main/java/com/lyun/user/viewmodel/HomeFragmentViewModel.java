@@ -9,14 +9,14 @@ import android.view.View;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
+import com.lyun.user.R;
+import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventHomePobDismissMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventPickMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventSelectMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventTranslationOrderMessage;
-import com.lyun.user.R;
-import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.model.RemainingTimeModel;
 import com.lyun.user.model.TranslationOrderModel;
 import com.lyun.user.model.TranslationOrderModel.OrderType;
@@ -49,7 +49,7 @@ public class HomeFragmentViewModel extends ViewModel {
     public final ObservableInt textViewColor2 = new ObservableInt();//图文翻译
     public final ObservableField<FindLanguageResponse> mCurrentLanguage = new ObservableField<>();//目标语言
     public final ObservableField<String> unusedTime = new ObservableField<>();//剩余时间
-
+    private int unTime;
     public HomeFragmentViewModel() {
         EventBus.getDefault().register(this);
         initData();
@@ -71,10 +71,11 @@ public class HomeFragmentViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     if (apiResult.isSuccess()) {
-                        if (Integer.parseInt(apiResult.getContent().toString()) <= 0) {
+                        unTime = Integer.parseInt(apiResult.getContent().toString());
+                        if (unTime <= 0) {
                             unusedTime.set("剩余使用0分钟");
                         } else {
-                            unusedTime.set("剩余使用" + apiResult.getContent().toString() + "分钟");
+                            unusedTime.set("剩余使用" + unTime + "分钟");
                         }
                     } else {
                         getToast().setText(apiResult.getDescribe());
@@ -99,10 +100,9 @@ public class HomeFragmentViewModel extends ViewModel {
     public ObservableBoolean onRequestTranslationClickable = new ObservableBoolean(true);
 
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
-        EventProgressMessage message = new EventProgressMessage();
-        message.setMessage(true);
+        EventProgressMessage message = new EventProgressMessage(true);
         EventBus.getDefault().post(message);
-        if ("0".equals(unusedTime.get())) {
+        if (unTime <= 0) {
             EventBus.getDefault().post("您剩余的时间不足,请购买服务时间");
         } else {
             onRequestTranslationClickable.set(false);
@@ -116,9 +116,7 @@ public class HomeFragmentViewModel extends ViewModel {
                                 message.setMessage(false);
                                 EventBus.getDefault().post(message);
                                 onRequestTranslationClickable.set(true);
-                                EventTranslationOrderMessage transMessage = new EventTranslationOrderMessage();
-                                transMessage.setMessage(order);
-                                EventBus.getDefault().post(transMessage);
+                                EventBus.getDefault().post(new EventTranslationOrderMessage(order));
                             },
                             throwable -> {
                                 message.setMessage(false);
@@ -152,9 +150,7 @@ public class HomeFragmentViewModel extends ViewModel {
 
     public void selectOnClick(View view) {
         selectIcon.set(R.mipmap.icon_home_fragment_up);
-        EventPickMessage message = new EventPickMessage();
-        message.setMessage(true);
-        EventBus.getDefault().post(message);
+        EventBus.getDefault().post(new EventPickMessage(true));
 
     }
 

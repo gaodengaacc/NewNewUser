@@ -79,7 +79,7 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            itemClickListener.onItemClick(v, viewModels, position);
+                            itemClickListener.onItemClick(v, viewModels, newPosition);
                         }
                     });
                 }
@@ -87,7 +87,7 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
                     holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            itemLongClickListener.onItemClick(v, viewModels, position);
+                            itemLongClickListener.onItemClick(v, viewModels, newPosition);
                             return false;
                         }
                     });
