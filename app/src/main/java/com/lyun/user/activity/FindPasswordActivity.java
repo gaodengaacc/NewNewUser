@@ -26,7 +26,7 @@ public class FindPasswordActivity extends GeneralToolbarActivity<ActivityFindPas
     protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
         GeneralToolbarViewModel.ToolbarViewModel viewModel = super.createTitleViewModel();
         viewModel.setPropertyChangeListener(this);
-        viewModel.title.set("找回密码");
+        viewModel.title.set("忘记密码");
         viewModel.onBackClick.set(view -> finish());
         return viewModel;
     }

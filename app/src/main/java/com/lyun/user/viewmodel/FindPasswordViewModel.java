@@ -47,13 +47,13 @@ public class FindPasswordViewModel extends ViewModel {
         inputType.set(PasswordTransformationMethod.getInstance());//密码隐藏
     }
 
-    public RelayCommand<Boolean> isChecked = new RelayCommand<Boolean>((checked) -> {
-        if (checked) {
-            inputType.set(HideReturnsTransformationMethod.getInstance());//密码显示
-        } else {
-            inputType.set(PasswordTransformationMethod.getInstance());//密码隐藏
-        }
-    });
+//    public RelayCommand<Boolean> isChecked = new RelayCommand<Boolean>((checked) -> {
+//        if (checked) {
+//            inputType.set(HideReturnsTransformationMethod.getInstance());//密码显示
+//        } else {
+//            inputType.set(PasswordTransformationMethod.getInstance());//密码隐藏
+//        }
+//    });
 
     public RelayCommand onSubmitClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
