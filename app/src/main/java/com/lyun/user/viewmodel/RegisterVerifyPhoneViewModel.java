@@ -49,6 +49,10 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
 
     }
 
+    public RelayCommand onClearButtonClick = new RelayCommand(() -> {
+        username.set("");
+    });
+
     public RelayCommand onGetSMSCodeButtonClick = new RelayCommand(() -> {
         if (!canClick) {
             if (("".equals(username.get()) || (username.get() == null))) {
