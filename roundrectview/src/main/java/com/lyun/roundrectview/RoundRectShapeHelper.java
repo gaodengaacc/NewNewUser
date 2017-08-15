@@ -19,11 +19,6 @@ public class RoundRectShapeHelper {
     protected DisplayMetrics mMetrics;
     protected RoundRectAttrsDelegate mAttrsDelegate;
 
-    private TypedValue radius = new TypedValue();
-    private TypedValue bottomLeftRadius = new TypedValue();
-    private TypedValue bottomRightRadius = new TypedValue();
-    private TypedValue topLeftRadius = new TypedValue();
-    private TypedValue topRightRadius = new TypedValue();
     private TypedValue innerTopLeftRadius = new TypedValue();
     private TypedValue innerTopRightRadius = new TypedValue();
     private TypedValue innerBottomLeftRadius = new TypedValue();
@@ -32,7 +27,6 @@ public class RoundRectShapeHelper {
     private TypedValue outerTopRightRadius = new TypedValue();
     private TypedValue outerBottomLeftRadius = new TypedValue();
     private TypedValue outerBottomRightRadius = new TypedValue();
-    private float borderPadding = -1;
     private float borderPaddingLeft = 0;
     private float borderPaddingTop = 0;
     private float borderPaddingRight = 0;
@@ -56,6 +50,8 @@ public class RoundRectShapeHelper {
         borderWidth = a.getDimension(mAttrsDelegate.getBorderWidth(), borderWidth);
         borderColor = a.getColor(mAttrsDelegate.getBorderColor(), borderColor);
 
+        float borderPadding = -1;
+
         borderPadding = a.getDimension(mAttrsDelegate.getBorderPadding(), borderPadding);
 
         if (borderPadding >= 0) {
@@ -70,50 +66,56 @@ public class RoundRectShapeHelper {
             borderPaddingBottom = a.getDimension(mAttrsDelegate.getBorderPaddingBottom(), borderPaddingBottom);
         }
 
-        radius.setTo(a.peekValue(mAttrsDelegate.getRadius()));
+        TypedValue radius = new TypedValue();
+        TypedValue bottomLeftRadius = new TypedValue();
+        TypedValue bottomRightRadius = new TypedValue();
+        TypedValue topLeftRadius = new TypedValue();
+        TypedValue topRightRadius = new TypedValue();
 
-        if (radius.data >= 0) {
+        radius.setTo(peekValue(a, mAttrsDelegate.getRadius()));
+
+        if (radius.type != TypedValue.TYPE_NULL) {
             topLeftRadius.setTo(radius);
             topRightRadius.setTo(radius);
             bottomRightRadius.setTo(radius);
             bottomLeftRadius.setTo(radius);
         } else {
-            topLeftRadius.setTo(a.peekValue(mAttrsDelegate.getTopLeftRadius()));
-            topRightRadius.setTo(a.peekValue(mAttrsDelegate.getTopRightRadius()));
-            bottomRightRadius.setTo(a.peekValue(mAttrsDelegate.getBottomRightRadius()));
-            bottomLeftRadius.setTo(a.peekValue(mAttrsDelegate.getBottomLeftRadius()));
+            topLeftRadius.setTo(peekValue(a, mAttrsDelegate.getTopLeftRadius()));
+            topRightRadius.setTo(peekValue(a, mAttrsDelegate.getTopRightRadius()));
+            bottomRightRadius.setTo(peekValue(a, mAttrsDelegate.getBottomRightRadius()));
+            bottomLeftRadius.setTo(peekValue(a, mAttrsDelegate.getBottomLeftRadius()));
         }
 
-        if (topLeftRadius.data >= 0) {
+        if (topLeftRadius.type != TypedValue.TYPE_NULL) {
             innerTopLeftRadius.setTo(topLeftRadius);
             outerTopLeftRadius.setTo(topLeftRadius);
         } else {
-            innerTopLeftRadius.setTo(a.peekValue(mAttrsDelegate.getInnerTopLeftRadius()));
-            outerTopLeftRadius.setTo(a.peekValue(mAttrsDelegate.getOuterTopLeftRadius()));
+            innerTopLeftRadius.setTo(peekValue(a, mAttrsDelegate.getInnerTopLeftRadius()));
+            outerTopLeftRadius.setTo(peekValue(a, mAttrsDelegate.getOuterTopLeftRadius()));
         }
 
-        if (topRightRadius.data >= 0) {
+        if (topRightRadius.type != TypedValue.TYPE_NULL) {
             innerTopRightRadius.setTo(topRightRadius);
             outerTopRightRadius.setTo(topRightRadius);
         } else {
-            innerTopRightRadius.setTo(a.peekValue(mAttrsDelegate.getInnerTopRightRadius()));
-            outerTopRightRadius.setTo(a.peekValue(mAttrsDelegate.getOuterTopRightRadius()));
+            innerTopRightRadius.setTo(peekValue(a, mAttrsDelegate.getInnerTopRightRadius()));
+            outerTopRightRadius.setTo(peekValue(a, mAttrsDelegate.getOuterTopRightRadius()));
         }
 
-        if (bottomRightRadius.data >= 0) {
+        if (bottomRightRadius.type != TypedValue.TYPE_NULL) {
             innerBottomRightRadius.setTo(bottomRightRadius);
             outerBottomRightRadius.setTo(bottomRightRadius);
         } else {
-            innerBottomRightRadius.setTo(a.peekValue(mAttrsDelegate.getInnerBottomRightRadius()));
-            outerBottomRightRadius.setTo(a.peekValue(mAttrsDelegate.getOuterBottomRightRadius()));
+            innerBottomRightRadius.setTo(peekValue(a, mAttrsDelegate.getInnerBottomRightRadius()));
+            outerBottomRightRadius.setTo(peekValue(a, mAttrsDelegate.getOuterBottomRightRadius()));
         }
 
-        if (bottomLeftRadius.data >= 0) {
+        if (bottomLeftRadius.type != TypedValue.TYPE_NULL) {
             innerBottomLeftRadius.setTo(bottomLeftRadius);
             outerBottomLeftRadius.setTo(bottomLeftRadius);
         } else {
-            innerBottomLeftRadius.setTo(a.peekValue(mAttrsDelegate.getInnerBottomLeftRadius()));
-            outerBottomLeftRadius.setTo(a.peekValue(mAttrsDelegate.getOuterBottomLeftRadius()));
+            innerBottomLeftRadius.setTo(peekValue(a, mAttrsDelegate.getInnerBottomLeftRadius()));
+            outerBottomLeftRadius.setTo(peekValue(a, mAttrsDelegate.getOuterBottomLeftRadius()));
         }
         a.recycle();
     }
@@ -142,6 +144,15 @@ public class RoundRectShapeHelper {
                 getRadiusValue(innerBottomLeftRadius, height),
                 getRadiusValue(innerBottomLeftRadius, height)};
         radiusPrepared = true;
+    }
+
+    private TypedValue peekValue(TypedArray a, int index, TypedValue defaultValue) {
+        TypedValue value = a.peekValue(index);
+        return value == null ? defaultValue : value;
+    }
+
+    private TypedValue peekValue(TypedArray a, int index) {
+        return peekValue(a, index, new TypedValue());
     }
 
     private Drawable mDrawableCache;

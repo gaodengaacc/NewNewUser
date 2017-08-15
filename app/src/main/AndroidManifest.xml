@@ -159,14 +159,14 @@
             tools:replace="android:theme" />
         <activity
             android:name=".im.session.activity.TranslationMessageActivity"
-            android:theme="@style/AppTheme.NoTitle.TranslucentStatus" />
+            android:theme="@style/AppTheme.NoTitle" />
         <activity
             android:name=".im.avchat.activity.AVChatActivity"
             android:theme="@style/AppTheme.NoTitle" />
         <activity
             android:name=".activity.WaitingForTranslatorActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme.NoTitle"></activity>
         <activity
             android:name=".activity.AgreementActivity"
             android:theme="@style/AppTheme.NoTitle.TranslucentStatus">

@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
+import com.lyun.roundrectview.RoundRectTextView;
 import com.lyun.user.R;
 import com.lyun.user.im.avchat.AVChatProfile;
 import com.lyun.user.im.avchat.receiver.PhoneCallStateObserver;
@@ -39,6 +41,7 @@ import com.netease.nim.uikit.common.util.sys.ScreenUtil;
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.activity.P2PMessageActivity;
 import com.netease.nim.uikit.session.constant.Extras;
+import com.netease.nim.uikit.session.fragment.MessageFragment;
 import com.netease.nim.uikit.uinfo.UserInfoHelper;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
@@ -58,6 +61,7 @@ import com.netease.nimlib.sdk.avchat.model.AVChatVideoFrame;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -163,9 +167,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
 
         centerToolbarTitle(getToolBar());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getToolBar().setPadding(0, ScreenUtil.getStatusBarHeight(this), 0, 0);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            getToolBar().setPadding(0, ScreenUtil.getStatusBarHeight(this), 0, 0);
+//        }
     }
 
     /**
@@ -208,7 +212,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
      * @param toolbar
      */
     public void centerToolbarTitle(final Toolbar toolbar) {
-        toolbar.setSubtitle("00:00");
+        //toolbar.setSubtitle("00:00");
         final CharSequence originalTitle = toolbar.getTitle();
         final CharSequence originalSubtitle = toolbar.getSubtitle();
 
@@ -266,6 +270,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         switchContent(getMessageFragment());
         getToolBar().setVisibility(View.VISIBLE);
         setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
+        addTimer();
     }
 
     private TFragment mCurrentFragment;
@@ -294,13 +299,36 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         return mTranslationAudioMessageFragment;
     }
 
+    private RoundRectTextView mTimerTextView;
+
+    protected void addTimer() {
+        if(mTimerTextView!=null){
+            return;
+        }
+        try {
+            Field field = MessageFragment.class.getDeclaredField("rootView");
+            field.setAccessible(true);
+            View rootView = (View) field.get(getMessageFragment());
+            FrameLayout container = (FrameLayout) rootView.findViewById(com.netease.nim.uikit.R.id.message_activity_list_view_container);
+            View.inflate(this, R.layout.text_translation_message_timer, container);
+            mTimerTextView = (RoundRectTextView) container.findViewById(R.id.translation_message_timer);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     private BroadcastReceiver mTranslationOrderStatusChangeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             long millis = intent.getLongExtra(TranslationOrder.SERVICED_TIME, 0);
             runOnUiThread(() -> {
                 String time = TimeUtil.convertMills2Str(millis);
-                getToolBar().setSubtitle(time);
+                if (mTimerTextView != null) {
+                    mTimerTextView.setText(time);
+                }
+                //getToolBar().setSubtitle(time);
                 getTranslationAudioMessageFragment().onServiceTimeChanged(time);
             });
         }

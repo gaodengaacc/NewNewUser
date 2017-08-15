@@ -13,7 +13,7 @@ public class RoundRectTextView extends AppCompatTextView {
     }
 
     public RoundRectTextView(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.textViewStyle);
+        this(context, attrs, 0);
     }
 
     public RoundRectTextView(Context context, AttributeSet attrs, int defStyleAttr) {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lyun.roundrectview.RoundRectTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/translation_message_timer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right"
+    android:layout_marginTop="5dp"
+    android:drawableLeft="@mipmap/ic_translation_msg_timer"
+    android:drawablePadding="2dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
+    android:text="00:00"
+    android:textColor="@android:color/white"
+    app:backgroundColor="#ffb64d"
+    app:bottomLeftRadius="50%"
+    app:bottomRightRadius="0dp"
+    app:topLeftRadius="50%"
+    app:topRightRadius="0dp"/>
