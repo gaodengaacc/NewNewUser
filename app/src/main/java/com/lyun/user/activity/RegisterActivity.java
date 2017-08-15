@@ -29,7 +29,7 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
     @Override
     protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
         GeneralToolbarViewModel.ToolbarViewModel viewModel = super.createTitleViewModel();
-        viewModel.title.set("快速注册");
+        viewModel.title.set("设置密码");
         viewModel.onBackClick.set(view -> finish());
         return viewModel;
     }

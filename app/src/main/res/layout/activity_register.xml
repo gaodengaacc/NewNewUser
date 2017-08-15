@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="mvvm"
-            type="com.lyun.user.viewmodel.RegisterViewModel" />
+            type="com.lyun.user.viewmodel.RegisterViewModel"/>
     </data>
 
 
@@ -15,6 +15,7 @@
         android:id="@+id/activity_layout_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:orientation="vertical"
         android:weightSum="4"
         tools:context="com.lyun.user.activity.RegisterActivity">
@@ -23,14 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="?attr/colorPrimary"
             android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_logo_login" />
+                android:src="@mipmap/ic_logo_login"/>
 
         </LinearLayout>
 
@@ -46,9 +46,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/no_border_round_corner_white_bg"
+                android:background="@drawable/edittext_default_bg"
                 android:cursorVisible="true"
-                android:drawableLeft="@mipmap/ic_phone_small"
                 android:drawablePadding="5dp"
                 android:editable="false"
                 android:hint="请输入昵称"
@@ -56,7 +55,8 @@
                 android:padding="10dp"
                 android:text="@={mvvm.username}"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -64,9 +64,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/no_border_round_corner_white_bg"
+                android:background="@drawable/edittext_default_bg"
                 android:cursorVisible="true"
-                android:drawableLeft="@mipmap/ic_password_small"
                 android:drawablePadding="5dp"
                 android:hint="密码为6~16位字母或数字"
                 android:inputType="textPassword"
@@ -74,7 +73,7 @@
                 android:padding="10dp"
                 android:text="@={mvvm.password}"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -84,7 +83,6 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/no_border_round_corner_white_bg"
                 android:cursorVisible="true"
-                android:drawableLeft="@mipmap/ic_re_password"
                 android:drawablePadding="5dp"
                 android:hint="确认密码"
                 android:inputType="textPassword"
@@ -92,7 +90,7 @@
                 android:padding="10dp"
                 android:text="@={mvvm.confirmPassword}"
                 android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <Button
                 android:id="@+id/login_button"
@@ -102,10 +100,10 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_no_border_round_corner"
-                android:text="注  册"
+                android:text="完成"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                app:clickCommand="@{mvvm.onRegisterButtonClick}" />
+                app:clickCommand="@{mvvm.onRegisterButtonClick}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,7 +120,7 @@
                     android:paddingTop="5dp"
                     android:text="点击注册即表示同意"
                     android:textColor="#999999"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -132,7 +130,7 @@
                     android:text="《注册协议和隐私政策》"
                     android:textColor="#333333"
                     android:textSize="12sp"
-                    app:clickCommand="@{mvvm.onAgreement}" />
+                    app:clickCommand="@{mvvm.onAgreement}"/>
 
             </LinearLayout>
 
