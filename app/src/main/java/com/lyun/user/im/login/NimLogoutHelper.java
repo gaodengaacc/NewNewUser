@@ -13,9 +13,9 @@ public class NimLogoutHelper {
     public static void logout() {
         // 清理缓存&注销监听&清除状态
         NimUIKit.clearCache();
-        // ChatRoomHelper.logout();
+        // ChatRoomHelper.navigateLogin();
         NimCache.clear();
         LoginSyncDataStatusObserver.getInstance().reset();
-        DropManager.getInstance().destroy();
+        //DropManager.getInstance().destroy();
     }
 }

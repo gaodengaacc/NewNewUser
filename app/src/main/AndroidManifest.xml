@@ -88,6 +88,7 @@
             android:theme="@style/AppTheme.NoTitle.TranslucentStatus"/>
         <activity
             android:name=".activity.LoginActivity"
+            android:launchMode="singleTop"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
                 <action android:name="${APPLICATION_ID}.intent.action.LOGIN"/>

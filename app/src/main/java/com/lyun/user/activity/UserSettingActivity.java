@@ -2,6 +2,7 @@ package com.lyun.user.activity;
 
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
@@ -39,6 +40,12 @@ public class UserSettingActivity extends GeneralToolbarActivity<ActivityUserSett
     @Override
     protected UserSettingViewModel createBodyViewModel() {
         return new UserSettingViewModel().setPropertyChangeListener(this);
+    }
+
+    @Override
+    public void navigateLogin(ObservableBoolean observableField, int fieldId) {
+        LoginActivity.start(this, false);
+        finish();
     }
 
     @Override
