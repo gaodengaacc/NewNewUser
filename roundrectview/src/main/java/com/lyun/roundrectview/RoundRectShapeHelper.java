@@ -13,6 +13,7 @@ import android.graphics.drawable.shapes.RoundRectShape;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
 
 public class RoundRectShapeHelper {
 
@@ -121,10 +122,18 @@ public class RoundRectShapeHelper {
     }
 
     private boolean radiusPrepared = false;
-    private float[] outerRadii;
-    private float[] innerRadii;
+    private float mRectHeight = 0;
+    private float[] outerRadii = new float[8];
+    private float[] innerRadii = new float[8];
 
-    protected void prepareRadius(float height) {
+    protected boolean prepareRadius(float height) {
+
+        if (radiusPrepared && mRectHeight == height) {
+            return false;
+        }
+
+        mRectHeight = height;
+
         // 外部矩形弧度
         outerRadii = new float[]{getRadiusValue(outerTopLeftRadius, height),
                 getRadiusValue(outerTopLeftRadius, height),
@@ -143,7 +152,10 @@ public class RoundRectShapeHelper {
                 getRadiusValue(innerBottomRightRadius, height),
                 getRadiusValue(innerBottomLeftRadius, height),
                 getRadiusValue(innerBottomLeftRadius, height)};
+
         radiusPrepared = true;
+
+        return true;
     }
 
     private TypedValue peekValue(TypedArray a, int index, TypedValue defaultValue) {
@@ -159,11 +171,7 @@ public class RoundRectShapeHelper {
 
     public Drawable getDrawableWithHeight(float height) {
 
-        if (!radiusPrepared) {
-            prepareRadius(height);
-        }
-
-        if (mDrawableCache != null) {
+        if (!prepareRadius(height) && mDrawableCache != null) {
             return mDrawableCache;
         }
 
@@ -203,6 +211,16 @@ public class RoundRectShapeHelper {
         mDrawableCache = drawable;
 
         return drawable;
+    }
+
+    public void applyBackgroundDrawable(View view) {
+        Drawable drawable = getDrawableWithHeight(view.getMeasuredHeight());
+        int left = view.getPaddingLeft();
+        int top = view.getPaddingTop();
+        int right = view.getPaddingRight();
+        int bottom = view.getPaddingBottom();
+        view.setBackgroundDrawable(drawable);
+        view.setPadding(left, top, right, bottom);
     }
 
     protected float getRadiusValue(TypedValue value, float height) {

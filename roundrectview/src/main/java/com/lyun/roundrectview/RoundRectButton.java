@@ -24,7 +24,7 @@ public class RoundRectButton extends AppCompatButton {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setBackgroundDrawable(mRoundRectShapeHelper.getDrawableWithHeight(getMeasuredHeight()));
+        mRoundRectShapeHelper.applyBackgroundDrawable(this);
     }
 
     private RoundRectAttrsDelegate mAttrsDelegate = new RoundRectAttrsDelegate() {
