@@ -138,16 +138,15 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.RegisterVerifyPhoneActivity"
-            android:theme="@style/AppTheme.NoTitle"/>
+        <activity android:name=".activity.RegisterVerifyPhoneActivity"
+                   android:theme="@style/GlobalTitleTheme"/>
         <activity
             android:name=".activity.RegisterActivity"
-            android:theme="@style/AppTheme.NoTitle">
+            android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="${APPLICATION_ID}.intent.action.REGISTER"/>
+                <action android:name="${APPLICATION_ID}.intent.action.REGISTER" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -322,6 +321,10 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"/>
+            android:exported="true" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true" />
         <!-- WxPay over -->
         <service
             android:name=".service.TranslationOrderService"
@@ -335,6 +338,22 @@
             android:name=".activity.LawWorldDetailActivity"
             android:theme="@style/AppTheme.NoTitle">
         </activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1104650295" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>

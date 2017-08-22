@@ -28,11 +28,21 @@ public class LoginResponse extends BaseResponse {
     private String nickName;
     private String realName;
     private String email;
-    private String language;
-    private String empAge;
+//    private String language;
+//    private String empAge;
     private String introduction;
     private String yunXinToken;
     private String appToken;
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
+
+    private String cardNo;
 
     public String getUserName() {
         return userName;
@@ -82,21 +92,21 @@ public class LoginResponse extends BaseResponse {
         this.email = email;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getEmpAge() {
-        return empAge;
-    }
-
-    public void setEmpAge(String empAge) {
-        this.empAge = empAge;
-    }
+//    public String getLanguage() {
+//        return language;
+//    }
+//
+//    public void setLanguage(String language) {
+//        this.language = language;
+//    }
+//
+//    public String getEmpAge() {
+//        return empAge;
+//    }
+//
+//    public void setEmpAge(String empAge) {
+//        this.empAge = empAge;
+//    }
 
     public String getIntroduction() {
         return introduction;

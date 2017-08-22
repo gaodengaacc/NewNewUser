@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
@@ -16,7 +15,6 @@ import com.lyun.user.activity.ImageHeaderActivity;
 import com.lyun.user.activity.UserServiceCardListActivity;
 import com.lyun.user.databinding.FragmentUserCenterBinding;
 import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
-import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.viewmodel.UserCenterFragmentViewModel;
 import com.lyun.utils.GlideUtils;
 
@@ -77,11 +75,6 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
             startActivityForResult(new Intent(getContext(), ImageHeaderActivity.class), IMAGE_HEADER);
         }
 
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onToastText(EventToastMessage message) {
-        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override

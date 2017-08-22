@@ -32,7 +32,7 @@ public class SplashActivity extends BaseActivity {
         checkPermission();
 
         if (Account.preference().isLogin())
-            new LanguageModel().updateLanguages();
+            new LanguageModel().updateLanguages(false);
         if (mHandler == null)
             mHandler = new Handler();
         mHandler.postDelayed(() -> processDone(), sleepTime);

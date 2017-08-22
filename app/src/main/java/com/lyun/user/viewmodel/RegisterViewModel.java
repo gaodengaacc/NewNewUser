@@ -4,17 +4,22 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.os.Bundle;
+import android.view.View;
 
+import com.lyun.library.mvvm.bindingadapter.edittext.ViewBindingAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppIntent;
+import com.lyun.user.R;
 import com.lyun.user.model.RegisterModel;
 import com.lyun.utils.RegExMatcherUtils;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
@@ -29,6 +34,9 @@ public class RegisterViewModel extends ViewModel {
     private Intent intent;
     private Bundle bundle = new Bundle();
     private Bundle bundle1 = new Bundle();
+    public ObservableInt clearVisible = new ObservableInt();
+    public final ObservableInt clearVisible2 = new ObservableInt();
+    public final ObservableInt clearVisible3 = new ObservableInt();
 
     @WatchThis
     public final BaseObservable onRegisterSuccess = new BaseObservable();//注册成功
@@ -40,10 +48,17 @@ public class RegisterViewModel extends ViewModel {
     public final ObservableField<String> onRegisterResult = new ObservableField();
     @WatchThis
     public final ObservableField<Intent> onAgreementResult = new ObservableField();
-
+    private boolean isThird;
+    private String openId;
+    private String loginType;
     public RegisterViewModel(Bundle bundle) {
         this.bundle = bundle;
         username.set(bundle.getString("username"));
+        isThird = bundle.getBoolean("isThird");
+        openId = bundle.getString("openId");
+        loginType = bundle.getString("loginType");
+        clearVisible2.set(View.INVISIBLE);
+        clearVisible3.set(View.INVISIBLE);
     }
 
     public RelayCommand onRegisterButtonClick = new RelayCommand(() -> {
@@ -75,7 +90,11 @@ public class RegisterViewModel extends ViewModel {
      */
     private void register(String username, String password) {
         progressDialogShow.set(true);
-        new RegisterModel().register(username, password)
+        Observable.just(isThird)
+                .flatMap(isThird -> {
+                    if (isThird) return new RegisterModel().registerThird(username,openId,loginType,password);
+                    else return new RegisterModel().register(username, password);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                             progressDialogShow.set(false);
@@ -87,4 +106,38 @@ public class RegisterViewModel extends ViewModel {
                         },
                         throwable -> onRegisterFailed.set(throwable));
     }
+
+    public void onClearClick(View view) {
+        switch (view.getId()) {
+            case R.id.clear_text2:
+                clearVisible = clearVisible2;
+                password.set("");
+                break;
+            case R.id.clear_text3:
+                clearVisible = clearVisible3;
+                confirmPassword.set("");
+                break;
+            default:
+                break;
+        }
+        clearVisible.set(View.INVISIBLE);
+    }
+
+    ;
+    public RelayCommand<ViewBindingAdapter.TextChangeData> editTextCommand = new RelayCommand<ViewBindingAdapter.TextChangeData>((data) -> {
+        switch (data.viewId) {
+            case R.id.edit_password:
+                clearVisible = clearVisible2;
+                break;
+            case R.id.edit_confirmPassword:
+                clearVisible = clearVisible3;
+                break;
+            default:
+                break;
+        }
+        if (data.text.length() > 0)
+            clearVisible.set(View.VISIBLE);
+        else
+            clearVisible.set(View.INVISIBLE);
+    });
 }

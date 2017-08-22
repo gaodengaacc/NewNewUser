@@ -11,6 +11,9 @@ import com.lyun.user.api.request.RegisterVerifyPhoneBean;
 import com.lyun.user.api.request.RemainingTimeBean;
 import com.lyun.user.api.request.ResetPasswordBean;
 import com.lyun.user.api.request.StatisticsCardNoBean;
+import com.lyun.user.api.request.ThirdLoginBean;
+import com.lyun.user.api.request.ThirdLoginBindBean;
+import com.lyun.user.api.request.ThirdLoginRegisterBean;
 import com.lyun.user.api.request.WalletChargeBean;
 import com.lyun.user.api.request.WalletChargeRecorderBean;
 import com.lyun.user.api.response.LoginResponse;
@@ -18,12 +21,16 @@ import com.lyun.user.api.response.StatisticsCardNoResponse;
 import com.lyun.user.api.response.WalletChargeAliPayResponse;
 import com.lyun.user.api.response.WalletChargeRecorderResponse;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
+import com.lyun.user.api.response.WxOpenIdResponse;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 
 /**
  * @author 赵尉尉
@@ -34,6 +41,15 @@ public interface AuthService {
 
     @POST(APIConstants.LOGIN)
     Observable<APIResult<LoginResponse>> login(@Body LoginBean body);
+
+    @POST(APIConstants.THIRD_LOGIN)
+    Observable<APIResult<LoginResponse>> login(@Body ThirdLoginBean body);
+
+    @POST(APIConstants.THIRD_LOGIN_REGISTER)
+    Observable<APIResult> thirdRegister(@Body ThirdLoginRegisterBean body);
+
+    @POST(APIConstants.THIRD_LOGIN_BIND)
+    Observable<APIResult> isThirdBind(@Body ThirdLoginBindBean body);
 
     @POST(APIConstants.REGISTERVERIFYPHONE)
     Observable<APIResult> getSmsCode(@Body RegisterVerifyPhoneBean body);
@@ -52,6 +68,9 @@ public interface AuthService {
 
     @POST(APIConstants.REMAINING_TIME)
     Observable<APIResult> getRemainingTime(@Body RemainingTimeBean body);
+
+    @GET("access_token")
+    Observable<WxOpenIdResponse> getOpenId(@QueryMap Map<String, String> map);
 
     //充值接口
     @POST(APIConstants.CHARGE_PAY)

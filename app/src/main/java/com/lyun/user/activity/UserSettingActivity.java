@@ -3,14 +3,19 @@ package com.lyun.user.activity;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityUserSettingBinding;
+import com.lyun.user.eventbusmessage.mainactivity.EventFinishAllActivityMessage;
 import com.lyun.user.viewmodel.UserSettingViewModel;
 import com.lyun.user.viewmodel.watchdog.IUserSettingViewModelCallbacks;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * @author Gordon
@@ -24,6 +29,18 @@ public class UserSettingActivity extends GeneralToolbarActivity<ActivityUserSett
     @Override
     protected int getBodyLayoutId() {
         return R.layout.activity_user_setting;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @NonNull
@@ -51,5 +68,10 @@ public class UserSettingActivity extends GeneralToolbarActivity<ActivityUserSett
     @Override
     public void onNavigationModifyPassword(BaseObservable observableField, int fieldId) {
         startActivity(new Intent(this, ResetPasswordActivity.class));
+    }
+    @Subscribe
+    public void finishActivity(EventFinishAllActivityMessage message){
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 }

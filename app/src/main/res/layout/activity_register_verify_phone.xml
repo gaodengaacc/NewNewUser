@@ -1,122 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="mvvm"
-            type="com.lyun.user.viewmodel.RegisterVerifyPhoneViewModel"/>
+            type="com.lyun.user.viewmodel.RegisterVerifyPhoneViewModel" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/activity_layout_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="@color/bgcw"
         android:orientation="vertical"
         android:weightSum="4"
         tools:context="com.lyun.user.activity.RegisterVerifyPhoneActivity">
 
-        <ImageView
-            android:id="@+id/register_verify_phone_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:src="@mipmap/ic_logo_login"/>
-
-        <RelativeLayout
-            android:id="@+id/register_verify_phone_phone_container"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_below="@id/register_verify_phone_logo"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="50dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/edittext_default_bg"
-                android:cursorVisible="true"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:hint="请输入您的手机号"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:singleLine="true"
-                android:text="@={mvvm.username}"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp"/>
-
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:background="@null"
-                android:src="@mipmap/icon_common_text_clear"
-                app:clickCommand="@{mvvm.onClearButtonClick}"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/register_verify_phone_msg_code_container"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/register_verify_phone_phone_container"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
-            <EditText
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_register_top" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/edittext_default_bg"
-                android:cursorVisible="true"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:hint="请输入验证码"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:text="@={mvvm.smscode}"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp"/>
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp">
+
+                <EditText
+                    android:id="@+id/edit_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:cursorVisible="true"
+                    android:hint="请输入您的手机号"
+                    android:maxLines="1"
+                    android:text="@={mvvm.username}"
+                    android:textColor="@color/tc14"
+                    android:textColorHint="#e2e2e2"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="14sp"
+                    app:afterTextChangedCommand="@{mvvm.editTextCommand}" />
+
+                <ImageView
+                    android:id="@+id/clear_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_common_text_clear"
+                    android:visibility="@{mvvm.clearVisible}"
+                    app:clickCommand="@{mvvm.onClearClick}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#e2e2e2"></View>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <EditText
+                    android:id="@+id/edit_smscode"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:cursorVisible="true"
+                    android:hint="请输入验证码"
+                    android:maxLines="1"
+                    android:text="@={mvvm.smscode}"
+                    android:textColor="@color/tc14"
+                    android:textColorHint="#e2e2e2"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="14sp"
+                    app:afterTextChangedCommand="@{mvvm.editTextCommand}" />
+
+                <com.lyun.roundrectview.RoundRectRelativeLayout
+                    android:layout_width="73dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:backgroundColor="#fe811c"
+                    app:cornerRadius="3dp">
+
+                    <com.lyun.roundrectview.RoundRectLinearLayout
+                        android:layout_width="73dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:backgroundColor="#dce2ee"
+                        app:cornerRadius="3dp"
+                        android:visibility="@{mvvm.smsVisible}"></com.lyun.roundrectview.RoundRectLinearLayout>
+
+                    <TextView
+                        android:layout_width="73dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:clickable="@{mvvm.clickable}"
+                        android:gravity="center"
+                        android:text="@{mvvm.mSendSmsCode}"
+                        android:textColor="@android:color/white"
+                        android:textSize="11sp"
+                    app:clickCommand="@{mvvm.onGetSMSCodeButtonClick}" />
+                </com.lyun.roundrectview.RoundRectRelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#e2e2e2"></View>
+            </RelativeLayout>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:background="@{mvvm.clickable?@drawable/btn_get_msg_code_enable_bg:@drawable/btn_get_msg_code_disable_bg}"
-                android:clickable="@{mvvm.clickable}"
-                android:padding="0dp"
-                android:text="@{mvvm.mSendSmsCode}"
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_no_border_round_corner"
+                android:text="下一步"
                 android:textColor="@android:color/white"
-                android:textSize="14sp"
-                app:clickCommand="@{mvvm.onGetSMSCodeButtonClick}"/>
-        </RelativeLayout>
+                android:textSize="16sp"
+                app:clickCommand="@{mvvm.onNextButtonClick}" />
 
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@id/register_verify_phone_msg_code_container"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/bg_no_border_round_corner"
-            android:text="下一步"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:clickCommand="@{mvvm.onNextButtonClick}"/>
-    </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

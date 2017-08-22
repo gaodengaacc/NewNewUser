@@ -9,7 +9,10 @@ import com.lyun.user.AppApplication;
 import com.lyun.user.Constants;
 import com.lyun.user.api.API;
 import com.lyun.user.api.response.FindLanguageResponse;
+import com.lyun.user.eventbusmessage.login.EventLoginSuccessMessage;
 import com.lyun.utils.ACache;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -30,28 +33,20 @@ public class LanguageModel extends Model {
                 .observeOn(Schedulers.io());
     }
 
-    public void updateLanguages() {
+    public void updateLanguages(boolean isFirst) {
         findByLanguage()
                 .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .filter(listAPIResult -> listAPIResult.isSuccess() && listAPIResult.getContent() != null)
                 .subscribe(
                         listAPIResult -> {
-                            if (listAPIResult.isSuccess() && listAPIResult.getContent() != null) {
                                 ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
-                            }
-
+                            if (isFirst) EventBus.getDefault().post(new EventLoginSuccessMessage());
                         }, throwable -> {
 
                         }
                 );
     }
 
-    public Observable<APIResult<List<FindLanguageResponse>>> updateLanguages(boolean login) {
-        return API.language.findByLanguage(new BaseRequest())
-                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io());
-
-    }
 }

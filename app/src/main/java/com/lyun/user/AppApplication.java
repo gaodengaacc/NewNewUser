@@ -9,6 +9,9 @@ import com.lyun.user.activity.LoginActivity;
 import com.lyun.user.api.API;
 import com.lyun.user.im.NimApplicationDelegate;
 import com.lyun.utils.L;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.Tencent;
 
 import java.util.List;
 
@@ -20,7 +23,8 @@ import javax.net.ssl.SSLSocketFactory;
  */
 
 public class AppApplication extends BaseApplication {
-
+    private IWXAPI msgApi;
+    private Tencent mTencent;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -63,5 +67,19 @@ public class AppApplication extends BaseApplication {
     @Override
     protected String getStorageHomeDirName() {
         return "law-cloud/user";
+    }
+
+    public IWXAPI getMsgApi() {
+        if (msgApi == null) {
+            msgApi = WXAPIFactory.createWXAPI(this, null);
+            msgApi.registerApp(BuildConfig.WX_PAY_APPID);
+        }
+        return msgApi;
+    }
+
+    public Tencent getTencentApi() {
+        if (mTencent == null)
+            mTencent = Tencent.createInstance(BuildConfig.QQ_APPID, this);
+        return mTencent;
     }
 }

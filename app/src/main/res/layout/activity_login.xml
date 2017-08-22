@@ -15,74 +15,111 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="4"
+        android:background="@color/bgcw"
         tools:context="com.lyun.user.activity.LoginActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="?attr/colorPrimary"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_login_top"
             android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@mipmap/ic_logo_login" />
+                android:src="@mipmap/icon_login_logo" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/no_border_round_corner_white_bg"
-                android:cursorVisible="true"
-                android:drawableLeft="@mipmap/ic_phone_small"
-                android:drawablePadding="5dp"
-                android:hint="手机号"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:singleLine="true"
-                android:text="@={mvvm.username}"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="14sp" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp">
 
-            <EditText
+                <EditText
+                    android:id="@+id/edit_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:cursorVisible="true"
+                    android:hint="手机号"
+                    android:maxLines="1"
+                    android:text="@={mvvm.username}"
+                    android:textColor="@color/tc14"
+                    android:textColorHint="#e2e2e2"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="14sp"
+                    app:afterTextChangedCommand="@{mvvm.editTextCommand}" />
+
+                <ImageView
+                    android:id="@+id/clear_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{mvvm.onClearClick}"
+                    android:src="@mipmap/icon_common_text_clear"
+                    android:visibility="@{mvvm.clearVisible1}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#e2e2e2"></View>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/no_border_round_corner_white_bg"
-                android:cursorVisible="true"
-                android:drawableLeft="@mipmap/ic_password_small"
-                android:drawablePadding="5dp"
-                android:hint="请输入密码"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:text="@={mvvm.password}"
-                android:textSize="14sp" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <EditText
+                    android:id="@+id/edit_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:cursorVisible="true"
+                    android:hint="密码"
+                    android:maxLines="1"
+                    android:text="@={mvvm.password}"
+                    android:textColor="@color/tc14"
+                    android:textColorHint="#e2e2e2"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="14sp"
+                    app:afterTextChangedCommand="@{mvvm.editTextCommand}" />
+
+                <ImageView
+                    android:id="@+id/clear_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{mvvm.onClearClick}"
+                    android:src="@mipmap/icon_common_text_clear"
+                    android:visibility="@{mvvm.clearVisible2}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#e2e2e2"></View>
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/bg_no_border_round_corner"
                 android:text="登  录"
                 android:textColor="@android:color/white"
@@ -92,15 +129,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp">
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="快速注册"
-                    android:textColor="?attr/colorPrimary"
+                    android:textColor="@color/tc14"
                     android:textSize="12sp"
                     app:clickCommand="@{mvvm.onRegisterButtonClick}" />
 
@@ -109,8 +147,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:padding="5dp"
-                    android:text="忘记密码？"
-                    android:textColor="?attr/colorPrimary"
+                    android:text="忘记密码"
+                    android:textColor="@color/tc14"
                     android:textSize="12sp"
                     app:clickCommand="@{mvvm.onFindPasswordButtonClick}" />
 
@@ -118,5 +156,72 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_above="@+id/third_login_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginBottom="22dp">
+
+                <View
+                    android:layout_width="90dp"
+                    android:layout_height="0.5dp"
+                    android:layout_gravity="center_vertical"></View>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="第三方登录"
+                    android:textColor="@color/tc14"
+                    android:textSize="12sp"/>
+
+                <View
+                    android:layout_width="90dp"
+                    android:layout_height="0.5dp"
+                    android:layout_gravity="center_vertical"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/third_login_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="40dp">
+
+                <ImageView
+                    android:id="@+id/third_login_wx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_login_wx"
+                    android:onClick="@{mvvm.onClearClick}"
+                    />
+
+                <ImageView
+                    android:id="@+id/third_login_wb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_login_wb"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginRight="80dp"
+                    android:onClick="@{mvvm.onClearClick}"/>
+
+                <ImageView
+                    android:id="@+id/third_login_qq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_login_qq"
+                    android:onClick="@{mvvm.onClearClick}"/>
+            </LinearLayout>
+
+        </RelativeLayout>
     </LinearLayout>
 </layout>

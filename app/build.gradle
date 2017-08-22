@@ -81,6 +81,8 @@ android {
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
             buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+            buildConfigField "String", "QQ_APPID", '"1104650295"'
+            buildConfigField "String", "WB_APPKEY", '"1107847230"'
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
@@ -103,6 +105,8 @@ android {
             buildConfigField "String", "BAIDU_MAP_AK", '"I8mvwSd8WolPcyoTUCPf5QI1"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
             buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+            buildConfigField "String", "QQ_APPID", '"1104650295"'
+            buildConfigField "String", "WB_APPKEY", '"1107847230"'
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId,
@@ -123,6 +127,8 @@ android {
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
             buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+            buildConfigField "String", "QQ_APPID", '"1104650295"'
+            buildConfigField "String", "WB_APPKEY", '"1107847230"'
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
@@ -206,7 +212,7 @@ dependencies {
     compile 'com.android.support:percent:25.0.1'
     compile 'com.android.support:design:25.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'pub.devrel:easypermissions:0.3.0'
     compile 'org.greenrobot:eventbus:3.0.0'
@@ -218,6 +224,8 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    compile files('libs/open_sdk_r5793.jar')
+    compile 'com.sina.weibo.sdk:core:4.1.0:openDefaultRelease@aar'
 }
 
 fir {

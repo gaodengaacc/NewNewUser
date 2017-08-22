@@ -13,8 +13,11 @@ import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityRegisterBinding;
+import com.lyun.user.eventbusmessage.login.EventThirdBindPhoneSuccessMessage;
 import com.lyun.user.viewmodel.RegisterViewModel;
 import com.lyun.user.viewmodel.watchdog.IRegisterViewModelCallbacks;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBinding, RegisterViewModel> implements IRegisterViewModelCallbacks {
     private Intent intent = new Intent();
@@ -45,6 +48,9 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
 
     @Override
     public void onRegisterSuccess(BaseObservable observableField, int fieldId) {
+        if (bundle.getBoolean("isThird"))
+            EventBus.getDefault().
+                    post(new EventThirdBindPhoneSuccessMessage(new EventThirdBindPhoneSuccessMessage.BindMessage(bundle.getString("openId"), bundle.getString("loginType"))));
         Toast.makeText(AppApplication.getInstance(), "注册成功", Toast.LENGTH_LONG).show();
         finish();
     }

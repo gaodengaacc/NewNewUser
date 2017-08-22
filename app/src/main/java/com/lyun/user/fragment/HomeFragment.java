@@ -3,21 +3,20 @@ package com.lyun.user.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.AppApplication;
 import com.lyun.user.Constants;
-import com.lyun.user.eventbusmessage.EventProgressMessage;
-import com.lyun.user.eventbusmessage.EventToastMessage;
-import com.lyun.user.eventbusmessage.homefragment.EventPickMessage;
-import com.lyun.user.eventbusmessage.homefragment.EventTranslationOrderMessage;
 import com.lyun.user.R;
 import com.lyun.user.activity.WaitingForTranslatorActivity;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.databinding.FragmentHomeBinding;
+import com.lyun.user.eventbusmessage.homefragment.EventHomePobDismissMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventPickMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventSelectMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventTranslationOrderMessage;
 import com.lyun.user.service.TranslationOrder;
 import com.lyun.user.viewmodel.HomeFragmentViewModel;
 import com.lyun.user.viewmodel.LanguagePickerDialogViewModel;
@@ -61,7 +60,6 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        mHomeFragmentViewModel.unRegisterEventBus();
     }
 
     @NonNull
@@ -98,18 +96,14 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         intent.putExtra(TranslationOrder.TARGET_LANGUAGE, message.getMessage().getTargetLanguage());
         startActivity(intent);
     }
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onTranslationOrderGenerateFail(EventToastMessage message) {
-        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_LONG).show();
+    public void pickSelectText(EventSelectMessage response) {
+        getFragmentViewModel().mCurrentLanguage.set(response.getMessage());
+        getFragmentViewModel().selectText.set(response.getMessage().getName());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void progressDialogShow(EventProgressMessage message) {
-        if (message.getMessage())
-            dialogViewModel.show();
-        else
-            dialogViewModel.dismiss();
+    public void pubDismissListener(EventHomePobDismissMessage bean) {
+        getFragmentViewModel().selectIcon.set(R.mipmap.icon_home_fragment_down);
     }
 }

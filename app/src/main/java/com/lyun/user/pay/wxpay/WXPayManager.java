@@ -1,7 +1,10 @@
 package com.lyun.user.pay.wxpay;
 
 import android.app.Activity;
+import android.content.Context;
 
+import com.lyun.user.BuildConfig;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -14,6 +17,7 @@ import java.io.Serializable;
  * do(微信支付)
  */
 public class WXPayManager implements Serializable {
+
 	private IWXAPI msgApi;
 	/**
 	 * 
@@ -43,7 +47,23 @@ public class WXPayManager implements Serializable {
 		msgApi.sendReq(req);
 		return true;
 	}
-
+	/**
+	 * 发送支付请求
+	 *
+	 *
+	 */
+	public Boolean sendLoginReq(Context context) {
+		if (msgApi == null)
+			msgApi = WXAPIFactory.createWXAPI(context, null);
+		if(!msgApi.isWXAppInstalled())
+			return false;
+		msgApi.registerApp(BuildConfig.WX_PAY_APPID);
+		final SendAuth.Req req = new SendAuth.Req();
+		req.scope = "snsapi_userinfo";
+		req.state = "wx_login";
+		msgApi.sendReq(req);
+		return true;
+	}
 	public void detach() {
 		if (msgApi != null) {
 			msgApi.detach();

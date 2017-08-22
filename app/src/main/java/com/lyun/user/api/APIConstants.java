@@ -9,6 +9,9 @@ public class APIConstants {
 
     // Auth Service
     public static final String LOGIN = "login";//登录的URL
+    public static final String THIRD_LOGIN = "other_login";//三方登录
+    public static final String THIRD_LOGIN_REGISTER = "other_register";//三方登录注册
+    public static final String THIRD_LOGIN_BIND = "other_bind";//三方登录注册
     public static final String REGISTERVERIFYPHONE = "smsSend";//获取验证码的URL
     public static final String REGISTER = "register";//注册的URL
     public static final String RESET_PASSWORD = "uppassword";//修改密码

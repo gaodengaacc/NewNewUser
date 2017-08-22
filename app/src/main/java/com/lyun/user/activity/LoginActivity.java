@@ -11,13 +11,21 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
-import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
+import com.lyun.library.mvvm.view.activity.MvvmActivity;
 import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppApplication;
+import com.lyun.user.BuildConfig;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityLoginBinding;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.eventbusmessage.login.EventCheckIsBindMessage;
+import com.lyun.user.eventbusmessage.login.EventLoginSuccessMessage;
+import com.lyun.user.eventbusmessage.login.EventQqLoginMessage;
+import com.lyun.user.eventbusmessage.login.EventThirdBindPhoneSuccessMessage;
+import com.lyun.user.eventbusmessage.login.EventWbLoginMessage;
+import com.lyun.user.eventbusmessage.login.EventWxLoginMessage;
+import com.lyun.user.eventbusmessage.login.EventWxLoginSuccessMessage;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.config.preference.UserPreferences;
 import com.lyun.user.service.TranslationOrderService;
@@ -27,12 +35,35 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.ClientType;
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WbAuthListener;
+import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.tencent.connect.common.Constants;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
-public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, LoginViewModel>
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewModel>
         implements ILoginViewModelCallbacks {
 
     private static final String KICK_OUT = "KICK_OUT";
     private SimpleDialogViewModel dialog;
+    private IWXAPI msgApi;
+    private Tencent mTencent;
+    private SsoHandler mSsoHandler;
+    public static final String THIRD_QQ = "0";
+    public static final String THIRD_WX = "1";
+    public static final String THIRD_WB = "2";
 
     public static void start(Context context, boolean kickOut) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -45,16 +76,53 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.REQUEST_LOGIN)
+            Tencent.onActivityResultData(requestCode, resultCode, data, qqListener);
+        super.onActivityResult(requestCode, resultCode, data);
+        // SSO 授权回调
+        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
+        if (mSsoHandler != null) {
+            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
         onParseIntent();
+        EventBus.getDefault().register(this);
+    }
+
+    public void init() {
+        msgApi = ((AppApplication) AppApplication.getInstance()).getMsgApi();
+        mTencent = ((AppApplication) AppApplication.getInstance()).getTencentApi();
+        WbSdk.install(this, new AuthInfo(this, BuildConfig.WB_APPKEY, com.lyun.user.Constants.WB_REDIRECT_URL, com.lyun.user.Constants.WB_SCOPE));
+        mSsoHandler = new SsoHandler(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (dialog != null)
             dialog.dismiss();
+        msgApi = null;
+        mTencent = null;
+        mSsoHandler = null;
+
+    }
+
+    @NonNull
+    @Override
+    protected LoginViewModel createViewModel() {
+        return new LoginViewModel().setPropertyChangeListener(this);
+    }
+
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.activity_login;
     }
 
     private void onParseIntent() {
@@ -113,27 +181,6 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected int getBodyLayoutId() {
-        return R.layout.activity_login;
-    }
-
-    @NonNull
-    @Override
-    protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
-        GeneralToolbarViewModel.ToolbarViewModel viewModel = super.createTitleViewModel();
-        viewModel.setPropertyChangeListener(this);
-        viewModel.title.set("登录");
-        viewModel.backVisibility.set(View.INVISIBLE);
-//        viewModel.onBackClick.set(view -> finish());
-        return viewModel;
-    }
-
-    @NonNull
-    @Override
-    protected LoginViewModel createBodyViewModel() {
-        return new LoginViewModel().setPropertyChangeListener(this);
-    }
 
     @Override
     public void onNavigationRegister(BaseObservable observableField, int fieldId) {
@@ -145,24 +192,17 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
         startActivity(new Intent(this, FindPasswordActivity.class));
     }
 
-    @Override
-    public void onLoginSuccess(BaseObservable observableField, int fieldId) {
-        Toast.makeText(AppApplication.getInstance(), "登录成功", Toast.LENGTH_LONG).show();
-        // 初始化消息提醒配置
-        initNotificationConfig();
-        //SessionHelper.startP2PSession(this, "123456");
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
 
     @Override
     public void onLoginFailed(ObservableField<Throwable> observableField, int fieldId) {
+        if (observableField.get().getMessage() != null && !observableField.get().getMessage().equals(""))
         Toast.makeText(AppApplication.getInstance(), observableField.get().getMessage(), Toast.LENGTH_LONG).show();
         observableField.get().printStackTrace();
     }
 
     @Override
     public void onLoginResult(ObservableField<String> observableField, int fieldId) {
+        if (observableField.get() != null && !observableField.get().equals(""))
         Toast.makeText(AppApplication.getInstance(), observableField.get(), Toast.LENGTH_SHORT).show();
     }
 
@@ -187,4 +227,129 @@ public class LoginActivity extends GeneralToolbarActivity<ActivityLoginBinding, 
         // 更新配置
         NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
     }
+
+    @Subscribe
+    public void onLoginSuccess(EventLoginSuccessMessage message) {
+//        Toast.makeText(AppApplication.getInstance(), "登录成功", Toast.LENGTH_LONG).show();
+        // 初始化消息提醒配置
+        initNotificationConfig();
+        //SessionHelper.startP2PSession(this, "123456");
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Subscribe
+    public void thirdBindSuccess(EventThirdBindPhoneSuccessMessage message) {
+        getActivityViewModel().login(true, message.getMessage().openId, message.getMessage().loginType);
+    }
+
+    @Subscribe
+    public void onUnBindAccount(EventCheckIsBindMessage message) {
+        Intent intent = new Intent(this, RegisterVerifyPhoneActivity.class);
+        intent.putExtra("isThird", true);
+        intent.putExtra("openId", message.getMessage().openId);
+        intent.putExtra("loginType", message.getMessage().loginType);
+        startActivity(intent);
+    }
+
+    @Subscribe
+    public void onWxLogin(EventWxLoginMessage message) {
+        wxLogin();
+    }
+
+    @Subscribe
+    public void onQqLogin(EventQqLoginMessage message) {
+        qqLogin();
+    }
+
+
+    @Subscribe
+    public void onWbLogin(EventWbLoginMessage message) {
+        wbLogin();
+    }
+
+
+    @Subscribe
+    public void onWxLoginSuccess(EventWxLoginSuccessMessage message) {
+//        Toast.makeText(this, "微信登陆成功" + message.getMessage(), Toast.LENGTH_LONG).show();
+        getActivityViewModel().getWxOpenId(message.getMessage());
+//        getActivityViewModel().login(true, message.getMessage(), LoginActivity.THIRD_WX);
+    }
+
+    public void wxLogin() {   //298ae2e8950b6c4ca83ddd4d17a3e97e
+        if (!msgApi.isWXAppInstalled()) {
+            Toast.makeText(this, "请先安装微信", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = com.lyun.user.Constants.WX_SCOPE;
+        req.state = "wx_login";
+        msgApi.sendReq(req);
+//        SubscribeMessage.Req req = new SubscribeMessage.Req();
+//        req.scene = 1000;
+//        req.templateID = "yu37VvNO1JxaDBtnJLFvIhV24bXo1tUy8pC0ipSBYCI";
+//        req.reserved = "10";
+        msgApi.sendReq(req);
+    }
+
+    @Subscribe
+    public void showProgress(EventProgressMessage message) {
+        if (message.getMessage())
+            dialogViewModel.show();
+        else
+            dialogViewModel.dismiss();
+    }
+
+    private void qqLogin() {
+        if (mTencent != null)
+            mTencent.login(this, com.lyun.user.Constants.QQ_SCOPE, qqListener);
+    }
+
+    private void wbLogin() {
+        mSsoHandler.authorize(wbListener);
+    }
+
+    IUiListener qqListener = new IUiListener() {
+        @Override
+        public void onComplete(Object o) {
+//            Toast.makeText(getBaseContext(), "登录成功", Toast.LENGTH_LONG).show();
+            JSONObject json = ((JSONObject) o);
+            try {
+                String openId = (String) json.get("openid");//"access_token"
+                getActivityViewModel().login(true, openId, THIRD_QQ);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+            Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+    };
+    WbAuthListener wbListener = new WbAuthListener() {
+
+        @Override
+        public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
+//            Toast.makeText(getBaseContext(), "登录成功", Toast.LENGTH_LONG).show();
+            getActivityViewModel().login(true, oauth2AccessToken.getUid(), THIRD_WB);
+        }
+
+        @Override
+        public void cancel() {
+            Toast.makeText(getBaseContext(), "登录取消", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
+            Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
+        }
+    };
+
 }

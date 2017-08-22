@@ -3,23 +3,35 @@ package com.lyun.user.viewmodel;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
+import android.view.View;
 
-import com.google.gson.Gson;
+import com.lyun.library.mvvm.bindingadapter.edittext.ViewBindingAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
-import com.lyun.user.AppApplication;
-import com.lyun.user.Constants;
+import com.lyun.user.BuildConfig;
+import com.lyun.user.R;
+import com.lyun.user.activity.LoginActivity;
 import com.lyun.user.api.response.LoginResponse;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.eventbusmessage.EventToastMessage;
+import com.lyun.user.eventbusmessage.login.EventCheckIsBindMessage;
+import com.lyun.user.eventbusmessage.login.EventLoginSuccessMessage;
+import com.lyun.user.eventbusmessage.login.EventQqLoginMessage;
+import com.lyun.user.eventbusmessage.login.EventWbLoginMessage;
+import com.lyun.user.eventbusmessage.login.EventWxLoginMessage;
 import com.lyun.user.im.login.NimLoginHelper;
 import com.lyun.user.model.LanguageModel;
 import com.lyun.user.model.LoginModel;
-import com.lyun.utils.ACache;
 import com.lyun.utils.RegExMatcherUtils;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
+import org.greenrobot.eventbus.EventBus;
+
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -31,19 +43,34 @@ public class LoginViewModel extends ViewModel {
 
     public final ObservableField<String> username = new ObservableField<>("");
     public final ObservableField<String> password = new ObservableField<>("");
+    public final ObservableInt clearVisible1 = new ObservableInt();
+    public final ObservableInt clearVisible2 = new ObservableInt();
+    public ObservableInt clearVisible = new ObservableInt();
+
 
     @WatchThis
     public final BaseObservable onNavigationRegister = new BaseObservable();
     @WatchThis
     public final BaseObservable onNavigationFindPassword = new BaseObservable();
     @WatchThis
-    public final BaseObservable onLoginSuccess = new BaseObservable();
-    @WatchThis
     public final ObservableField<Throwable> onLoginFailed = new ObservableField<>();
     @WatchThis
     public final ObservableField<String> onLoginResult = new ObservableField<>();
     @WatchThis
     public final ObservableBoolean progressDialogShow = new ObservableBoolean();
+
+    public LoginViewModel() {
+        init();
+    }
+
+    private String appToken;
+    private String yunToken;
+    private String yunCardNo;
+
+    private void init() {
+        clearVisible1.set(View.INVISIBLE);
+        clearVisible2.set(View.INVISIBLE);
+    }
 
     public RelayCommand onLoginButtonClick = new RelayCommand(() -> {
         if (("".equals(username.get()) || (username.get() == null))) {
@@ -55,7 +82,7 @@ public class LoginViewModel extends ViewModel {
         } else if (!RegExMatcherUtils.matchPassword(password.get())) {
             ObservableNotifier.alwaysNotify(onLoginResult, "密码格式不正确,请重新输入");
         } else {
-            login(username.get(), password.get());
+            login(false, "", "");
         }
 
     });
@@ -68,54 +95,117 @@ public class LoginViewModel extends ViewModel {
         onNavigationFindPassword.notifyChange();
     });
 
-    private void login(String username, String password) {
-        progressDialogShow.set(true);
-        new LoginModel().login(username, password)
+    public void login(Boolean isThirdLogin, String openId, String thirdType) {
+        EventBus.getDefault().post(new EventProgressMessage(true));
+        Observable.just(isThirdLogin)
+                .flatMap(isThird -> {
+                    if (isThird)
+                        return new LoginModel().login(openId);
+                    else
+                        return new LoginModel().login(username.get(), password.get());
+                })
+                .flatMap(result -> Observable.create(observable -> {
+                    if (result.getStatus().equals("0")) {
+                        observable.onNext(result.getContent());
+                        observable.onComplete();
+                    } else {
+                        observable.onError(new Throwable(result.getDescribe()));
+                    }
+                }).doOnError(throwable -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    if (throwable.getMessage().equals("未绑定用户"))
+                        EventBus.getDefault().post(new EventCheckIsBindMessage(new EventCheckIsBindMessage.UnBindMessage(openId, thirdType)));
+                    else
+                        EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));
+                }))
+                .map(result -> ((LoginResponse) result))
+                .map(result -> {
+                    appToken = result.getAppToken();
+                    yunCardNo = result.getCardNo();
+                    yunToken = result.getYunXinToken();
+                    return yunToken;
+                })
+                .subscribeOn(Schedulers.newThread())
+                .flatMap(onLoginResult -> NimLoginHelper.login(yunCardNo, onLoginResult))
+                .map(loginInfo -> {
+                    Account.preference().savePhone(yunCardNo);
+                    Account.preference().savePassword(password.get());
+                    Account.preference().saveToken(appToken);
+                    Account.preference().saveNimToken(yunToken);
+                    Account.preference().setLogin(true);
+                    return !Account.preference().isFirstSplash();
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginResponse -> {
-                            loginNim(username, password, loginResponse);
-                            progressDialogShow.set(false);
+                .subscribe(isFirst -> {
+                            EventBus.getDefault().post(new EventProgressMessage(false));
+                            if (isFirst) {
+                                Account.preference().setFirstSplash(true);
+                            } else {
+                                EventBus.getDefault().post(new EventLoginSuccessMessage());
+                            }
+                            new LanguageModel().updateLanguages(isFirst);
                         },
                         throwable -> {
+                            EventBus.getDefault().post(new EventProgressMessage(false));
+                            if (!throwable.getMessage().equals("未绑定用户"))
                             onLoginFailed.set(throwable);
-                            progressDialogShow.set(false);
-                        });
-    }
-
-    private void loginNim(String username, String password, LoginResponse loginResponse) {
-        NimLoginHelper.login(username, loginResponse.getYunXinToken()).subscribe(
-                loginInfo -> {
-                    Account.preference().savePhone(username);
-                    Account.preference().savePassword(password);
-                    Account.preference().saveToken(loginResponse.getAppToken());
-                    Account.preference().saveNimToken(loginResponse.getYunXinToken());
-                    Account.preference().setLogin(true);
-                    if (!Account.preference().isFirstSplash()) {
-                        Account.preference().setFirstSplash(true);
-                        getFindByLanguage();
-                    } else {
-                        new LanguageModel().updateLanguages();
-                        onLoginSuccess.notifyChange();
-                    }
-
-
-                },
-                throwable -> onLoginFailed.set(throwable));
-    }
-
-    private void getFindByLanguage() {
-        new LanguageModel().updateLanguages(true)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(listAPIResult -> {
-                            if (listAPIResult.isSuccess() && listAPIResult.getContent() != null) {
-                                ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
-                            }
-                    onLoginSuccess.notifyChange();
-                        }, throwable -> {
-                            onLoginSuccess.notifyChange();
                         }
                 );
+    }
+
+    public RelayCommand<ViewBindingAdapter.TextChangeData> editTextCommand = new RelayCommand<ViewBindingAdapter.TextChangeData>((data) -> {
+        switch (data.viewId) {
+            case R.id.edit_username:
+                clearVisible = clearVisible1;
+                break;
+            case R.id.edit_password:
+                clearVisible = clearVisible2;
+                break;
+            default:
+                break;
+        }
+        if (data.text.length() > 0)
+            clearVisible.set(View.VISIBLE);
+        else
+            clearVisible.set(View.INVISIBLE);
+    });
+
+    public void onClearClick(View view) {
+        switch (view.getId()) {
+            case R.id.clear_text1:
+                username.set("");
+                break;
+            case R.id.clear_text2:
+                password.set("");
+                break;
+            case R.id.third_login_wx:
+                EventBus.getDefault().post(new EventWxLoginMessage());
+                break;
+            case R.id.third_login_wb:
+                EventBus.getDefault().post(new EventWbLoginMessage());
+                break;
+            case R.id.third_login_qq:
+                EventBus.getDefault().post(new EventQqLoginMessage());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void getWxOpenId(String code) {
+        new LoginModel().getWxOpenId(BuildConfig.WX_PAY_APPID, "f46f5ea8a56727bc92e78ee671767971", code)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(wxOpenIdResponse -> {
+                    String openid = wxOpenIdResponse.getOpenid();
+                    login(true, openid, LoginActivity.THIRD_WX);
+                    System.out.println(wxOpenIdResponse.getAccess_token() + "errmsg=" +
+                            wxOpenIdResponse.getErrmsg() + "wex_in=" +
+                            wxOpenIdResponse.getExpires_in() + "openid=" +
+                            wxOpenIdResponse.getOpenid() + "refresh_token=" +
+                            wxOpenIdResponse.getRefresh_token() + "scope=" +
+                            wxOpenIdResponse.getScope() + "errcode=" +
+                            wxOpenIdResponse.getErrcode());
+                }, throwable -> throwable.printStackTrace());
     }
 
 }
