@@ -118,6 +118,11 @@ public class UserCenterFragmentViewModel extends ViewModel {
                 break;
             case R.id.user_center_name:
                 break;
+            case R.id.user_center_after_sale_service_layout:
+                intent = new Intent();
+                intent.putExtra("flag","AfterSaleServiceActivity");
+                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
+                break;
             default:
                 break;
         }

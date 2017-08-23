@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
 import com.lyun.user.activity.AccountBindingActivity;
+import com.lyun.user.activity.AfterSaleServiceActivity;
 import com.lyun.user.activity.ImageCropActivity;
 import com.lyun.user.activity.ImageHeaderActivity;
 import com.lyun.user.activity.UserServiceCardListActivity;
@@ -31,6 +32,7 @@ import java.net.URL;
 
 public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, UserCenterFragmentViewModel> {
     private final int IMAGE_HEADER = 10002;
+
     public UserCenterFragment() {
         // Required empty public constructor
     }
@@ -73,6 +75,8 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
             startActivity(new Intent(getContext(), UserServiceCardListActivity.class));
         } else if (message.getMessage().getStringExtra("flag").equals("ImageCropActivity")) {
             startActivityForResult(new Intent(getContext(), ImageHeaderActivity.class), IMAGE_HEADER);
+        } else if (message.getMessage().getSerializableExtra("flag").equals("AfterSaleServiceActivity")) {
+            AfterSaleServiceActivity.start(getActivity());
         }
 
     }

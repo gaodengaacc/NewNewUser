@@ -35,9 +35,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
 
     <uses-feature android:name="android.hardware.camera"/>
@@ -107,19 +104,19 @@
         </activity>
         <activity
             android:name=".activity.AccountBindingActivity"
-            android:theme="@style/GlobalTitleTheme"></activity>
+            android:theme="@style/GlobalTitleTheme"/>
         <activity
             android:name=".activity.UserServiceCardListActivity"
-            android:theme="@style/GlobalTitleTheme"></activity>
+            android:theme="@style/GlobalTitleTheme"/>
         <activity
             android:name=".activity.ServiceCardTasteDetailActivity"
-            android:theme="@style/GlobalTitleTheme"></activity>
+            android:theme="@style/GlobalTitleTheme"/>
         <activity
             android:name=".activity.ImageCropActivity"
-            android:theme="@style/GlobalTitleTheme"></activity>
+            android:theme="@style/GlobalTitleTheme"/>
         <activity
             android:name=".activity.ImageHeaderActivity"
-            android:theme="@style/GlobalTitleTheme"></activity>
+            android:theme="@style/GlobalTitleTheme"/>
         <activity
             android:name=".activity.WalletMainActivity"
             android:theme="@style/GlobalTitleTheme">
@@ -138,15 +135,16 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterVerifyPhoneActivity"
-                   android:theme="@style/GlobalTitleTheme"/>
+        <activity
+            android:name=".activity.RegisterVerifyPhoneActivity"
+            android:theme="@style/GlobalTitleTheme"/>
         <activity
             android:name=".activity.RegisterActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
-                <action android:name="${APPLICATION_ID}.intent.action.REGISTER" />
+                <action android:name="${APPLICATION_ID}.intent.action.REGISTER"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
@@ -168,7 +166,7 @@
         <activity
             android:name=".activity.WaitingForTranslatorActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoTitle"></activity>
+            android:theme="@style/AppTheme.NoTitle"/>
         <activity
             android:name=".activity.AgreementActivity"
             android:theme="@style/AppTheme.NoTitle.TranslucentStatus">
@@ -321,19 +319,19 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"/>
-            android:exported="true" />
+        android:exported="true" />
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:exported="true" />
+            android:exported="true"/>
         <!-- WxPay over -->
         <service
             android:name=".service.TranslationOrderService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
 
         <activity
             android:name=".activity.ServiceCardDetailActivity"
-            android:theme="@style/AppTheme.NoTitle.TranslucentStatus"></activity>
+            android:theme="@style/AppTheme.NoTitle.TranslucentStatus"/>
         <activity
             android:name=".activity.LawWorldDetailActivity"
             android:theme="@style/AppTheme.NoTitle">
@@ -341,19 +339,29 @@
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="tencent1104650295" />
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent1104650295"/>
             </intent-filter>
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="behind"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name=".activity.AfterSaleServiceActivity"
+            android:label="@string/title_activity_after_sale_service"
+            android:parentActivityName="com.lyun.library.mvvm.view.activity.GeneralToolbarActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lyun.library.mvvm.view.activity.GeneralToolbarActivity"/>
+        </activity>
     </application>
 
 </manifest>

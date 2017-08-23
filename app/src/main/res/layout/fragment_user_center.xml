@@ -1,5 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -48,9 +48,9 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:onClick="@{mvvm.onViewClick}"
-                        app:imageSrc="@{mvvm.avatar}"
                         app:border_color="#ffffff"
-                        app:border_width="2dp" />
+                        app:border_width="2dp"
+                        app:imageSrc="@{mvvm.avatar}"/>
 
                     <TextView
                         android:id="@+id/user_center_name"
@@ -62,7 +62,7 @@
                         android:onClick="@{mvvm.onViewClick}"
                         android:text="@{mvvm.userName}"
                         android:textColor="@color/tcw"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"/>
                 </RelativeLayout>
 
                 <LinearLayout
@@ -93,7 +93,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerHorizontal="true"
                                     android:paddingTop="3dp"
-                                    android:src="@mipmap/icon_user_fragment_time" />
+                                    android:src="@mipmap/icon_user_fragment_time"/>
 
                                 <View
                                     android:id="@+id/flag_line"
@@ -111,7 +111,7 @@
                                     android:padding="1dp"
                                     android:text="@{mvvm.userTime}"
                                     android:textColor="@color/tcw"
-                                    android:textSize="8sp" />
+                                    android:textSize="8sp"/>
                             </RelativeLayout>
 
 
@@ -123,10 +123,9 @@
                                 android:layout_marginTop="5dp"
                                 android:text="使用时长"
                                 android:textColor="@color/tc10"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"/>
                         </RelativeLayout>
                     </RelativeLayout>
-
 
 
                     <RelativeLayout
@@ -150,7 +149,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerHorizontal="true"
                                     android:paddingTop="3dp"
-                                    android:src="@mipmap/icon_user_fragment_call_times" />
+                                    android:src="@mipmap/icon_user_fragment_call_times"/>
 
                                 <View
                                     android:id="@+id/flag_line_center"
@@ -167,7 +166,7 @@
                                     android:padding="1dp"
                                     android:text="@{mvvm.userNum}"
                                     android:textColor="@color/tcw"
-                                    android:textSize="8sp" />
+                                    android:textSize="8sp"/>
                             </RelativeLayout>
 
 
@@ -179,7 +178,7 @@
                                 android:layout_marginTop="5dp"
                                 android:text="总呼叫"
                                 android:textColor="@color/tc10"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"/>
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -205,7 +204,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerHorizontal="true"
                                     android:paddingTop="3dp"
-                                    android:src="@mipmap/icon_user_fragment_type" />
+                                    android:src="@mipmap/icon_user_fragment_type"/>
 
                                 <View
                                     android:id="@+id/flag_line_right"
@@ -222,7 +221,7 @@
                                     android:padding="1dp"
                                     android:text="@{mvvm.userLanguage}"
                                     android:textColor="@color/tcw"
-                                    android:textSize="8sp" />
+                                    android:textSize="8sp"/>
                             </RelativeLayout>
 
 
@@ -234,7 +233,7 @@
                                 android:layout_marginTop="5dp"
                                 android:text="接触服务"
                                 android:textColor="@color/tc10"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"/>
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -247,7 +246,7 @@
                     android:layout_marginTop="8dp"
                     android:drawableLeft="@mipmap/icon_user_fragment_card"
                     android:onClick="@{mvvm.onViewClick}"
-                    android:text="我的服务卡" />
+                    android:text="我的服务卡"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -260,7 +259,7 @@
                     style="@style/main_fragment_discover_item"
                     android:drawableLeft="@mipmap/icon_user_fragment_account"
                     android:onClick="@{mvvm.onViewClick}"
-                    android:text="账号绑定" />
+                    android:text="账号绑定"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -274,7 +273,21 @@
                     android:drawableLeft="@mipmap/icon_user_fragment_setting"
                     android:drawableRight="@null"
                     android:onClick="@{mvvm.onViewClick}"
-                    android:text="设置" />
+                    android:text="设置"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="15dp"
+                    android:background="#dce2ee"></View>
+
+                <TextView
+                    android:id="@+id/user_center_after_sale_service_layout"
+                    style="@style/main_fragment_discover_item"
+                    android:drawableLeft="@mipmap/ic_after_sale_service"
+                    android:drawableRight="@null"
+                    android:onClick="@{mvvm.onViewClick}"
+                    android:text="售后服务"/>
             </LinearLayout>
 
         </ScrollView>
