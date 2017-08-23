@@ -108,7 +108,7 @@ public class APIClient {
         return mRetrofit;
     }
 
-    protected static X509TrustManager getTrustManager() {
+    public static X509TrustManager getTrustManager() {
         return new X509TrustManager() {
             @Override
             public void checkClientTrusted(X509Certificate[] chain, String authType) throws
@@ -127,7 +127,7 @@ public class APIClient {
         };
     }
 
-    protected static SSLSocketFactory getSSLSocketFactory() {
+    public static SSLSocketFactory getSSLSocketFactory() {
         SSLSocketFactory sslSocketFactory = new SSLSocketFactory() {
             @Override
             public String[] getDefaultCipherSuites() {
@@ -176,7 +176,7 @@ public class APIClient {
         return sslSocketFactory;
     }
 
-    protected HostnameVerifier getHostnameVerifier() {
+    public HostnameVerifier getHostnameVerifier() {
         return new AllowAllHostnameVerifier();
     }
 
