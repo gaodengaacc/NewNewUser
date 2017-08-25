@@ -24,7 +24,7 @@
             android:layout_margin="30dp"
             android:maxWidth="200dp"
             android:text="@{mvvm.contentText}"
-            android:textColor="#6c6666"
+            android:textColor="@{mvvm.infoColor}"
             android:textSize="16sp" />
 
         <TextView
@@ -48,7 +48,7 @@
                 android:onClick="@{mvvm.onCancelClick}"
                 android:padding="10dp"
                 android:text="@{mvvm.btnCancelText}"
-                android:textColor="@color/cbp"
+                android:textColor="@{mvvm.btnCancelTextColor}"
                 android:textSize="14sp"
                 android:visibility="@{mvvm.btnCancelVisible}" />
 
@@ -68,7 +68,7 @@
                 android:onClick="@{mvvm.onOkClick}"
                 android:padding="10dp"
                 android:text="@{mvvm.btnOkText}"
-                android:textColor="@color/cbp"
+                android:textColor="@{mvvm.btnYesTextColor}"
                 android:textSize="14sp"
                 android:visibility="@{mvvm.btnOkVisible}" />
         </LinearLayout>

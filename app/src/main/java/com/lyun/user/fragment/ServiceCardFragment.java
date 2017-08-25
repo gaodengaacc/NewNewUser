@@ -11,8 +11,8 @@ import com.lyun.user.activity.ServiceCardDetailActivity;
 import com.lyun.user.activity.ServiceCardTasteDetailActivity;
 import com.lyun.user.api.response.ServiceCardListItemResponse;
 import com.lyun.user.databinding.FragmentServiceCardBinding;
-import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
 import com.lyun.user.eventbusmessage.EventListItemMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
 import com.lyun.user.viewmodel.FragmentServiceCardViewModel;
 import com.lyun.utils.DisplayUtil;
 import com.lyun.utils.Screen;
@@ -60,7 +60,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMyStartActivity(EventIntentActivityMessage message) {
+    public void onMyStartActivity(EventMainIntentActivityMessage message) {
         if (message.getMessage().getStringExtra("flag").equals(FragmentServiceCardViewModel.TOP_CLICK_FLAG))
             startActivity(new Intent(getContext(), ServiceCardTasteDetailActivity.class));
     }

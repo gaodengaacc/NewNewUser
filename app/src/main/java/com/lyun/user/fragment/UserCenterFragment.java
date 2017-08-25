@@ -11,11 +11,12 @@ import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
 import com.lyun.user.activity.AccountBindingActivity;
 import com.lyun.user.activity.AfterSaleServiceActivity;
+import com.lyun.user.activity.AddressManageActivity;
 import com.lyun.user.activity.ImageCropActivity;
 import com.lyun.user.activity.ImageHeaderActivity;
 import com.lyun.user.activity.UserServiceCardListActivity;
 import com.lyun.user.databinding.FragmentUserCenterBinding;
-import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
 import com.lyun.user.viewmodel.UserCenterFragmentViewModel;
 import com.lyun.utils.GlideUtils;
 
@@ -68,13 +69,15 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onResetPasswordResult(EventIntentActivityMessage message) {
+    public void onResetPasswordResult(EventMainIntentActivityMessage message) {
         if (message.getMessage().getStringExtra("flag").equals("AccountBindingActivity")) {
             startActivity(new Intent(getContext(), AccountBindingActivity.class));
         } else if (message.getMessage().getStringExtra("flag").equals("UserServiceCardListActivity")) {
             startActivity(new Intent(getContext(), UserServiceCardListActivity.class));
         } else if (message.getMessage().getStringExtra("flag").equals("ImageCropActivity")) {
             startActivityForResult(new Intent(getContext(), ImageHeaderActivity.class), IMAGE_HEADER);
+        } else if(message.getMessage().getStringExtra("flag").equals("AddressManageActivity")){
+            startActivity(new Intent(getContext(), AddressManageActivity.class));
         } else if (message.getMessage().getSerializableExtra("flag").equals("AfterSaleServiceActivity")) {
             AfterSaleServiceActivity.start(getActivity());
         }

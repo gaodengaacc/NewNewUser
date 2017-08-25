@@ -3,6 +3,7 @@ package com.lyun.library.mvvm.viewmodel;
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.graphics.Color;
 import android.view.View;
 
 import com.lyun.widget.dialog.SimpleMessageDialog;
@@ -19,6 +20,9 @@ public class SimpleDialogViewModel extends DialogViewModel {
     public final ObservableInt btnCancelVisible = new ObservableInt();
     public final ObservableInt btnOkVisible = new ObservableInt();
     public final ObservableInt dividerVisible = new ObservableInt();
+    public final ObservableInt btnCancelTextColor = new ObservableInt();
+    public final ObservableInt btnYesTextColor = new ObservableInt();
+    public final ObservableInt infoColor = new ObservableInt();
     private OnItemClickListener onItemClickListener;
 
     public SimpleDialogViewModel(Context context, String info) {
@@ -34,6 +38,9 @@ public class SimpleDialogViewModel extends DialogViewModel {
     }
 
     private void init() {
+        btnCancelTextColor.set(Color.parseColor("#485465"));
+        btnYesTextColor.set(Color.parseColor("#485465"));
+        infoColor.set(Color.parseColor("#485465"));
         btnCancelText.set("取消");
         btnOkText.set("确定");
         btnCancelVisible.set(View.VISIBLE);
@@ -64,6 +71,13 @@ public class SimpleDialogViewModel extends DialogViewModel {
         this.btnCancelText.set(cancel);
     }
 
+    public void setBtnYesTextColor(int color) {
+        btnYesTextColor.set(color);
+    }
+
+    public void setBtnCancelTextColor(int color) {
+        btnYesTextColor.set(color);
+    }
     public void setBtnYesVisibility(int visibility) {
         this.btnOkVisible.set(visibility);
         if(visibility == View.GONE)

@@ -9,6 +9,7 @@ import com.lyun.user.activity.LoginActivity;
 import com.lyun.user.api.API;
 import com.lyun.user.im.NimApplicationDelegate;
 import com.lyun.utils.L;
+import com.smarttop.library.db.AssetsDatabaseManager;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
@@ -36,6 +37,12 @@ public class AppApplication extends BaseApplication {
         } else {
             API.init(Constants.API_BASE_URL, getSSLSocketFactory(), mAuthorizationInterceptor);
         }
+        initDataBase();
+    }
+
+    private void initDataBase() {
+        // 初始化，只需要调用一次
+        AssetsDatabaseManager.initManager(this);
     }
 
     private AuthorizationInterceptor mAuthorizationInterceptor = new AuthorizationInterceptor() {
