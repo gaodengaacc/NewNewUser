@@ -273,8 +273,7 @@
                     android:drawableLeft="@mipmap/icon_user_fragment_setting"
                     android:drawableRight="@null"
                     android:onClick="@{mvvm.onViewClick}"
-                    android:text="设置"/>
-
+                    android:text="设置" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
@@ -282,12 +281,25 @@
                     android:background="#dce2ee"></View>
 
                 <TextView
-                    android:id="@+id/user_center_after_sale_service_layout"
+                    android:id="@+id/user_center_address_layout"
                     style="@style/main_fragment_discover_item"
-                    android:drawableLeft="@mipmap/ic_after_sale_service"
+                    android:drawableLeft="@mipmap/icon_user_fragment_address"
                     android:drawableRight="@null"
                     android:onClick="@{mvvm.onViewClick}"
-                    android:text="售后服务"/>
+                    android:text="地址管理" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="15dp"
+                    android:background="#dce2ee"></View>
+
+                <TextView
+                    android:id="@+id/user_center_service_layout"
+                    style="@style/main_fragment_discover_item"
+                    android:drawableLeft="@mipmap/icon_user_fragment_service"
+                    android:drawableRight="@null"
+                    android:onClick="@{mvvm.onViewClick}"
+                    android:text="售后服务" />
             </LinearLayout>
 
         </ScrollView>

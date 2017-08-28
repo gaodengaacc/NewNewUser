@@ -10,8 +10,8 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppIntent;
 import com.lyun.user.R;
-import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
 import com.lyun.user.eventbusmessage.EventToastMessage;
+import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
 import com.lyun.user.model.StatisticsCardNoModel;
 import com.lyun.utils.TimeUtil;
 
@@ -104,24 +104,29 @@ public class UserCenterFragmentViewModel extends ViewModel {
             case R.id.user_center_avatar:
                 intent = new Intent();
                 intent.putExtra("flag","ImageCropActivity");
-                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
+                EventBus.getDefault().post(new EventMainIntentActivityMessage(intent));
                 break;
             case R.id.user_center_account_layout:
                 intent = new Intent();
                 intent.putExtra("flag","AccountBindingActivity");
-                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
+                EventBus.getDefault().post(new EventMainIntentActivityMessage(intent));
                 break;
             case R.id.user_center_card_layout:
                 intent = new Intent();
                 intent.putExtra("flag","UserServiceCardListActivity");
-                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
+                EventBus.getDefault().post(new EventMainIntentActivityMessage(intent));
+                break;
+            case R.id.user_center_address_layout:
+                intent = new Intent();
+                intent.putExtra("flag","AddressManageActivity");
+                EventBus.getDefault().post(new EventMainIntentActivityMessage(intent));
                 break;
             case R.id.user_center_name:
                 break;
-            case R.id.user_center_after_sale_service_layout:
+            case R.id.user_center_service_layout:
                 intent = new Intent();
                 intent.putExtra("flag","AfterSaleServiceActivity");
-                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
+                EventBus.getDefault().post(new EventMainIntentActivityMessage(intent));
                 break;
             default:
                 break;
