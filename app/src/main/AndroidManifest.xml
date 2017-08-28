@@ -185,6 +185,11 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.AfterSaleServiceActivity"
+            android:label="@string/title_activity_after_sale_service"
+            android:theme="@style/AppTheme.NoTitle">
+        </activity>
 
         <!-- 声明云信后台服务 -->
         <service
@@ -354,14 +359,6 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity
-            android:name=".activity.AfterSaleServiceActivity"
-            android:label="@string/title_activity_after_sale_service"
-            android:parentActivityName="com.lyun.library.mvvm.view.activity.GeneralToolbarActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lyun.library.mvvm.view.activity.GeneralToolbarActivity"/>
-        </activity>
     </application>
 
 </manifest>

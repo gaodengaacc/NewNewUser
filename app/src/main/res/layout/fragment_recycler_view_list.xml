@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.RecyclerViewViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/list"
+        android:name="com.lyun.user.fragment.AfterSaleServiceFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.lyun.user.fragment.RecyclerViewFragment">
+
+        <com.lyun.widget.refresh.PullToRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f0f0f0"
+            app:loadMoreResult="@{mvvm.loadMoreResult}"
+            app:refreshListener="@{mvvm.onRefreshListener}"
+            app:refreshResult="@{mvvm.refreshResult}">
+
+            <include layout="@layout/refresh_head"/>
+
+            <com.lyun.widget.refresh.PullRecyclerView
+                android:id="@+id/pullListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f0f0f0"
+                android:divider="@null"
+                android:overScrollMode="never"
+                app:adapter="@{mvvm.mRecyclerAdapter}"
+                app:layoutManager="@{mvvm.mLayoutManager}"
+                app:notifyData="@{mvvm.mRecyclerData}">
+
+            </com.lyun.widget.refresh.PullRecyclerView>
+
+            <include layout="@layout/load_more"/>
+
+        </com.lyun.widget.refresh.PullToRefreshLayout>
+    </RelativeLayout>
+</layout>

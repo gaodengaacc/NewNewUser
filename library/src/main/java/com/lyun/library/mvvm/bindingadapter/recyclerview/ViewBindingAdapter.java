@@ -54,9 +54,15 @@ public class ViewBindingAdapter {
         recyclerView.addOnScrollListener(listener);
     }
 
+    @Deprecated
     @BindingAdapter({"layoutManager"})
     public static void setLayoutManage(RecyclerView recyclerView, final RelayCommand<RecyclerView> onLoadMoreCommand) {
         onLoadMoreCommand.execute(recyclerView);
+    }
+
+    @BindingAdapter({"layoutManager"})
+    public static void setLayoutManager(RecyclerView recyclerView, final RecyclerView.LayoutManager manager) {
+        recyclerView.setLayoutManager(manager);
     }
 
     @BindingAdapter({"notifyData"})
@@ -84,7 +90,7 @@ public class ViewBindingAdapter {
 
     @BindingAdapter("header")
     public static void setHeader(RecyclerView recyclerView, @LayoutRes int layoutRes) {
-        if (layoutRes > 0 && recyclerView.getAdapter()!=null) {
+        if (layoutRes > 0 && recyclerView.getAdapter() != null) {
             View view = View.inflate(recyclerView.getContext(), layoutRes, null);
             ((BaseRecyclerAdapter) recyclerView.getAdapter()).setHeaderView(view);
         } else {

@@ -19,7 +19,7 @@ import java.util.List;
  * do()
  */
 
-public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends ViewModel> extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseRecyclerHolder> implements InterfaceBindView<DB,VM> {
+public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding, VM extends ViewModel> extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseRecyclerHolder> implements InterfaceBindView<DB, VM> {
     public List<VM> viewModels;
     public int layoutId;
     private View mHeaderView;
@@ -30,8 +30,21 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
     public static final int TYPE_FOOTER = 1;  //说明是带有Footer的
     public static final int TYPE_NORMAL = 2;  //说明是不带有header和footer的
     private int newPosition;
+
+    public BaseRecyclerAdapter() {
+        this(null, 0);
+    }
+
     public BaseRecyclerAdapter(List<VM> viewModels, int layoutId) {
         this.viewModels = viewModels;
+        this.layoutId = layoutId;
+    }
+
+    public void setViewModels(List<VM> viewModels){
+        this.viewModels = viewModels;
+    }
+
+    public void setLayoutId(int layoutId){
         this.layoutId = layoutId;
     }
 
@@ -91,7 +104,7 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
                             return false;
                         }
                     });
-            }else {
+            } else {
                 return;
             }
         }
@@ -112,6 +125,7 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
         }
         return TYPE_NORMAL;
     }
+
     @Override
     public int getItemCount() {
         if (mHeaderView == null && mFooterView == null) {
@@ -153,9 +167,11 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding,VM extends 
     public void setItemClickListener(OnRecycleItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
+
     public void setItemLongClickListener(OnRecycleItemClickListener itemLongClickListener) {
         this.itemLongClickListener = itemLongClickListener;
     }
+
     public void setListData(List listData) {
         this.viewModels = listData;
         notifyDataSetChanged();
