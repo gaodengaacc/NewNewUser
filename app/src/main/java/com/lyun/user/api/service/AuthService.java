@@ -3,19 +3,22 @@ package com.lyun.user.api.service;
 import com.lyun.api.response.APIPageResult;
 import com.lyun.api.response.APIResult;
 import com.lyun.user.api.APIConstants;
+import com.lyun.user.api.request.AddAddressRequestBean;
+import com.lyun.user.api.request.BaseRequestBean;
 import com.lyun.user.api.request.CheckVerificationBean;
+import com.lyun.user.api.request.DoAddressRequestBean;
 import com.lyun.user.api.request.FindPasswordBean;
 import com.lyun.user.api.request.LoginBean;
 import com.lyun.user.api.request.RegisterBean;
 import com.lyun.user.api.request.RegisterVerifyPhoneBean;
 import com.lyun.user.api.request.RemainingTimeBean;
 import com.lyun.user.api.request.ResetPasswordBean;
-import com.lyun.user.api.request.StatisticsCardNoBean;
 import com.lyun.user.api.request.ThirdLoginBean;
 import com.lyun.user.api.request.ThirdLoginBindBean;
 import com.lyun.user.api.request.ThirdLoginRegisterBean;
 import com.lyun.user.api.request.WalletChargeBean;
 import com.lyun.user.api.request.WalletChargeRecorderBean;
+import com.lyun.user.api.response.AddressItemResponse;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.api.response.StatisticsCardNoResponse;
 import com.lyun.user.api.response.WalletChargeAliPayResponse;
@@ -83,5 +86,17 @@ public interface AuthService {
     Observable<APIResult<APIPageResult<List<WalletChargeRecorderResponse>>>> getChargeRecorder(@Body WalletChargeRecorderBean body);
 
     @POST(APIConstants.STATISTICS_CARDNO)
-    Observable<APIResult<StatisticsCardNoResponse>> getStatistics(@Body StatisticsCardNoBean body);
+    Observable<APIResult<StatisticsCardNoResponse>> getStatistics(@Body  BaseRequestBean body);
+    //地址管理
+    @POST(APIConstants.ADD_ADDRESS)
+    Observable<APIResult> addAddress(@Body AddAddressRequestBean body);
+    @POST(APIConstants.QUERY_ADDRESS)
+    Observable<APIResult<List<AddressItemResponse>>> queryAddress(@Body BaseRequestBean body);
+    @POST(APIConstants.DEFAULT_ADDRESS)
+    Observable<APIResult> defaultAddress(@Body DoAddressRequestBean body);
+    @POST(APIConstants.DELETE_ADDRESS)
+    Observable<APIResult> deleteAddress(@Body DoAddressRequestBean body);
+    @POST(APIConstants.UPDATE_ADDRESS)
+    Observable<APIResult> updateAddress(@Body AddAddressRequestBean body);
+
 }

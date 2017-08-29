@@ -2,10 +2,10 @@ package com.lyun.user.api.service;
 
 import com.lyun.api.response.APIResult;
 import com.lyun.user.api.APIConstants;
+import com.lyun.user.api.request.BaseRequestBean;
 import com.lyun.user.api.request.CancelTranslationOrderBean;
 import com.lyun.user.api.request.GenerateOrderRequest;
 import com.lyun.user.api.request.HeartBeatBean;
-import com.lyun.user.api.request.RemainingTimeBean;
 import com.lyun.user.api.request.TranslatorStatusBean;
 import com.lyun.user.api.response.TranslatorStatusResponse;
 
@@ -23,7 +23,7 @@ public interface TranslationOrderService {
     Observable<APIResult<String>> generateOrder(@Body GenerateOrderRequest orderRequest);
 
     @POST(APIConstants.REMAINING_TIME)
-    Observable<APIResult> getRemainingTime(@Body RemainingTimeBean body);
+    Observable<APIResult> getRemainingTime(@Body BaseRequestBean body);
 
     @POST(APIConstants.HEART_BEAT)
     Observable<APIResult> heartBeat(@Body HeartBeatBean body);

@@ -17,6 +17,7 @@ import com.lyun.user.viewmodel.RegisterVerifyPhoneViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<ActivityRegisterVerifyPhoneBinding, RegisterVerifyPhoneViewModel> {
     private String openId;
@@ -74,7 +75,7 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
         else
             dialogViewModel.dismiss();
     }
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void showToast(EventToastMessage message){
         Toast.makeText(AppApplication.getInstance(),message.getMessage(), Toast.LENGTH_SHORT).show();
     }

@@ -32,7 +32,11 @@ public class Account {
         private String wxAppId;
         private boolean firstSplash;
 
+
+        private String cardNo;
+
         private final String KEY_PHONE = "phone";
+        private final String KEY_CARDNO = "cardNo";
         private final String KEY_PASSWORD = "password";
         private final String KEY_TOKEN = "token";
         private final String KEY_NIM_TOKEN = "nim_token";
@@ -47,6 +51,16 @@ public class Account {
             setLogin(false);
         }
 
+        public String getCardNo() {
+            if (cardNo == null)
+                cardNo = getString(KEY_CARDNO);
+            return cardNo;
+        }
+
+        public void setCardNo(String cardNo) {
+            saveString(KEY_CARDNO, cardNo);
+            this.cardNo = cardNo;
+        }
         public String getPhone() {
             if (phone == null)
                 phone = getString(KEY_PHONE);

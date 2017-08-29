@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.smarttop.library.R;
 import com.smarttop.library.bean.City;
-import com.smarttop.library.bean.County;
+import com.smarttop.library.bean.District;
 import com.smarttop.library.bean.Province;
 import com.smarttop.library.bean.Street;
 import com.smarttop.library.db.manager.AddressDictManager;
@@ -69,7 +69,7 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
     private StreetAdapter streetAdapter;
     private List<Province> provinces;
     private List<City> cities;
-    private List<County> counties;
+    private List<District> counties;
     private List<Street> streets;
     private OnAddressSelectedListener listener;
     private OnDialogCloseListener dialogCloseListener;
@@ -110,7 +110,7 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
                     break;
 
                 case WHAT_COUNTIES_PROVIDED://更新乡镇列表
-                    counties = (List<County>) msg.obj;
+                    counties = (List<District>) msg.obj;
                     countyAdapter.notifyDataSetChanged();
                     if (Lists.notEmpty(counties)) {
                         listView.setAdapter(countyAdapter);
@@ -467,11 +467,11 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
                 cityAdapter.notifyDataSetChanged();
                 break;
             case INDEX_TAB_COUNTY:
-                County county = countyAdapter.getItem(position);
+                District district = countyAdapter.getItem(position);
 
-                textViewCounty.setText(county.name);
+                textViewCounty.setText(district.name);
                 textViewStreet.setText("请选择");
-                retrieveStreetsWith(county.id);
+                retrieveStreetsWith(district.id);
 
                 streets = null;
                 streetAdapter.notifyDataSetChanged();
@@ -524,8 +524,8 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
      */
     private void retrieveCountiesWith(int cityId){
         progressBar.setVisibility(View.VISIBLE);
-        List<County> countyList = addressDictManager.getCountyList(cityId);
-        handler.sendMessage(Message.obtain(handler, WHAT_COUNTIES_PROVIDED, countyList));
+        List<District> districtList = addressDictManager.getCountyList(cityId);
+        handler.sendMessage(Message.obtain(handler, WHAT_COUNTIES_PROVIDED, districtList));
     }
     /**
      * 根据乡镇id查询乡镇列表
@@ -544,10 +544,9 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
         if (listener != null) {
             Province province = provinces == null || provinceIndex == INDEX_INVALID ? null : provinces.get(provinceIndex);
             City city = cities == null || cityIndex == INDEX_INVALID ? null : cities.get(cityIndex);
-            County county = counties == null || countyIndex == INDEX_INVALID ? null : counties.get(countyIndex);
+            District district = counties == null || countyIndex == INDEX_INVALID ? null : counties.get(countyIndex);
             Street street = streets == null || streetIndex == INDEX_INVALID ? null : streets.get(streetIndex);
-
-            listener.onAddressSelected(province, city, county, street);
+            listener.onAddressSelected(province, city, district, street);
         }
     }
 
@@ -682,7 +681,7 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
         }
 
         @Override
-        public County getItem(int position) {
+        public District getItem(int position) {
             return counties.get(position);
         }
 
@@ -707,7 +706,7 @@ public class AddressSelector implements AdapterView.OnItemClickListener {
                 holder = (Holder) convertView.getTag();
             }
 
-            County item = getItem(position);
+            District item = getItem(position);
             holder.textView.setText(item.name);
 
             boolean checked = countyIndex != INDEX_INVALID && counties.get(countyIndex).id == item.id;

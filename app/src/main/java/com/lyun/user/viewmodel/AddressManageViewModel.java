@@ -13,9 +13,13 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.adapter.AddressManageItemAdapter;
+import com.lyun.user.api.request.BaseRequestBean;
+import com.lyun.user.api.request.DoAddressRequestBean;
 import com.lyun.user.api.response.AddressItemResponse;
 import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.eventbusmessage.EventToastMessage;
+import com.lyun.user.model.AddressModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * @author Gordon
@@ -40,24 +45,40 @@ public class AddressManageViewModel extends ViewModel {
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
     public AddressManageItemAdapter itemAdapter;
+    private AddressModel addressModel;
 
     public AddressManageViewModel() {
         init();
     }
 
     private void init() {
-        listVisible.set(View.VISIBLE);
-        nullBgVisible.set(View.GONE);
+        addressModel = new AddressModel();
+        queryAddress();
+        listVisible.set(View.GONE);
+        nullBgVisible.set(View.VISIBLE);
         itemData = new ArrayList<>();
         itemViewModelData = new ArrayList<>();
-        itemData.add(new AddressItemResponse("姓名", "13000000000", "上海市静安区江场三路181号盈科律师大厦", true));
-        itemData.add(new AddressItemResponse("姓名", "13000000000", "上海市静安区江场三路181号盈科律师大厦", false));
-        itemData.add(new AddressItemResponse("姓名", "13000000000", "上海市静安区江场三路181号盈科律师大厦", false));
-        itemData.add(new AddressItemResponse("姓名", "13000000000", "上海市静安区江场三路181号盈科律师大厦", false));
-        itemData.add(new AddressItemResponse("姓名", "13000000000", "上海市静安区江场三路181号盈科律师大厦", false));
-        setData();
         itemAdapter = new AddressManageItemAdapter(itemViewModelData, R.layout.item_address_layout);
         this.adapter.set(itemAdapter);
+    }
+
+    public void queryAddress() {
+        EventBus.getDefault().post(new EventProgressMessage(true));
+        addressModel.queryAddress(new BaseRequestBean())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .filter(listAPIResult -> listAPIResult != null && listAPIResult.size() > 0)
+                .subscribe(listAPIResult -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    itemData.clear();
+                    itemData.addAll(listAPIResult);
+                    setData();
+                    listVisible.set(View.VISIBLE);
+                    nullBgVisible.set(View.GONE);
+                }, throwable -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));
+                });
+
     }
 
     public RelayCommand addAddressClick = new RelayCommand(() -> {
@@ -66,37 +87,67 @@ public class AddressManageViewModel extends ViewModel {
 
     public void setDefaultAddress(int position) {
         EventBus.getDefault().post(new EventProgressMessage(true));
-        Observable.fromIterable(itemViewModelData)
-                .filter(response -> response.response.isDefaultAddress())
+        new AddressModel().defaultAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()))
+                .flatMap(apiResult -> Observable.fromIterable(itemViewModelData))
+                .map(responseViewModel -> {
+                    if (responseViewModel.response.getIsDefault().equals("1"))
+                        responseViewModel.setSelectBg(false);
+                    return responseViewModel;
+                })
+                .filter(responseViewModel -> responseViewModel.position == itemViewModelData.size() - 1)
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    response.setSelectBg(false);
+                    EventBus.getDefault().post(new EventProgressMessage(false));
                     itemViewModelData.get(position).setSelectBg(true);
+                    notifyData.set(itemViewModelData);
+                }, throwable -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));
                 });
-        System.out.print(itemData.toString());
-        itemAdapter.setListData(itemViewModelData);
-        EventBus.getDefault().post(new EventProgressMessage(false));
+
+
     }
 
-    public void deleteAddress(int position) {
-        boolean isDefault = itemViewModelData.get(position).response.isDefaultAddress();
-        itemViewModelData.remove(position);
-        if (itemViewModelData.size() <= 0) {
-            listVisible.set(View.GONE);
-            nullBgVisible.set(View.VISIBLE);
-        } else if (isDefault) {
-            itemViewModelData.get(0).setSelectBg(true);
-        }
-       itemAdapter.setListData(itemViewModelData);
+    public void deleteAddress(int position, boolean isBack) {
+        EventBus.getDefault().post(new EventProgressMessage(true));
+        Observable.just(isBack)
+                .flatMap(back -> {
+                            if (back)
+                                return Observable.just(new Object());
+                            else
+                                return new AddressModel().deleteAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()));
+                        }
+                )
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    EventBus.getDefault().post(new EventToastMessage("删除成功"));
+                    itemData.remove(position);
+                    setData();
+                    if (itemViewModelData.size() <= 0) {
+                        listVisible.set(View.GONE);
+                        nullBgVisible.set(View.VISIBLE);
+                    }
+                }, throwable -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));
+                });
+
     }
+
     public void updateAddress(int position,AddressItemResponse response) {
         itemViewModelData.get(position).setResponse(response);
     }
 
+    public void AddAddress(AddressItemResponse response) {
+        queryAddress();
+    }
     public void setData() {
         itemViewModelData.clear();
-        Observable.fromIterable(itemData)
-                .subscribe(response -> {
+        for (AddressItemResponse response : itemData)
                     itemViewModelData.add(new AddressManageItemViewModel(response));
-                });
+        itemAdapter = new AddressManageItemAdapter(itemViewModelData, R.layout.item_address_layout);
+        adapter.set(itemAdapter);
     }
+
 }

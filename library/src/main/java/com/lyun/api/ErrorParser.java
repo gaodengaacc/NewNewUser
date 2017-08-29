@@ -34,7 +34,6 @@ public class ErrorParser {
         }
         return "未知错误";
     }
-
     public static <T> APIResult<T> mockResult(Throwable throwable) {
         return new APIResult("-1", parse(throwable), null);
     }

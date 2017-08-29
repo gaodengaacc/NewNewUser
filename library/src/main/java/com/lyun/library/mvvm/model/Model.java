@@ -43,4 +43,33 @@ public class Model {
                 });
     }
 
+    /**
+     * 接口数据处理
+     * 将接口返回状态码为失败的接口，抛出异常给onError执行
+     *
+     * @param observable
+     * @param
+     * @return
+     */
+    public Observable parseNullObservable(Observable<APIResult> observable) {
+        return observable.flatMap(new Function<APIResult, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(final APIResult apiResult) throws Exception {
+                return Observable.create(new ObservableOnSubscribe<Object>() {
+
+                    @Override
+                    public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                        if (apiResult.isSuccess()) {
+                            e.onNext(apiResult);
+                            e.onComplete();
+                        } else {
+                            e.onError(new APINotSuccessException(apiResult));
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
 }

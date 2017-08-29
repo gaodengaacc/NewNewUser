@@ -1,6 +1,7 @@
 package com.lyun.user.api.request;
 
 import com.lyun.api.request.BaseRequest;
+import com.lyun.user.Account;
 
 /**
  * Created by ZHAOWEIWEI on 2017/3/15.
@@ -20,4 +21,6 @@ public class BaseRequestBean extends BaseRequest {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
+    private String cardNo = Account.preference().getCardNo();
 }
