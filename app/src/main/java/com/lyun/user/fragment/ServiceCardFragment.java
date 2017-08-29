@@ -3,6 +3,8 @@ package com.lyun.user.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
@@ -16,6 +18,8 @@ import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage
 import com.lyun.user.viewmodel.FragmentServiceCardViewModel;
 import com.lyun.utils.DisplayUtil;
 import com.lyun.utils.Screen;
+
+import net.funol.databinding.watchdog.Watchdog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,10 +52,23 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     @NonNull
     @Override
     protected FragmentServiceCardViewModel createViewModel() {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DisplayUtil.dip2px(getContext(), 50));
-        layoutParams.setMargins(0, Screen.getStatusBarHeightByReflaction(getContext()), 0, 0);
-        getFragmentViewDataBinding().fragmentCardTop.setLayoutParams(layoutParams);
-        return new FragmentServiceCardViewModel();
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) getFragmentViewDataBinding().layoutHeightTop.getLayoutParams();
+        layoutParams.height = Screen.getStatusBarHeightByReflaction(getContext());
+        getFragmentViewDataBinding().layoutHeightTop.setLayoutParams(layoutParams);
+
+        ViewPager mViewPager = (ViewPager) getFragmentViewDataBinding().getRoot().findViewById(R.id.service_card_viewpager);
+
+        mViewPager.setPageMargin(DisplayUtil.dip2px(getContext(), -20));
+        mViewPager.setPageTransformer(true, new ServiceCardPageTransformer());
+
+        // mViewPagerContainer = (RelativeLayout) root.findViewById(R.id.law_world_viewpager_container);
+        // 引发bug
+        // mViewPagerContainer.setOnTouchListener((v, event) -> mViewPager.dispatchTouchEvent(event));
+
+        FragmentServiceCardViewModel viewModel = new FragmentServiceCardViewModel();
+        Watchdog.newBuilder().watch(viewModel).notify(this).build();
+
+        return viewModel;
     }
 
     @Override
@@ -61,15 +78,40 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMyStartActivity(EventMainIntentActivityMessage message) {
-        if (message.getMessage().getStringExtra("flag").equals(FragmentServiceCardViewModel.TOP_CLICK_FLAG))
-            startActivity(new Intent(getContext(), ServiceCardTasteDetailActivity.class));
+        //if (message.getMessage().getStringExtra("flag").equals(FragmentServiceCardViewModel.TOP_CLICK_FLAG))
+        //    startActivity(new Intent(getContext(), ServiceCardTasteDetailActivity.class));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onItemClick(EventListItemMessage message) {
         if (message.getMessage() instanceof ServiceCardListItemResponse) {
             ServiceCardListItemResponse response = (ServiceCardListItemResponse) message.getMessage();
-            startActivity(new Intent(getContext(), ServiceCardDetailActivity.class).putExtra("cardId",response.getCardId()));
+            startActivity(new Intent(getContext(), ServiceCardDetailActivity.class).putExtra("cardId", response.getCardId()));
+        }
+    }
+
+    public class ServiceCardPageTransformer implements ViewPager.PageTransformer {
+
+        private final float MAX_SCALE = 480f / 600;
+
+        @Override
+        public void transformPage(View page, float position) {
+            float scale = MAX_SCALE;
+            if (position < -1 || position > 1) {
+                // 左划到底 右划到底
+            } else if (position <= 0) {
+                // 左划
+                scale = 1 + position - position * MAX_SCALE;
+            } else if (position <= 1) {
+                // 右划
+                scale = 1 - position + position * MAX_SCALE;
+            }
+            // 等比例缩放
+            page.setScaleY(scale);
+            page.setScaleX(scale);
+            //page.setTranslationY(page.getHeight() * (1 - scale));
+
+            // page.findViewById(R.id.law_world_card_mask).setAlpha(0.7f * (1 - scale) / (1 - MAX_SCALE));
         }
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,20 +14,123 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#f6f8fb">
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/fragment_card_top"
+        <RelativeLayout
+            android:id="@+id/layout_height_top"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@mipmap/bg_service_card_list_top"
-            android:scaleType="fitXY"
-            android:onClick="@{mvvm.onClickView}"/>
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:visibility="@{mvvm.topVisible}">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/service_card_viewpager_container"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/law_world_name"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="15dp">
+
+            <RelativeLayout
+                android:id="@+id/service_card_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <TextView
+                    android:id="@+id/service_card_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="普通卡"
+                    android:textColor="#495566"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/service_card_name"
+                    android:text="￥999元"
+                    android:textColor="#fe821d"
+                    android:textSize="17sp"/>
+
+                <com.lyun.roundrectview.RoundRectButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15sp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp"
+                    android:text="立即购买"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp"
+                    app:backgroundColor="#1f9eec"
+                    app:cornerRadius="50%"/>
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/service_card_viewpager"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:layout_above="@id/service_card_price"
+                android:layout_centerHorizontal="true"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:currentItem="1"
+                app:itemView="@{mvvm.serviceCardItemView}"
+                app:items="@{mvvm.serviceCardViewModels}"
+                app:offscreenPageLimit="2">
+
+            </android.support.v4.view.ViewPager>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f6f9fb">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/ic_member_right"
+                android:drawablePadding="5dp"
+                android:padding="15dp"
+                android:text="会员特权"
+                android:textColor="#495564"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="5dp"
+                android:drawableRight="@mipmap/ic_more_blue"
+                android:padding="15dp"
+                android:text="查看详情"
+                android:textColor="#1f9eec"
+                android:textSize="13sp"/>
+        </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#f6f9fb"
             android:divider="@null"
             android:dividerHeight="0dp"
             android:scrollbars="none"
