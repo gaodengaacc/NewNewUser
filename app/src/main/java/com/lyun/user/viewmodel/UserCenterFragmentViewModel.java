@@ -63,7 +63,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
                     if (apiResult.isSuccess()) {//获取成功
                         userTime.set(TimeUtil.convertMin2Str(apiResult.getContent().getUseTime()));
                         userNum.set(apiResult.getContent().getCallFrequency()+"次");
-                        userLanguage.set(apiResult.getContent().getLanguages()+"种");
+                        userLanguage.set(apiResult.getContent().getDomains() + "种");
                     } else {
                         EventBus.getDefault().post(new EventToastMessage(apiResult.getDescribe()));
                     }

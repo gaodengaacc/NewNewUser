@@ -10,7 +10,16 @@ public class StatisticsCardNoResponse extends BaseResponse {
     private String surplusTime;
     private String useTime;
     private String callFrequency;
-    private String languages;
+
+    public String getDomains() {
+        return domains;
+    }
+
+    public void setDomains(String domains) {
+        this.domains = domains;
+    }
+
+    private String domains;
 
     public String getSurplusTime() {
         return surplusTime;
@@ -36,11 +45,4 @@ public class StatisticsCardNoResponse extends BaseResponse {
         this.callFrequency = callFrequency;
     }
 
-    public String getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(String languages) {
-        this.languages = languages;
-    }
 }

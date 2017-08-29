@@ -129,6 +129,7 @@ public class LoginViewModel extends ViewModel {
                 .flatMap(onLoginResult -> NimLoginHelper.login(yunCardNo, onLoginResult))
                 .map(loginInfo -> {
                     Account.preference().savePhone(yunCardNo);
+                    Account.preference().setCardNo(yunCardNo);
                     Account.preference().savePassword(password.get());
                     Account.preference().saveToken(appToken);
                     Account.preference().saveNimToken(yunToken);

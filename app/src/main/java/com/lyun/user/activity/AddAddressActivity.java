@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
@@ -13,13 +14,13 @@ import com.lyun.user.databinding.ActivityAddAddressBinding;
 import com.lyun.user.eventbusmessage.EventActivityFinishMessage;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.EventToastMessage;
-import com.lyun.user.eventbusmessage.address.EventAddressSelectMessage;
 import com.lyun.user.eventbusmessage.address.EventCityPickDialogShowMessage;
 import com.lyun.user.viewmodel.AddAddressViewModel;
 import com.smarttop.library.widget.AddressSelectDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 /**
@@ -31,7 +32,10 @@ import org.greenrobot.eventbus.Subscribe;
 public class AddAddressActivity extends GeneralToolbarActivity<ActivityAddAddressBinding, AddAddressViewModel> {
     private SimpleDialogViewModel simpleDialogViewModel;
     private AddressSelectDialog selectDialog;
-
+    private String provinceBack;
+    private String cityBack;
+    private String districtBack;
+    private String streetBack;
     @Override
     protected int getBodyLayoutId() {
         return R.layout.activity_add_address;
@@ -72,14 +76,18 @@ public class AddAddressActivity extends GeneralToolbarActivity<ActivityAddAddres
         return viewModel;
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void showProgress(EventProgressMessage message) {
-
+        if (message.getMessage())
+            dialogViewModel.show();
+        else
+            dialogViewModel.dismiss();
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void showToast(EventToastMessage message) {
-
+        if (message.getMessage() != null && !message.getMessage().equals(""))
+        Toast.makeText(getApplication(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Subscribe
@@ -92,14 +100,19 @@ public class AddAddressActivity extends GeneralToolbarActivity<ActivityAddAddres
     public void showCityPickDialog(EventCityPickDialogShowMessage message) {
         if (selectDialog == null) {
             selectDialog = new AddressSelectDialog(this);
-            selectDialog.setOnAddressSelectedListener((province, city, county, street)
+            selectDialog.setOnAddressSelectedListener((province, city, district, street)
                     -> {
-                StringBuffer address = new StringBuffer();
-                if (province != null) address.append(province.name);
-                if (city != null) address.append(city.name);
-                if (county != null) address.append(county.name);
-                if (street != null) address.append(street.name);
-                getBodyViewModel().address.set(address.toString());
+                provinceBack = (province == null ? "" : province.name);
+                cityBack = (city == null ? "" : city.name);
+                districtBack = (district == null ? "" : district.name);
+                streetBack = (street == null ? "" : street.name);
+                if (province != null && Integer.parseInt(province.code) < 5) {
+                    streetBack = districtBack;
+                    districtBack = cityBack;
+                    cityBack = provinceBack + "市";
+                }
+                getBodyViewModel().setAddress(provinceBack, cityBack, districtBack, streetBack);
+                selectDialog.dismiss();
             });
         }
         selectDialog.show();
@@ -120,8 +133,7 @@ public class AddAddressActivity extends GeneralToolbarActivity<ActivityAddAddres
 
                 @Override
                 public void OnCancelClick(View view) {
-                    EventBus.getDefault().post(new EventAddressSelectMessage(getBodyViewModel().position, 2));
-                    finish();
+                    getBodyViewModel().deleteAddress();
                 }
             });
         }

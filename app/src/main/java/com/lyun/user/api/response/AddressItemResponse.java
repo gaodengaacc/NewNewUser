@@ -9,33 +9,95 @@ import com.lyun.api.response.BaseResponse;
  */
 
 public class AddressItemResponse extends BaseResponse {
-    private String userName;
+    private String id;
+    private String recipients;
+    private String province = "";
+    private String city = "";
+    private String district = "";
+    private String street = "";
+    private String detailAddress;
     private String phoneNum;
-    private String address;
+    private String isDefault = "0"; //是否为默认地址 0否 1是
 
-    public boolean isDefaultAddress() {
-        return isDefaultAddress;
+    public String getIsDefault() {
+        return isDefault;
     }
 
-    public void setDefaultAddress(boolean defaultAddress) {
-        isDefaultAddress = defaultAddress;
+    public void setIsDefault(String isDefault) {
+        this.isDefault = isDefault;
     }
 
-    private boolean isDefaultAddress;
 
-    public AddressItemResponse(String userName, String phoneNum, String address,boolean isDefaultAddress) {
-        this.userName = userName;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getRecipients() {
+        return recipients;
+    }
+
+    public void setRecipients(String recipients) {
+        this.recipients = recipients;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
+
+
+    public AddressItemResponse(String id, String recipients, String phoneNum, String province, String city, String district, String street, String detailAddress, String isDefault) {
+        this.id = id;
+        this.recipients = recipients;
         this.phoneNum = phoneNum;
-        this.address = address;
-        this.isDefaultAddress = isDefaultAddress;
+        this.province = province;
+        this.city = city;
+        this.district = district;
+        this.street = street;
+        this.detailAddress = detailAddress;
+        this.isDefault = isDefault;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public AddressItemResponse() {
     }
 
     public String getPhoneNum() {
@@ -44,13 +106,5 @@ public class AddressItemResponse extends BaseResponse {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 }

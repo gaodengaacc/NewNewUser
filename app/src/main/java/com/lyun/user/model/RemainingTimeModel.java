@@ -4,7 +4,7 @@ import com.lyun.api.ErrorParser;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
-import com.lyun.user.api.request.RemainingTimeBean;
+import com.lyun.user.api.request.BaseRequestBean;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -14,9 +14,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class RemainingTimeModel extends Model {
-    public Observable<APIResult> getRemainingTime(String cardNo) {
-        RemainingTimeBean bean = new RemainingTimeBean(cardNo);
-        return API.translationOrder.getRemainingTime(bean)
+    public Observable<APIResult> getRemainingTime(String cardNo) {;
+        return API.translationOrder.getRemainingTime(new BaseRequestBean())
                 .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.smarttop.library.bean.AdressBean;
 import com.smarttop.library.bean.City;
-import com.smarttop.library.bean.County;
+import com.smarttop.library.bean.District;
 import com.smarttop.library.bean.Province;
 import com.smarttop.library.bean.Street;
 import com.smarttop.library.db.AssetsDatabaseManager;
@@ -194,28 +194,28 @@ public class AddressDictManager {
      * 获取城市对应的区，乡镇列表
      * @return
      */
-    public List<County> getCountyList(int cityId){
-        List<County> countyList = new ArrayList<>();
+    public List<District> getCountyList(int cityId){
+        List<District> districtList = new ArrayList<>();
         Cursor cursor = db.rawQuery("select * from " + TableField.TABLE_ADDRESS_DICT+" where "+ ADDRESS_DICT_FIELD_PARENTID+"=?"+" order by cast(code as int)", new String[]{String.valueOf(cityId)});
         while (cursor.moveToNext()){
-            County county = new County();
-            county.id = cursor.getInt(cursor.getColumnIndex(ADDRESS_DICT_FIELD_ID));
-            county.code = cursor.getString(cursor.getColumnIndex(ADDRESS_DICT_FIELD_CODE));
-            county.name = cursor.getString(cursor.getColumnIndex(TableField.ADDRESS_DICT_FIELD_NAME));
-            countyList.add(county);
+            District district = new District();
+            district.id = cursor.getInt(cursor.getColumnIndex(ADDRESS_DICT_FIELD_ID));
+            district.code = cursor.getString(cursor.getColumnIndex(ADDRESS_DICT_FIELD_CODE));
+            district.name = cursor.getString(cursor.getColumnIndex(TableField.ADDRESS_DICT_FIELD_NAME));
+            districtList.add(district);
         }
         cursor.close();
-        return countyList;
+        return districtList;
     }
     public String getCounty(String countyCode){
         Cursor cursor = db.rawQuery("select * from " + TableField.TABLE_ADDRESS_DICT+" where "+ ADDRESS_DICT_FIELD_CODE+"=?", new String[]{countyCode});
            if(cursor!=null && cursor.moveToFirst()){
-               County county = new County();
-               county.id = cursor.getInt(cursor.getColumnIndex(ADDRESS_DICT_FIELD_ID));
-               county.code = cursor.getString(cursor.getColumnIndex(ADDRESS_DICT_FIELD_CODE));
-               county.name = cursor.getString(cursor.getColumnIndex(TableField.ADDRESS_DICT_FIELD_NAME));
+               District district = new District();
+               district.id = cursor.getInt(cursor.getColumnIndex(ADDRESS_DICT_FIELD_ID));
+               district.code = cursor.getString(cursor.getColumnIndex(ADDRESS_DICT_FIELD_CODE));
+               district.name = cursor.getString(cursor.getColumnIndex(TableField.ADDRESS_DICT_FIELD_NAME));
                cursor.close();
-               return  county.name;
+               return  district.name;
            }else{
                return "";
            }
