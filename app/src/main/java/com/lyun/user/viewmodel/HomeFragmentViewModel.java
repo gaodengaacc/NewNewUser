@@ -96,10 +96,10 @@ public class HomeFragmentViewModel extends ViewModel {
 
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
         EventMainProgressMessage message = new EventMainProgressMessage(true);
-        EventBus.getDefault().post(message);
         if (unTime <= 0) {
-            EventBus.getDefault().post("您剩余的时间不足,请购买服务时间");
+            EventBus.getDefault().post(new EventMainToastMessage("您剩余的时间不足,请购买服务时间"));
         } else {
+            EventBus.getDefault().post(message);
             onRequestTranslationClickable.set(false);
             // 0=图文 1=语音
             final OrderType orderType = mTranslationOrderType;
