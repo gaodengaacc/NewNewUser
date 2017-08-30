@@ -39,6 +39,7 @@ public class UserServiceCardListViewModel extends ViewModel {
         data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","999",0)));
         data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","6999",1)));
         data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","9999",2)));
+        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","9999",3)));
         UserServiceCardListAdapter adapter = new UserServiceCardListAdapter(data, R.layout.item_user_service_card_layout);
         adapter.setItemClickListener((view, viewModels, position) -> {
             EventBus.getDefault().post( new EventListItemMessage(data.get(position)));

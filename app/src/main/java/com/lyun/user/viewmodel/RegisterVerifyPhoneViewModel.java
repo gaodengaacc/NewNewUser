@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 
+import com.lyun.api.exception.APINeedDealException;
+import com.lyun.api.exception.APINotSuccessException;
+import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.bindingadapter.edittext.ViewBindingAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -150,44 +153,45 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
     private void checkVerification(String username, String smscode) {
         EventBus.getDefault().post(new EventProgressMessage(true));
         new CheckVerificationModel().checkVerification(username, smscode)
-                .subscribeOn(AndroidSchedulers.mainThread())
                 .flatMap(apiResult -> Observable.create(observable -> {
                     if (apiResult.isSuccess()) {
                         observable.onNext(apiResult.getStatus());
                         observable.onComplete();
                     } else {
-                        observable.onError(new Throwable(apiResult.getDescribe()));
+                        observable.onError(new APINotSuccessException(apiResult));
                     }
-                }).doOnError(throwable -> EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()))))
-                .map(result -> isThird)
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .flatMap(isThird -> Observable.create(observable -> {
+                }))
+                .flatMap(result -> Observable.create(observable -> {
                     if (isThird) {
                         observable.onNext(isThird);
                         observable.onComplete();
                     } else {
-                        observable.onError(new Throwable("error"));
+                        observable.onError(new APINeedDealException(new APIResult("-1", "验证成功", null)));
                     }
-                }).doOnError(throwable -> {
-                    EventBus.getDefault().post(new EventProgressMessage(false));
-                    timeCount.cancel();
-                    EventBus.getDefault().post(new EventIntentActivityMessage(intent));
-                    EventBus.getDefault().post(new EventToastMessage("验证成功"));
                 }))
                 .flatMap(result -> new RegisterVerifyPhoneModel().isBind(username, openId, loginType))
                 .flatMap(apiResult -> Observable.create(observable -> {
-                    EventBus.getDefault().post(new EventProgressMessage(false));
-                    if (apiResult.isSuccess() || apiResult.getStatus().equals("7")) {
+                    if (apiResult.isSuccess() || apiResult.getStatus().equals("7")) {  // 7:该用户不存在
                         observable.onNext(apiResult.isSuccess());
                         observable.onComplete();
                     } else {
-                        observable.onError(new Throwable("error"));
+                        observable.onError(new APINotSuccessException(apiResult));
                     }
-                }).doOnError(throwable -> EventBus.getDefault().post(apiResult.getDescribe())))
+                }))
                 .map(result -> (Boolean) result)
                 .subscribe(result -> {
-                    EventBus.getDefault().post(new EventThirdPhoneIsRegisterMessage(result));
-                });
+                            EventBus.getDefault().post(new EventProgressMessage(false));
+                            EventBus.getDefault().post(new EventThirdPhoneIsRegisterMessage(result));
+                        }
+                        , throwable -> {
+                            if (throwable instanceof APINeedDealException) {
+                                timeCount.cancel();
+                                EventBus.getDefault().post(new EventIntentActivityMessage(intent));
+                            }
+                            EventBus.getDefault().post(new EventProgressMessage(false));
+                            EventBus.getDefault().post(throwable.getMessage());
+                        }
+                );
     }
 
     @Override

@@ -95,6 +95,13 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         EventBus.getDefault().register(this);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (dialogViewModel != null)
+            dialogViewModel.dismiss();
+    }
+
     public void init() {
         msgApi = ((AppApplication) AppApplication.getInstance()).getMsgApi();
         mTencent = ((AppApplication) AppApplication.getInstance()).getTencentApi();
@@ -271,9 +278,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
     @Subscribe
     public void onWxLoginSuccess(EventWxLoginSuccessMessage message) {
-//        Toast.makeText(this, "微信登陆成功" + message.getMessage(), Toast.LENGTH_LONG).show();
         getActivityViewModel().getWxOpenId(message.getMessage());
-//        getActivityViewModel().login(true, message.getMessage(), LoginActivity.THIRD_WX);
     }
 
     public void wxLogin() {   //298ae2e8950b6c4ca83ddd4d17a3e97e
@@ -286,10 +291,6 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         req.scope = com.lyun.user.Constants.WX_SCOPE;
         req.state = "wx_login";
         msgApi.sendReq(req);
-//        SubscribeMessage.Req req = new SubscribeMessage.Req();
-//        req.scene = 1000;
-//        req.templateID = "yu37VvNO1JxaDBtnJLFvIhV24bXo1tUy8pC0ipSBYCI";
-//        req.reserved = "10";
         msgApi.sendReq(req);
     }
 
@@ -313,7 +314,6 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
     IUiListener qqListener = new IUiListener() {
         @Override
         public void onComplete(Object o) {
-//            Toast.makeText(getBaseContext(), "登录成功", Toast.LENGTH_LONG).show();
             JSONObject json = ((JSONObject) o);
             try {
                 String openId = (String) json.get("openid");//"access_token"
@@ -337,7 +337,6 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
         @Override
         public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
-//            Toast.makeText(getBaseContext(), "登录成功", Toast.LENGTH_LONG).show();
             getActivityViewModel().login(true, oauth2AccessToken.getUid(), THIRD_WB);
         }
 

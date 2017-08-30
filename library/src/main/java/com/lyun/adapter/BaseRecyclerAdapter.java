@@ -87,11 +87,15 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding, VM extends
                     newPosition = position - 1 < 0 ? 0 : position - 1;
                 else
                     newPosition = position;
-                viewBind(viewModels.get(newPosition), (DB) holder.getViewDataBinding(), position);
+                viewBind(viewModels.get(newPosition), (DB) holder.getViewDataBinding(), newPosition);
                 if (itemClickListener != null) {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (mHeaderView != null)
+                                newPosition = position - 1 < 0 ? 0 : position - 1;
+                            else
+                                newPosition = position;
                             itemClickListener.onItemClick(v, viewModels, newPosition);
                         }
                     });
@@ -100,12 +104,14 @@ public abstract class BaseRecyclerAdapter<DB extends ViewDataBinding, VM extends
                     holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
+                            if (mHeaderView != null)
+                                newPosition = position - 1 < 0 ? 0 : position - 1;
+                            else
+                                newPosition = position;
                             itemLongClickListener.onItemClick(v, viewModels, newPosition);
                             return false;
                         }
                     });
-            } else {
-                return;
             }
         }
     }

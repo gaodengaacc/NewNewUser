@@ -6,6 +6,8 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.view.View;
 
+import com.lyun.api.exception.APINeedDealException;
+import com.lyun.api.exception.APINotSuccessException;
 import com.lyun.library.mvvm.bindingadapter.edittext.ViewBindingAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
@@ -16,7 +18,6 @@ import com.lyun.user.R;
 import com.lyun.user.activity.LoginActivity;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
-import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.login.EventCheckIsBindMessage;
 import com.lyun.user.eventbusmessage.login.EventLoginSuccessMessage;
 import com.lyun.user.eventbusmessage.login.EventQqLoginMessage;
@@ -105,18 +106,14 @@ public class LoginViewModel extends ViewModel {
                         return new LoginModel().login(username.get(), password.get());
                 })
                 .flatMap(result -> Observable.create(observable -> {
-                    if (result.getStatus().equals("0")) {
+                    if (result.isSuccess()) {
                         observable.onNext(result.getContent());
                         observable.onComplete();
+                    } else if (result.getStatus().equals("6")) {//未绑定用户
+                        observable.onError(new APINeedDealException(result));
                     } else {
-                        observable.onError(new Throwable(result.getDescribe()));
+                        observable.onError(new APINotSuccessException(result));
                     }
-                }).doOnError(throwable -> {
-                    EventBus.getDefault().post(new EventProgressMessage(false));
-                    if (throwable.getMessage().equals("未绑定用户"))
-                        EventBus.getDefault().post(new EventCheckIsBindMessage(new EventCheckIsBindMessage.UnBindMessage(openId, thirdType)));
-                    else
-                        EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));
                 }))
                 .map(result -> ((LoginResponse) result))
                 .map(result -> {
@@ -148,8 +145,10 @@ public class LoginViewModel extends ViewModel {
                         },
                         throwable -> {
                             EventBus.getDefault().post(new EventProgressMessage(false));
-                            if (!throwable.getMessage().equals("未绑定用户"))
-                            onLoginFailed.set(throwable);
+                            if (throwable instanceof APINeedDealException)
+                                EventBus.getDefault().post(new EventCheckIsBindMessage(new EventCheckIsBindMessage.UnBindMessage(openId, thirdType)));
+                            else
+                                onLoginFailed.set(throwable);
                         }
                 );
     }
@@ -194,19 +193,12 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void getWxOpenId(String code) {
-        new LoginModel().getWxOpenId(BuildConfig.WX_PAY_APPID, "f46f5ea8a56727bc92e78ee671767971", code)
+        new LoginModel().getWxOpenId(BuildConfig.WX_PAY_APPID, "5de0ead7e50b32a44e85ba30308b898e", code)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(wxOpenIdResponse -> {
                     String openid = wxOpenIdResponse.getOpenid();
                     login(true, openid, LoginActivity.THIRD_WX);
-                    System.out.println(wxOpenIdResponse.getAccess_token() + "errmsg=" +
-                            wxOpenIdResponse.getErrmsg() + "wex_in=" +
-                            wxOpenIdResponse.getExpires_in() + "openid=" +
-                            wxOpenIdResponse.getOpenid() + "refresh_token=" +
-                            wxOpenIdResponse.getRefresh_token() + "scope=" +
-                            wxOpenIdResponse.getScope() + "errcode=" +
-                            wxOpenIdResponse.getErrcode());
-                }, throwable -> throwable.printStackTrace());
+                }, throwable -> onLoginFailed.set(throwable));
     }
 
 }

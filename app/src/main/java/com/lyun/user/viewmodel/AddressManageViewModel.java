@@ -66,11 +66,12 @@ public class AddressManageViewModel extends ViewModel {
         EventBus.getDefault().post(new EventProgressMessage(true));
         addressModel.queryAddress(new BaseRequestBean())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .filter(listAPIResult -> listAPIResult != null && listAPIResult.size() > 0)
-                .subscribe(listAPIResult -> {
+                .filter(listAPIResult -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
-                    itemData.clear();
-                    itemData.addAll(listAPIResult);
+                    return listAPIResult != null && listAPIResult.size() > 0;
+                })
+                .subscribe(listAPIResult -> {
+                    itemData = listAPIResult;
                     setData();
                     listVisible.set(View.VISIBLE);
                     nullBgVisible.set(View.GONE);
@@ -136,7 +137,7 @@ public class AddressManageViewModel extends ViewModel {
     }
 
     public void updateAddress(int position,AddressItemResponse response) {
-        itemViewModelData.get(position).setResponse(response);
+        queryAddress();
     }
 
     public void AddAddress(AddressItemResponse response) {

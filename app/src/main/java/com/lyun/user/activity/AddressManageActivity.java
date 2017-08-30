@@ -56,6 +56,7 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
     @NonNull
     @Override
     protected AddressManageViewModel createBodyViewModel() {
+        dialogViewModel.show();
         return new AddressManageViewModel();
     }
 
