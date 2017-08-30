@@ -28,17 +28,22 @@ public class ServiceCardItemViewModel extends ViewModel {
         switch(data.getCardId()){
             case 0:
                 cardBg.set(R.mipmap.bg_service_card_normal);
-                cardValue.set("普通卡：999元");
+//                cardValue.set("普通卡：999元");
                 buyTextColor.set(Color.parseColor("#4edec8"));
                 break;
             case 1:
                 cardBg.set(R.mipmap.bg_service_card_imp);
-                cardValue.set("贵宾卡：6999元");
+//                cardValue.set("贵宾卡：6999元");
                 buyTextColor.set(Color.parseColor("#f6d592"));
                 break;
             case 2:
                 cardBg.set(R.mipmap.bg_service_card_vip);
-                cardValue.set("VIP卡：9999元");
+//                cardValue.set("VIP卡：9999元");
+                buyTextColor.set(Color.parseColor("#c7cbe0"));
+                break;
+            case 3:
+                cardBg.set(R.mipmap.bg_service_card_experience);
+//                cardValue.set("VIP卡：9999元");
                 buyTextColor.set(Color.parseColor("#c7cbe0"));
                 break;
             default:
