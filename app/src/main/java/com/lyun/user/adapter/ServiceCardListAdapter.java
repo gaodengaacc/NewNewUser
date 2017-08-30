@@ -1,8 +1,8 @@
 package com.lyun.user.adapter;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
-import com.lyun.user.databinding.ItemServiceCardLayoutBinding;
-import com.lyun.user.viewmodel.ServiceCardItemViewModel;
+import com.lyun.user.databinding.ItemServiceCardItemBinding;
+import com.lyun.user.viewmodel.ServiceCardServiceItemViewModel;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import java.util.List;
  * do()
  */
 
-public class ServiceCardListAdapter extends BaseRecyclerAdapter<ItemServiceCardLayoutBinding, ServiceCardItemViewModel> {
-    public ServiceCardListAdapter(List<ServiceCardItemViewModel> viewModels, int layoutId) {
+public class ServiceCardListAdapter extends BaseRecyclerAdapter<ItemServiceCardItemBinding, ServiceCardServiceItemViewModel> {
+    public ServiceCardListAdapter(List<ServiceCardServiceItemViewModel> viewModels, int layoutId) {
         super(viewModels, layoutId);
     }
 
     @Override
-    public void viewBind(ServiceCardItemViewModel viewModel, ItemServiceCardLayoutBinding viewDataBinding, int position) {
+    public void viewBind(ServiceCardServiceItemViewModel viewModel, ItemServiceCardItemBinding viewDataBinding, int position) {
         viewDataBinding.setMvvm(viewModel);
     }
 }

@@ -1,7 +1,9 @@
 package com.lyun.user.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -28,6 +30,7 @@ import com.lyun.user.viewmodel.AfterSaleServiceInvoiceHistoryViewModel;
 import com.lyun.user.viewmodel.AfterSaleServiceOrderHistoryViewModel;
 import com.lyun.user.viewmodel.AfterSaleServiceViewModel;
 import com.lyun.user.viewmodel.RecyclerViewViewModel;
+import com.lyun.user.viewmodel.watchdog.IAfterSaleServiceOrderHistoryViewModelCallbacks;
 import com.lyun.utils.DisplayUtil;
 
 import java.lang.reflect.Field;
@@ -37,7 +40,8 @@ import java.util.List;
 import io.reactivex.Observable;
 
 
-public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAfterSaleServiceBinding, AfterSaleServiceViewModel> {
+public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAfterSaleServiceBinding,
+        AfterSaleServiceViewModel> {
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, AfterSaleServiceActivity.class));
@@ -53,7 +57,7 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
         tabLayout.setupWithViewPager(viewPager);
 
         List<Fragment> pages = new ArrayList<>();
-        pages.add(RecyclerViewFragment.newInstance(new OrderHistoryAdapter()));
+        pages.add(RecyclerViewFragment.newInstance(new OrderHistoryAdapter(this)));
         pages.add(RecyclerViewFragment.newInstance(new InvoiceHistoryAdapter()));
         List<CharSequence> titles = new ArrayList<>();
         titles.add("交易记录");
@@ -107,12 +111,16 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
         return toolbarViewModel;
     }
 
-    public class OrderHistoryAdapter extends RecyclerViewViewModel.RecyclerViewAdapter<ItemAfterSaleServiceOrderHistoryBinding, AfterSaleServiceOrderHistoryViewModel, OrderHistoryResponse> {
+    public class OrderHistoryAdapter extends RecyclerViewViewModel.RecyclerViewAdapter<ItemAfterSaleServiceOrderHistoryBinding,
+            AfterSaleServiceOrderHistoryViewModel,
+            OrderHistoryResponse> implements IAfterSaleServiceOrderHistoryViewModelCallbacks {
 
         private AfterSaleServiceModel mModel;
+        private Context context;
 
-        public OrderHistoryAdapter() {
+        public OrderHistoryAdapter(Activity context) {
             super();
+            this.context = context;
             mModel = new AfterSaleServiceModel();
         }
 
@@ -128,13 +136,19 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
 
         @Override
         protected AfterSaleServiceOrderHistoryViewModel createViewModel(OrderHistoryResponse data) {
-            return new AfterSaleServiceOrderHistoryViewModel();
+            return new AfterSaleServiceOrderHistoryViewModel().setPropertyChangeListener(this);
         }
 
         @Override
         protected Observable<APIResult<APIPageResult<List<OrderHistoryResponse>>>> getPage(int page) {
             return mModel.getOrderHistory(page);
         }
+
+        @Override
+        public void navigateApplyForInvoice(ObservableField observableField, int fieldId) {
+            ApplyForInvoiceActivity.start(context);
+        }
+
     }
 
     public class InvoiceHistoryAdapter extends RecyclerViewViewModel.RecyclerViewAdapter<ItemAfterSaleServiceInvoiceHistoryBinding, AfterSaleServiceInvoiceHistoryViewModel, InvoiceHistoryResponse> {
@@ -166,4 +180,5 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
             return mModel.getInvoiceHistory(page);
         }
     }
+
 }

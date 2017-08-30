@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.ApplyForInvoiceViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f6f9fb"
+                android:orientation="vertical"
+                android:paddingBottom="50dp"
+                tools:context="com.lyun.user.activity.ApplyForInvoiceActivity">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:padding="15dp"
+                    android:text="发票类型：纸质发票"
+                    android:textColor="#485463"
+                    android:textSize="13sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:padding="15dp"
+                            android:text="发票抬头："
+                            android:textColor="#485463"
+                            android:textSize="13sp"/>
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:checked="true"
+                            android:drawableLeft="@drawable/ic_rb_orange_selector"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_vertical"
+                            android:padding="15dp"
+                            android:text="个人"
+                            android:textColor="#485463"
+                            android:textSize="13sp"/>
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableLeft="@drawable/ic_rb_orange_selector"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_vertical"
+                            android:padding="15dp"
+                            android:text="单位"
+                            android:textColor="#485463"
+                            android:textSize="13sp"/>
+
+                    </RadioGroup>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="#dce3ee"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="请填写单位名称"
+                        android:padding="15dp"
+                        android:textColor="#485463"
+                        android:textColorHint="#a6b5c1"
+                        android:textSize="13sp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="#dce3ee"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="请在此填写纳税人识别号"
+                        android:padding="15dp"
+                        android:textColor="#485463"
+                        android:textColorHint="#a6b5c1"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:padding="15dp"
+                    android:text="收件地址："
+                    android:textColor="#485463"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:drawableRight="@mipmap/ic_more_gray"
+                    android:padding="15dp"
+                    android:text="您还没有收件地址哦~"
+                    android:textColor="#485463"
+                    android:textSize="13sp"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_apply_for_invoice_repeat"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:gravity="center"
+                    android:text="申请发票须知"
+                    android:textColor="#485465"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="纳税人识别号是税务登记证上的号码，通常简称为“税号”，每个企业的纳税人识别号都是唯一的。相当于税务局颁发给企业的“身份证”号。您可向贵单位财务部门索取，或可以更具单位名称在国家企业信用信息公示系统查询。\n增值税普通发票类型为[软件服务费]，不可变更。每天20-25日，为发票集中处理期，将为您开具或寄出发票。发票已经开具，非我司原因将无法重开，请务必仔细核对开票信息。\n具体事宜可咨询客服：4000-167-167"
+                    android:textColor="#a7b6c4"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <com.lyun.roundrectview.RoundRectButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="确认申请"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:backgroundColor="#1f9eec"
+            app:cornerRadius="50%"/>
+    </RelativeLayout>
+</layout>

@@ -96,6 +96,7 @@
                 app:backgroundColor="@android:color/transparent"
                 app:borderColor="#1f9eec"
                 app:borderWidth="3px"
+                app:clickCommand="@{mvvm.applyForInvoice}"
                 app:cornerRadius="50%"/>
         </RelativeLayout>
     </LinearLayout>
