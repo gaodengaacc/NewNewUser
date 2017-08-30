@@ -86,7 +86,7 @@ public class GlobalSearchDetailActivity extends UI implements OnItemClickListene
         TextView tipTextView = findView(R.id.search_result_tip);
         tipTextView.setText(tip);
 
-        // listView adapter
+        // listView serviceCardItemAdapter
         lvContacts = findView(R.id.search_result_list);
         IContactDataProvider dataProvider = new ContactDataProvider(ItemTypes.MSG);
 

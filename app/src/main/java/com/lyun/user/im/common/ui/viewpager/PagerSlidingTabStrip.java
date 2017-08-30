@@ -215,7 +215,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements OnPage
         this.pager = pager;
 
         if (pager.getAdapter() == null) {
-            throw new IllegalStateException("ViewPager does not have adapter instance.");
+            throw new IllegalStateException("ViewPager does not have serviceCardItemAdapter instance.");
         }
 
         notifyDataSetChanged();

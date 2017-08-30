@@ -81,7 +81,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
-                        android:text="普通卡"
+                        android:text="@{mvvm.cardName}"
                         android:textColor="#495566"
                         android:textSize="12sp"/>
 
@@ -91,7 +91,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/service_card_name"
-                        android:text="￥999元"
+                        android:text="@{`￥` + mvvm.cardPrice + `元`}"
                         android:textColor="#fe821d"
                         android:textSize="17sp"/>
 
@@ -121,9 +121,10 @@
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     app:currentItem="1"
-                    app:itemView="@{mvvm.serviceCardItemView}"
+                    app:itemView="@{mvvm.serviceCardView}"
                     app:items="@{mvvm.serviceCardViewModels}"
-                    app:offscreenPageLimit="2">
+                    app:offscreenPageLimit="2"
+                    app:onPageSelectedCommand="@{mvvm.onPageSelected}">
 
                 </android.support.v4.view.ViewPager>
 
@@ -148,11 +149,10 @@
             android:divider="@null"
             android:dividerHeight="0dp"
             android:scrollbars="none"
-            app:adapter="@{mvvm.adapter}"
-            app:footer="@{mvvm.footerLayout}"
+            app:adapter="@{mvvm.serviceCardItemAdapter}"
             app:layoutManager="@{mvvm.recyclerViewLayoutManager}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:notifyData="@{mvvm.notifyData}">
+            app:notifyData="@{mvvm.serviceCardItemViewModels}">
 
         </android.support.v7.widget.RecyclerView>
 

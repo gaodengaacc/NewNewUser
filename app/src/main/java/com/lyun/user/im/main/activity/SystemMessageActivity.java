@@ -57,7 +57,7 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
     // view
     private MessageListView listView;
 
-    // adapter
+    // serviceCardItemAdapter
     private SystemMessageAdapter adapter;
     private List<SystemMessage> items = new ArrayList<>();
     private Set<Long> itemIds = new HashSet<>();
@@ -175,7 +175,7 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
             listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
 
-        // adapter
+        // serviceCardItemAdapter
         listView.setAdapter(adapter);
 
         // listener

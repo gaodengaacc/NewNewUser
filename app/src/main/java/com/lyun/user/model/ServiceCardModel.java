@@ -14,16 +14,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ServiceCardModel extends Model {
 
-    private int image;
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-    }
-
     public Observable<APIResult<List<ServiceCardResponse>>> queryServiceCardList(){
         return API.serviceCard.queryServiceCardList(new BaseRequestBean())
                 .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))

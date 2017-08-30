@@ -34,25 +34,73 @@ public class ServiceCardResponse extends BaseResponse {
      */
 
     private String id;
+    /**
+     * 法律服务卡名称
+     */
     private String name;
+    /**
+     * 在线法律咨询次数
+     */
     private int onlineLegalAdviceTime;
+    /**
+     * 资深律师咨询次数
+     */
     private int seniorCounselAdviceTimes;
+    /**
+     * 法律文书定制次数
+     */
     private int legalInstrumentsDraftTimes;
+    /**
+     * 律师函定制次数
+     */
     private int lawyerLetterDraftTimes;
+    /**
+     * 法律文书审核次数
+     */
     private int legalInstrumentsReviewTimes;
+    /**
+     * 法律讲座次数
+     */
     private int legalLectureTimes;
+    /**
+     * 特色主题讲座次数
+     */
     private int featuredTopicLectureTimes;
+    /**
+     * 合同/翻译翻译次数
+     */
     private int contractInstrumentTranslationTimes;
+    /**
+     * 海外律师服务咨询次数
+     */
     private int overseasLawyerServiceConsultationTimes;
+    /**
+     * 标价
+     */
     private int markedPrice;
+    /**
+     * 折扣
+     */
     private int discount;
+    /**
+     * 实价价格
+     */
     private int price;
+    /**
+     * 卡图片地址
+     */
     private String logoImg;
+    /**
+     * 状态(0-有效；1-无效)
+     */
     private String state;
     private Object createTime;
     private Object creator;
     private Object modifyTime;
     private Object modifier;
+    /**
+     * 电话咨询时间
+     */
     private String totalTime;
     private CardTypeBean cardType;
 

@@ -53,7 +53,7 @@ public class CustomNotificationActivity extends UI implements TAdapterDelegate {
 
     private int sendTarget = -1; // 0 好友 1 群
 
-    // adapter
+    // serviceCardItemAdapter
     private TAdapter adapter;
     private List<CustomNotification> items = new ArrayList<>();
 
@@ -146,7 +146,7 @@ public class CustomNotificationActivity extends UI implements TAdapterDelegate {
             listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
 
-        // adapter
+        // serviceCardItemAdapter
         listView.setAdapter(adapter);
     }
 

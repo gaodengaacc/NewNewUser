@@ -11,7 +11,7 @@ public class ServiceCardServiceItemViewModel extends ViewModel {
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> service = new ObservableField<>();
 
-    public ServiceCardServiceItemViewModel(int image,String name,String service){
+    public ServiceCardServiceItemViewModel(int image, String name, String service) {
         this.image.set(image);
         this.name.set(name);
         this.service.set(service);
