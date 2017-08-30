@@ -96,6 +96,7 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         intent.putExtra(TranslationOrder.TARGET_LANGUAGE, message.getMessage().getTargetLanguage());
         startActivity(intent);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void pickSelectText(EventSelectMessage response) {
         getFragmentViewModel().mCurrentLanguage.set(response.getMessage());

@@ -116,7 +116,7 @@ public class HomeFragmentViewModel extends ViewModel {
                             throwable -> {
                                 message.setMessage(false);
                                 EventBus.getDefault().post(message);
-                                onRequestTranslationClickable.set(true);;
+                                onRequestTranslationClickable.set(true);
                                 EventBus.getDefault().post(new EventMainToastMessage(throwable.getMessage()));
                             });
         }

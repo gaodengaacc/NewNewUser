@@ -34,5 +34,6 @@ public class APIConstants {
     public static final String DEFAULT_ADDRESS ="default_address"; //设置默认地址
     public static final String DELETE_ADDRESS ="del_address"; //删除地址
     public static final String UPDATE_ADDRESS ="update_address"; //修改地址
-
+    //服务卡
+    public static final String QUERY_SERVICE_CARD_LIST = "findAllCard";//查询服务卡
 }
