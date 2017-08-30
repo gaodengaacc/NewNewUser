@@ -7,17 +7,8 @@ package com.lyun.user.api.request;
  */
 
 public class WalletChargeRecorderBean extends BaseRequestBean {
-    private String cardNo;
     private String pageid;
     private String pagesize;
-
-    public String getCardNo() {
-        return cardNo;
-    }
-
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
-    }
 
     public String getPageid() {
         return pageid;

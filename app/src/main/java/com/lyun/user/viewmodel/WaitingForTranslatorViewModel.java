@@ -29,7 +29,7 @@ public class WaitingForTranslatorViewModel extends ViewModel {
 
     public WaitingForTranslatorViewModel(String userOrderId) {
         this.userOrderId = userOrderId;
-        status.set("译员正在赶来，请稍候...");
+        status.set("律师正在赶来，请稍候...");
         countDownTime.set(60);
         mCountDownTimer.schedule(mCountDownTimerTask, 1000, 1000);
     }

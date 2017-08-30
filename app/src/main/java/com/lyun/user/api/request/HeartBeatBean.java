@@ -12,11 +12,9 @@ public class HeartBeatBean extends BaseRequestBean {
      */
 
     private String userOrderId;
-    private String cardNo;
 
     public HeartBeatBean(String userOrderId, String cardNo) {
         this.userOrderId = userOrderId;
-        this.cardNo = cardNo;
     }
 
     public String getUserOrderId() {
@@ -26,13 +24,4 @@ public class HeartBeatBean extends BaseRequestBean {
     public void setUserOrderId(String userOrderId) {
         this.userOrderId = userOrderId;
     }
-
-    public String getCardNo() {
-        return cardNo;
-    }
-
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
-    }
-
 }

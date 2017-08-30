@@ -5,20 +5,9 @@ package com.lyun.user.api.request;
  */
 
 public class RemainingTimeBean extends BaseRequestBean {
-    private String cardNo;
-
 
     public RemainingTimeBean(String cardNo) {
-        this.cardNo = cardNo;
+        setCardNo(cardNo);
     }
-
-    public String getCardNo() {
-        return cardNo;
-    }
-
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
-    }
-
 
 }

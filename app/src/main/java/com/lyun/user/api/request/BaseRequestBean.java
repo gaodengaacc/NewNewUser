@@ -23,4 +23,12 @@ public class BaseRequestBean extends BaseRequest {
     }
 
     private String cardNo = Account.preference().getCardNo();
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
 }

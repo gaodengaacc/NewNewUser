@@ -25,7 +25,7 @@
             android:layout_marginTop="30dp"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="@{`服务分类` + mvvm.targetLanguage}"
+            android:text="@{`服务分类：` + mvvm.targetLanguage}"
             android:textColor="@android:color/white"
             android:textSize="16sp"/>
 
