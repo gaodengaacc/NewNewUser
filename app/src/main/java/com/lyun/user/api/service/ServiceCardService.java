@@ -3,6 +3,7 @@ package com.lyun.user.api.service;
 import com.lyun.api.request.BaseRequest;
 import com.lyun.api.response.APIResult;
 import com.lyun.user.api.APIConstants;
+import com.lyun.user.api.response.ServiceCardResponse;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ import retrofit2.http.POST;
 public interface ServiceCardService {
 
     @POST(APIConstants.QUERY_SERVICE_CARD_LIST)
-    Observable<APIResult<List<Object>>> queryServiceCardList(@Body BaseRequest body);
+    Observable<APIResult<List<ServiceCardResponse>>> queryServiceCardList(@Body BaseRequest body);
 }

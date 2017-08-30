@@ -14,9 +14,6 @@ import com.lyun.user.api.response.TranslatorStatusResponse;
 import java.io.Serializable;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -27,8 +24,7 @@ public class TranslationOrderModel extends Model {
 
     public Observable<String> generateOrder(String languageId, String orderTypeId) {
         GenerateOrderRequest request = new GenerateOrderRequest();
-        request.setCardNo(Account.preference().getPhone());
-        request.setLanguageId(languageId);
+        request.setDomainId(languageId);
         request.setOrderTypeId(orderTypeId);
         return parseAPIObservable(API.translationOrder.generateOrder(request).onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
                 .subscribeOn(Schedulers.io())

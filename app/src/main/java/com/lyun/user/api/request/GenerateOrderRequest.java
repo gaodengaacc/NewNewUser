@@ -1,5 +1,7 @@
 package com.lyun.user.api.request;
 
+import com.lyun.user.Account;
+
 /**
  * Created by ZHAOWEIWEI on 2017/2/16.
  */
@@ -7,32 +9,21 @@ package com.lyun.user.api.request;
 public class GenerateOrderRequest extends BaseRequestBean {
 
     /**
-     * 用户账号
-     */
-    public String cardNo;
-    /**
      * 语种ID
      */
-    public String languageId;
+    public String domainId;
     /**
      * 订单类型(0=图文 1=语音)
      */
     public String orderTypeId;
+    public String userId = Account.preference().getPhone();
 
-    public String getCardNo() {
-        return cardNo;
+    public String getDomainId() {
+        return domainId;
     }
 
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
-    }
-
-    public String getLanguageId() {
-        return languageId;
-    }
-
-    public void setLanguageId(String languageId) {
-        this.languageId = languageId;
+    public void setDomainId(String domainId) {
+        this.domainId = domainId;
     }
 
     public String getOrderTypeId() {

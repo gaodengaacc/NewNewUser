@@ -5,6 +5,7 @@ import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.BaseRequestBean;
+import com.lyun.user.api.response.ServiceCardResponse;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class ServiceCardModel extends Model {
         this.image = image;
     }
 
-    public Observable<APIResult<List<Object>>> queryServiceCardList(){
+    public Observable<APIResult<List<ServiceCardResponse>>> queryServiceCardList(){
         return API.serviceCard.queryServiceCardList(new BaseRequestBean())
                 .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
