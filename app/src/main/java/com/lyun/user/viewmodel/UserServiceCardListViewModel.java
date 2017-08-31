@@ -10,13 +10,17 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.adapter.UserServiceCardListAdapter;
-import com.lyun.user.api.response.ServiceCardListItemResponse;
+import com.lyun.user.api.response.MyServiceCardResponse;
 import com.lyun.user.eventbusmessage.EventListItemMessage;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.model.ServiceCardModel;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * @author Gordon
@@ -30,22 +34,45 @@ public class UserServiceCardListViewModel extends ViewModel {
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
     public final ObservableInt footerLayout = new ObservableInt();
+    private List<ServiceCardItemViewModel> data;
+    private List<MyServiceCardResponse> responses;
     public UserServiceCardListViewModel(){
         init();
     }
 
     private void init() {
-        List<ServiceCardItemViewModel> data = new ArrayList<>();
-        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","999",0)));
-        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","6999",1)));
-        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","9999",2)));
-        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","9999",3)));
+        queryMyCard();
+        responses = new ArrayList<>();
+        data = new ArrayList<>();
+//        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","999",0)));
+//        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","6999",1)));
+//        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","9999",2)));
+//        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","9999",3)));
         UserServiceCardListAdapter adapter = new UserServiceCardListAdapter(data, R.layout.item_user_service_card_layout);
         adapter.setItemClickListener((view, viewModels, position) -> {
             EventBus.getDefault().post( new EventListItemMessage(data.get(position)));
         });
         this.adapter.set(adapter);
         footerLayout.set(R.layout.service_card_item_footer_layout);
+    }
+
+    private void queryMyCard() {
+        EventBus.getDefault().post(new EventProgressMessage(true));
+        new ServiceCardModel().queryMyServiceCardList()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(listAPIResult -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    responses = listAPIResult;
+                    setData();
+                });
+    }
+
+    public void setData() {
+        data.clear();
+        for (MyServiceCardResponse response : responses)
+            data.add(new ServiceCardItemViewModel(response));
+        UserServiceCardListAdapter adapter = new UserServiceCardListAdapter(data, R.layout.item_user_service_card_layout);
+        this.adapter.set(adapter);
     }
 }
 

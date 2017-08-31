@@ -22,7 +22,7 @@ public class LoginResponse extends BaseResponse {
      * appToken : abc123
      */
 
-    private String userName;
+    private String userId;
     private String telePhone;
     private String identityCardNo;
     private String nickName;
@@ -44,12 +44,12 @@ public class LoginResponse extends BaseResponse {
 
     private String cardNo;
 
-    public String getUserName() {
-        return userName;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTelePhone() {

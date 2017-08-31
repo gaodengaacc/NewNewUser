@@ -2,6 +2,7 @@ package com.lyun.user.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
@@ -9,6 +10,8 @@ import com.lyun.user.R;
 import com.lyun.user.api.response.ServiceCardListItemResponse;
 import com.lyun.user.databinding.ActivityCardListLayoutBinding;
 import com.lyun.user.eventbusmessage.EventListItemMessage;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.viewmodel.UserServiceCardListViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,11 +53,25 @@ public class UserServiceCardListActivity extends GeneralToolbarActivity<Activity
     @NonNull
     @Override
     protected UserServiceCardListViewModel createBodyViewModel() {
+        dialogViewModel.show();
         return new UserServiceCardListViewModel();
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onItemClick(EventListItemMessage message){
         ServiceCardListItemResponse response = (ServiceCardListItemResponse) message.getMessage();
 
+    }
+
+    @Subscribe
+    public void showProgress(EventProgressMessage message) {
+        if (message.getMessage())
+            dialogViewModel.show();
+        else
+            dialogViewModel.dismiss();
+    }
+
+    @Subscribe
+    public void showToast(EventToastMessage message) {
+        Toast.makeText(getBaseContext(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 }

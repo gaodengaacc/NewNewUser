@@ -5,6 +5,14 @@ import android.view.View;
 
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
+import com.lyun.user.api.response.AccountBindResponse;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.model.LoginModel;
+
+import org.greenrobot.eventbus.EventBus;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * @author Gordon
@@ -25,6 +33,31 @@ public class AccountBindingViewModel extends ViewModel {
         weiBoText.set("未绑定");
         qqText.set("未绑定");
         wxText.set("未绑定");
+        queryBind();
+    }
+
+    private void queryBind() {
+        new LoginModel().relevanceThird()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .filter(result -> result != null && result.size() > 0)
+                .flatMap(result -> Observable.fromIterable(result))
+                .map(response -> response.getChannel())
+                .subscribe(channel -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    switch (channel) {
+                        case AccountBindResponse.QQ_CHANNEL:
+                            qqText.set("已绑定");
+                            break;
+                        case AccountBindResponse.WX_CHANNEL:
+                            wxText.set("已绑定");
+                            break;
+                        case AccountBindResponse.WB_CHANNEL:
+                            weiBoText.set("已绑定");
+                            break;
+                        default:
+                            break;
+                    }
+                });
     }
 
     public void onClickView(View view) {

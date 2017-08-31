@@ -31,4 +31,5 @@ public class BaseRequestBean extends BaseRequest {
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
+    private String userId = Account.preference().getUserId();
 }

@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="8dp"
-                    android:text="1251543131"
+                    android:text="@{mvvm.orderId}"
                     android:textColor="@color/tc14"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="8dp"
-                    android:text="2017-08-02 09:58"
+                    android:text="@{mvvm.tradeTime}"
                     android:textColor="@color/tc14"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="8dp"
-                    android:text="2017-08-02至2018-08-02"
+                    android:text="@{mvvm.userTime}"
                     android:textColor="@color/tc14"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="120分钟"
+                    android:text="@{mvvm.onLineTime}"
                     android:textColor="@color/tc14"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -183,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="2次"
+                    android:text="@{mvvm.seniorTimes}"
                     android:textColor="@color/tc14"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="2次"
+                    android:text="@{mvvm.legalInstrumentsTimes}"
                     android:textColor="@color/tc14"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -246,7 +246,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="2次"
+                    android:text="@{mvvm.legalLectureTimes}"
                     android:textColor="@color/tc14"
                     android:textSize="12sp" />
             </LinearLayout>

@@ -34,6 +34,7 @@ public class Account {
 
 
         private String cardNo;
+        private String userId;
 
         private final String KEY_PHONE = "phone";
         private final String KEY_CARDNO = "cardNo";
@@ -43,11 +44,14 @@ public class Account {
         private final String KEY_LOGIN = "login";
         private final String KEY_WX_APPID = "wx_app_id";
         private final String KEY_SPLASH = "splash";
+        private final String KEY_USERID = "userId";
 
         public void clear() {
             savePassword(null);
             savePhone(null);
             saveToken(null);
+            setCardNo(null);
+            setUserId(null);
             setLogin(false);
         }
 
@@ -60,6 +64,17 @@ public class Account {
         public void setCardNo(String cardNo) {
             saveString(KEY_CARDNO, cardNo);
             this.cardNo = cardNo;
+        }
+
+        public String getUserId() {
+            if (userId == null)
+                userId = getString(KEY_USERID);
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            saveString(KEY_USERID, userId);
+            this.userId = userId;
         }
         public String getPhone() {
             if (phone == null)

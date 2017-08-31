@@ -8,8 +8,10 @@ import com.lyun.http.converter.APIConverterFactory;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.Constants;
 import com.lyun.user.api.API;
+import com.lyun.user.api.request.BaseRequestBean;
 import com.lyun.user.api.request.LoginBean;
 import com.lyun.user.api.request.ThirdLoginBean;
+import com.lyun.user.api.response.AccountBindResponse;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.api.response.WxOpenIdResponse;
 import com.lyun.user.api.service.AuthService;
@@ -18,6 +20,7 @@ import com.lyun.utils.MD5Util;
 import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -42,6 +45,12 @@ public class LoginModel extends Model {
 
     public Observable<APIResult<LoginResponse>> login(String openId) {
         return   API.auth.login(new ThirdLoginBean(openId)).onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+    }
+
+    public Observable<List<AccountBindResponse>> relevanceThird() {
+        return parseAPIObservable(API.auth.relevanceThird(new BaseRequestBean()).onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
