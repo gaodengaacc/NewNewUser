@@ -89,15 +89,15 @@ public class ServiceCardResponse extends BaseResponse {
     /**
      * 标价
      */
-    private int markedPrice;
+    private double markedPrice;
     /**
      * 折扣
      */
-    private int discount;
+    private double discount;
     /**
      * 实价价格
      */
-    private int price;
+    private double price;
     /**
      * 卡图片地址
      */
@@ -228,27 +228,27 @@ public class ServiceCardResponse extends BaseResponse {
         this.overseasLawyerServiceConsultationTimes = overseasLawyerServiceConsultationTimes;
     }
 
-    public int getMarkedPrice() {
+    public double getMarkedPrice() {
         return markedPrice;
     }
 
-    public void setMarkedPrice(int markedPrice) {
+    public void setMarkedPrice(double markedPrice) {
         this.markedPrice = markedPrice;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

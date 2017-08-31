@@ -78,8 +78,6 @@ public class CardPayDialogViewModel extends DialogViewModel {
 
     }
 
-    ;
-
     public boolean isFastDoubleClick() {
         long time = System.currentTimeMillis();
         long timeD = time - lastClickTime;

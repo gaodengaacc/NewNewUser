@@ -1,6 +1,7 @@
 package com.lyun.user.viewmodel;
 
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableDouble;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.databinding.ObservableList;
@@ -11,6 +12,7 @@ import android.view.View;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
+import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppApplication;
 import com.lyun.user.BR;
@@ -18,6 +20,8 @@ import com.lyun.user.R;
 import com.lyun.user.adapter.ServiceCardListAdapter;
 import com.lyun.user.api.response.ServiceCardResponse;
 import com.lyun.user.model.ServiceCardModel;
+
+import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +41,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
     public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
 
     public final ObservableField<String> cardName = new ObservableField<>();
-    public final ObservableInt cardPrice = new ObservableInt();
+    public final ObservableDouble cardPrice = new ObservableDouble();
 
     public final ObservableInt currentPage = new ObservableInt();
 
@@ -46,6 +50,11 @@ public class FragmentServiceCardViewModel extends ViewModel {
 
     public final ObservableField<BaseRecyclerAdapter> serviceCardItemAdapter = new ObservableField<>();
     public final ObservableList<ViewModel> serviceCardItemViewModels = new ObservableArrayList<>();
+
+    @WatchThis
+    public final ObservableDouble buyCard = new ObservableDouble();
+    @WatchThis
+    public final ObservableField navigateCardDetail = new ObservableField();
 
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(AppApplication.getInstance(), 3);
@@ -93,7 +102,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
 
                             // 案件委托
                             if (card.getCaseConsignTimes() > 0) {
-                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_legal_doc_customization, "法律文书定制", card.getLegalInstrumentsDraftTimes() + "次"));
+                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_legal_doc_customization, "案件委托", card.getLegalInstrumentsDraftTimes() + "折"));
                             }
 
                             //法律文书定制
@@ -133,13 +142,13 @@ public class FragmentServiceCardViewModel extends ViewModel {
 
                             // 海外案件委托
                             if (card.getOverseasCaseConsignTimes() > 0) {
-                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_oversea_legal_advice, "海外法律服务咨询", card.getOverseasLawyerServiceConsultationTimes() + "次"));
+                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_oversea_legal_advice, "海外案件委托", card.getOverseasLawyerServiceConsultationTimes() + "折"));
                             }
 
                             serviceCardViewModels.add(new ServiceCardViewModel(card.getName(), card.getPrice(), card.getLogoImg(), itemViewModels));
 
                             currentPage.set(0);
-                            currentPage.notifyChange();
+                            onPageSelected.execute(0);
                         }
                     }
                 });
@@ -152,4 +161,11 @@ public class FragmentServiceCardViewModel extends ViewModel {
         cardPrice.set(serviceCardViewModels.get(page).price.get());
     });
 
+    public final RelayCommand onBuyCard = new RelayCommand(() -> {
+        ObservableNotifier.alwaysNotify(buyCard, cardPrice.get());
+    });
+
+    public final RelayCommand showCardDetail = new RelayCommand(() -> {
+        ObservableNotifier.alwaysNotify(navigateCardDetail, null);
+    });
 }

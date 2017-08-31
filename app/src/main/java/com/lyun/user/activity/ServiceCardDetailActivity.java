@@ -1,5 +1,7 @@
 package com.lyun.user.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
@@ -31,6 +33,9 @@ public class ServiceCardDetailActivity extends MvvmActivity<ActivityServiceCardD
     private CardPayDialog dialog;
     private CardPayDialogViewModel payViewModel;
 
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, ServiceCardDetailActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +94,7 @@ public class ServiceCardDetailActivity extends MvvmActivity<ActivityServiceCardD
                                     Account.preference().saveWxAppId(response.getAppid());
                                 }
                             } else {
-                                Toast.makeText(getBaseContext(),result.getDescribe(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), result.getDescribe(), Toast.LENGTH_LONG).show();
                             }
 
                         }, throwable -> {

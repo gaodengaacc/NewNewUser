@@ -64,7 +64,8 @@
                         android:padding="15dp"
                         android:text="查看详情"
                         android:textColor="#1f9eec"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp"
+                        app:clickCommand="@{mvvm.showCardDetail}"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -109,6 +110,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="13sp"
                         app:backgroundColor="#1f9eec"
+                        app:clickCommand="@{mvvm.onBuyCard}"
                         app:cornerRadius="50%"/>
                 </RelativeLayout>
 
