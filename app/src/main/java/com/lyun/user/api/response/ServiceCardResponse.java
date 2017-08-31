@@ -39,6 +39,18 @@ public class ServiceCardResponse extends BaseResponse {
      */
     private String name;
     /**
+     * 在线资深律师咨询次数
+     */
+    private int onlineSeniorCounselAdviceTimes;
+    /**
+     * 案件委托次数
+     */
+    private int caseConsignTimes;
+    /**
+     * 海外案件委托/线下次数
+     */
+    private int overseasCaseConsignTimes;
+    /**
      * 在线法律咨询次数
      */
     private int onlineLegalAdviceTime;
@@ -99,10 +111,10 @@ public class ServiceCardResponse extends BaseResponse {
     private Object modifyTime;
     private Object modifier;
     /**
-     * 电话咨询时间
+     * 通话总时长
      */
     private String totalTime;
-    private CardTypeBean cardType;
+    private String cardType;
 
     public String getId() {
         return id;
@@ -118,6 +130,30 @@ public class ServiceCardResponse extends BaseResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getOnlineSeniorCounselAdviceTimes() {
+        return onlineSeniorCounselAdviceTimes;
+    }
+
+    public void setOnlineSeniorCounselAdviceTimes(int onlineSeniorCounselAdviceTimes) {
+        this.onlineSeniorCounselAdviceTimes = onlineSeniorCounselAdviceTimes;
+    }
+
+    public int getCaseConsignTimes() {
+        return caseConsignTimes;
+    }
+
+    public void setCaseConsignTimes(int caseConsignTimes) {
+        this.caseConsignTimes = caseConsignTimes;
+    }
+
+    public int getOverseasCaseConsignTimes() {
+        return overseasCaseConsignTimes;
+    }
+
+    public void setOverseasCaseConsignTimes(int overseasCaseConsignTimes) {
+        this.overseasCaseConsignTimes = overseasCaseConsignTimes;
     }
 
     public int getOnlineLegalAdviceTime() {
@@ -272,37 +308,11 @@ public class ServiceCardResponse extends BaseResponse {
         this.totalTime = totalTime;
     }
 
-    public CardTypeBean getCardType() {
+    public String getCardType() {
         return cardType;
     }
 
-    public void setCardType(CardTypeBean cardType) {
+    public void setCardType(String cardType) {
         this.cardType = cardType;
-    }
-
-    public static class CardTypeBean {
-        /**
-         * id : 2
-         * name : 普通卡
-         */
-
-        private int id;
-        private String name;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 }

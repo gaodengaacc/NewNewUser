@@ -39,6 +39,8 @@ public class FragmentServiceCardViewModel extends ViewModel {
     public final ObservableField<String> cardName = new ObservableField<>();
     public final ObservableInt cardPrice = new ObservableInt();
 
+    public final ObservableInt currentPage = new ObservableInt();
+
     public final ObservableList<ServiceCardViewModel> serviceCardViewModels = new ObservableArrayList<>();
     public final ObservableField<ItemView> serviceCardView = new ObservableField<>();
 
@@ -89,7 +91,10 @@ public class FragmentServiceCardViewModel extends ViewModel {
                                 itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_senior_counsel, "资深律师咨询", card.getSeniorCounselAdviceTimes() + "次"));
                             }
 
-                            //TODO 案件委托
+                            // 案件委托
+                            if (card.getCaseConsignTimes() > 0) {
+                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_legal_doc_customization, "法律文书定制", card.getLegalInstrumentsDraftTimes() + "次"));
+                            }
 
                             //法律文书定制
                             if (card.getLegalInstrumentsDraftTimes() > 0) {
@@ -126,10 +131,15 @@ public class FragmentServiceCardViewModel extends ViewModel {
                                 itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_oversea_legal_advice, "海外法律服务咨询", card.getOverseasLawyerServiceConsultationTimes() + "次"));
                             }
 
-                            //TODO 海外案件委托
+                            // 海外案件委托
+                            if (card.getOverseasCaseConsignTimes() > 0) {
+                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_oversea_legal_advice, "海外法律服务咨询", card.getOverseasLawyerServiceConsultationTimes() + "次"));
+                            }
 
                             serviceCardViewModels.add(new ServiceCardViewModel(card.getName(), card.getPrice(), card.getLogoImg(), itemViewModels));
 
+                            currentPage.set(0);
+                            currentPage.notifyChange();
                         }
                     }
                 });

@@ -120,7 +120,7 @@
                     android:layout_centerHorizontal="true"
                     android:clipChildren="false"
                     android:clipToPadding="false"
-                    app:currentItem="1"
+                    app:currentItem="@{mvvm.currentPage}"
                     app:itemView="@{mvvm.serviceCardView}"
                     app:items="@{mvvm.serviceCardViewModels}"
                     app:offscreenPageLimit="2"

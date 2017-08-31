@@ -186,8 +186,8 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
     // 如果已经存在用户登录信息，返回LoginInfo，否则返回null即可
     private LoginInfo getLoginInfo() {
         if (Account.preference().isLogin()) {
-            NimCache.setAccount(Account.preference().getPhone());
-            return new LoginInfo(Account.preference().getPhone(), Account.preference().getNimToken());
+            NimCache.setAccount(Account.preference().getCardNo());
+            return new LoginInfo(Account.preference().getCardNo(), Account.preference().getNimToken());
         } else {
             return null;
         }
