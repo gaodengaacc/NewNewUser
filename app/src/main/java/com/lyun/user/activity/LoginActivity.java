@@ -118,6 +118,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         msgApi = null;
         mTencent = null;
         mSsoHandler = null;
+        qqListener = null;
 
     }
 

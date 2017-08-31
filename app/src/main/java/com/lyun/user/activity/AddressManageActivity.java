@@ -1,12 +1,15 @@
 package com.lyun.user.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
+import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityAddressManageBinding;
 import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
@@ -26,6 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 
 public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddressManageBinding, AddressManageViewModel> {
+    private SimpleDialogViewModel simpleDialogViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +94,8 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
                 EventBus.getDefault().post(new EventIntentActivityMessage(intent));
                 break;
             case 2:
-                getBodyViewModel().deleteAddress(message.getMessage(), false);
+//                getBodyViewModel().deleteAddress(message.getMessage(), false);
+                showDeleteDialog(message.getMessage());
                 break;
             case 3:
                 getBodyViewModel().updateAddress(message.getMessage(),message.getResponse());
@@ -111,5 +116,27 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
     @Subscribe
     public void toAddActivity(EventIntentActivityMessage message) {
         startActivity(message.getMessage().setClass(this, AddAddressActivity.class));
+    }
+
+    public void showDeleteDialog(final int position) {
+        if (simpleDialogViewModel == null) {
+            simpleDialogViewModel = new SimpleDialogViewModel(this);
+            simpleDialogViewModel.setInfo("确认删除地址吗？");
+            simpleDialogViewModel.setCancelBtnText("是");
+            simpleDialogViewModel.setYesBtnText("否");
+            simpleDialogViewModel.setBtnCancelTextColor(Color.parseColor("#fe811c"));
+            simpleDialogViewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
+                @Override
+                public void OnYesClick(View view) {
+
+                }
+
+                @Override
+                public void OnCancelClick(View view) {
+                    getBodyViewModel().deleteAddress(position, false);
+                }
+            });
+        }
+        simpleDialogViewModel.show();
     }
 }

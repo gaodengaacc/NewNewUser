@@ -43,7 +43,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public void onResume() {
         super.onResume();
         if (Account.preference().isLogin()) {
-            getUserDes(Account.preference().getPhone());//获取数据统计
+            getUserDes(Account.preference().getUserId());//获取数据统计
             setUserInformation();
         } else {
             userName.set("");
@@ -71,7 +71,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     }
 
     private void setUserInformation() {
-        userName.set(hideUserName(Account.preference().getPhone()));//更新昵称
+        userName.set(hideUserName(Account.preference().getUserId()));//更新昵称
     }
 
     private String hideUserName(String phone) {

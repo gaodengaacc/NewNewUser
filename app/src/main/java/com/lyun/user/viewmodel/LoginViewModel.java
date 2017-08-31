@@ -117,19 +117,17 @@ public class LoginViewModel extends ViewModel {
                 }))
                 .map(result -> ((LoginResponse) result))
                 .map(result -> {
-                    appToken = result.getAppToken();
+                    Account.preference().setUserId(result.getUserId());
+                    Account.preference().setCardNo(result.getCardNo());
+                    Account.preference().saveToken(result.getAppToken());
+                    Account.preference().saveNimToken(result.getYunXinToken());
+                    Account.preference().savePassword(password.get());
                     yunCardNo = result.getCardNo();
-                    yunToken = result.getYunXinToken();
-                    return yunToken;
+                    return result.getYunXinToken();
                 })
                 .subscribeOn(Schedulers.newThread())
-                .flatMap(onLoginResult -> NimLoginHelper.login(yunCardNo, onLoginResult))
+                .flatMap(yunXinToken -> NimLoginHelper.login(yunCardNo, yunXinToken))
                 .map(loginInfo -> {
-                    Account.preference().savePhone(username.get());
-                    Account.preference().setCardNo(yunCardNo);
-                    Account.preference().savePassword(password.get());
-                    Account.preference().saveToken(appToken);
-                    Account.preference().saveNimToken(yunToken);
                     Account.preference().setLogin(true);
                     return !Account.preference().isFirstSplash();
                 })

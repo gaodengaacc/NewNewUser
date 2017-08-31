@@ -18,6 +18,7 @@ import com.lyun.user.api.request.ThirdLoginBindBean;
 import com.lyun.user.api.request.ThirdLoginRegisterBean;
 import com.lyun.user.api.request.WalletChargeBean;
 import com.lyun.user.api.request.WalletChargeRecorderBean;
+import com.lyun.user.api.response.AccountBindResponse;
 import com.lyun.user.api.response.AddressItemResponse;
 import com.lyun.user.api.response.LoginResponse;
 import com.lyun.user.api.response.StatisticsCardNoResponse;
@@ -54,6 +55,9 @@ public interface AuthService {
     @POST(APIConstants.THIRD_LOGIN_BIND)
     Observable<APIResult> isThirdBind(@Body ThirdLoginBindBean body);
 
+    @POST(APIConstants.RELEVANCE_THIRD)
+    Observable<APIResult<List<AccountBindResponse>>> relevanceThird(@Body BaseRequestBean body);
+
     @POST(APIConstants.REGISTERVERIFYPHONE)
     Observable<APIResult> getSmsCode(@Body RegisterVerifyPhoneBean body);
 
@@ -87,6 +91,7 @@ public interface AuthService {
 
     @POST(APIConstants.STATISTICS_CARDNO)
     Observable<APIResult<StatisticsCardNoResponse>> getStatistics(@Body  BaseRequestBean body);
+
     //地址管理
     @POST(APIConstants.ADD_ADDRESS)
     Observable<APIResult> addAddress(@Body AddAddressRequestBean body);
