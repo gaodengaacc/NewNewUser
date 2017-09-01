@@ -28,6 +28,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author Gordon
@@ -65,11 +66,12 @@ public class AddressManageViewModel extends ViewModel {
     public void queryAddress() {
         EventBus.getDefault().post(new EventProgressMessage(true));
         addressModel.queryAddress(new BaseRequestBean())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
                 .filter(listAPIResult -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     return listAPIResult != null && listAPIResult.size() > 0;
                 })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listAPIResult -> {
                     itemData = listAPIResult;
                     setData();
@@ -96,7 +98,8 @@ public class AddressManageViewModel extends ViewModel {
                     return responseViewModel;
                 })
                 .filter(responseViewModel -> responseViewModel.position == itemViewModelData.size() - 1)
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     itemViewModelData.get(position).setSelectBg(true);
@@ -119,7 +122,8 @@ public class AddressManageViewModel extends ViewModel {
                                 return new AddressModel().deleteAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()));
                         }
                 )
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     EventBus.getDefault().post(new EventToastMessage("删除成功"));
@@ -147,8 +151,7 @@ public class AddressManageViewModel extends ViewModel {
         itemViewModelData.clear();
         for (AddressItemResponse response : itemData)
                     itemViewModelData.add(new AddressManageItemViewModel(response));
-        itemAdapter = new AddressManageItemAdapter(itemViewModelData, R.layout.item_address_layout);
-        adapter.set(itemAdapter);
+        itemAdapter.setListData(itemViewModelData);
     }
 
 }

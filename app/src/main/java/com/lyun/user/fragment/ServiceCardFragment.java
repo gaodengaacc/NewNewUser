@@ -10,9 +10,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
-import com.lyun.user.Account;
+import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCardDetailActivity;
 import com.lyun.user.api.response.ServiceCardListItemResponse;
@@ -23,8 +22,11 @@ import com.lyun.user.databinding.FragmentServiceCardBinding;
 import com.lyun.user.dialog.CardPayDialog;
 import com.lyun.user.eventbusmessage.EventListItemMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventPayReadyMessage;
+import com.lyun.user.eventbusmessage.cardpay.EventPayResultMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
 import com.lyun.user.model.WalletChargeModel;
+import com.lyun.user.pay.alipay.AliPayManager;
+import com.lyun.user.pay.wxpay.WXPayManager;
 import com.lyun.user.viewmodel.CardPayDialogViewModel;
 import com.lyun.user.viewmodel.FragmentServiceCardViewModel;
 import com.lyun.user.viewmodel.WalletChargeViewModel;
@@ -37,6 +39,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,7 +48,9 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     private CardPayDialog dialog;
     private CardPayDialogViewModel payViewModel;
-
+    private AliPayManager aliPayManager;
+    private WXPayManager wxPayManager;
+    private String action = "ServiceCardFragment";
     public ServiceCardFragment() {
     }
 
@@ -121,8 +126,8 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     public void showPayDialog(double cost) {
         if (payViewModel == null)
-            payViewModel = new CardPayDialogViewModel(cost);
-        payViewModel.setMoney(cost);
+            payViewModel = new CardPayDialogViewModel(cost, getFragmentViewModel().id, action);
+        payViewModel.setMoney(cost, getFragmentViewModel().id);
         if (dialog == null)
             dialog = new CardPayDialog(getActivity(), payViewModel);
         dialog.show();
@@ -130,28 +135,34 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void payReadyClick(EventPayReadyMessage message) {
+        if (!message.getMessage().action.equals(action)) return;
         dialogViewModel.show();
-        new WalletChargeModel().getWalletChargeOrder(message.getMessage().type.value, Account.preference().getPhone(), String.valueOf(message.getMessage().money), "5")
+        Observable.just(message.getMessage().type)
+                .flatMap(type -> {
+                    if (type == WalletChargeViewModel.PayType.ALI)
+                        return new WalletChargeModel().getAliWalletChargeOrder(message.getMessage().cardId);
+                    else
+                        return new WalletChargeModel().getWxWalletChargeOrder(message.getMessage().cardId);
+                })
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        apiResult -> {
-                            dialogViewModel.dismiss();
-                            APIResult result = (APIResult) apiResult;
-                            if (result.isSuccess()) {
-                                if (message.getMessage().type == WalletChargeViewModel.PayType.ALI) {//支付宝
-                                    WalletChargeAliPayResponse response = (WalletChargeAliPayResponse) result.getContent();
-                                } else if (message.getMessage().type == WalletChargeViewModel.PayType.WX) {//微信
-                                    WalletChargeWxPayResponse response = (WalletChargeWxPayResponse) result.getContent();
-                                    Account.preference().saveWxAppId(response.getAppid());
-                                }
-                            } else {
-                                Toast.makeText(getContext(), result.getDescribe(), Toast.LENGTH_LONG).show();
-                            }
+                .subscribe(response -> {
+                    dialogViewModel.dismiss();
+                    if (response instanceof WalletChargeAliPayResponse)
+                        aliPay(((WalletChargeAliPayResponse) response).getSign());
+                    else
+                        wxPay((WalletChargeWxPayResponse) response);
+                }, throwable -> {
+                    dialogViewModel.dismiss();
+                    Toast.makeText(AppApplication.getInstance(), throwable.getMessage(), Toast.LENGTH_LONG).show();
+                });
+    }
 
-                        }, throwable -> {
-                        }
-                );
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showPayResult(EventPayResultMessage message) {
+        if (message.isSuccess())
+            if (dialog != null) dialog.dismiss();
+        Toast.makeText(AppApplication.getInstance(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     public class ServiceCardPageTransformer implements ViewPager.PageTransformer {
@@ -179,5 +190,18 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
             page.setScaleX(scale);
             page.setTranslationX(translationX);
         }
+    }
+
+    public void aliPay(String sign) {
+        if (aliPayManager == null)
+            aliPayManager = new AliPayManager();
+        aliPayManager.alipay(getActivity(), sign);
+    }
+
+    public void wxPay(WalletChargeWxPayResponse response) {
+        if (wxPayManager == null)
+            wxPayManager = new WXPayManager();
+        if (!wxPayManager.wxPay(response))
+            Toast.makeText(AppApplication.getInstance(), "请安装微信客户端", Toast.LENGTH_LONG).show();
     }
 }

@@ -1,13 +1,13 @@
 package com.lyun.user.pay.wxpay;
 
-import android.app.Activity;
 import android.content.Context;
 
+import com.lyun.user.AppApplication;
 import com.lyun.user.BuildConfig;
+import com.lyun.user.api.response.WalletChargeWxPayResponse;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.io.Serializable;
 
@@ -23,6 +23,7 @@ public class WXPayManager implements Serializable {
 	 * 
 	 */
 	public WXPayManager() {
+		msgApi = ((AppApplication) AppApplication.getInstance()).getMsgApi();
 	}
 
 	/**
@@ -30,9 +31,7 @@ public class WXPayManager implements Serializable {
 	 * 
 	 *
 	 */
-	public Boolean sendPayReq(Activity activity,String appId,String partnerId, String prepayid, String nonce, String timeStamp, String sign) {
-		if (msgApi == null)
-			msgApi = WXAPIFactory.createWXAPI(activity, null);
+	public Boolean sendPayReq(String appId, String partnerId, String prepayid, String nonce, String timeStamp, String sign) {
 		if(!msgApi.isWXAppInstalled())
 			return false;
 		msgApi.registerApp(appId);
@@ -47,14 +46,21 @@ public class WXPayManager implements Serializable {
 		msgApi.sendReq(req);
 		return true;
 	}
+
+	public boolean wxPay(WalletChargeWxPayResponse response) {
+		return sendPayReq(response.getAppid(),
+				response.getPartnerid(),
+				response.getPrepayid(),
+				response.getNoncestr(),
+				response.getTimestamp(),
+				response.getSign());
+	}
 	/**
 	 * 发送支付请求
 	 *
 	 *
 	 */
 	public Boolean sendLoginReq(Context context) {
-		if (msgApi == null)
-			msgApi = WXAPIFactory.createWXAPI(context, null);
 		if(!msgApi.isWXAppInstalled())
 			return false;
 		msgApi.registerApp(BuildConfig.WX_PAY_APPID);

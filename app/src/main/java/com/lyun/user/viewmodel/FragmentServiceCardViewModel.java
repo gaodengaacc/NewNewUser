@@ -50,6 +50,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
 
     public final ObservableField<BaseRecyclerAdapter> serviceCardItemAdapter = new ObservableField<>();
     public final ObservableList<ViewModel> serviceCardItemViewModels = new ObservableArrayList<>();
+    public String id;
 
     protected List<ServiceCardResponse> mServiceCardList = new ArrayList<>();
 
@@ -147,8 +148,8 @@ public class FragmentServiceCardViewModel extends ViewModel {
                                 itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_oversea_legal_advice, "海外案件委托", card.getOverseasLawyerServiceConsultationTimes() + "折"));
                             }
 
-                            serviceCardViewModels.add(new ServiceCardViewModel(card.getName(), card.getPrice(), card.getLogoImg(), itemViewModels));
-
+                            serviceCardViewModels.add(new ServiceCardViewModel(card.getName(), card.getPrice(), card.getLogoImg(), card.getId(), itemViewModels));
+                            id = serviceCardViewModels.get(0).id;
                             currentPage.set(0);
                             onPageSelected.execute(0);
                         }
@@ -161,6 +162,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
         serviceCardItemViewModels.addAll(serviceCardViewModels.get(page).itemViewModels);
         cardName.set(serviceCardViewModels.get(page).name.get());
         cardPrice.set(serviceCardViewModels.get(page).price.get());
+        id = serviceCardViewModels.get(page).id;
     });
 
     public final RelayCommand onBuyCard = new RelayCommand(() -> {

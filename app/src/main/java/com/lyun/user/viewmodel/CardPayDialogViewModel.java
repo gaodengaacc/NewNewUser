@@ -28,16 +28,23 @@ public class CardPayDialogViewModel extends DialogViewModel {
     private double money;
     private EventPayReadyMessage message;
     private EventPayReadyMessage.PayReadyInfo payReadyInfo;
+    public String id;
+    private String action;
 
-    public CardPayDialogViewModel(Double money) {
+    public CardPayDialogViewModel(Double money, String id, String action) {
+        this.id = id;
+        this.action = action;
         init(money);
     }
 
-    public void setMoney(Double money) {
+    public void setMoney(Double money, String id) {
+        this.money = money;
+        this.id = id;
         buyMoney.set("￥" + money + "元");
     }
 
     private void init(Double money) {
+        this.money = money;
         aliSelect.set(R.mipmap.wallet_charge_select);
         wxSelect.set(R.mipmap.wallet_charge_unselect);
         buyMoney.set("￥" + money + "元");
@@ -71,6 +78,8 @@ public class CardPayDialogViewModel extends DialogViewModel {
                     payReadyInfo = (payReadyInfo == null) ? (new EventPayReadyMessage.PayReadyInfo()) : payReadyInfo;
                     payReadyInfo.money = money;
                     payReadyInfo.type = PAY_WAY;
+                    payReadyInfo.cardId = id;
+                    payReadyInfo.action = action;
                     message = message == null ? new EventPayReadyMessage() : message;
                     message.setMessage(payReadyInfo);
                     EventBus.getDefault().post(message);

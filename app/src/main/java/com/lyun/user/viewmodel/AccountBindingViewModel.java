@@ -11,7 +11,10 @@ import com.lyun.user.model.LoginModel;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
@@ -39,7 +42,12 @@ public class AccountBindingViewModel extends ViewModel {
     private void queryBind() {
         new LoginModel().relevanceThird()
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .filter(result -> result != null && result.size() > 0)
+                .flatMap(result -> Observable.create((ObservableOnSubscribe<List<AccountBindResponse>>) observable -> {
+                    if (result != null && result.size() > 0) {
+                        observable.onNext(result);
+                        observable.onComplete();
+                    } else observable.onError(new Throwable());
+                }))
                 .flatMap(result -> Observable.fromIterable(result))
                 .map(response -> response.getChannel())
                 .subscribe(channel -> {
@@ -57,7 +65,7 @@ public class AccountBindingViewModel extends ViewModel {
                         default:
                             break;
                     }
-                });
+                }, throwable -> EventBus.getDefault().post(new EventProgressMessage(false)));
     }
 
     public void onClickView(View view) {

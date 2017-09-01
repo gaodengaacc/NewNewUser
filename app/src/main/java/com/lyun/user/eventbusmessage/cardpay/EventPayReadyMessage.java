@@ -11,7 +11,6 @@ import com.lyun.user.viewmodel.WalletChargeViewModel;
 
 public class EventPayReadyMessage implements EventMessage<EventPayReadyMessage.PayReadyInfo> {
     private PayReadyInfo info;
-
     @Override
     public void setMessage(PayReadyInfo o) {
         info = o;
@@ -33,10 +32,14 @@ public class EventPayReadyMessage implements EventMessage<EventPayReadyMessage.P
     public static class PayReadyInfo {
         public double money;
         public WalletChargeViewModel.PayType type;
+        public String cardId;
+        public String action;
 
-        public PayReadyInfo(double money, WalletChargeViewModel.PayType type) {
+        public PayReadyInfo(double money, WalletChargeViewModel.PayType type, String cardId,String action) {
             this.money = money;
             this.type = type;
+            this.cardId = cardId;
+            this.action = action;
         }
 
         public PayReadyInfo() {

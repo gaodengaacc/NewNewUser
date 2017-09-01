@@ -20,8 +20,10 @@ public class ServiceCardViewModel extends ViewModel {
     public final ObservableDouble price = new ObservableDouble();
 
     public final ObservableList<ServiceCardServiceItemViewModel> itemViewModels = new ObservableArrayList<>();
+    public String id;
 
-    public ServiceCardViewModel(String name, double price, String image, List<ServiceCardServiceItemViewModel> itemViewModels) {
+    public ServiceCardViewModel(String name, double price, String image, String id, List<ServiceCardServiceItemViewModel> itemViewModels) {
+        this.id = id;
         this.name.set(name);
         this.price.set(price);
         this.image.set(image);

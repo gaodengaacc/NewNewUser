@@ -8,13 +8,10 @@ import android.databinding.ObservableInt;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
-import com.lyun.user.Account;
 import com.lyun.user.AppIntent;
 import com.lyun.user.R;
-import com.lyun.user.api.response.WalletChargeAliPayResponse;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
 import com.lyun.user.model.WalletChargeModel;
 import com.lyun.user.pay.alipay.OnPayCallBack;
@@ -22,9 +19,6 @@ import com.lyun.user.wxapi.WXPayEntryActivity;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author Gordon
@@ -150,31 +144,31 @@ public class WalletChargeViewModel extends ViewModel {
     private void getPayOrder(PayType payType) {
         if (model == null)
             model = new WalletChargeModel();
-        model.getWalletChargeOrder(payType.value, Account.preference().getPhone(), moneyResultText.get(), availableMin.get())
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        apiResult -> {
-                            isShowDialog.set(false);
-                            APIResult result = (APIResult) apiResult;
-                            if (result.isSuccess()) {
-                                if (payType == PayType.ALI) {//支付宝
-                                    WalletChargeAliPayResponse response = (WalletChargeAliPayResponse) result.getContent();
-                                    ObservableNotifier.alwaysNotify(aliPay, response.getSign());
-                                    userOrderId = response.getUserOrderid();
-                                } else if (payType == PayType.WX) {//微信
-                                    WalletChargeWxPayResponse response = (WalletChargeWxPayResponse) result.getContent();
-                                    ObservableNotifier.alwaysNotify(wxPay, response);
-                                    userOrderId = response.getUserOrderid();
-                                    Account.preference().saveWxAppId(response.getAppid());
-                                }
-                            } else {
-                                ObservableNotifier.alwaysNotify(showText, result.getDescribe());
-                            }
-
-                        }, throwable -> {
-                        }
-                );
+//        model.getWalletChargeOrder(payType.value, Account.preference().getPhone(), moneyResultText.get(), availableMin.get())
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                        apiResult -> {
+//                            isShowDialog.set(false);
+//                            APIResult result = (APIResult) apiResult;
+//                            if (result.isSuccess()) {
+//                                if (payType == PayType.ALI) {//支付宝
+//                                    WalletChargeAliPayResponse response = (WalletChargeAliPayResponse) result.getContent();
+//                                    ObservableNotifier.alwaysNotify(aliPay, response.getSign());
+//                                    userOrderId = response.getUserOrderid();
+//                                } else if (payType == PayType.WX) {//微信
+//                                    WalletChargeWxPayResponse response = (WalletChargeWxPayResponse) result.getContent();
+//                                    ObservableNotifier.alwaysNotify(wxPay, response);
+//                                    userOrderId = response.getUserOrderid();
+//                                    Account.preference().saveWxAppId(response.getAppid());
+//                                }
+//                            } else {
+//                                ObservableNotifier.alwaysNotify(showText, result.getDescribe());
+//                            }
+//
+//                        }, throwable -> {
+//                        }
+//                );
     }
 
     //支付宝回调

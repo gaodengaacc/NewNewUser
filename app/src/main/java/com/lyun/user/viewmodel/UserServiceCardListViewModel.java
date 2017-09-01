@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author Gordon
@@ -30,7 +31,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class UserServiceCardListViewModel extends ViewModel {
     public final ObservableField<BaseRecyclerAdapter> adapter = new ObservableField<>();
-    public final ObservableField<List<ViewModel>> notifyData = new ObservableField<>();
+    public final ObservableField<List<ServiceCardItemViewModel>> notifyData = new ObservableField<>();
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
     public final ObservableInt footerLayout = new ObservableInt();
@@ -44,10 +45,6 @@ public class UserServiceCardListViewModel extends ViewModel {
         queryMyCard();
         responses = new ArrayList<>();
         data = new ArrayList<>();
-//        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","999",0)));
-//        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","6999",1)));
-//        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","9999",2)));
-//        data.add(new ServiceCardItemViewModel(new ServiceCardListItemResponse("律云法律服务","9999",3)));
         UserServiceCardListAdapter adapter = new UserServiceCardListAdapter(data, R.layout.item_user_service_card_layout);
         adapter.setItemClickListener((view, viewModels, position) -> {
             EventBus.getDefault().post( new EventListItemMessage(data.get(position)));
@@ -59,7 +56,8 @@ public class UserServiceCardListViewModel extends ViewModel {
     private void queryMyCard() {
         EventBus.getDefault().post(new EventProgressMessage(true));
         new ServiceCardModel().queryMyServiceCardList()
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listAPIResult -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     responses = listAPIResult;
@@ -71,8 +69,7 @@ public class UserServiceCardListViewModel extends ViewModel {
         data.clear();
         for (MyServiceCardResponse response : responses)
             data.add(new ServiceCardItemViewModel(response));
-        UserServiceCardListAdapter adapter = new UserServiceCardListAdapter(data, R.layout.item_user_service_card_layout);
-        this.adapter.set(adapter);
+        notifyData.set(data);
     }
 }
 

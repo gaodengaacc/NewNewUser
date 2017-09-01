@@ -7,7 +7,10 @@ import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.api.API;
 import com.lyun.user.api.request.WalletChargeBean;
 import com.lyun.user.api.request.WalletChargeRecorderBean;
+import com.lyun.user.api.response.WalletChargeAliPayResponse;
 import com.lyun.user.api.response.WalletChargeRecorderResponse;
+import com.lyun.user.api.response.WalletChargeWxPayResponse;
+import com.lyun.user.viewmodel.WalletChargeViewModel;
 
 import java.util.List;
 
@@ -22,23 +25,24 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WalletChargeModel extends Model {
     //充值接口
-    public Observable getWalletChargeOrder(String payType, String handid, String amount, String butTime) {
+
+    public Observable<WalletChargeAliPayResponse> getAliWalletChargeOrder(String cardId) {
         WalletChargeBean bean = new WalletChargeBean();
-        bean.setPayType(payType);
-        bean.setHandid(handid);
-        bean.setAmount(amount);
-        bean.setBuyTime(butTime);
-        if(payType.equals("2")){
-            return API.auth.getAliChargeOrder(bean)
-                    .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(Schedulers.io());
-        }else {
-            return API.auth.getWxChargeOrder(bean)
-                    .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(Schedulers.io());
-        }
+        bean.setPayType(WalletChargeViewModel.PayType.ALI.value);
+        bean.setCardId(cardId);
+        return parseAPIObservable(API.auth.getAliChargeOrder(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+    }
+    public Observable<WalletChargeWxPayResponse> getWxWalletChargeOrder(String cardId) {
+        WalletChargeBean bean = new WalletChargeBean();
+        bean.setPayType(WalletChargeViewModel.PayType.WX.value);
+        bean.setCardId(cardId);
+        return parseAPIObservable(API.auth.getWxChargeOrder(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
     }
 
     //充值记录

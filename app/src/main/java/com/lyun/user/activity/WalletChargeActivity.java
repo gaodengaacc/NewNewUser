@@ -79,7 +79,7 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
     public void aliPay(ObservableField<String> observableField, int fieldId) {
         if (observableField.get() != null) {
             if (aliPayManager == null)
-                aliPayManager = new AliPayManager(callBack);
+                aliPayManager = new AliPayManager();
             aliPayManager.alipay(this, observableField.get());
         }
 
@@ -90,7 +90,7 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
         if (observableField.get() != null) {
             if (wxPayManager == null)
                 wxPayManager = new WXPayManager();
-            if (!wxPayManager.sendPayReq(this, observableField.get().getAppid(),
+            if (!wxPayManager.sendPayReq(observableField.get().getAppid(),
                     observableField.get().getPartnerid(),
                     observableField.get().getPrepayid(),
                     observableField.get().getNoncestr(),
@@ -104,7 +104,6 @@ public class WalletChargeActivity extends GeneralToolbarActivity<ActivityWalletC
         @Override
         public void onSuccess() {
             Toast.makeText(AppApplication.getInstance(), "支付成功", Toast.LENGTH_LONG).show();
-            finish();
         }
 
         @Override

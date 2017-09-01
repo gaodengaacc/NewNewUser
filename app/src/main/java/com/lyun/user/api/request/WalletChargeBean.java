@@ -8,9 +8,20 @@ package com.lyun.user.api.request;
 
 public class WalletChargeBean extends BaseRequestBean {
     private String payType;
-    private String handid;
-    private String amount;
-    private String buytime;
+    private String handid = getCardNo();
+    private String phone = userId;
+    private String cardId;
+
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+
     public String getPayType() {
         return payType;
     }
@@ -18,30 +29,4 @@ public class WalletChargeBean extends BaseRequestBean {
     public void setPayType(String payType) {
         this.payType = payType;
     }
-
-    public String getHandid() {
-        return handid;
-    }
-
-    public void setHandid(String handid) {
-        this.handid = handid;
-    }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    public String getBuyTime() {
-        return buytime;
-    }
-
-    public void setBuyTime(String buytime) {
-        this.buytime = buytime;
-    }
-
-
 }

@@ -81,6 +81,11 @@ public class ServiceCardDetailViewModel extends ViewModel {
      */
     public double price;
 
+    /**
+     * 实价价格
+     */
+    public String cardId;
+
     public final ObservableInt visibilityDomesticService = new ObservableInt();
     public final ObservableInt visibilityTotalTimes = new ObservableInt();
     public final ObservableInt visibilityOnlineSeniorCounselAdviceTimes = new ObservableInt();
@@ -102,7 +107,7 @@ public class ServiceCardDetailViewModel extends ViewModel {
 
     public ServiceCardDetailViewModel(ServiceCardResponse card) {
         name.set(card.getName());
-
+        cardId = card.getId();
         // 境内服务
         totalTime.set(card.getTotalTime());
         visibilityTotalTimes.set(Integer.parseInt(totalTime.get()) > 0 ? VISIBLE : GONE);
