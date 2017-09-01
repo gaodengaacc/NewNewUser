@@ -61,8 +61,8 @@ public class ServiceCardItemViewModel extends ViewModel {
         orderId.set(data.getOrderNo());
         tradeTime.set(data.getTradeTime());
         userTime.set(data.getActiveStartTime()+"至"+data.getActiveEndTime());
-        onLineTime.set(data.getCard().getOnlineLegalAdviceTime()+"");
-        seniorTimes.set(data.getCard().getSeniorCounselAdviceTimes()+"");
+        onLineTime.set(data.getCard().getTotalTime()+"");
+        seniorTimes.set(data.getCard().getOnlineSeniorCounselAdviceTimes()+"");
         legalInstrumentsTimes.set(data.getCard().getLegalInstrumentsDraftTimes()+"");
         legalLectureTimes.set(data.getCard().getLegalLectureTimes()+"");
 

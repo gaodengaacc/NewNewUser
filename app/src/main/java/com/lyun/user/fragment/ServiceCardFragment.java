@@ -3,7 +3,6 @@ package com.lyun.user.fragment;
 import android.content.Intent;
 import android.databinding.ObservableDouble;
 import android.databinding.ObservableField;
-import android.databinding.ObservableInt;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
@@ -17,13 +16,13 @@ import com.lyun.user.Account;
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCardDetailActivity;
 import com.lyun.user.api.response.ServiceCardListItemResponse;
+import com.lyun.user.api.response.ServiceCardResponse;
 import com.lyun.user.api.response.WalletChargeAliPayResponse;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
 import com.lyun.user.databinding.FragmentServiceCardBinding;
 import com.lyun.user.dialog.CardPayDialog;
 import com.lyun.user.eventbusmessage.EventListItemMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventPayReadyMessage;
-import com.lyun.user.eventbusmessage.cardpay.EventShowPayDialogMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
 import com.lyun.user.model.WalletChargeModel;
 import com.lyun.user.viewmodel.CardPayDialogViewModel;
@@ -116,8 +115,8 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     }
 
     @Override
-    public void navigateCardDetail(ObservableField observableField, int fieldId) {
-        ServiceCardDetailActivity.start(getActivity());
+    public void navigateCardDetail(ObservableField<ServiceCardResponse> observableField, int fieldId) {
+        ServiceCardDetailActivity.start(getActivity(), observableField.get());
     }
 
     public void showPayDialog(double cost) {

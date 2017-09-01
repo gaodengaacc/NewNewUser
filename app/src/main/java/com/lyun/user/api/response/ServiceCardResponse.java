@@ -51,14 +51,6 @@ public class ServiceCardResponse extends BaseResponse {
      */
     private int overseasCaseConsignTimes;
     /**
-     * 在线法律咨询次数
-     */
-    private int onlineLegalAdviceTime;
-    /**
-     * 资深律师咨询次数
-     */
-    private int seniorCounselAdviceTimes;
-    /**
      * 法律文书定制次数
      */
     private int legalInstrumentsDraftTimes;
@@ -154,22 +146,6 @@ public class ServiceCardResponse extends BaseResponse {
 
     public void setOverseasCaseConsignTimes(int overseasCaseConsignTimes) {
         this.overseasCaseConsignTimes = overseasCaseConsignTimes;
-    }
-
-    public int getOnlineLegalAdviceTime() {
-        return onlineLegalAdviceTime;
-    }
-
-    public void setOnlineLegalAdviceTime(int onlineLegalAdviceTime) {
-        this.onlineLegalAdviceTime = onlineLegalAdviceTime;
-    }
-
-    public int getSeniorCounselAdviceTimes() {
-        return seniorCounselAdviceTimes;
-    }
-
-    public void setSeniorCounselAdviceTimes(int seniorCounselAdviceTimes) {
-        this.seniorCounselAdviceTimes = seniorCounselAdviceTimes;
     }
 
     public int getLegalInstrumentsDraftTimes() {

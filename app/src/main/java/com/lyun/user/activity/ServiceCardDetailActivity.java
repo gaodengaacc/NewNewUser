@@ -7,9 +7,11 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.lyun.api.response.APIResult;
-import com.lyun.library.mvvm.view.activity.MvvmActivity;
+import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
+import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.R;
+import com.lyun.user.api.response.ServiceCardResponse;
 import com.lyun.user.api.response.WalletChargeAliPayResponse;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
 import com.lyun.user.databinding.ActivityServiceCardDetailBinding;
@@ -29,17 +31,23 @@ import org.greenrobot.eventbus.ThreadMode;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ServiceCardDetailActivity extends MvvmActivity<ActivityServiceCardDetailBinding, ServiceCardDetailViewModel> {
+public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivityServiceCardDetailBinding, ServiceCardDetailViewModel> {
+
+    public static final String EXTRA_CARD = "extra_card";
+
     private CardPayDialog dialog;
     private CardPayDialogViewModel payViewModel;
 
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, ServiceCardDetailActivity.class));
+    public static void start(Context context, ServiceCardResponse card) {
+        Intent intent = new Intent(context, ServiceCardDetailActivity.class);
+        intent.putExtra(EXTRA_CARD, card);
+        context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EventBus.getDefault().register(this);
     }
 
@@ -49,16 +57,24 @@ public class ServiceCardDetailActivity extends MvvmActivity<ActivityServiceCardD
         EventBus.getDefault().unregister(this);
     }
 
-    @NonNull
     @Override
-    protected ServiceCardDetailViewModel createViewModel() {
-        return new ServiceCardDetailViewModel(getIntent().getIntExtra("cardId", 0));
+    protected int getBodyLayoutId() {
+        return R.layout.activity_service_card_detail;
     }
 
-
+    @NonNull
     @Override
-    protected int getContentLayoutId() {
-        return R.layout.activity_service_card_detail;
+    protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
+        GeneralToolbarViewModel.ToolbarViewModel toolbarViewModel = super.createTitleViewModel();
+        toolbarViewModel.title.set("服务内容详情页");
+        toolbarViewModel.onBackClick.set(view -> finish());
+        return toolbarViewModel;
+    }
+
+    @NonNull
+    @Override
+    protected ServiceCardDetailViewModel createBodyViewModel() {
+        return new ServiceCardDetailViewModel((ServiceCardResponse) getIntent().getSerializableExtra(EXTRA_CARD));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

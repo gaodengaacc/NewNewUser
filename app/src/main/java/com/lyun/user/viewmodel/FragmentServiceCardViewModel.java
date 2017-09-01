@@ -51,10 +51,12 @@ public class FragmentServiceCardViewModel extends ViewModel {
     public final ObservableField<BaseRecyclerAdapter> serviceCardItemAdapter = new ObservableField<>();
     public final ObservableList<ViewModel> serviceCardItemViewModels = new ObservableArrayList<>();
 
+    protected List<ServiceCardResponse> mServiceCardList = new ArrayList<>();
+
     @WatchThis
     public final ObservableDouble buyCard = new ObservableDouble();
     @WatchThis
-    public final ObservableField navigateCardDetail = new ObservableField();
+    public final ObservableField<ServiceCardResponse> navigateCardDetail = new ObservableField();
 
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(AppApplication.getInstance(), 3);
@@ -82,11 +84,11 @@ public class FragmentServiceCardViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listAPIResult -> {
                     if (listAPIResult.isSuccess()) {
-                        List<ServiceCardResponse> datas = listAPIResult.getContent();
+                        mServiceCardList = listAPIResult.getContent();
 
                         serviceCardViewModels.clear();
 
-                        for (ServiceCardResponse card : datas) {
+                        for (ServiceCardResponse card : mServiceCardList) {
 
                             List<ServiceCardServiceItemViewModel> itemViewModels = new ArrayList<>();
 
@@ -96,8 +98,8 @@ public class FragmentServiceCardViewModel extends ViewModel {
                                 itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_tel_consultation, "电话咨询", totalTime + "分钟"));
                             }
                             // 资深律师咨询
-                            if (card.getSeniorCounselAdviceTimes() > 0) {
-                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_senior_counsel, "资深律师咨询", card.getSeniorCounselAdviceTimes() + "次"));
+                            if (card.getOnlineSeniorCounselAdviceTimes() > 0) {
+                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_senior_counsel, "资深律师咨询", card.getOnlineSeniorCounselAdviceTimes() + "次"));
                             }
 
                             // 案件委托
@@ -166,6 +168,8 @@ public class FragmentServiceCardViewModel extends ViewModel {
     });
 
     public final RelayCommand showCardDetail = new RelayCommand(() -> {
-        ObservableNotifier.alwaysNotify(navigateCardDetail, null);
+        if (mServiceCardList != null && mServiceCardList.size() >= currentPage.get()) {
+            ObservableNotifier.alwaysNotify(navigateCardDetail, mServiceCardList.get(currentPage.get()));
+        }
     });
 }

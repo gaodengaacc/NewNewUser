@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,71 +11,20 @@
             type="ServiceCardDetailViewModel"></variable>
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:backGround="@{mvvm.topBg}"
-            android:fitsSystemWindows="false"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    app:layout_collapseMode="pin">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="44dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp">
-
-                        <ImageView
-                            android:id="@+id/card_detail_back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/ic_arrow_back_black"
-                            android:paddingRight="15dp"
-                            android:onClick="@{mvvm.onClickView}"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="服务卡详情"
-                            android:textColor="@color/tcw"
-                            android:textSize="18sp" />
-                    </RelativeLayout>
-                </android.support.v7.widget.Toolbar>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
-
-        <include
-            layout="@layout/content_scrolling"
-            bind:mvvm="@{mvvm}" />
+        android:background="@android:color/white">
 
         <LinearLayout
+            android:id="@+id/service_card_detail_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:background="@color/bgcw"
-            android:padding="15dp">
+            android:padding="15dp"
+            app:elevation="5dp">
 
             <TextView
                 android:id="@+id/card_detail_buy"
@@ -84,10 +32,465 @@
                 android:layout_height="40dp"
                 android:background="@drawable/corner_blue_bg_card"
                 android:gravity="center"
+                android:onClick="@{mvvm.onClickView}"
                 android:text="购  买"
                 android:textColor="@color/tcw"
-                android:textSize="16sp"
-                android:onClick="@{mvvm.onClickView}"/>
+                android:textSize="16sp"/>
         </LinearLayout>
-    </android.support.design.widget.CoordinatorLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/service_card_detail_bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text='@{@string/card_name_prefix + mvvm.name + @string/card_name_suffix}'
+                    android:textColor="#485463"
+                    android:textSize="13sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#f6f9fb"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="2px"
+                        android:background="#ff811d"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="服务说明"
+                        android:textColor="#ff811d"
+                        android:textSize="13sp"/>
+
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="2px"
+                        android:background="#ff811d"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="提供7*12小时直线咨询电话：4000-167-167"
+                    android:textColor="#4a5363"
+                    android:textSize="12sp"/>
+
+                <com.lyun.roundrectview.RoundRectTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="4dp"
+                    android:text="境内服务"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:visibility="@{mvvm.visibilityDomesticService}"
+                    app:backgroundColor="#89a5c6"
+                    app:cornerRadius="50%"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_total_time,@string/card_total_time_prefix + mvvm.totalTime + @string/card_total_time_suffix)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityTotalTimes}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_online_senior_counsel_advice,@string/card_online_senior_counsel_advice_prefix + mvvm.onlineSeniorCounselAdviceTimes + @string/card_online_senior_counsel_advice_suffix)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityOnlineSeniorCounselAdviceTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="在线平台为持卡会员提供，相应次数的免费全国主任律师/专业领域律师咨询服务，涉及多项专业领域：个人离婚纠纷、房产事务、拆迁纠纷、继承纠纷、经济纠纷、人身伤害等，企业合同纠纷、劳资纠纷、债权债务等，及各类刑事案件咨询。"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityOnlineSeniorCounselAdviceTimes}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_case_consign,@string/card_case_consign_prefix + mvvm.caseConsignTimes + @string/card_case_consign_suffix)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityCaseConsignTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="为持卡客户提供线下律师服务，线上不能满足解决，需要委托诉讼时，我们将为您引导至亚太地区规模最大的“盈科律师事务所”并提供相应的线下服务优惠。国内40家机构，将随着律所规模扩展，增加相应地区业务的开放。"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityCaseConsignTimes}"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#dce3ee"
+                    android:visibility="@{mvvm.visibilityDocService}"/>
+
+                <com.lyun.roundrectview.RoundRectTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="4dp"
+                    android:text="文案服务"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:visibility="@{mvvm.visibilityDocService}"
+                    app:backgroundColor="#89a5c6"
+                    app:cornerRadius="50%"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_legal_instruments_draft,mvvm.legalInstrumentsDraftTimes + @string/card_unit_ci)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityLegalInstrumentsDraftTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="为持卡会员提供各种类型的法律文书代书，随着人们法制意识的提升，生活、工作都离不开法律文书的拟定；例如：离婚协议；遗嘱；买卖协议；等等"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityLegalInstrumentsDraftTimes}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_lawyer_letter_draft,mvvm.lawyerLetterDraftTimes + @string/card_unit_fen)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityLawyerLetterDraftTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="在财务纠纷，债务纠纷中律师函是运用最多，便捷高效安全合法的追偿和催收方法。律师函的价格在1000元左右/份。"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityLawyerLetterDraftTimes}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_legal_instruments_review,mvvm.legalInstrumentsReviewTimes + @string/card_unit_ci)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityLegalInstrumentsReviewTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="为持卡会员提供各类风险诊断，不限类型；个人/企业，例如：为企业评估合同风险隐患等；为持卡会员提供的原文基础上，批注出文书存在的问题，相关条款是否有法律效益及可能存在的风险。"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityLegalInstrumentsReviewTimes}"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#dce3ee"
+                    android:visibility="@{mvvm.visibilityLectureService}"/>
+
+                <com.lyun.roundrectview.RoundRectTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="4dp"
+                    android:text="讲座课程"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:visibility="@{mvvm.visibilityLectureService}"
+                    app:backgroundColor="#89a5c6"
+                    app:cornerRadius="50%"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_legal_lecture,mvvm.legalLectureTimes + @string/card_unit_ci)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityLegalLectureTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="定期举办法律专题讲座，普及法律同时解决中小企业运营过程中遇到的相关法律问题"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityLegalLectureTimes}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_feature_topic_lecture,mvvm.featuredTopicLectureTimes + @string/card_unit_ci)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityFeaturedTopicLectureTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="针对特色人群、为HR/财务等专职人员提供专题讲座，解决个人成长学习及企业对特定岗位人员培训工作."
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityFeaturedTopicLectureTimes}"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#dce3ee"
+                    android:visibility="@{mvvm.visibilityOverseaService}"/>
+
+                <com.lyun.roundrectview.RoundRectTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="4dp"
+                    android:text="海外服务"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:visibility="@{mvvm.visibilityOverseaService}"
+                    app:backgroundColor="#89a5c6"
+                    app:cornerRadius="50%"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_contract_instrument_translation,mvvm.contractInstrumentTranslationTimes + @string/card_unit_ci)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityContractInstrumentTranslationTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="为持卡会员提供法律文案翻译服务，英语/日语/韩语/法语/俄文等等。。。。法律文案专业性强，专业人士翻译安全/高效。5000字/次，带排版。"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityContractInstrumentTranslationTimes}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_oversea_lawyer_consultation,mvvm.overseasLawyerServiceConsultationTimes + @string/card_unit_ci)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityOverseasLawyerServiceConsultationTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="为持卡会员提供海外法律纠纷咨询业务，电话一问一答，持续一次性咨询完毕即服务结束。"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityOverseasLawyerServiceConsultationTimes}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text='@{mvvm.makeTitle(@string/card_oversea_case_consign,mvvm.overseasCaseConsignTimes + @string/card_unit_zhe)}'
+                    android:textColor="#485465"
+                    android:textSize="15sp"
+                    android:visibility="@{mvvm.visibilityOverseasCaseConsignTimes}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="为持卡客户提供线下海外律师服务，线上不能满足解决，需要委托当地诉讼时，我们将为您引导至亚太地区规模最大的“盈科律师事务所”海外部，并提供相应的线下服务优惠。海外36家机构。"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"
+                    android:visibility="@{mvvm.visibilityOverseasCaseConsignTimes}"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="2px"
+                        android:background="#ff811d"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="服务协议"
+                        android:textColor="#ff811d"
+                        android:textSize="13sp"/>
+
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="2px"
+                        android:background="#ff811d"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="请仔细阅读本协议："
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="为持卡会员提供法律文案翻译服务，英语/日语/韩语/法律/俄文等等。法律文案专业性强，专业人士翻译安全/高效。5000字/次，带排版。"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
 </layout>

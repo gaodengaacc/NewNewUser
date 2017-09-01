@@ -196,10 +196,16 @@
             android:label="@string/title_activity_after_sale_service"
             android:theme="@style/AppTheme.NoTitle">
         </activity>
-
         <activity
             android:name=".activity.ApplyForInvoiceActivity"
             android:theme="@style/AppTheme.NoTitle"/>
+        <activity
+            android:name=".activity.ServiceCardDetailActivity"
+            android:theme="@style/AppTheme.NoTitle"/>
+        <activity
+            android:name=".activity.LawWorldDetailActivity"
+            android:theme="@style/AppTheme.NoTitle">
+        </activity>
 
         <!-- 声明云信后台服务 -->
         <service
@@ -343,14 +349,6 @@
             android:name=".service.TranslationOrderService"
             android:enabled="true"
             android:exported="true"/>
-
-        <activity
-            android:name=".activity.ServiceCardDetailActivity"
-            android:theme="@style/AppTheme.NoTitle.TranslucentStatus"/>
-        <activity
-            android:name=".activity.LawWorldDetailActivity"
-            android:theme="@style/AppTheme.NoTitle">
-        </activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
