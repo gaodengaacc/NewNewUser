@@ -63,18 +63,15 @@ public class HomeFragmentViewModel extends ViewModel {
     private void getRemainingTime(String userName) {
         new RemainingTimeModel().getRemainingTime(userName)
                 .subscribeOn(Schedulers.newThread())
+                .filter(apiResult -> apiResult.isSuccess())
+                .map(apiResult -> Integer.parseInt(apiResult.getContent().toString()))
+                .map(time -> {
+                    unTime = time;
+                    return time <= 0;
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apiResult -> {
-                    if (apiResult.isSuccess()) {
-                        unTime = Integer.parseInt(apiResult.getContent().toString());
-                        if (unTime <= 0) {
-                            unusedTime.set("剩余使用0分钟");
-                        } else {
-                            unusedTime.set("剩余使用" + unTime + "分钟");
-                        }
-                    } else {
-                        getToast().setText(apiResult.getDescribe());
-                    }
+                .subscribe(result -> {
+                    unusedTime.set(result ? "剩余使用0分钟" : "剩余使用" + unTime + "分钟");
                 });
     }
 

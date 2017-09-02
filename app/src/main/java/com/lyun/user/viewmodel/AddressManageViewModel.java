@@ -90,7 +90,7 @@ public class AddressManageViewModel extends ViewModel {
 
     public void setDefaultAddress(int position) {
         EventBus.getDefault().post(new EventProgressMessage(true));
-        new AddressModel().defaultAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()))
+        addressModel.defaultAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()))
                 .flatMap(apiResult -> Observable.fromIterable(itemViewModelData))
                 .map(responseViewModel -> {
                     if (responseViewModel.response.getIsDefault().equals("1"))
@@ -119,7 +119,7 @@ public class AddressManageViewModel extends ViewModel {
                             if (back)
                                 return Observable.just(new Object());
                             else
-                                return new AddressModel().deleteAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()));
+                                return  addressModel.deleteAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()));
                         }
                 )
                 .subscribeOn(Schedulers.newThread())
@@ -128,7 +128,8 @@ public class AddressManageViewModel extends ViewModel {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     EventBus.getDefault().post(new EventToastMessage("删除成功"));
                     itemData.remove(position);
-                    setData();
+                    itemViewModelData.remove(position);
+                    itemAdapter.setListData(itemViewModelData);
                     if (itemViewModelData.size() <= 0) {
                         listVisible.set(View.GONE);
                         nullBgVisible.set(View.VISIBLE);

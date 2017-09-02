@@ -42,7 +42,7 @@ public class LanguagePickerDialogViewModel extends DialogViewModel {
     //已选择的语种
     private FindLanguageResponse mCurrentSelectedLanguage = null;
 
-    private final String defaultLanguageCache = "[{\"id\":1,\"code\":\"102\",\"name\":\"英文\",\"description\":\"英文语言\"}]";
+    private final String defaultLanguageCache = "[{\"id\":9,\"code\":\"110\",\"name\":\"民间借贷\",\"description\":\"民间借贷\"}]";
 
     public LanguagePickerDialogViewModel() {
         initData();

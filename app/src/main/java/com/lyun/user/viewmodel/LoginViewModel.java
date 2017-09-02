@@ -33,6 +33,7 @@ import net.funol.databinding.watchdog.annotations.WatchThis;
 import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -105,7 +106,7 @@ public class LoginViewModel extends ViewModel {
                     else
                         return new LoginModel().login(username.get(), password.get());
                 })
-                .flatMap(result -> Observable.create(observable -> {
+                .flatMap(result -> Observable.create((ObservableOnSubscribe<LoginResponse>)  observable -> {
                     if (result.isSuccess()) {
                         observable.onNext(result.getContent());
                         observable.onComplete();
@@ -115,9 +116,9 @@ public class LoginViewModel extends ViewModel {
                         observable.onError(new APINotSuccessException(result));
                     }
                 }))
-                .map(result -> ((LoginResponse) result))
                 .map(result -> {
                     Account.preference().setUserId(result.getUserId());
+                    Account.preference().savePhone(result.getUserId());
                     Account.preference().setCardNo(result.getCardNo());
                     Account.preference().saveToken(result.getAppToken());
                     Account.preference().saveNimToken(result.getYunXinToken());
@@ -190,6 +191,7 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
+    //根据微信code 获取微信openId
     public void getWxOpenId(String code) {
         new LoginModel().getWxOpenId(BuildConfig.WX_PAY_APPID, "5de0ead7e50b32a44e85ba30308b898e", code)
                 .observeOn(AndroidSchedulers.mainThread())
