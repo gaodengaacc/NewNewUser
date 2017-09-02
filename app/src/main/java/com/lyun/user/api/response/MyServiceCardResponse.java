@@ -83,8 +83,13 @@ public class MyServiceCardResponse extends BaseResponse {
     //            "filingTime": null
     private String id;
     private String orderNo;
-    private String tradeTime;
-    private String activeStartTime;
+    private long tradeTime;
+    private long activeStartTime;
+    private long activeEndTime;
+    private ServiceCardResponse card;
+    private String userId;
+    private String amount;
+    private String cardNo;
 
     public String getId() {
         return id;
@@ -102,27 +107,27 @@ public class MyServiceCardResponse extends BaseResponse {
         this.orderNo = orderNo;
     }
 
-    public String getTradeTime() {
+    public long getTradeTime() {
         return tradeTime;
     }
 
-    public void setTradeTime(String tradeTime) {
+    public void setTradeTime(long tradeTime) {
         this.tradeTime = tradeTime;
     }
 
-    public String getActiveStartTime() {
+    public long getActiveStartTime() {
         return activeStartTime;
     }
 
-    public void setActiveStartTime(String activeStartTime) {
+    public void setActiveStartTime(long activeStartTime) {
         this.activeStartTime = activeStartTime;
     }
 
-    public String getActiveEndTime() {
+    public long getActiveEndTime() {
         return activeEndTime;
     }
 
-    public void setActiveEndTime(String activeEndTime) {
+    public void setActiveEndTime(long activeEndTime) {
         this.activeEndTime = activeEndTime;
     }
 
@@ -157,10 +162,4 @@ public class MyServiceCardResponse extends BaseResponse {
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
-
-    private String activeEndTime;
-    private ServiceCardResponse card;
-    private String userId;
-    private String amount;
-    private String cardNo;
 }

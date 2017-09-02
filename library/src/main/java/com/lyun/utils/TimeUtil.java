@@ -62,4 +62,18 @@ public class TimeUtil {
             return "";
         return time.format(date);
     }
+
+    //格式化String 时间 yyyy-MM-dd HH:mm:ss
+    public static String formatTime(long data, String style) {
+        SimpleDateFormat time = new SimpleDateFormat(style);
+        Date date = null;
+        try {
+            date = new Date(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (date == null)
+            return "";
+        return time.format(date);
+    }
 }

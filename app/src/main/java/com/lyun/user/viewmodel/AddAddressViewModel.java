@@ -23,7 +23,6 @@ import com.lyun.utils.RegExMatcherUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * @author Gordon
@@ -152,7 +151,6 @@ public class AddAddressViewModel extends ViewModel {
                     if (isEditor) return new AddressModel().updateAddress(bean);
                     else return new AddressModel().addAddress(bean);
                 })
-                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                             EventBus.getDefault().post(new EventProgressMessage(false));
                             EventAddressSelectMessage message = new EventAddressSelectMessage(position, isEditor ? 3 : 4);
@@ -171,7 +169,6 @@ public class AddAddressViewModel extends ViewModel {
     public void deleteAddress() {
         EventBus.getDefault().post(new EventProgressMessage(true));
         new AddressModel().deleteAddress(new DoAddressRequestBean(response.getId()))
-                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     EventAddressSelectMessage message = new EventAddressSelectMessage(position, 5);

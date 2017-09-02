@@ -1,7 +1,5 @@
 package com.lyun.user.api.request;
 
-import com.lyun.user.Account;
-
 /**
  * Created by ZHAOWEIWEI on 2017/2/16.
  */
@@ -16,7 +14,6 @@ public class GenerateOrderRequest extends BaseRequestBean {
      * 订单类型(0=图文 1=语音)
      */
     public String orderTypeId;
-    public String userId = Account.preference().getPhone();
 
     public String getDomainId() {
         return domainId;

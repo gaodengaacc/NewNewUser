@@ -7,6 +7,7 @@ import android.graphics.Color;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.R;
 import com.lyun.user.api.response.MyServiceCardResponse;
+import com.lyun.utils.TimeUtil;
 
 /**
  * @author Gordon
@@ -59,12 +60,12 @@ public class ServiceCardItemViewModel extends ViewModel {
                 break;
         }
         orderId.set(data.getOrderNo());
-        tradeTime.set(data.getTradeTime());
-        userTime.set(data.getActiveStartTime()+"至"+data.getActiveEndTime());
-        onLineTime.set(data.getCard().getTotalTime()+"");
-        seniorTimes.set(data.getCard().getOnlineSeniorCounselAdviceTimes()+"");
-        legalInstrumentsTimes.set(data.getCard().getLegalInstrumentsDraftTimes()+"");
-        legalLectureTimes.set(data.getCard().getLegalLectureTimes()+"");
+        tradeTime.set(TimeUtil.formatTime(data.getTradeTime(), "yyyy-MM-dd HH:mm"));
+        userTime.set(TimeUtil.formatTime(data.getActiveStartTime(), "yyyy-MM-dd") + "至" + TimeUtil.formatTime(data.getActiveEndTime(), "yyyy-MM-dd"));
+        onLineTime.set(data.getCard().getTotalTime() + "分钟");
+        seniorTimes.set(data.getCard().getOnlineSeniorCounselAdviceTimes() + "次");
+        legalInstrumentsTimes.set(data.getCard().getLegalInstrumentsDraftTimes() + "次");
+        legalLectureTimes.set(data.getCard().getLegalLectureTimes() + "次");
 
     }
 
