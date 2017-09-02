@@ -1,7 +1,10 @@
 package com.lyun.user.fragment;
 
 import android.databinding.ObservableField;
+import android.databinding.ObservableList;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,14 +14,18 @@ import com.lyun.user.R;
 import com.lyun.user.activity.LawWorldDetailActivity;
 import com.lyun.user.api.response.LawWorldCardResponse;
 import com.lyun.user.databinding.FragmentLawWorldBinding;
+import com.lyun.user.viewmodel.LawWorldCardViewModel;
 import com.lyun.user.viewmodel.LawWorldViewModel;
 import com.lyun.user.viewmodel.watchdog.ILawWorldViewModelCallbacks;
 import com.lyun.utils.DisplayUtil;
+import com.lyun.utils.L;
 
 import net.funol.databinding.watchdog.Watchdog;
 
 public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawWorldViewModel>
         implements ILawWorldViewModelCallbacks {
+
+    private ViewPager mViewPager;
 
     public LawWorldFragment() {
     }
@@ -41,10 +48,11 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
     @Override
     protected LawWorldViewModel createViewModel() {
 
-        ViewPager mViewPager = (ViewPager) getFragmentViewDataBinding().getRoot().findViewById(R.id.law_world_viewpager);
+        mViewPager = (ViewPager) getFragmentViewDataBinding().getRoot().findViewById(R.id.law_world_viewpager);
 
         mViewPager.setPageMargin(DisplayUtil.dip2px(getContext(), 5));
-        mViewPager.setPageTransformer(true, new LawCardPageTransformer());
+        mViewPager.setPageTransformer(false, new LawWorldPageTransformer());
+        mViewPager.setOffscreenPageLimit(4);
 
         //mViewPagerContainer = (RelativeLayout) root.findViewById(R.id.law_world_viewpager_container);
         // 引发bug
@@ -57,6 +65,11 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected int getContentLayoutId() {
         return R.layout.fragment_law_world;
     }
@@ -66,22 +79,29 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
         LawWorldDetailActivity.start(getContext());
     }
 
-    public class LawCardPageTransformer implements ViewPager.PageTransformer {
+    public class LawWorldPageTransformer implements ViewPager.PageTransformer {
 
         private final float MAX_SCALE = 480f / 600;
 
         @Override
         public void transformPage(View page, float position) {
-            float scale = MAX_SCALE;
-            if (position < -1 || position > 1) {
-                // 左划到底 右划到底
+            float scale;
+            if (position < -1) {
+                // 左划到底
+                scale = MAX_SCALE;
             } else if (position <= 0) {
                 // 左划
                 scale = 1 + position - position * MAX_SCALE;
             } else if (position <= 1) {
                 // 右划
                 scale = 1 - position + position * MAX_SCALE;
+            }else {
+                // 右划到底
+                scale = MAX_SCALE;
             }
+
+            L.e("PageTransformer","position：" + position + "\tscale:" + scale);
+
             // 等比例缩放
             page.setScaleY(scale);
             page.setScaleX(scale);

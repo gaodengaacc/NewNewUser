@@ -4,15 +4,23 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
+import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.BR;
 import com.lyun.user.R;
 import com.lyun.user.api.response.LawWorldCardResponse;
+import com.lyun.user.api.response.LawWorldResponse;
 import com.lyun.user.model.LawWorldModel;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import me.tatarka.bindingcollectionadapter.ItemView;
 
 /**
@@ -29,9 +37,22 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
 
     public LawWorldViewModel() {
         itemView.set(ItemView.of(BR.mvvm, R.layout.item_law_world));
-        items.add(new LawWorldCardViewModel(this, null));
-        items.add(new LawWorldCardViewModel(this, null));
-        new LawWorldModel().queryLawyerList(0).subscribe();
+
+        queryLawyerList(0);
+    }
+
+    protected void queryLawyerList(int page){
+        new LawWorldModel()
+                .queryLawyerList(page)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(listAPIResult -> {
+                    if(listAPIResult.isSuccess()){
+                        for (LawWorldResponse response:listAPIResult.getContent()){
+                            items.add(new LawWorldCardViewModel(this, null));
+                        }
+                    }
+                });
     }
 
     public void onItemClick(LawWorldViewModel viewModel) {
