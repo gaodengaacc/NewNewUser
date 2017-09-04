@@ -59,7 +59,7 @@ public class AppApplication extends BaseApplication {
 
     private SSLSocketFactory getSSLSocketFactory() {
         return new HttpsSocketFactoryBuilder()
-                .trust(getResources().openRawResource(R.raw.trust), "lyt2016")
+                .trust(getResources().openRawResource(R.raw.trust), "lyt2017")
                 // .client(getResources().openRawResource(R.raw.client), "password")
                 .build();
     }
