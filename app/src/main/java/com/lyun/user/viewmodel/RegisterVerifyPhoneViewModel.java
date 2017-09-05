@@ -80,7 +80,6 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
                 EventBus.getDefault().post(new EventToastMessage("请输入有效手机号"));
             } else {
                 canClick = true;
-
                 if (isThird)
                     getSmsCode(username.get(), third_register_status);
                 else
@@ -189,7 +188,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
                                 EventBus.getDefault().post(new EventIntentActivityMessage(intent));
                             }
                             EventBus.getDefault().post(new EventProgressMessage(false));
-                            EventBus.getDefault().post(throwable.getMessage());
+                            EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));
                         }
                 );
     }

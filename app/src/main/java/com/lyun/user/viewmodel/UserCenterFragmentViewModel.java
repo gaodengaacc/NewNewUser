@@ -12,6 +12,9 @@ import com.lyun.user.AppIntent;
 import com.lyun.user.R;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
+import com.lyun.user.eventbusmessage.mainactivity.EventMainProgressMessage;
+import com.lyun.user.eventbusmessage.mainactivity.EventMainToastMessage;
+import com.lyun.user.model.MultipartModel;
 import com.lyun.user.model.StatisticsCardNoModel;
 import com.lyun.utils.TimeUtil;
 
@@ -134,5 +137,23 @@ public class UserCenterFragmentViewModel extends ViewModel {
     }
     private void exit() {
         Account.preference().clear();
+    }
+
+    public void updateHeader(String path) {
+        EventBus.getDefault().post(new EventMainProgressMessage(true));
+        new MultipartModel().upHeader(path)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(apiResult -> {
+                    EventBus.getDefault().post(new EventMainProgressMessage(false));
+                    if (apiResult.isSuccess())
+                        EventBus.getDefault().post(new EventMainToastMessage("上传成功"));
+                    else
+                        EventBus.getDefault().post(new EventMainToastMessage(apiResult.getDescribe()));
+
+                }, throwable -> {
+                    EventBus.getDefault().post(new EventMainToastMessage(throwable.getMessage()));
+                    EventBus.getDefault().post(new EventMainProgressMessage(false));
+                });
     }
 }

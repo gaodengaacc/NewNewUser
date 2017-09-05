@@ -40,4 +40,6 @@ public class APIConstants {
     public static final String QUERY_SERVICE_MY_CARD_LIST = "findMyCard";//查询我的服务卡
     //律世界
     public static final String QUERY_LAW_WORLD_LIST = "get_lawyer_info";//查询律世界列表
+    //上传图片
+    public static final String UPDATE_HEADER = "update_img";//上传头像
 }

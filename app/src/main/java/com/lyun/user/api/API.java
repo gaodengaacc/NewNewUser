@@ -4,6 +4,7 @@ import com.lyun.api.APIBase;
 import com.lyun.user.api.service.AuthService;
 import com.lyun.user.api.service.LanguageService;
 import com.lyun.user.api.service.LawWorldService;
+import com.lyun.user.api.service.MultipartService;
 import com.lyun.user.api.service.ServiceCardService;
 import com.lyun.user.api.service.TranslationOrderService;
 
@@ -20,5 +21,5 @@ public class API extends APIBase {
     public static LanguageService language = create(LanguageService.class);
     public static ServiceCardService serviceCard = create(ServiceCardService.class);
     public static LawWorldService lawWorld = create(LawWorldService.class);
-
+    public static MultipartService multipartService = create(MultipartService.class);
 }

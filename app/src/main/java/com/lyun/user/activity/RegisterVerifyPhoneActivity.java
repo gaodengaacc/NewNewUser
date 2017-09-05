@@ -9,6 +9,7 @@ import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityRegisterVerifyPhoneBinding;
+import com.lyun.user.eventbusmessage.EventIntentActivityMessage;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.login.EventThirdBindPhoneSuccessMessage;
@@ -78,5 +79,10 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showToast(EventToastMessage message){
         Toast.makeText(AppApplication.getInstance(),message.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void startToActivity(EventIntentActivityMessage message) {
+        startActivity(message.getMessage());
     }
 }

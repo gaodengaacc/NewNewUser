@@ -171,7 +171,8 @@
                 <View
                     android:layout_width="90dp"
                     android:layout_height="0.5dp"
-                    android:layout_gravity="center_vertical"></View>
+                    android:layout_gravity="center_vertical"
+                    android:background="#cccccc"></View>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,7 +186,8 @@
                 <View
                     android:layout_width="90dp"
                     android:layout_height="0.5dp"
-                    android:layout_gravity="center_vertical"></View>
+                    android:layout_gravity="center_vertical"
+                    android:background="#cccccc"></View>
             </LinearLayout>
 
             <LinearLayout

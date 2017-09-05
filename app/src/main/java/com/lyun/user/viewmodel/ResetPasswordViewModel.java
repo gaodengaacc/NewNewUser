@@ -59,6 +59,7 @@ public class ResetPasswordViewModel extends ViewModel {
             message.setMessage("请正确输入6~16位字母或数字");
         } else {
             resetPassword(Account.preference().getPhone(), password.get(), newPassword1.get());
+            return;
         }
         EventBus.getDefault().post(message);
     });
@@ -76,12 +77,13 @@ public class ResetPasswordViewModel extends ViewModel {
                             } else {
                                 message.setMessage(apiResult.getDescribe());
                             }
+                            EventBus.getDefault().post(message);
                         }
                         , throwable -> {
                             message.setMessage(throwable.getMessage());
-                            throwable.printStackTrace();
                             progressMessage.setMessage(false);
                             EventBus.getDefault().post(progressMessage);
+                            EventBus.getDefault().post(message);
                         });
     }
 

@@ -10,8 +10,8 @@ import android.support.annotation.NonNull;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
 import com.lyun.user.activity.AccountBindingActivity;
-import com.lyun.user.activity.AfterSaleServiceActivity;
 import com.lyun.user.activity.AddressManageActivity;
+import com.lyun.user.activity.AfterSaleServiceActivity;
 import com.lyun.user.activity.ImageCropActivity;
 import com.lyun.user.activity.ImageHeaderActivity;
 import com.lyun.user.activity.UserServiceCardListActivity;
@@ -94,6 +94,8 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
             if (path != null)
                 GlideUtils.showImage(getContext(), getFragmentViewDataBinding().userCenterAvatar, new File(path));
 //                getFragmentViewDataBinding().userCenterAvatar.setImageBitmap(getLoacalBitmap(path));
+            getFragmentViewModel().updateHeader(path);
+
         }
     }
 

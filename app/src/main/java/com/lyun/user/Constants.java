@@ -11,6 +11,7 @@ public class Constants {
     public static final String MODULE = "/lytapp/apiDesc/";
     public static final String API_BASE_URL = HOST + MODULE;
     public static final String WX_GET_OPENID_URL = "https://api.weixin.qq.com/sns/oauth2/";
+    public static final String IMAGE_BASE_URL = API_BASE_URL + "user-image?name=";
 
     /**
      * 当前 DEMO 应用的回调页，第三方应用可以使用自己的回调页。
