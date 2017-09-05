@@ -3,6 +3,7 @@ package com.lyun.user.api.response;
 import com.google.gson.annotations.SerializedName;
 import com.lyun.api.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class LawWorldResponse extends BaseResponse {
@@ -39,16 +40,16 @@ public class LawWorldResponse extends BaseResponse {
     private String handId;
     private String idCard;
     private String cardType;
-    private Object cardNo;
+    private String cardNo;
     private String empAge;
     private String introduction;
     private String yunXinToken;
     private String userType;
     private String userImg;
-    private Object createTime;
+    private String createTime;
     @SerializedName("new")
     private boolean newX;
-    private List<?> dominList;
+    private List<Domin> dominList;
 
     public String getId() {
         return id;
@@ -130,11 +131,11 @@ public class LawWorldResponse extends BaseResponse {
         this.cardType = cardType;
     }
 
-    public Object getCardNo() {
+    public String getCardNo() {
         return cardNo;
     }
 
-    public void setCardNo(Object cardNo) {
+    public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
 
@@ -171,18 +172,20 @@ public class LawWorldResponse extends BaseResponse {
     }
 
     public String getUserImg() {
-        return userImg;
+        if (userId != null)
+            return userImg.trim();
+        else return "";
     }
 
     public void setUserImg(String userImg) {
         this.userImg = userImg;
     }
 
-    public Object getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Object createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -194,11 +197,58 @@ public class LawWorldResponse extends BaseResponse {
         this.newX = newX;
     }
 
-    public List<?> getDominList() {
+    public List<Domin> getDominList() {
         return dominList;
     }
 
-    public void setDominList(List<?> dominList) {
+    public void setDominList(List<Domin> dominList) {
         this.dominList = dominList;
+    }
+
+    public class Domin implements Serializable {
+
+        /**
+         * id : 10
+         * code : 112
+         * name : 婚姻家庭财产关系
+         * description : 婚姻家庭财产关系
+         */
+
+        private int id;
+        private String code;
+        private String name;
+        private String description;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
     }
 }

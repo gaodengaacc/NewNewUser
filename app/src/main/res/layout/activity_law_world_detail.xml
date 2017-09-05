@@ -4,7 +4,12 @@
         xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <data></data>
+    <data>
+
+        <variable
+            name="mvvm"
+            type="com.lyun.user.viewmodel.LawWorldDetailViewModel"/>
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="65dp"
-                android:text="王文涛"
+                android:text="@{mvvm.data.get().getRealName()}"
                 android:textColor="#485465"
                 android:textSize="18sp"/>
 
@@ -62,7 +67,7 @@
                 android:layout_below="@id/law_world_detail_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
-                android:text="从业年限 10年"
+                android:text="@{`从业年限 ` + mvvm.data.get().getEmpAge() + `年`}"
                 android:textColor="#485465"
                 android:textSize="12sp"/>
 
@@ -96,44 +101,56 @@
                 app:childSpacingForLastRow="align"
                 app:rowSpacing="8dp">
 
-                <TextView
+                <com.lyun.roundrectview.RoundRectTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/law_world_card_round_corner_blue_bg"
                     android:gravity="center"
                     android:paddingBottom="2dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="家庭婚姻"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp"/>
+                    android:text="@{mvvm.domin1}"
+                    android:textColor="#8aa4c8"
+                    android:textSize="12sp"
+                    android:visibility="@{mvvm.domin1Visibility}"
+                    app:backgroundColor="@android:color/white"
+                    app:borderColor="#8aa4c8"
+                    app:borderWidth="3px"
+                    app:cornerRadius="50%"/>
 
-                <TextView
+                <com.lyun.roundrectview.RoundRectTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/law_world_card_round_corner_blue_bg"
                     android:gravity="center"
                     android:paddingBottom="2dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="合同事务"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp"/>
+                    android:text="@{mvvm.domin2}"
+                    android:textColor="#8aa4c8"
+                    android:textSize="12sp"
+                    android:visibility="@{mvvm.domin2Visibility}"
+                    app:backgroundColor="@android:color/white"
+                    app:borderColor="#8aa4c8"
+                    app:borderWidth="3px"
+                    app:cornerRadius="50%"/>
 
-                <TextView
+                <com.lyun.roundrectview.RoundRectTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/law_world_card_round_corner_blue_bg"
                     android:gravity="center"
                     android:paddingBottom="2dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="刑事辩护"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp"/>
+                    android:text="@{mvvm.domin3}"
+                    android:textColor="#8aa4c8"
+                    android:textSize="12sp"
+                    android:visibility="@{mvvm.domin3Visibility}"
+                    app:backgroundColor="@android:color/white"
+                    app:borderColor="#8aa4c8"
+                    app:borderWidth="3px"
+                    app:cornerRadius="50%"/>
 
             </com.lyun.widget.FlowLayout>
         </RelativeLayout>
@@ -144,7 +161,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="44dp"
             android:elevation="10dp"
-            android:src="@mipmap/user_default_avatar"/>
+            android:src="@mipmap/user_default_avatar"
+            app:imageUrl="@{mvvm.data.get().getUserImg()}"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -170,6 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="20dp"
+                android:text="@{mvvm.data.get().getIntroduction()}"
                 android:textColor="#485465"
                 android:textSize="14sp"/>
 

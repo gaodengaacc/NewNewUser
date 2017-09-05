@@ -23,7 +23,8 @@
             android:layout_marginTop="@dimen/law_world_avatar_marginTop"
             android:src="@mipmap/user_default_avatar"
             app:border_color="#209ced"
-            app:border_width="1dp"/>
+            app:border_width="1dp"
+            app:imageUrl="@{mvvm.avatar}"/>
 
         <TextView
             android:id="@+id/law_world_name"
@@ -32,7 +33,7 @@
             android:layout_below="@id/law_world_avatar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:text="名称"
+            android:text="@{mvvm.name}"
             android:textColor="#485465"
             android:textSize="@dimen/law_world_name_textSize"/>
 
@@ -54,10 +55,11 @@
                 android:layout_centerHorizontal="true"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:currentItem="1"
+                app:currentItem="@{mvvm.currentItem}"
                 app:itemView="@{mvvm.itemView}"
                 app:items="@{mvvm.items}"
-                app:offscreenPageLimit="2">
+                app:offscreenPageLimit="4"
+                app:onPageSelectedCommand="@{mvvm.onPageSelected}">
 
             </android.support.v4.view.ViewPager>
         </RelativeLayout>

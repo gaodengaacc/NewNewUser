@@ -42,4 +42,8 @@ public class APIConstants {
     public static final String QUERY_LAW_WORLD_LIST = "get_lawyer_info";//查询律世界列表
     //上传图片
     public static final String UPDATE_HEADER = "update_img";//上传头像
+    // 售后服务
+    public static final String QUERY_ORDER_HISTORY = "getDealByCardNo";//查询订单记录
+    public static final String QUERY_INVOICE_HISTORY = "getInvoiceByCardNo";//查询开票记录
+
 }
