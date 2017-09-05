@@ -91,7 +91,7 @@ android {
                     BaiduMobAd_STAT_ID: "ac161ce77e"])
         }
         release {
-            debuggable false
+            debuggable true
             signingConfig signingConfigs.release
             //是否清理无用资源
             shrinkResources false
@@ -100,7 +100,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", "HOST", '"https://lyt.law-cloud.com.cn:8444"'
+            buildConfigField "String", "HOST", '"https://newlyt1.law-cloud.com.cn:8441"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"user"'
             buildConfigField "String", "BAIDU_MAP_AK", '"I8mvwSd8WolPcyoTUCPf5QI1"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"

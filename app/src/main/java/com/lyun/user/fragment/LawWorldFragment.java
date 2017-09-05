@@ -1,10 +1,7 @@
 package com.lyun.user.fragment;
 
 import android.databinding.ObservableField;
-import android.databinding.ObservableList;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -12,9 +9,8 @@ import android.view.View;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.R;
 import com.lyun.user.activity.LawWorldDetailActivity;
-import com.lyun.user.api.response.LawWorldCardResponse;
+import com.lyun.user.api.response.LawWorldResponse;
 import com.lyun.user.databinding.FragmentLawWorldBinding;
-import com.lyun.user.viewmodel.LawWorldCardViewModel;
 import com.lyun.user.viewmodel.LawWorldViewModel;
 import com.lyun.user.viewmodel.watchdog.ILawWorldViewModelCallbacks;
 import com.lyun.utils.DisplayUtil;
@@ -54,7 +50,7 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
         mViewPager.setPageTransformer(false, new LawWorldPageTransformer());
         mViewPager.setOffscreenPageLimit(4);
 
-        //mViewPagerContainer = (RelativeLayout) root.findViewById(R.id.law_world_viewpager_container);
+        // mViewPagerContainer = (RelativeLayout) root.findViewById(R.id.law_world_viewpager_container);
         // 引发bug
         // mViewPagerContainer.setOnTouchListener((v, event) -> mViewPager.dispatchTouchEvent(event));
 
@@ -75,7 +71,7 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
     }
 
     @Override
-    public void navigateDetail(ObservableField<LawWorldCardResponse> observableField, int fieldId) {
+    public void navigateDetail(ObservableField<LawWorldResponse> observableField, int fieldId) {
         LawWorldDetailActivity.start(getContext());
     }
 

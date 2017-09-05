@@ -41,7 +41,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="2dp"
-                    android:text="从业年限 10年"
+                    android:text="@{`从业年限 ` + mvvm.data.get().getEmpAge() + `年`}"
                     android:textColor="#209ced"
                     android:textSize="12sp"/>
 
@@ -75,9 +75,10 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="2dp"
-                        android:text="家庭婚姻"
+                        android:text="@{mvvm.domin1}"
                         android:textColor="#ffffff"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp"
+                        android:visibility="@{mvvm.domin1Visibility}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -88,9 +89,10 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="2dp"
-                        android:text="合同事务"
+                        android:text="@{mvvm.domin2}"
                         android:textColor="#ffffff"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp"
+                        android:visibility="@{mvvm.domin2Visibility}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -101,9 +103,10 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="2dp"
-                        android:text="刑事辩护"
+                        android:text="@{mvvm.domin3}"
                         android:textColor="#ffffff"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp"
+                        android:visibility="@{mvvm.domin3Visibility}"/>
 
                 </com.lyun.widget.FlowLayout>
             </RelativeLayout>
@@ -138,7 +141,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="20dp"
                     android:ellipsize="end"
-                    android:text="同样是一个ListView，可以用不同的Adapter让它显示出来，比如说最常用的ArrayAdapter，SimpleAdapter，SimpleCursorAdapter，以及重写BaseAdapter等方法。ArrayAdapter比较简单，但它只能用于显示文字。而SimpleAdapter则有很强的扩展性，可以自定义出各种效果，SimpleCursorAdapter则可以从数据库中读取数据显示在列表上，通过从写BaseAdapter可以在列表上加处理的事件等。"
+                    android:text="@{mvvm.data.get().getIntroduction()}"
                     android:textColor="#485465"
                     android:textSize="14sp"/>
             </RelativeLayout>
