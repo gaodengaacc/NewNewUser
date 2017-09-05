@@ -2,6 +2,7 @@ package com.lyun.user.viewmodel;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.databinding.ObservableList;
 
 import com.lyun.library.mvvm.command.RelayCommand;
@@ -22,6 +23,8 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
 
     public final ObservableList<LawWorldCardViewModel> items = new ObservableArrayList<>();
     public final ObservableField<ItemView> itemView = new ObservableField<>();
+
+    public final ObservableInt currentItem = new ObservableInt(0);
 
     public final ObservableField<String> avatar = new ObservableField<>();
     public final ObservableField<String> name = new ObservableField<>();
@@ -44,6 +47,8 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
                         for (LawWorldResponse response : listAPIResult.getContent().getData()) {
                             items.add(new LawWorldCardViewModel(this, response));
                         }
+                        if (items.size() > 1)
+                            currentItem.set(1);
                     }
                 });
     }

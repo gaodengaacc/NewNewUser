@@ -51,6 +51,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     private AliPayManager aliPayManager;
     private WXPayManager wxPayManager;
     private String action = "ServiceCardFragment";
+
     public ServiceCardFragment() {
     }
 
@@ -84,6 +85,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
         //mViewPager.setPageMargin(DisplayUtil.dip2px(getContext(), -20));
         mViewPager.setPageTransformer(true, new ServiceCardPageTransformer());
+        mViewPager.setOffscreenPageLimit(4);
 
         // mViewPagerContainer = (RelativeLayout) root.findViewById(R.id.law_world_viewpager_container);
         // 引发bug

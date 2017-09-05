@@ -3,6 +3,7 @@ package com.lyun.user.api.response;
 import com.google.gson.annotations.SerializedName;
 import com.lyun.api.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class LawWorldResponse extends BaseResponse {
@@ -39,13 +40,13 @@ public class LawWorldResponse extends BaseResponse {
     private String handId;
     private String idCard;
     private String cardType;
-    private Object cardNo;
+    private String cardNo;
     private String empAge;
     private String introduction;
     private String yunXinToken;
     private String userType;
     private String userImg;
-    private Object createTime;
+    private String createTime;
     @SerializedName("new")
     private boolean newX;
     private List<Domin> dominList;
@@ -130,11 +131,11 @@ public class LawWorldResponse extends BaseResponse {
         this.cardType = cardType;
     }
 
-    public Object getCardNo() {
+    public String getCardNo() {
         return cardNo;
     }
 
-    public void setCardNo(Object cardNo) {
+    public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
 
@@ -180,11 +181,11 @@ public class LawWorldResponse extends BaseResponse {
         this.userImg = userImg;
     }
 
-    public Object getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Object createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -204,7 +205,7 @@ public class LawWorldResponse extends BaseResponse {
         this.dominList = dominList;
     }
 
-    public class Domin {
+    public class Domin implements Serializable {
 
         /**
          * id : 10

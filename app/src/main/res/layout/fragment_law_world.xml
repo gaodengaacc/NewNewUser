@@ -55,7 +55,7 @@
                 android:layout_centerHorizontal="true"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:currentItem="1"
+                app:currentItem="@{mvvm.currentItem}"
                 app:itemView="@{mvvm.itemView}"
                 app:items="@{mvvm.items}"
                 app:offscreenPageLimit="4"

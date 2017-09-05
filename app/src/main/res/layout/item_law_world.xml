@@ -66,10 +66,9 @@
                     app:childSpacingForLastRow="align"
                     app:rowSpacing="8dp">
 
-                    <TextView
+                    <com.lyun.roundrectview.RoundRectTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/law_world_card_round_corner_blue_bg"
                         android:gravity="center"
                         android:paddingBottom="2dp"
                         android:paddingLeft="5dp"
@@ -78,12 +77,15 @@
                         android:text="@{mvvm.domin1}"
                         android:textColor="#ffffff"
                         android:textSize="12sp"
-                        android:visibility="@{mvvm.domin1Visibility}"/>
+                        android:visibility="@{mvvm.domin1Visibility}"
+                        app:backgroundColor="@android:color/transparent"
+                        app:borderColor="#90cefe"
+                        app:borderWidth="3px"
+                        app:cornerRadius="50%"/>
 
-                    <TextView
+                    <com.lyun.roundrectview.RoundRectTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/law_world_card_round_corner_blue_bg"
                         android:gravity="center"
                         android:paddingBottom="2dp"
                         android:paddingLeft="5dp"
@@ -92,12 +94,15 @@
                         android:text="@{mvvm.domin2}"
                         android:textColor="#ffffff"
                         android:textSize="12sp"
-                        android:visibility="@{mvvm.domin2Visibility}"/>
+                        android:visibility="@{mvvm.domin2Visibility}"
+                        app:backgroundColor="@android:color/transparent"
+                        app:borderColor="#90cefe"
+                        app:borderWidth="3px"
+                        app:cornerRadius="50%"/>
 
-                    <TextView
+                    <com.lyun.roundrectview.RoundRectTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/law_world_card_round_corner_blue_bg"
                         android:gravity="center"
                         android:paddingBottom="2dp"
                         android:paddingLeft="5dp"
@@ -106,7 +111,11 @@
                         android:text="@{mvvm.domin3}"
                         android:textColor="#ffffff"
                         android:textSize="12sp"
-                        android:visibility="@{mvvm.domin3Visibility}"/>
+                        android:visibility="@{mvvm.domin3Visibility}"
+                        app:backgroundColor="@android:color/transparent"
+                        app:borderColor="#90cefe"
+                        app:borderWidth="3px"
+                        app:cornerRadius="50%"/>
 
                 </com.lyun.widget.FlowLayout>
             </RelativeLayout>

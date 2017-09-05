@@ -72,7 +72,7 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
 
     @Override
     public void navigateDetail(ObservableField<LawWorldResponse> observableField, int fieldId) {
-        LawWorldDetailActivity.start(getContext());
+        LawWorldDetailActivity.start(getContext(), observableField.get());
     }
 
     public class LawWorldPageTransformer implements ViewPager.PageTransformer {
@@ -91,12 +91,12 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
             } else if (position <= 1) {
                 // 右划
                 scale = 1 - position + position * MAX_SCALE;
-            }else {
+            } else {
                 // 右划到底
                 scale = MAX_SCALE;
             }
 
-            L.e("PageTransformer","position：" + position + "\tscale:" + scale);
+            L.e("PageTransformer", "position：" + position + "\tscale:" + scale);
 
             // 等比例缩放
             page.setScaleY(scale);
