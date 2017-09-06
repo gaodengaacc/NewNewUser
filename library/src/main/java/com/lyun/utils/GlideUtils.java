@@ -86,6 +86,22 @@ public class GlideUtils {
                 .crossFade()
                 .into(view);
     }
+
+    /**
+     * 加载图片
+     *
+     * @param view
+     * @param url
+     */
+    public static void showImage(Context context, ImageView view, String url, boolean isCache) {
+        Glide.with(context)
+                .load(url)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .animate(R.anim.fade_in)
+                .crossFade()
+                .into(view);
+    }
     /**
      * 加载gif图片
      *

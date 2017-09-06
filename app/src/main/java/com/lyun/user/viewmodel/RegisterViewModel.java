@@ -14,10 +14,13 @@ import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppIntent;
 import com.lyun.user.R;
+import com.lyun.user.eventbusmessage.login.EventRegisterSuccessMessage;
 import com.lyun.user.model.RegisterModel;
 import com.lyun.utils.RegExMatcherUtils;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
+
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -100,6 +103,7 @@ public class RegisterViewModel extends ViewModel {
                             progressDialogShow.set(false);
                             if (apiResult.isSuccess()) {
                                 onRegisterSuccess.notifyChange();
+                                EventBus.getDefault().post(new EventRegisterSuccessMessage(username, password));
                             } else {
                                 ObservableNotifier.alwaysNotify(onRegisterResult, apiResult.getDescribe());
                             }

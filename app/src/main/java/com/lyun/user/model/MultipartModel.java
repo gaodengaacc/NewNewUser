@@ -5,7 +5,6 @@ import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.model.Model;
 import com.lyun.user.Account;
 import com.lyun.user.api.API;
-import com.lyun.user.api.request.UpdateHeaderBean;
 
 import java.io.File;
 
@@ -32,8 +31,6 @@ public class MultipartModel extends Model {
 //        });
         MultipartBody.Part imagePart = MultipartBody.Part.createFormData("userImage", file.getName(), requestBody);
         MultipartBody.Part cardPart = MultipartBody.Part.createFormData("cardNo", Account.preference().getCardNo());
-        UpdateHeaderBean bean = new UpdateHeaderBean();
-        bean.setFile(file);
         return API.multipartService.uploadImages(cardPart, imagePart).onErrorReturn(throwable -> ErrorParser.mockResult(throwable));
     }
 }

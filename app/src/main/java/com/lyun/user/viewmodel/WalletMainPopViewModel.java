@@ -12,11 +12,11 @@ import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppApplication;
-import com.lyun.user.eventbusmessage.homefragment.EventHomePobDismissMessage;
 import com.lyun.user.R;
 import com.lyun.user.adapter.WalletMainPopAdapter;
 import com.lyun.user.api.response.FindLanguageResponse;
 import com.lyun.user.dialog.WalletMainPopWindow;
+import com.lyun.user.eventbusmessage.homefragment.EventHomePobDismissMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventSelectMessage;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
@@ -42,7 +42,7 @@ public class WalletMainPopViewModel extends ViewModel {
     public final ObservableBoolean isDismiss = new ObservableBoolean();
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
-    public static final String defaultLanguageCache = "[{\"id\":1,\"code\":\"102\",\"name\":\"英文\",\"description\":\"英文语言\"}]";
+    public static final String defaultLanguageCache = "[{\"id\":9,\"code\":\"110\",\"name\":\"民间借贷\",\"description\":\"民间借贷\"}]";
 
     public WalletMainPopViewModel(Context context,List<FindLanguageResponse> responses) {
         new WalletMainPopWindow(context, this).setOnDismissListener(new PopupWindow.OnDismissListener() {

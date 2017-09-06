@@ -22,6 +22,7 @@ import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.login.EventCheckIsBindMessage;
 import com.lyun.user.eventbusmessage.login.EventLoginSuccessMessage;
 import com.lyun.user.eventbusmessage.login.EventQqLoginMessage;
+import com.lyun.user.eventbusmessage.login.EventRegisterSuccessMessage;
 import com.lyun.user.eventbusmessage.login.EventThirdBindPhoneSuccessMessage;
 import com.lyun.user.eventbusmessage.login.EventWbLoginMessage;
 import com.lyun.user.eventbusmessage.login.EventWxLoginMessage;
@@ -50,6 +51,7 @@ import com.tencent.tauth.UiError;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -246,11 +248,15 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         finish();
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void thirdBindSuccess(EventThirdBindPhoneSuccessMessage message) {
         getActivityViewModel().login(true, message.getMessage().openId, message.getMessage().loginType);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void registerSuccess(EventRegisterSuccessMessage message) {
+        getActivityViewModel().login(false, message.getMessage(), message.getPassward());
+    }
     @Subscribe
     public void onUnBindAccount(EventCheckIsBindMessage message) {
         Intent intent = new Intent(this, RegisterVerifyPhoneActivity.class);

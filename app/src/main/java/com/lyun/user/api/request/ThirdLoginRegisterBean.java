@@ -10,7 +10,6 @@ public class ThirdLoginRegisterBean extends BaseRequestBean {
     private String openId;
     private String loginType;
     private String password;
-    private String userId;
 
     public String getUserId() {
         return userId;

@@ -43,8 +43,8 @@ public class LoginModel extends Model {
                 .observeOn(Schedulers.io());
     }
 
-    public Observable<APIResult<LoginResponse>> login(String openId) {
-        return   API.auth.login(new ThirdLoginBean(openId)).onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
+    public Observable<APIResult<LoginResponse>> thirdLogin(String openId, String loginType) {
+        return API.auth.login(new ThirdLoginBean(openId, loginType)).onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }

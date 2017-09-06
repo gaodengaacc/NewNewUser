@@ -9,7 +9,6 @@ import android.view.View;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppIntent;
-import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
@@ -93,7 +92,6 @@ public class UserCenterFragmentViewModel extends ViewModel {
         } else {
             topVisible.set(View.GONE);
         }
-        avatar.set(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader());
     }
 
     public void onViewClick(View view) {

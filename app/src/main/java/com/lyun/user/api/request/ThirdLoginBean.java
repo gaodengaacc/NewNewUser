@@ -9,6 +9,16 @@ package com.lyun.user.api.request;
 public class ThirdLoginBean extends BaseRequestBean {
     private String openId;
 
+    public String getLoginType() {
+        return loginType;
+    }
+
+    public void setLoginType(String loginType) {
+        this.loginType = loginType;
+    }
+
+    private String loginType;
+
     public String getOpenId() {
         return openId;
     }
@@ -16,7 +26,9 @@ public class ThirdLoginBean extends BaseRequestBean {
     public void setOpenId(String openId) {
         this.openId = openId;
     }
-    public ThirdLoginBean(String openId){
+
+    public ThirdLoginBean(String openId, String loginType) {
         this.openId = openId;
+        this.loginType = loginType;
     }
 }

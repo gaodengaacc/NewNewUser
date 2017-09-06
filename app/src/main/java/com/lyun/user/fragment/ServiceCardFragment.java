@@ -66,6 +66,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        setRetainInstance(true);
     }
 
     @Override

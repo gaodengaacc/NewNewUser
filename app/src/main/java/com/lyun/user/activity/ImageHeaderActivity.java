@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
@@ -65,14 +66,18 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Bitmap src = BitmapDecoder.decodeSampledForDisplay(AppApplication.getAppFileDirs().image().getAbsolutePath()+"/header.jpg");
-        Glide.with(this).load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader()).asBitmap().into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                imageBitmap = resource;
-                ImageUtil.rotateBitmapInNeeded(ImageCropActivity.SAVE_PATH, resource);
-                getBodyViewDataBinding().headerImage.setImageBitmap(resource);
-            }
+//        Bitmap src = BitmapDecoder.decodeSampledForDisplay(AppApplication.getAppFileDirs().image().getAbsolutePath()+"/header.jpg")
+//
+        Glide.with(this).load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader())
+                .asBitmap().skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        imageBitmap = resource;
+                        ImageUtil.rotateBitmapInNeeded(ImageCropActivity.SAVE_PATH, resource);
+                        getBodyViewDataBinding().headerImage.setImageBitmap(resource);
+                    }
         });
         EventBus.getDefault().register(this);
 

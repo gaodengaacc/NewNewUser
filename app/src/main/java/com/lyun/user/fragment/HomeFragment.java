@@ -54,6 +54,7 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         if (getArguments() != null) {
         }
         EventBus.getDefault().register(this);
+        setRetainInstance(true);
     }
 
     @Override
