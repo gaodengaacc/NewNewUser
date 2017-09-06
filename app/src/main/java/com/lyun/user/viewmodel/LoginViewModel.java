@@ -102,7 +102,7 @@ public class LoginViewModel extends ViewModel {
         Observable.just(isThirdLogin)
                 .flatMap(isThird -> {
                     if (isThird)
-                        return new LoginModel().login(openId);
+                        return new LoginModel().thirdLogin(openId, thirdType);
                     else
                         return new LoginModel().login(username.get(), password.get());
                 })

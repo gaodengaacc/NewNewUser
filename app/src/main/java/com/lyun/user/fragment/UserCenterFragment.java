@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
@@ -59,7 +60,14 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        Glide.with(this).load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader()).asBitmap().into(new SimpleTarget<Bitmap>() {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Glide.with(this).load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader())
+                .asBitmap().skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 getFragmentViewDataBinding().userCenterAvatar.setImageBitmap(resource);
@@ -108,7 +116,7 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
             String path = data.getStringExtra(ImageCropActivity.SAVE_PATH);
 
 //            if (path != null)
-//                GlideUtils.showImage(getContext(), getFragmentViewDataBinding().userCenterAvatar, new File(path));
+//            GlideUtils.showImage(getContext(), getFragmentViewDataBinding().userCenterAvatar, new File(path));
 //                getFragmentViewDataBinding().userCenterAvatar.setImageBitmap(getLoacalBitmap(path));
             updateHeader(path);
 
@@ -139,7 +147,8 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
                     EventBus.getDefault().post(new EventMainProgressMessage(false));
                     if (apiResult.isSuccess()) {
                         EventBus.getDefault().post(new EventMainToastMessage("上传成功"));
-                        GlideUtils.showImage(getContext(), getFragmentViewDataBinding().userCenterAvatar, Constants.IMAGE_BASE_URL + apiResult.getContent());
+                        GlideUtils.showImage(getContext(), getFragmentViewDataBinding().userCenterAvatar, Constants.IMAGE_BASE_URL + apiResult.getContent(), true);
+                        Account.preference().setUserHeader(String.valueOf(apiResult.getContent()));
                     } else
                         EventBus.getDefault().post(new EventMainToastMessage(apiResult.getDescribe()));
 
