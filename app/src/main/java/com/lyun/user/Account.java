@@ -35,6 +35,7 @@ public class Account {
 
         private String cardNo;
         private String userId;
+        private String userHeader;
 
         private final String KEY_PHONE = "phone";
         private final String KEY_CARDNO = "cardNo";
@@ -45,6 +46,7 @@ public class Account {
         private final String KEY_WX_APPID = "wx_app_id";
         private final String KEY_SPLASH = "splash";
         private final String KEY_USERID = "userId";
+        private final String KEY_USER_HEADER = "userHeader";
 
         public void clear() {
             savePassword(null);
@@ -52,6 +54,7 @@ public class Account {
             saveToken(null);
             setCardNo(null);
             setUserId(null);
+            setUserHeader(null);
             setLogin(false);
         }
 
@@ -66,6 +69,17 @@ public class Account {
             this.cardNo = cardNo;
         }
 
+
+        public String getUserHeader() {
+            if (userHeader == null)
+                userHeader = getString(KEY_USER_HEADER);
+            return userHeader;
+        }
+
+        public void setUserHeader(String userHeader) {
+            saveString(KEY_USER_HEADER, userHeader);
+            this.userHeader = userHeader;
+        }
         public String getUserId() {
             if (userId == null)
                 userId = getString(KEY_USERID);

@@ -33,6 +33,14 @@ public class LoginResponse extends BaseResponse {
     private String introduction;
     private String yunXinToken;
     private String appToken;
+    private String userImg;
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
 
     public String getCardNo() {
         return cardNo;

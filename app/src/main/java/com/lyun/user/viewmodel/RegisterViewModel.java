@@ -101,10 +101,10 @@ public class RegisterViewModel extends ViewModel {
                             if (apiResult.isSuccess()) {
                                 onRegisterSuccess.notifyChange();
                             } else {
-                                onRegisterResult.set(apiResult.getDescribe());
+                                ObservableNotifier.alwaysNotify(onRegisterResult, apiResult.getDescribe());
                             }
                         },
-                        throwable -> onRegisterFailed.set(throwable));
+                        throwable -> ObservableNotifier.alwaysNotify(onRegisterFailed, throwable));
     }
 
     public void onClearClick(View view) {

@@ -84,5 +84,6 @@ public class RegisterVerifyPhoneActivity extends GeneralToolbarActivity<Activity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void startToActivity(EventIntentActivityMessage message) {
         startActivity(message.getMessage());
+        finish();
     }
 }

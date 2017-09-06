@@ -8,22 +8,32 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
+import com.lyun.user.Account;
 import com.lyun.user.AppApplication;
+import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ImageHeaderLayoutBinding;
 import com.lyun.user.dialog.SelectImageDialog;
 import com.lyun.user.eventbusmessage.EventSelectImageItemMessage;
 import com.lyun.user.viewmodel.ImageHeaderViewModel;
 import com.lyun.user.viewmodel.SelectImageDialogViewModel;
-import com.netease.nim.uikit.common.util.media.BitmapDecoder;
 import com.netease.nim.uikit.common.util.media.ImageUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * @author Gordon
@@ -37,6 +47,8 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     private int PICK_IMAGE = 10000;
     private int CROP_IMAGE = 10001;
     public static final String IMAGE_PATH = "image_path";
+    private String savePath;
+    private Bitmap imageBitmap;
 
     @Override
     protected int getBodyLayoutId() {
@@ -53,9 +65,15 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bitmap src = BitmapDecoder.decodeSampledForDisplay(AppApplication.getAppFileDirs().image().getAbsolutePath()+"/header.jpg");
-        src = ImageUtil.rotateBitmapInNeeded(ImageCropActivity.SAVE_PATH, src);
-        getBodyViewDataBinding().headerImage.setImageBitmap(src);
+//        Bitmap src = BitmapDecoder.decodeSampledForDisplay(AppApplication.getAppFileDirs().image().getAbsolutePath()+"/header.jpg");
+        Glide.with(this).load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader()).asBitmap().into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                imageBitmap = resource;
+                ImageUtil.rotateBitmapInNeeded(ImageCropActivity.SAVE_PATH, resource);
+                getBodyViewDataBinding().headerImage.setImageBitmap(resource);
+            }
+        });
         EventBus.getDefault().register(this);
 
     }
@@ -64,6 +82,12 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if (imageBitmap != null) {
+            imageBitmap.recycle();
+            imageBitmap = null;
+        }
+
+
     }
 
     @NonNull
@@ -94,6 +118,7 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
                 startActivityForResult(intent, PICK_IMAGE);
                 break;
             case 1:
+                saveBitmap(imageBitmap);
                 break;
             default:
                 break;
@@ -119,6 +144,32 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
             setResult(Activity.RESULT_OK,data);
             finish();
         }
+    }
+
+    public void saveBitmap(Bitmap bitmap) {
+        savePath = AppApplication.getAppFileDirs().image().getAbsolutePath() + "/header/";
+        File appDir = new File(savePath);
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = System.currentTimeMillis() + ".jpg";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+            Toast.makeText(this, "图片已保存在" + savePath + "文件夹下", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(this, "图片保存失败", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(this, "图片保存失败", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }

@@ -9,6 +9,7 @@ import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityResetPasswordBinding;
+import com.lyun.user.eventbusmessage.EventActivityFinishMessage;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.viewmodel.ResetPasswordViewModel;
@@ -71,6 +72,11 @@ public class ResetPasswordActivity extends GeneralToolbarActivity<ActivityResetP
             dialogViewModel.show();
         else
             dialogViewModel.dismiss();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void finishActivity(EventActivityFinishMessage message) {
+        finish();
     }
 
 }

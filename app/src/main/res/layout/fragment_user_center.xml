@@ -50,7 +50,7 @@
                         android:onClick="@{mvvm.onViewClick}"
                         app:border_color="#ffffff"
                         app:border_width="2dp"
-                        app:imageSrc="@{mvvm.avatar}"/>
+                        app:imageUrl="@{mvvm.avatar}"/>
 
                     <TextView
                         android:id="@+id/user_center_name"

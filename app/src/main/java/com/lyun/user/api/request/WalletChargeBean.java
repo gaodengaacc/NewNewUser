@@ -8,8 +8,6 @@ package com.lyun.user.api.request;
 
 public class WalletChargeBean extends BaseRequestBean {
     private String payType;
-    private String handid = getCardNo();
-    private String phone = userId;
     private String cardId;
 
 
