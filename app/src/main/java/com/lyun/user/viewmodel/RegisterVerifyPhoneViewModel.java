@@ -162,7 +162,7 @@ public class RegisterVerifyPhoneViewModel extends ViewModel {
                 }))
                 .flatMap(result -> Observable.create(observable -> {
                     if (isThird) {
-                        observable.onNext(isThird);
+                        observable.onNext(new Object());
                         observable.onComplete();
                     } else {
                         observable.onError(new APINeedDealException(new APIResult("-1", "验证成功", null)));

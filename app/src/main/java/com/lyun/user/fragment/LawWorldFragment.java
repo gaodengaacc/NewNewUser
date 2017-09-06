@@ -38,6 +38,7 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+        setRetainInstance(true);
     }
 
     @NonNull

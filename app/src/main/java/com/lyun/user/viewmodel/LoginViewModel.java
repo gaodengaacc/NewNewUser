@@ -84,7 +84,7 @@ public class LoginViewModel extends ViewModel {
         } else if (!RegExMatcherUtils.matchPassword(password.get())) {
             ObservableNotifier.alwaysNotify(onLoginResult, "密码格式不正确,请重新输入");
         } else {
-            login(false, "", "");
+            login(false, username.get(), password.get());
         }
 
     });
@@ -104,7 +104,7 @@ public class LoginViewModel extends ViewModel {
                     if (isThird)
                         return new LoginModel().thirdLogin(openId, thirdType);
                     else
-                        return new LoginModel().login(username.get(), password.get());
+                        return new LoginModel().login(openId, thirdType);
                 })
                 .flatMap(result -> Observable.create((ObservableOnSubscribe<LoginResponse>)  observable -> {
                     if (result.isSuccess()) {

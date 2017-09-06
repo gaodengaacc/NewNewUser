@@ -9,7 +9,6 @@ package com.lyun.user.api.request;
 public class ThirdLoginBindBean extends BaseRequestBean {
     private String openId;
     private String loginType;
-    private String userId;
 
     public String getOpenId() {
         return openId;
