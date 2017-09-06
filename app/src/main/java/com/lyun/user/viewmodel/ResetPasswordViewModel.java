@@ -9,6 +9,7 @@ import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.R;
+import com.lyun.user.eventbusmessage.EventActivityFinishMessage;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.model.ResetPasswordModel;
@@ -74,6 +75,8 @@ public class ResetPasswordViewModel extends ViewModel {
                             EventBus.getDefault().post(progressMessage);
                             if (apiResult.isSuccess()) {
                                 message.setMessage("修改成功");
+                                EventBus.getDefault().post(new EventActivityFinishMessage(true));
+                                Account.preference().savePassword(newPassword);
                             } else {
                                 message.setMessage(apiResult.getDescribe());
                             }

@@ -120,6 +120,7 @@ public class LoginViewModel extends ViewModel {
                     Account.preference().setUserId(result.getUserId());
                     Account.preference().savePhone(result.getUserId());
                     Account.preference().setCardNo(result.getCardNo());
+                    Account.preference().setUserHeader(result.getUserImg());
                     Account.preference().saveToken(result.getAppToken());
                     Account.preference().saveNimToken(result.getYunXinToken());
                     Account.preference().savePassword(password.get());

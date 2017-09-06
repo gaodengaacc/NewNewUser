@@ -9,12 +9,10 @@ import android.view.View;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppIntent;
+import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
-import com.lyun.user.eventbusmessage.mainactivity.EventMainProgressMessage;
-import com.lyun.user.eventbusmessage.mainactivity.EventMainToastMessage;
-import com.lyun.user.model.MultipartModel;
 import com.lyun.user.model.StatisticsCardNoModel;
 import com.lyun.utils.TimeUtil;
 
@@ -34,7 +32,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     public final ObservableField<String> userNum = new ObservableField<>();//使用次数
     public final ObservableField<String> userLanguage = new ObservableField<>();//接触语种
     public final ObservableInt topVisible = new ObservableInt();//android 5.0以上显示，否则不显示
-    public final ObservableInt avatar = new ObservableInt();
+    public final ObservableField<String> avatar = new ObservableField<String>();
 
     private Intent intent;
 
@@ -95,7 +93,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
         } else {
             topVisible.set(View.GONE);
         }
-        avatar.set(R.mipmap.user_default_avatar);
+        avatar.set(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader());
     }
 
     public void onViewClick(View view) {
@@ -139,21 +137,4 @@ public class UserCenterFragmentViewModel extends ViewModel {
         Account.preference().clear();
     }
 
-    public void updateHeader(String path) {
-        EventBus.getDefault().post(new EventMainProgressMessage(true));
-        new MultipartModel().upHeader(path)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(apiResult -> {
-                    EventBus.getDefault().post(new EventMainProgressMessage(false));
-                    if (apiResult.isSuccess())
-                        EventBus.getDefault().post(new EventMainToastMessage("上传成功"));
-                    else
-                        EventBus.getDefault().post(new EventMainToastMessage(apiResult.getDescribe()));
-
-                }, throwable -> {
-                    EventBus.getDefault().post(new EventMainToastMessage(throwable.getMessage()));
-                    EventBus.getDefault().post(new EventMainProgressMessage(false));
-                });
-    }
 }

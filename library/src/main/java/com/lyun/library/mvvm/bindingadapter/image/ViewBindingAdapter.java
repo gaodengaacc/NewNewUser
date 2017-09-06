@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.lyun.library.R;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.utils.GlideUtils;
 
@@ -32,7 +33,7 @@ public final class ViewBindingAdapter {
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
-        GlideUtils.showImage(context,imageView,url);
+        GlideUtils.showImage(context, imageView, url, R.mipmap.user_default_avatar);
     }
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, int resid) {
