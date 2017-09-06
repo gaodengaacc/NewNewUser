@@ -77,11 +77,22 @@ public class RecyclerViewViewModel extends ViewModel {
                     if (apiResult.isSuccess()) {
                         if (refresh)
                             mRecyclerViewModels.clear();
-                        if (apiResult.getContent().getData() != null && apiResult.getContent().getData().size() == 0 && !refresh) {
+
+                        List datas = null;
+
+                        if(apiResult.getContent()!=null){
+                            datas = apiResult.getContent().getData();
+                        }
+
+                        if(datas==null){
+                            datas = new ArrayList();
+                        }
+
+                        if (datas.size() == 0 && !refresh) {
                             ObservableNotifier.alwaysNotify(loadMoreResult, PullToRefreshLayout.DONE);
                             return;
                         }
-                        for (Object data : apiResult.getContent().getData()) {
+                        for (Object data : datas) {
                             ViewModel viewModel = mDataAdapter.createViewModel(data);
                             mRecyclerViewModels.add(viewModel);
                         }

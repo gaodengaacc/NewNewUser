@@ -3,7 +3,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="mvvm"
             type="com.lyun.user.viewmodel.AfterSaleServiceOrderHistoryViewModel"/>
@@ -42,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="律云法律服务-VIP卡"
+                    android:text="@{mvvm.cardName}"
                     android:textColor="#495463"
                     android:textSize="13sp"/>
 

@@ -136,7 +136,7 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
 
         @Override
         protected AfterSaleServiceOrderHistoryViewModel createViewModel(OrderHistoryResponse data) {
-            return new AfterSaleServiceOrderHistoryViewModel().setPropertyChangeListener(this);
+            return new AfterSaleServiceOrderHistoryViewModel(data).setPropertyChangeListener(this);
         }
 
         @Override

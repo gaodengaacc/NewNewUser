@@ -16,7 +16,7 @@ import retrofit2.http.POST;
 public interface ServiceCardService {
 
     @POST(APIConstants.QUERY_SERVICE_CARD_LIST)
-    Observable<APIResult<List<ServiceCardResponse>>> queryServiceCardList(@Body BaseRequest body);
+    Observable<APIResult<List<ServiceCardResponse>>> queryServiceCardList(@Body BaseRequestBean body);
     @POST(APIConstants.QUERY_SERVICE_MY_CARD_LIST)
     Observable<APIResult<List<MyServiceCardResponse>>> queryMyServiceCardList(@Body BaseRequestBean body);
 }
