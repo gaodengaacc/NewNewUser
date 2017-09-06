@@ -54,12 +54,12 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
 
         ImageView imageView = (ImageView) findViewById(R.id.waiting_for_translator_time_anim);
 
-        Animation operatingAnim = AnimationUtils.loadAnimation(this, R.anim.av_chat_anim);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingAnim.setInterpolator(lin);
-        if (operatingAnim != null) {
-            imageView.startAnimation(operatingAnim);
-        }
+//        Animation operatingAnim = AnimationUtils.loadAnimation(this, R.anim.av_chat_anim);
+//        LinearInterpolator lin = new LinearInterpolator();
+//        operatingAnim.setInterpolator(lin);
+//        if (operatingAnim != null) {
+//            imageView.startAnimation(operatingAnim);
+//        }
 
         IntentFilter intentFilter = new IntentFilter(TranslationOrderService.Action.START);
         registerReceiver(mOrderStartReceiver, intentFilter);
@@ -124,6 +124,7 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         public void onEvent(AVChatData data) {
             L.d("AVChat", "接收到语音请求 -> " + new Gson().toJson(data));
             translatorId = data.getAccount();
+            getActivityViewModel().stopTimer();
             acceptAudioCall();
         }
     };

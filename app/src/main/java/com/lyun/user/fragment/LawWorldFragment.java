@@ -96,8 +96,6 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
                 scale = MAX_SCALE;
             }
 
-            L.e("PageTransformer", "position：" + position + "\tscale:" + scale);
-
             // 等比例缩放
             page.setScaleY(scale);
             page.setScaleX(scale);
