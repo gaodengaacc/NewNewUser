@@ -4,10 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 
+import java.io.EOFException;
 import java.io.IOException;
 
+import okhttp3.FormBody;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
@@ -26,30 +30,43 @@ public class LogInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Response response = chain.proceed(chain.request());
-        System.out.println("\n");
-        System.out.println(chain.request().method() + " " + chain.request().url());
-        System.out.println("-----------------= Request =-----------------");
-        System.out.println(chain.request().headers());
-        System.out.println(prettyJson(bodyToString(chain.request())));
-        System.out.println("-----------------= Response =-----------------");
+
+        Request request = chain.request();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        sb.append(request.method() + " " + request.url() + "\n");
+        sb.append("-----------------= Request =-----------------\n");
+        sb.append(request.headers() + "\n");
+        sb.append(prettyJson(bodyToString(request.body())) + "\n");
+
+        Response response = chain.proceed(request);
+
+        sb.append("-----------------= Response =-----------------\n");
         String bodyString = response.body().string();
-        System.out.println(prettyJson(bodyString));
-        System.out.println("\n");
+        sb.append(prettyJson(bodyString) + "\n");
+        sb.append("\n");
+
+        System.out.println(sb);
+
         return response.newBuilder()
                 .body(ResponseBody.create(response.body().contentType(), bodyString))
                 .build();
     }
 
-    private String bodyToString(Request request) {
-        try {
-            Request copy = request.newBuilder().build();
-            Buffer buffer = new Buffer();
-            copy.body().writeTo(buffer);
-            return buffer.readUtf8();
-        } catch (final IOException e) {
-            return "did not work";
+    private String bodyToString(RequestBody body) throws IOException {
+        if (body != null) {
+            if (body instanceof MultipartBody) {
+                return "MultipartBody";
+            } else if (body instanceof FormBody) {
+                return "FormBody";
+            } else {
+                Buffer buffer = new Buffer();
+                body.writeTo(buffer);
+                return buffer.readUtf8();
+            }
         }
+        return "";
     }
 
     private String prettyJson(final String json) {

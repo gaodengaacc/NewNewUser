@@ -33,7 +33,9 @@ public class AppApplication extends BaseApplication {
         L.display(BuildConfig.DEBUG);
         // 初始化接口
         if (BuildConfig.DEBUG) {
-            API.init(Constants.API_BASE_URL, getSSLSocketFactory(), mAuthorizationInterceptor, new LogInterceptor());
+            API.init(Constants.API_BASE_URL, getSSLSocketFactory(),
+                    mAuthorizationInterceptor,
+                    new LogInterceptor());
         } else {
             API.init(Constants.API_BASE_URL, getSSLSocketFactory(), mAuthorizationInterceptor);
         }
