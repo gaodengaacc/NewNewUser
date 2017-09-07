@@ -85,7 +85,7 @@
             android:theme="@style/AppTheme.NoTitle.TranslucentStatus"/>
         <activity
             android:name=".activity.LoginActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>
                 <action android:name="${APPLICATION_ID}.intent.action.LOGIN"/>
@@ -184,6 +184,7 @@
         </activity>
         <activity
             android:name=".activity.GuideActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoTitle.FullScreen">
             <intent-filter>
                 <action android:name="${APPLICATION_ID}.intent.action.GUIDE"/>

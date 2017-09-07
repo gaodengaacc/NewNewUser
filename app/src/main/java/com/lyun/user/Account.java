@@ -31,6 +31,7 @@ public class Account {
         private boolean login;
         private String wxAppId;
         private boolean firstSplash;
+        private boolean firstLanguage;
 
 
         private String cardNo;
@@ -47,6 +48,7 @@ public class Account {
         private final String KEY_SPLASH = "splash";
         private final String KEY_USERID = "userId";
         private final String KEY_USER_HEADER = "userHeader";
+        private final String KEY_FIRST_LANGUAGE = "language";
 
         public void clear() {
             savePassword(null);
@@ -162,6 +164,15 @@ public class Account {
 
         public boolean isFirstSplash() {
             return getBoolean(KEY_SPLASH);
+        }
+
+        public void setFirstLanguage(boolean firstLanguage) {
+            this.firstLanguage = firstLanguage;
+            saveBoolean(KEY_FIRST_LANGUAGE, firstLanguage);
+        }
+
+        public boolean isFirstLanguage() {
+            return getBoolean(KEY_FIRST_LANGUAGE);
         }
     }
 

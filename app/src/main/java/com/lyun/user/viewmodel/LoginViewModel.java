@@ -131,14 +131,14 @@ public class LoginViewModel extends ViewModel {
                 .flatMap(yunXinToken -> NimLoginHelper.login(yunCardNo, yunXinToken))
                 .map(loginInfo -> {
                     Account.preference().setLogin(true);
-                    return !Account.preference().isFirstSplash();
+                    return !Account.preference().isFirstLanguage();
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(isFirst -> {
-                            EventBus.getDefault().post(new EventProgressMessage(false));
                             if (isFirst) {
-                                Account.preference().setFirstSplash(true);
+                                Account.preference().setFirstLanguage(true);
                             } else {
+                                EventBus.getDefault().post(new EventProgressMessage(false));
                                 EventBus.getDefault().post(new EventLoginSuccessMessage());
                             }
                             new LanguageModel().updateLanguages(isFirst);
