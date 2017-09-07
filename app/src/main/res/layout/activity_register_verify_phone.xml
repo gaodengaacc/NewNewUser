@@ -107,7 +107,7 @@
                     android:layout_height="26dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    app:backgroundColor="#fe811c"
+                    app:backgroundColor="#ffb74c"
                     app:cornerRadius="3dp">
 
                     <com.lyun.roundrectview.RoundRectLinearLayout
