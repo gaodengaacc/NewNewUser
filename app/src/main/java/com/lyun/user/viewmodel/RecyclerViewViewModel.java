@@ -131,7 +131,6 @@ public class RecyclerViewViewModel extends ViewModel {
         @LayoutRes
         protected abstract int getLayoutRes();
 
-        @IdRes
         protected abstract int getVariableId();
 
         protected abstract VM createViewModel(D data);

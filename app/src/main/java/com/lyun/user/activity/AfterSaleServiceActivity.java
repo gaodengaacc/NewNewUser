@@ -172,7 +172,7 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
 
         @Override
         protected AfterSaleServiceInvoiceHistoryViewModel createViewModel(InvoiceHistoryResponse data) {
-            return new AfterSaleServiceInvoiceHistoryViewModel();
+            return new AfterSaleServiceInvoiceHistoryViewModel(data);
         }
 
         @Override
