@@ -82,7 +82,7 @@ public class HomeFragmentViewModel extends ViewModel {
         unusedTime.set("--");
         selectIcon.set(R.mipmap.icon_home_fragment_down);
         selectText.set("合同纠纷");
-        textViewModelChange.set("语音呼叫");
+        textViewModelChange.set("语音服务");
         textViewColor1.set(Color.parseColor("#ffffff"));
         textViewColor2.set(Color.parseColor("#209ced"));
 
@@ -124,14 +124,14 @@ public class HomeFragmentViewModel extends ViewModel {
         if (mTranslationOrderType == OrderType.MESSAGE) {
             modelChange.set(R.mipmap.bg_home_fragment_tab_left);
             imageViewModelChange.set(R.mipmap.icon_home_fragment_call);
-            textViewModelChange.set("语音呼叫");
+            textViewModelChange.set("语音服务");
             textViewColor1.set(Color.parseColor("#ffffff"));
             textViewColor2.set(Color.parseColor("#209ced"));
             mTranslationOrderType = OrderType.AUDIO;
         } else {
             modelChange.set(R.mipmap.bg_home_fragment_tab_right);
             imageViewModelChange.set(R.mipmap.icon_home_fragment_msg);
-            textViewModelChange.set("图文翻译");
+            textViewModelChange.set("图文服务");
             textViewColor1.set(Color.parseColor("#209ced"));
             textViewColor2.set(Color.parseColor("#ffffff"));
             mTranslationOrderType = OrderType.MESSAGE;

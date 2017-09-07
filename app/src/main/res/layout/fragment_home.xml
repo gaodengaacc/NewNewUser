@@ -131,7 +131,7 @@
                                         android:layout_height="32dp"
                                         android:layout_centerVertical="true"
                                         android:gravity="center"
-                                        android:text="语音呼叫"
+                                        android:text="语音服务"
                                         android:textColor="@{mvvm.textViewColor1}"
                                         android:textSize="12sp" />
 
@@ -141,7 +141,7 @@
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
                                         android:gravity="center"
-                                        android:text="图文翻译"
+                                        android:text="图文服务"
                                         android:textColor="@{mvvm.textViewColor2}"
                                         android:textSize="12sp" />
                                 </RelativeLayout>

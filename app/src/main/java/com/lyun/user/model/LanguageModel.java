@@ -9,6 +9,7 @@ import com.lyun.user.AppApplication;
 import com.lyun.user.Constants;
 import com.lyun.user.api.API;
 import com.lyun.user.api.response.FindLanguageResponse;
+import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.login.EventLoginSuccessMessage;
 import com.lyun.utils.ACache;
 
@@ -41,10 +42,11 @@ public class LanguageModel extends Model {
                 .filter(listAPIResult -> listAPIResult.isSuccess() && listAPIResult.getContent() != null)
                 .subscribe(
                         listAPIResult -> {
-                                ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
+                            EventBus.getDefault().post(new EventProgressMessage(false));
+                            ACache.get(AppApplication.getInstance()).put(Constants.Cache.SUPPORT_LANGUAGES, new Gson().toJson(listAPIResult.getContent()));
                             if (isFirst) EventBus.getDefault().post(new EventLoginSuccessMessage());
                         }, throwable -> {
-
+                            EventBus.getDefault().post(new EventLoginSuccessMessage());
                         }
                 );
     }
