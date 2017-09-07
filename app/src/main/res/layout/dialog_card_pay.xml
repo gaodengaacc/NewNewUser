@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -20,42 +20,45 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
+            android:layout_marginTop="20dp"
             android:paddingLeft="15dp"
-            android:layout_marginTop="20dp">
+            android:paddingRight="15dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="需支付："
                 android:textColor="@color/tc14"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:text="@{mvvm.buyMoney}"
                 android:textColor="#fe811c"
-                android:layout_alignParentRight="true"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
         </RelativeLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
-            android:background="#dce2ee" />
+            android:background="#dce2ee"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text="选择支付方式"
             android:textColor="@color/tc14"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
 
         <RelativeLayout
@@ -77,14 +80,14 @@
                 android:gravity="center_vertical"
                 android:text="支付宝"
                 android:textColor="@color/tc14"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                app:imageSrc="@{mvvm.aliSelect}" />
+                app:imageSrc="@{mvvm.aliSelect}"/>
 
         </RelativeLayout>
 
@@ -106,14 +109,14 @@
                 android:gravity="center_vertical"
                 android:text="微信"
                 android:textColor="@color/tc14"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                app:imageSrc="@{mvvm.wxSelect}" />
+                app:imageSrc="@{mvvm.wxSelect}"/>
 
         </RelativeLayout>
 
@@ -124,16 +127,17 @@
             android:background="@color/bgcw"
             android:padding="15dp">
 
-            <TextView
+            <com.lyun.roundrectview.RoundRectTextView
                 android:id="@+id/wallet_charge_yes"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@drawable/corner_blue_bg_card"
                 android:gravity="center"
                 android:onClick="@{mvvm.onClickView}"
                 android:text="购  买"
                 android:textColor="@color/tcw"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:backgroundColor="@color/colorPrimary"
+                app:cornerRadius="50%"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -26,7 +26,7 @@ public class GeneralToolbarViewModel extends ViewModel {
         public final ObservableInt backVisibility = new ObservableInt();
 
         public final ObservableInt backDrawable = new ObservableInt(R.mipmap.ic_arrow_back_black);
-        public final ObservableInt textColor = new ObservableInt(Color.parseColor("#000000"));
+        public final ObservableInt textColor = new ObservableInt(Color.parseColor("#ffffff"));
 
         public final ObservableField<View.OnClickListener> onBackClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionClick = new ObservableField<>();
