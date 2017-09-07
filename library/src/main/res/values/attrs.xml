@@ -95,6 +95,10 @@
         <attr name="afterTextChangedCommand" format="reference"/>
         <attr name="typeFace" format="reference"></attr>
         <attr name="backGroundRes" format="reference"></attr>
+        <attr name="drawableLeft" format="reference"></attr>
+        <attr name="drawableTop" format="reference"></attr>
+        <attr name="drawableRight" format="reference"></attr>
+        <attr name="drawableBottom" format="reference"></attr>
     </declare-styleable>
 
     <declare-styleable name="ImageView">
@@ -125,8 +129,8 @@
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView"/>
         <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
-        <attr name="viewModels" format="reference" />
-        <attr name="backGround" format="reference" />
+        <attr name="viewModels" format="reference"/>
+        <attr name="backGround" format="reference"/>
 
     </declare-styleable>
     <declare-styleable name="ListView" parent="AdapterView">
@@ -223,7 +227,6 @@
         <attr name="output" format="reference"></attr>
         <attr name="bitmap" format="reference"></attr>
     </declare-styleable>
-
 
 
 </resources>

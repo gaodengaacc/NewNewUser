@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 
-import java.io.EOFException;
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -14,6 +13,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.internal.platform.Platform;
 import okio.Buffer;
 
 /**
@@ -47,7 +47,7 @@ public class LogInterceptor implements Interceptor {
         sb.append(prettyJson(bodyString) + "\n");
         sb.append("\n");
 
-        System.out.println(sb);
+        Platform.get().log(Platform.INFO, sb.toString(), null);
 
         return response.newBuilder()
                 .body(ResponseBody.create(response.body().contentType(), bodyString))

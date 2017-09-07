@@ -13,6 +13,7 @@ import com.lyun.user.R;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
 import com.lyun.user.model.StatisticsCardNoModel;
+import com.lyun.utils.FormatUtil;
 import com.lyun.utils.TimeUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,15 +72,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
     }
 
     private void setUserInformation() {
-        userName.set(hideUserName(Account.preference().getUserId()));//更新昵称
-    }
-
-    private String hideUserName(String phone) {
-        try {
-            return phone.substring(0, 3) + "*****" + phone.substring(8);
-        } catch (Exception e) {
-            return phone;
-        }
+        userName.set(FormatUtil.formatUserName(Account.preference().getCardNo()));//更新昵称
     }
 
     private void init() {

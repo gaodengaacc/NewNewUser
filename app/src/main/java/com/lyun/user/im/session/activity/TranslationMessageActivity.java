@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
@@ -269,7 +268,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         currentNormalMode = true;
         switchContent(getMessageFragment());
         getToolBar().setVisibility(View.VISIBLE);
-        setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
+        setTitle(FormatUtil.formatUserName(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P)));
         addTimer();
     }
 
@@ -302,7 +301,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     private RoundRectTextView mTimerTextView;
 
     protected void addTimer() {
-        if(mTimerTextView!=null){
+        if (mTimerTextView != null) {
             return;
         }
         try {

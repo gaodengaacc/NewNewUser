@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="mvvm"
-            type="com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel.ToolbarViewModel" />
+            type="com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel.ToolbarViewModel"/>
     </data>
 
     <android.support.v7.widget.Toolbar
@@ -31,15 +31,15 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:drawableLeft="@mipmap/ic_arrow_back_black"
                 android:gravity="center"
                 android:onClick="@{mvvm.onBackClick}"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="@{mvvm.back}"
+                android:textColor="@{mvvm.textColor}"
+                android:textSize="18sp"
                 android:visibility="@{mvvm.backVisibility}"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                app:drawableLeft="@{mvvm.backDrawable}"/>
 
             <TextView
                 android:id="@+id/title_title"
@@ -49,41 +49,43 @@
                 android:gravity="center"
                 android:minWidth="48dp"
                 android:text="@{mvvm.title}"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textColor="@{mvvm.textColor}"
+                android:textSize="18sp"/>
+
             <TextView
                 android:id="@+id/title_fuction"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/toolbar_item_selector"
+                android:clickable="true"
                 android:gravity="center"
+                android:onClick="@{mvvm.onFunctionClick}"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:layout_marginRight="5dp"
                 android:text="@{mvvm.function}"
-                app:drawableLeft="@{mvvm.functionImage}"
-                android:textColor="@android:color/white"
+                android:textColor="@{mvvm.textColor}"
                 android:textSize="18sp"
-                android:onClick="@{mvvm.onFunctionClick}"
-                android:clickable="true"
-                android:background="@drawable/toolbar_item_selector"/>
+                app:drawableLeft="@{mvvm.functionImage}"/>
+
             <TextView
                 android:id="@+id/title_fuction_left"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_centerVertical="true"
-                android:gravity="center"
-                android:text="@{mvvm.functionLeft}"
-                android:textColor="@android:color/white"
                 android:layout_toLeftOf="@+id/title_fuction"
-                android:textSize="18sp"
+                android:background="@drawable/toolbar_item_selector"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="@{mvvm.onFunctionLeftClick}"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                app:drawableLeft="@{mvvm.functionLeftImage}"
-                android:onClick="@{mvvm.onFunctionLeftClick}"
-                android:clickable="true"
-                android:background="@drawable/toolbar_item_selector"/>
+                android:text="@{mvvm.functionLeft}"
+                android:textColor="@{mvvm.textColor}"
+                android:textSize="18sp"
+                app:drawableLeft="@{mvvm.functionLeftImage}"/>
 
             <TextView
                 android:id="@+id/title_divider"
@@ -91,7 +93,8 @@
                 android:layout_height="2px"
                 android:layout_alignParentBottom="true"
                 android:background="#cccccc"
-                android:visibility="@{mvvm.dividerVisibility}" />
+                android:textColor="@{mvvm.textColor}"
+                android:visibility="@{mvvm.dividerVisibility}"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
