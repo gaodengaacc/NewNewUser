@@ -2,8 +2,10 @@ package com.lyun.library.mvvm.viewmodel;
 
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.graphics.Color;
 import android.view.View;
 
+import com.lyun.library.R;
 import com.lyun.library.mvvm.model.Model;
 
 /**
@@ -22,6 +24,9 @@ public class GeneralToolbarViewModel extends ViewModel {
         public final ObservableInt functionLeftVisibility = new ObservableInt();
         public final ObservableInt dividerVisibility = new ObservableInt();
         public final ObservableInt backVisibility = new ObservableInt();
+
+        public final ObservableInt backDrawable = new ObservableInt(R.mipmap.ic_arrow_back_black);
+        public final ObservableInt textColor = new ObservableInt(Color.parseColor("#000000"));
 
         public final ObservableField<View.OnClickListener> onBackClick = new ObservableField<>();
         public final ObservableField<View.OnClickListener> onFunctionClick = new ObservableField<>();
