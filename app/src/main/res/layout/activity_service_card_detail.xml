@@ -26,16 +26,17 @@
             android:padding="15dp"
             app:elevation="5dp">
 
-            <TextView
+            <com.lyun.roundrectview.RoundRectTextView
                 android:id="@+id/card_detail_buy"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@drawable/corner_blue_bg_card"
                 android:gravity="center"
                 android:onClick="@{mvvm.onClickView}"
                 android:text="购  买"
                 android:textColor="@color/tcw"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                app:backgroundColor="@color/colorPrimary"
+                app:cornerRadius="50%"/>
         </LinearLayout>
 
         <ScrollView
