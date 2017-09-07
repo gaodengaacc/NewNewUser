@@ -338,7 +338,7 @@ public abstract class MsgViewHolderBase extends TViewHolder {
 
     private void setReadReceipt() {
         if (!TextUtils.isEmpty(getAdapter().getUuid()) && message.getUuid().equals(getAdapter().getUuid())) {
-            readReceiptTextView.setVisibility(View.VISIBLE);
+            // readReceiptTextView.setVisibility(View.VISIBLE);
         } else {
             readReceiptTextView.setVisibility(View.GONE);
         }
