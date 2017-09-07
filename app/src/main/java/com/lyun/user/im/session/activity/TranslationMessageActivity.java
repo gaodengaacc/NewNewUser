@@ -135,6 +135,12 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        addTimer();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterAVChatListeners();
