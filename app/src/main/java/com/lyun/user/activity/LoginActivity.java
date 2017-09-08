@@ -336,7 +336,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
         @Override
         public void onCancel() {
-
+            Toast.makeText(getBaseContext(), "登录取消", Toast.LENGTH_LONG).show();
         }
     };
     WbAuthListener wbListener = new WbAuthListener() {
