@@ -49,7 +49,7 @@ public class AccountBindingViewModel extends ViewModel {
                     } else observable.onError(new Throwable());
                 }))
                 .flatMap(result -> Observable.fromIterable(result))
-                .map(response -> response.getChannel())
+                .map(response -> response.getLoginType())
                 .subscribe(channel -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     switch (channel) {

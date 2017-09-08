@@ -37,9 +37,7 @@ public class SplashActivity extends BaseActivity implements EasyPermissions.Perm
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkPermission();
         } else {
-            if (mHandler == null)
-                mHandler = new Handler();
-            mHandler.postDelayed(() -> processDone(), sleepTime);
+            sleepTime();
         }
     }
     @Override
@@ -80,9 +78,7 @@ public class SplashActivity extends BaseActivity implements EasyPermissions.Perm
                 Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            if (mHandler == null)
-                mHandler = new Handler();
-            mHandler.postDelayed(() -> processDone(), sleepTime);
+            sleepTime();
         } else {
             EasyPermissions.requestPermissions(this, "为保证app正常运行，需要这些权限",
                     REQUEST_PERMISSION,
@@ -107,7 +103,9 @@ public class SplashActivity extends BaseActivity implements EasyPermissions.Perm
         processDone();
     }
 
-    public void sleepTime(int sleepTime) {
-
+    public void sleepTime() {
+        if (mHandler == null)
+            mHandler = new Handler();
+        mHandler.postDelayed(() -> processDone(), sleepTime);
     }
 }

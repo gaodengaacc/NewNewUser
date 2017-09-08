@@ -298,7 +298,6 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         req.scope = com.lyun.user.Constants.WX_SCOPE;
         req.state = "wx_login";
         msgApi.sendReq(req);
-        msgApi.sendReq(req);
     }
 
     @Subscribe
