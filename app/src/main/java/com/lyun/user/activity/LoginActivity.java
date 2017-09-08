@@ -102,6 +102,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         super.onPause();
         if (dialogViewModel != null)
             dialogViewModel.dismiss();
+        getActivityViewModel().clickFlag = false;
     }
 
     public void init() {
@@ -336,7 +337,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
         @Override
         public void onCancel() {
-            Toast.makeText(getBaseContext(), "登录取消", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
         }
     };
     WbAuthListener wbListener = new WbAuthListener() {

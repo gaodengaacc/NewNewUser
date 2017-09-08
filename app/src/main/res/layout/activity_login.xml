@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/icon_login_wx"
-                    android:onClick="@{mvvm.onClearClick}"
+                    android:onClick="@{mvvm.onThirdLogin}"
                     />
 
                 <ImageView
@@ -216,14 +216,14 @@
                     android:src="@mipmap/icon_login_wb"
                     android:layout_marginLeft="80dp"
                     android:layout_marginRight="80dp"
-                    android:onClick="@{mvvm.onClearClick}"/>
+                    android:onClick="@{mvvm.onThirdLogin}"/>
 
                 <ImageView
                     android:id="@+id/third_login_qq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/icon_login_qq"
-                    android:onClick="@{mvvm.onClearClick}"/>
+                    android:onClick="@{mvvm.onThirdLogin}"/>
             </LinearLayout>
 
         </RelativeLayout>
