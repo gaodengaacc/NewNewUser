@@ -17,6 +17,11 @@ public final class ViewBindingAdapter {
         editText.setSelection(editText.getText().length());
     }
 
+    @BindingAdapter("selection")
+    public static void setSelection(EditText editText, int selection) {
+        if (selection <= editText.getText().length())
+            editText.setSelection(selection);
+    }
     @android.databinding.BindingAdapter({"requestFocus"})
     public static void requestFocusCommand(EditText editText, final Boolean needRequestFocus) {
         if (needRequestFocus) {
@@ -55,7 +60,7 @@ public final class ViewBindingAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 if (afterTextChangedCommand != null) {
-                    afterTextChangedCommand.execute(new TextChangeData(s.toString(),editText.getId()));
+                    afterTextChangedCommand.execute(new TextChangeData(s.toString(), editText.getId(), editText));
                 }
             }
         });
@@ -63,9 +68,12 @@ public final class ViewBindingAdapter {
     public static class TextChangeData{
         public String text;
         public int viewId;
-        public TextChangeData(String text,int viewId){
+        public EditText view;
+
+        public TextChangeData(String text, int viewId, EditText view) {
             this.text = text;
             this.viewId = viewId;
+            this.view = view;
         }
     }
 

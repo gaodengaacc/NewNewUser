@@ -49,6 +49,7 @@
                     android:gravity="center_vertical"
                     android:textCursorDrawable="@drawable/cursor_color"
                     android:textSize="14sp"
+                    app:selection="@{mvvm.userSelection}"
                     app:afterTextChangedCommand="@{mvvm.editTextCommand}" />
 
                 <ImageView
@@ -197,6 +198,7 @@
                     android:textCursorDrawable="@drawable/cursor_color"
                     android:textSize="13sp"
                     android:ellipsize="end"
+                    app:selection="@{mvvm.moreSelection}"
                     app:afterTextChangedCommand="@{mvvm.editTextCommand}" />
 
                 <ImageView
