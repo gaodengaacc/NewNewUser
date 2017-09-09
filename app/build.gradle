@@ -73,7 +73,7 @@ android {
             shrinkResources false
             signingConfig signingConfigs.release
 
-//            versionNameSuffix = " debug-${buildTime()}"
+            versionNameSuffix = " debug-${buildTime()}"
 //            applicationIdSuffix = 'debug'
 
             buildConfigField "String", "HOST", '"http://172.16.133.175:8080"'
@@ -119,7 +119,7 @@ android {
             debuggable true
             signingConfig signingConfigs.release
 
-//            versionNameSuffix = " alpha-${getGitCommitHash()}"
+            versionNameSuffix = " alpha-${getGitCommitHash()}"
 //            applicationIdSuffix = 'alpha'
 
             buildConfigField "String", "HOST", '"https://newlyt1.law-cloud.com.cn:8441"'
