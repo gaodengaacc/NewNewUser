@@ -138,9 +138,9 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
                 .subscribe(apiResult -> {
                     EventBus.getDefault().post(new EventMainProgressMessage(false));
                     if (apiResult.isSuccess()) {
+                        Account.preference().setUserHeader(String.valueOf(apiResult.getContent()));
                         showHeader();
                         EventBus.getDefault().post(new EventMainToastMessage("上传成功"));
-                        Account.preference().setUserHeader(String.valueOf(apiResult.getContent()));
                     } else
                         EventBus.getDefault().post(new EventMainToastMessage(apiResult.getDescribe()));
 
