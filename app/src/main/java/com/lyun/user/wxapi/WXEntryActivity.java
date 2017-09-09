@@ -3,10 +3,10 @@ package com.lyun.user.wxapi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.lyun.activity.BaseActivity;
 import com.lyun.user.BuildConfig;
+import com.lyun.user.eventbusmessage.login.EventWxLoginFailedMessage;
 import com.lyun.user.eventbusmessage.login.EventWxLoginSuccessMessage;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -49,10 +49,10 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         switch (resp.errCode) {
 
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                Toast.makeText(getApplicationContext(), "认证失败", Toast.LENGTH_LONG).show();
+                EventBus.getDefault().post(new EventWxLoginFailedMessage("登录失败"));
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                Toast.makeText(getApplicationContext(), "登录取消", Toast.LENGTH_LONG).show();
+                EventBus.getDefault().post(new EventWxLoginFailedMessage("登录取消"));
                 break;
             case BaseResp.ErrCode.ERR_OK:
                 SendAuth.Resp req = (SendAuth.Resp) resp;

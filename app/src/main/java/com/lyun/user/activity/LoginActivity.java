@@ -25,6 +25,7 @@ import com.lyun.user.eventbusmessage.login.EventQqLoginMessage;
 import com.lyun.user.eventbusmessage.login.EventRegisterSuccessMessage;
 import com.lyun.user.eventbusmessage.login.EventThirdBindPhoneSuccessMessage;
 import com.lyun.user.eventbusmessage.login.EventWbLoginMessage;
+import com.lyun.user.eventbusmessage.login.EventWxLoginFailedMessage;
 import com.lyun.user.eventbusmessage.login.EventWxLoginMessage;
 import com.lyun.user.eventbusmessage.login.EventWxLoginSuccessMessage;
 import com.lyun.user.im.NimCache;
@@ -100,9 +101,6 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
     @Override
     public void onPause() {
         super.onPause();
-        if (dialogViewModel != null)
-            dialogViewModel.dismiss();
-        getActivityViewModel().clickFlag = false;
     }
 
     public void init() {
@@ -219,7 +217,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
     @Override
     public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
-        if (observableField.get())
+        if (observableField.get() && !dialogViewModel.isShow.get())
             dialogViewModel.show();
         else
             dialogViewModel.dismiss();
@@ -249,6 +247,12 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         finish();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void wxLoginFailed(EventWxLoginFailedMessage message) {
+        Toast.makeText(this, message.getMessage(), Toast.LENGTH_LONG).show();
+        getActivityViewModel().clickFlag = false;
+        dialogViewModel.dismiss();
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void thirdBindSuccess(EventThirdBindPhoneSuccessMessage message) {
         getActivityViewModel().login(true, message.getMessage().openId, message.getMessage().loginType);
@@ -321,6 +325,8 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
     IUiListener qqListener = new IUiListener() {
         @Override
         public void onComplete(Object o) {
+            getActivityViewModel().clickFlag = false;
+            dialogViewModel.dismiss();
             JSONObject json = ((JSONObject) o);
             try {
                 String openId = (String) json.get("openid");//"access_token"
@@ -332,11 +338,15 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
         @Override
         public void onError(UiError uiError) {
+            getActivityViewModel().clickFlag = false;
+            dialogViewModel.dismiss();
             Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onCancel() {
+            getActivityViewModel().clickFlag = false;
+            dialogViewModel.dismiss();
             Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
         }
     };
@@ -345,15 +355,21 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         @Override
         public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
             getActivityViewModel().login(true, oauth2AccessToken.getUid(), THIRD_WB);
+            getActivityViewModel().clickFlag = false;
+            dialogViewModel.dismiss();
         }
 
         @Override
         public void cancel() {
+            getActivityViewModel().clickFlag = false;
+            dialogViewModel.dismiss();
             Toast.makeText(getBaseContext(), "登录取消", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
+            getActivityViewModel().clickFlag = false;
+            dialogViewModel.dismiss();
             Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
         }
     };
