@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
@@ -13,7 +12,6 @@ import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityAddAddressBinding;
 import com.lyun.user.eventbusmessage.EventActivityFinishMessage;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
-import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.address.EventCityPickDialogShowMessage;
 import com.lyun.user.viewmodel.AddAddressViewModel;
 import com.smarttop.library.widget.AddressSelectDialog;
@@ -84,11 +82,11 @@ public class AddAddressActivity extends GeneralToolbarActivity<ActivityAddAddres
             dialogViewModel.dismiss();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void showToast(EventToastMessage message) {
-        if (message.getMessage() != null && !message.getMessage().equals(""))
-        Toast.makeText(getApplication(), message.getMessage(), Toast.LENGTH_LONG).show();
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void showToast(EventToastMessage message) {
+//        if (message.getMessage() != null && !message.getMessage().equals(""))
+//        Toast.makeText(getApplication(), message.getMessage(), Toast.LENGTH_LONG).show();
+//    }
 
     @Subscribe
     public void finish(EventActivityFinishMessage message) {

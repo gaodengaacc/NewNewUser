@@ -71,10 +71,10 @@ android {
         debug {
             debuggable true
             shrinkResources false
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
 
-            versionNameSuffix = " debug-${buildTime()}"
-            applicationIdSuffix = 'debug'
+//            versionNameSuffix = " debug-${buildTime()}"
+//            applicationIdSuffix = 'debug'
 
             buildConfigField "String", "HOST", '"http://172.16.133.175:8080"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"userdebug"'
@@ -85,7 +85,7 @@ android {
             buildConfigField "String", "WB_APPKEY", '"1107847230"'
 
             manifestPlaceholders.putAll([
-                    APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
+                    APPLICATION_ID    : defaultConfig.applicationId,
                     NIM_APPKEY        : "2bbbb39221e2ea7d61904f61acc72d52",
                     UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",
                     BaiduMobAd_STAT_ID: "ac161ce77e"])
@@ -119,8 +119,8 @@ android {
             debuggable true
             signingConfig signingConfigs.release
 
-            versionNameSuffix = " alpha-${getGitCommitHash()}"
-            applicationIdSuffix = 'alpha'
+//            versionNameSuffix = " alpha-${getGitCommitHash()}"
+//            applicationIdSuffix = 'alpha'
 
             buildConfigField "String", "HOST", '"https://newlyt1.law-cloud.com.cn:8441"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"alpha"'
@@ -131,7 +131,7 @@ android {
             buildConfigField "String", "WB_APPKEY", '"1107847230"'
 
             manifestPlaceholders.putAll([
-                    APPLICATION_ID    : defaultConfig.applicationId + '.' + applicationIdSuffix,
+                    APPLICATION_ID    : defaultConfig.applicationId,
                     NIM_APPKEY        : "2bbbb39221e2ea7d61904f61acc72d52",
                     MIPUSH_CERT_NAME  : "useralpha",
                     UMENG_APP_KEY     : "55a4612067e58ebb5f004e14",

@@ -13,6 +13,7 @@ import com.lyun.user.adapter.UserServiceCardListAdapter;
 import com.lyun.user.api.response.MyServiceCardResponse;
 import com.lyun.user.eventbusmessage.EventListItemMessage;
 import com.lyun.user.eventbusmessage.EventProgressMessage;
+import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.model.ServiceCardModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,6 +63,9 @@ public class UserServiceCardListViewModel extends ViewModel {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     responses = listAPIResult;
                     setData();
+                }, throwable -> {
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));
                 });
     }
 

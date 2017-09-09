@@ -10,8 +10,8 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppIntent;
 import com.lyun.user.R;
-import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
+import com.lyun.user.eventbusmessage.mainactivity.EventMainToastMessage;
 import com.lyun.user.model.StatisticsCardNoModel;
 import com.lyun.utils.FormatUtil;
 import com.lyun.utils.TimeUtil;
@@ -66,7 +66,7 @@ public class UserCenterFragmentViewModel extends ViewModel {
                         userNum.set(apiResult.getContent().getCallFrequency()+"次");
                         userLanguage.set(apiResult.getContent().getDomains() + "种");
                     } else {
-                        EventBus.getDefault().post(new EventToastMessage(apiResult.getDescribe()));
+                        EventBus.getDefault().post(new EventMainToastMessage(apiResult.getDescribe()));
                     }
                 }, throwable -> throwable.printStackTrace());
     }

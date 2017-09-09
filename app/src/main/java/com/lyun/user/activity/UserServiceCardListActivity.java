@@ -62,7 +62,7 @@ public class UserServiceCardListActivity extends GeneralToolbarActivity<Activity
 
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void showProgress(EventProgressMessage message) {
         if (message.getMessage())
             dialogViewModel.show();
@@ -70,8 +70,8 @@ public class UserServiceCardListActivity extends GeneralToolbarActivity<Activity
             dialogViewModel.dismiss();
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void showToast(EventToastMessage message) {
-        Toast.makeText(getBaseContext(), message.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 }

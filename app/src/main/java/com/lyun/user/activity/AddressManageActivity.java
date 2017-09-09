@@ -17,6 +17,7 @@ import com.lyun.user.eventbusmessage.EventProgressMessage;
 import com.lyun.user.eventbusmessage.EventToastMessage;
 import com.lyun.user.eventbusmessage.address.EventAddressSelectMessage;
 import com.lyun.user.viewmodel.AddressManageViewModel;
+import com.lyun.utils.TipsToast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -75,6 +76,11 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showToast(EventToastMessage message) {
         if (message.getMessage() != null && !message.getMessage().equals(""))
+            if (message.getMessage().equals("保存成功")) {
+                TipsToast tipsToast = TipsToast.makeText(getBaseContext(), message.getMessage(), TipsToast.LENGTH_LONG);
+                tipsToast.setIcon(R.mipmap.icon_address_success);
+                tipsToast.show();
+            } else
             Toast.makeText(getBaseContext(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 

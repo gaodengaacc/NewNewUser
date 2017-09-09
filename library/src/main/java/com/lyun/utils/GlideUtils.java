@@ -72,7 +72,8 @@ public class GlideUtils {
 //                .into(view);
         Glide.with(context)
                 .load(file)
-                .apply(new RequestOptions().skipMemoryCache(false))
+                .apply(new RequestOptions().skipMemoryCache(true))
+                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                 .transition(new DrawableTransitionOptions().crossFade())
                 .into(view);
     }
