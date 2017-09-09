@@ -5,11 +5,9 @@ buildscript {
         jcenter()
         mavenCentral()
         //添加fir maven源
-        maven {
-            url "http://maven.bughd.com/public"
-        }
+        maven { url "https://maven.google.com" }
+        maven { url "http://maven.bughd.com/public" }
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
-
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -25,6 +23,10 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
+        //添加fir maven源
+        maven { url "https://maven.google.com" }
+        maven { url "http://maven.bughd.com/public" }
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
     }
 }

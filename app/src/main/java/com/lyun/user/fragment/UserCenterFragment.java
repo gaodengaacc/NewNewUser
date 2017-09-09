@@ -4,16 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.Account;
 import com.lyun.user.Constants;
+import com.lyun.user.GlideApp;
 import com.lyun.user.R;
 import com.lyun.user.activity.AccountBindingActivity;
 import com.lyun.user.activity.AddressManageActivity;
@@ -66,14 +67,17 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
     @Override
     public void onResume() {
         super.onResume();
-        Glide.with(this).load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader())
-                .asBitmap().skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                getFragmentViewDataBinding().userCenterAvatar.setImageBitmap(resource);
-            }
-        });
+        GlideApp.with(this)
+                .asBitmap()
+                .load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader())
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        getFragmentViewDataBinding().userCenterAvatar.setImageBitmap(resource);
+                    }
+                });
     }
 
     @Override
@@ -101,7 +105,7 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
             startActivity(new Intent(getContext(), UserServiceCardListActivity.class));
         } else if (message.getMessage().getStringExtra("flag").equals("ImageCropActivity")) {
             startActivityForResult(new Intent(getContext(), ImageHeaderActivity.class), IMAGE_HEADER);
-        } else if(message.getMessage().getStringExtra("flag").equals("AddressManageActivity")){
+        } else if (message.getMessage().getStringExtra("flag").equals("AddressManageActivity")) {
             startActivity(new Intent(getContext(), AddressManageActivity.class));
         } else if (message.getMessage().getSerializableExtra("flag").equals("AfterSaleServiceActivity")) {
             AfterSaleServiceActivity.start(getActivity());

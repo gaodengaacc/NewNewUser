@@ -75,7 +75,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
         serviceCardView.set(ItemView.of(BR.mvvm, R.layout.item_service_card));
 
         ServiceCardListAdapter adapter = new ServiceCardListAdapter(null, R.layout.item_service_card_item);
-        this.serviceCardItemAdapter.set(adapter);
+        serviceCardItemAdapter.set(adapter);
     }
 
     protected void queryServiceCardList() {

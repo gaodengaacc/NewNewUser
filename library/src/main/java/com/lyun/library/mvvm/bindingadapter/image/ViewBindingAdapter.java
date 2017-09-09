@@ -2,12 +2,15 @@ package com.lyun.library.mvvm.bindingadapter.image;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.lyun.library.mvvm.command.RelayCommand;
@@ -47,9 +50,9 @@ public final class ViewBindingAdapter {
                                  final RelayCommand<ImageView> onFailureCommand) {
         imageView.setImageResource(placeholderImageRes);
         if (!TextUtils.isEmpty(uri)) {
-            Glide.with(imageView.getContext()).load(uri).listener(new RequestListener<String, GlideDrawable>() {
+            Glide.with(imageView.getContext()).load(uri).listener(new RequestListener<Drawable>() {
                 @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     if (onFailureCommand != null) {
                         onFailureCommand.execute(imageView);
                     }
@@ -57,7 +60,7 @@ public final class ViewBindingAdapter {
                 }
 
                 @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                     if (onSuccessCommand != null) {
                         onSuccessCommand.execute(imageView);
                     }

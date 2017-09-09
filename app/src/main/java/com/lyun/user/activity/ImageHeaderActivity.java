@@ -12,19 +12,21 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppApplication;
 import com.lyun.user.Constants;
+import com.lyun.user.GlideApp;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ImageHeaderLayoutBinding;
 import com.lyun.user.dialog.SelectImageDialog;
 import com.lyun.user.eventbusmessage.EventSelectImageItemMessage;
 import com.lyun.user.viewmodel.ImageHeaderViewModel;
 import com.lyun.user.viewmodel.SelectImageDialogViewModel;
+import com.netease.nim.uikit.common.util.media.BitmapDecoder;
 import com.netease.nim.uikit.common.util.media.ImageUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,21 +68,22 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Bitmap src = BitmapDecoder.decodeSampledForDisplay(AppApplication.getAppFileDirs().image().getAbsolutePath()+"/header.jpg")
-//
-        Glide.with(this).load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader())
-                .asBitmap().skipMemoryCache(true)
+        Bitmap src = BitmapDecoder.decodeSampledForDisplay(AppApplication.getAppFileDirs().image().getAbsolutePath()+"/header.jpg");
+
+        GlideApp.with(this)
+                .asBitmap()
+                .load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader())
+                .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                         imageBitmap = resource;
                         ImageUtil.rotateBitmapInNeeded(ImageCropActivity.SAVE_PATH, resource);
                         getBodyViewDataBinding().headerImage.setImageBitmap(resource);
                     }
-        });
+                });
         EventBus.getDefault().register(this);
-
     }
 
     @Override
