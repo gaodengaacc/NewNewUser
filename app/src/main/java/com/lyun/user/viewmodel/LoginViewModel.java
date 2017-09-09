@@ -178,6 +178,17 @@ public class LoginViewModel extends ViewModel {
             case R.id.clear_text2:
                 password.set("");
                 break;
+            default:
+                break;
+        }
+    }
+
+    public boolean clickFlag;
+
+    public void onThirdLogin(View view) {
+        if (clickFlag || isFastDoubleClick()) return;
+        EventBus.getDefault().post(new EventProgressMessage(true));
+        switch (view.getId()) {
             case R.id.third_login_wx:
                 EventBus.getDefault().post(new EventWxLoginMessage());
                 break;
@@ -190,6 +201,7 @@ public class LoginViewModel extends ViewModel {
             default:
                 break;
         }
+        clickFlag = true;
     }
 
     //根据微信code 获取微信openId
@@ -200,6 +212,18 @@ public class LoginViewModel extends ViewModel {
                     String openid = wxOpenIdResponse.getOpenid();
                     login(true, openid, LoginActivity.THIRD_WX);
                 }, throwable -> onLoginFailed.set(throwable));
+    }
+
+    private long lastClickTime;
+
+    public boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if (0 < timeD && timeD < 500) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
     }
 
 }

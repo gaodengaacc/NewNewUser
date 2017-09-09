@@ -166,7 +166,7 @@ public class ServiceCardDetailViewModel extends ViewModel {
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.card_detail_buy:
-                EventBus.getDefault().post(new EventShowPayDialogMessage(999.0));
+                EventBus.getDefault().post(new EventShowPayDialogMessage(price));
                 break;
             default:
                 break;

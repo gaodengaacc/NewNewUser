@@ -54,7 +54,7 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
     protected MainActivityViewModel createViewModel() {
         UserPreferences.setNotificationToggle(false);
         NIMClient.toggleNotification(false);
-        getActivityViewDataBinding().mainContainer.setOffscreenPageLimit(2);
+        getActivityViewDataBinding().mainContainer.setOffscreenPageLimit(3);
         return new MainActivityViewModel(getPagerAdapter());
     }
 

@@ -49,8 +49,10 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         switch (resp.errCode) {
 
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                Toast.makeText(getApplicationContext(), "认证失败", Toast.LENGTH_LONG).show();
+                break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                Toast.makeText(getApplicationContext(), "登陆失败", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "登录取消", Toast.LENGTH_LONG).show();
                 break;
             case BaseResp.ErrCode.ERR_OK:
                 SendAuth.Resp req = (SendAuth.Resp) resp;

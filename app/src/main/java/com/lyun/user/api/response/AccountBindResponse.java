@@ -11,8 +11,7 @@ import com.lyun.api.response.BaseResponse;
 public class AccountBindResponse extends BaseResponse {
     private String openId;
     private String userId;
-    private int loginType;
-    private int channel;  // 0:qq 1:wx 2:wb
+    private int loginType = -1; // 0:qq 1:wx 2:wb
     public static final int QQ_CHANNEL = 0;
     public static final int WX_CHANNEL = 1;
     public static final int WB_CHANNEL = 2;
@@ -39,14 +38,6 @@ public class AccountBindResponse extends BaseResponse {
 
     public void setLoginType(int loginType) {
         this.loginType = loginType;
-    }
-
-    public int getChannel() {
-        return channel;
-    }
-
-    public void setChannel(int channel) {
-        this.channel = channel;
     }
 
 }
