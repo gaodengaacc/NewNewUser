@@ -201,6 +201,7 @@
     <declare-styleable name="PullRecyclerView" parent="RecyclerView"></declare-styleable>
     <declare-styleable name="EditText">
         <attr name="transformMethod" format="reference"></attr>
+        <attr name="selection" format="reference"></attr>
     </declare-styleable>
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension"/>

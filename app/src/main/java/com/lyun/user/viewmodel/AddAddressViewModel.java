@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import com.lyun.library.mvvm.bindingadapter.edittext.ViewBindingAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
@@ -35,12 +36,14 @@ public class AddAddressViewModel extends ViewModel {
     public final ObservableField<String> phoneNum = new ObservableField<>();
     public final ObservableField<String> address = new ObservableField<>();
     public final ObservableField<String> moreAddress = new ObservableField<>();
+    public final ObservableInt userSelection = new ObservableInt();
+    public final ObservableInt moreSelection = new ObservableInt();
     public final ObservableInt clearVisible1 = new ObservableInt();
     public final ObservableInt clearVisible2 = new ObservableInt();
     public final ObservableInt clearVisible3 = new ObservableInt();
     private ObservableInt clearVisible;
     public int position;
-    private   AddressItemResponse response;
+    private AddressItemResponse response;
     private String province;
     private String city;
     private String district;
@@ -86,12 +89,14 @@ public class AddAddressViewModel extends ViewModel {
         switch (data.viewId) {
             case R.id.address_username:
                 clearVisible = clearVisible1;
+                checkLength(data.text, 20, username, data.view, "收件人名字");
                 break;
             case R.id.address_phone:
                 clearVisible = clearVisible2;
                 break;
             case R.id.address_more:
                 clearVisible = clearVisible3;
+                checkLength(data.text, 50, moreAddress, data.view, "详细地址");
                 break;
             default:
                 break;
@@ -101,6 +106,14 @@ public class AddAddressViewModel extends ViewModel {
         else
             clearVisible.set(View.INVISIBLE);
     });
+
+    public void checkLength(String text, int length, ObservableField<String> view, EditText editText, String name) {
+        if (text.length() > length) {
+            EventBus.getDefault().post(new EventToastMessage(name + "不能超过" + length));
+            editText.setText(text.substring(0, length));
+            editText.setSelection(editText.getText().length());
+        }
+    }
 
     public void onClearClick(View view) {
         switch (view.getId()) {
