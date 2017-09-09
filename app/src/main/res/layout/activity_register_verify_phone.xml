@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.graphics.Color"/>
+
         <variable
             name="mvvm"
             type="com.lyun.user.viewmodel.RegisterVerifyPhoneViewModel"/>
@@ -102,37 +104,19 @@
                     android:textSize="14sp"
                     app:afterTextChangedCommand="@{mvvm.editTextCommand}"/>
 
-                <com.lyun.roundrectview.RoundRectRelativeLayout
-                    android:layout_width="73dp"
-                    android:layout_height="26dp"
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    app:backgroundColor="#ffb74c"
-                    app:cornerRadius="3dp">
-
-                    <com.lyun.roundrectview.RoundRectLinearLayout
-                        android:layout_width="73dp"
-                        android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:visibility="@{mvvm.smsVisible}"
-                        app:backgroundColor="#ffb74c"
-                        app:cornerRadius="3dp">
-
-                    </com.lyun.roundrectview.RoundRectLinearLayout>
-
-                    <TextView
-                        android:layout_width="73dp"
-                        android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:clickable="@{mvvm.clickable}"
-                        android:gravity="center"
-                        android:text="@{mvvm.mSendSmsCode}"
-                        android:textColor="@android:color/white"
-                        android:textSize="11sp"
-                        app:clickCommand="@{mvvm.onGetSMSCodeButtonClick}"/>
-                </com.lyun.roundrectview.RoundRectRelativeLayout>
+                    android:clickable="@{mvvm.clickable}"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:text="@{mvvm.mSendSmsCode}"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    android:background="@{mvvm.clickable?@drawable/btn_get_msg_code_enable_bg:@drawable/btn_get_msg_code_disable_bg}"
+                    app:clickCommand="@{mvvm.onGetSMSCodeButtonClick}"/>
 
                 <View
                     android:layout_width="match_parent"
