@@ -64,8 +64,6 @@ public class FragmentServiceCardViewModel extends ViewModel {
 
     public FragmentServiceCardViewModel() {
 
-        queryServiceCardList();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             topVisible.set(View.VISIBLE);
         } else {
@@ -76,6 +74,15 @@ public class FragmentServiceCardViewModel extends ViewModel {
 
         ServiceCardListAdapter adapter = new ServiceCardListAdapter(null, R.layout.item_service_card_item);
         serviceCardItemAdapter.set(adapter);
+    }
+
+    private boolean dataReady = false;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!dataReady)
+            queryServiceCardList();
     }
 
     protected void queryServiceCardList() {
@@ -152,6 +159,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
                             id = serviceCardViewModels.get(0).id;
                             currentPage.set(0);
                             onPageSelected.execute(0);
+                            dataReady = true;
                         }
                     }
                 });
@@ -166,11 +174,13 @@ public class FragmentServiceCardViewModel extends ViewModel {
     });
 
     public final RelayCommand onBuyCard = new RelayCommand(() -> {
-        ObservableNotifier.alwaysNotify(buyCard, cardPrice.get());
+        if (mServiceCardList != null && mServiceCardList.size() > currentPage.get()) {
+            ObservableNotifier.alwaysNotify(buyCard, cardPrice.get());
+        }
     });
 
     public final RelayCommand showCardDetail = new RelayCommand(() -> {
-        if (mServiceCardList != null && mServiceCardList.size() >= currentPage.get()) {
+        if (mServiceCardList != null && mServiceCardList.size() > currentPage.get()) {
             ObservableNotifier.alwaysNotify(navigateCardDetail, mServiceCardList.get(currentPage.get()));
         }
     });

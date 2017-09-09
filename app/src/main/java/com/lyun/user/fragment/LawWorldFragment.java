@@ -41,6 +41,13 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
         setRetainInstance(true);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser)
+            getFragmentViewModel().onResume();
+    }
+
     @NonNull
     @Override
     protected LawWorldViewModel createViewModel() {
@@ -59,11 +66,6 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
         Watchdog.newBuilder().watch(viewModel).notify(this).build();
 
         return viewModel;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override

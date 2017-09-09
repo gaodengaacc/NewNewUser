@@ -37,6 +37,15 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
         queryLawyerList(0);
     }
 
+    private boolean dataReady = false;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!dataReady)
+            queryLawyerList(0);
+    }
+
     protected void queryLawyerList(int page) {
         new LawWorldModel()
                 .queryLawyerList(page)
@@ -49,6 +58,7 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
                         }
                         if (items.size() > 1)
                             currentItem.set(1);
+                        dataReady = true;
                     }
                 });
     }

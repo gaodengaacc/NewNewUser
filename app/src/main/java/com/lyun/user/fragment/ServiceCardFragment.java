@@ -70,6 +70,13 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser)
+            getFragmentViewModel().onResume();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
