@@ -30,15 +30,15 @@ public class LawWorldCardViewModel extends ViewModel {
 
         List<LawWorldResponse.Domin> domins = data.getDominList();
         if (domins != null) {
-            if (domins.size() >= 1) {
+            if (domins.size() >= 1 && domins.get(0) != null) {
                 domin1.set(domins.get(0).getName());
                 domin1Visibility.set(View.VISIBLE);
             }
-            if (domins.size() >= 2) {
+            if (domins.size() >= 2 && domins.get(1) != null) {
                 domin2.set(domins.get(1).getName());
                 domin2Visibility.set(View.VISIBLE);
             }
-            if (domins.size() >= 3) {
+            if (domins.size() >= 3 && domins.get(2) != null) {
                 domin3.set(domins.get(2).getName());
                 domin3Visibility.set(View.VISIBLE);
             }
