@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -26,7 +25,6 @@ import com.lyun.user.dialog.SelectImageDialog;
 import com.lyun.user.eventbusmessage.EventSelectImageItemMessage;
 import com.lyun.user.viewmodel.ImageHeaderViewModel;
 import com.lyun.user.viewmodel.SelectImageDialogViewModel;
-import com.netease.nim.uikit.common.util.media.BitmapDecoder;
 import com.netease.nim.uikit.common.util.media.ImageUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,8 +66,6 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bitmap src = BitmapDecoder.decodeSampledForDisplay(AppApplication.getAppFileDirs().image().getAbsolutePath()+"/header.jpg");
-
         GlideApp.with(this)
                 .asBitmap()
                 .load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader())
