@@ -3,6 +3,7 @@ package com.lyun.user.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.ViewTreeObserver;
@@ -153,17 +154,7 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
     public void showHeaderImage() {
         File file = new File(headerPath);
         if (file != null && file.exists())
-            GlideApp.with(this)
-                    .asBitmap()
-                    .load(file)
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE).
-                    into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                            getFragmentViewDataBinding().userCenterAvatar.setImageBitmap(resource);
-                        }
-                    });
+            getFragmentViewDataBinding().userCenterAvatar.setImageBitmap(BitmapFactory.decodeFile(headerPath));
         else
             showHeader();
     }

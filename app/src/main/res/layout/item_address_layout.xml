@@ -18,15 +18,19 @@
        android:layout_marginLeft="20dp"
        android:layout_marginRight="20dp"
        android:layout_marginTop="15dp">
-       <RelativeLayout
+
+       <android.support.percent.PercentRelativeLayout
            android:layout_width="match_parent"
            android:layout_height="65dp">
            <TextView
                android:id="@+id/address_name"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="@{mvvm.userName}"
+               android:ellipsize="end"
+               android:maxLines="1"
                android:textColor="@color/tc14"
+               android:text="@{mvvm.userName}"
+               app:layout_widthPercent="60%"
                android:textSize="14sp" />
            <TextView
                android:layout_width="wrap_content"
@@ -51,7 +55,7 @@
                android:background="#dce2ee"
                android:layout_alignParentBottom="true">
            </View>
-       </RelativeLayout>
+       </android.support.percent.PercentRelativeLayout>
        <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="match_parent">

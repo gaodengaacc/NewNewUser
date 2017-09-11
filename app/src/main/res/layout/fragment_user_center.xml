@@ -49,8 +49,7 @@
                         android:layout_marginTop="30dp"
                         android:onClick="@{mvvm.onViewClick}"
                         app:border_color="#ffffff"
-                        app:border_width="2dp"
-                        app:imageUrl="@{mvvm.avatar}"/>
+                        app:border_width="2dp" />
 
                     <TextView
                         android:id="@+id/user_center_name"
