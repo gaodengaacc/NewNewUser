@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.AppApplication;
+import com.lyun.user.GlideApp;
 import com.lyun.user.R;
 import com.lyun.user.activity.ServiceCardDetailActivity;
 import com.lyun.user.api.response.ServiceCardListItemResponse;

@@ -23,14 +23,14 @@ public class GlideUtils {
      * @param resid
      * @param defaultResid
      */
-    public static void showImage(Context context,ImageView view, int resid, int defaultResid) {
+    public static void showImage(ImageView view, int resid, int defaultResid) {
 //        GlideApp.with(context)
 //                .load(resid)
 //                .placeholder(defaultResid)
 //                .animate(R.anim.fade_in)
 //                .crossFade()
 //                .into(view);
-        Glide.with(context)
+        Glide.with(view)
                 .load(resid)
                 .transition(new DrawableTransitionOptions().crossFade())
                 .apply(new RequestOptions().placeholder(defaultResid))
@@ -43,14 +43,14 @@ public class GlideUtils {
      * @param url
      * @param defaultResid
      */
-    public static void showImage(Context context,ImageView view, String url, int defaultResid) {
+    public static void showImage(ImageView view, String url, int defaultResid) {
 //        Glide.with(context)
 //                .load(url)
 //                .placeholder(defaultResid)
 //                .animate(R.anim.fade_in)
 //                .crossFade()
 //                .into(view);
-        Glide.with(context)
+        Glide.with(view)
                 .load(url)
                 .apply(new RequestOptions().placeholder(defaultResid))
                 .transition(new DrawableTransitionOptions().crossFade())
@@ -62,7 +62,7 @@ public class GlideUtils {
      * @param view
      * @param file
      */
-    public static void showImage(Context context,ImageView view, File file) {
+    public static void showImage(ImageView view, File file) {
 //        Glide.with(context)
 //                .load(file)
 //                .skipMemoryCache(true)
@@ -70,7 +70,7 @@ public class GlideUtils {
 //                .animate(R.anim.fade_in)
 //                .crossFade()
 //                .into(view);
-        Glide.with(context)
+        Glide.with(view)
                 .load(file)
                 .apply(new RequestOptions().skipMemoryCache(true))
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
@@ -83,13 +83,13 @@ public class GlideUtils {
      * @param view
      * @param resid
      */
-    public static void showImage(Context context,ImageView view, int resid) {
+    public static void showImage(ImageView view, int resid) {
 //        Glide.with(context)
 //                .load(resid)
 //                .animate(R.anim.fade_in)
 //                .crossFade()
 //                .into(view);
-        Glide.with(context)
+        Glide.with(view)
                 .load(resid)
                 .transition(new DrawableTransitionOptions().crossFade())
                 .into(view);
@@ -100,13 +100,13 @@ public class GlideUtils {
      * @param view
      * @param url
      */
-    public static void showImage(Context context,ImageView view, String url) {
+    public static void showImage(ImageView view, String url) {
 //        Glide.with(context)
 //                .load(url)
 //                .animate(R.anim.fade_in)
 //                .crossFade()
 //                .into(view);
-        Glide.with(context)
+        Glide.with(view)
                 .load(url)
                 .transition(new DrawableTransitionOptions().crossFade())
                 .into(view);
@@ -118,7 +118,7 @@ public class GlideUtils {
      * @param view
      * @param url
      */
-    public static void showImage(Context context, ImageView view, String url, boolean cache) {
+    public static void showImage(ImageView view, String url, boolean cache) {
 //        Glide.with(context)
 //                .load(url)
 //                .skipMemoryCache(cache)
@@ -126,7 +126,7 @@ public class GlideUtils {
 //                .animate(R.anim.fade_in)
 //                .crossFade()
 //                .into(view);
-        Glide.with(context)
+        Glide.with(view)
                 .load(url)
                 .apply(new RequestOptions()
                         .skipMemoryCache(cache)
@@ -140,7 +140,7 @@ public class GlideUtils {
      * @param view
      * @param resid
      */
-    public static void showGifImage(Context context,ImageView view, int resid) {
+    public static void showGifImage(ImageView view, int resid) {
 //        Glide.with(context)
 //                .load(resid)
 //                .asGif()
@@ -149,7 +149,7 @@ public class GlideUtils {
 //                .centerCrop()
 //                .crossFade()
 //                .into(view);
-        Glide.with(context)
+        Glide.with(view)
                 .asGif()
                 .load(resid)
                 .apply(new RequestOptions()

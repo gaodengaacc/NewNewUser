@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.lyun.BaseApplication;
 import com.lyun.library.R;
 import com.squareup.leakcanary.RefWatcher;
@@ -30,6 +31,12 @@ public class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) Glide.with(this).resumeRequests();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.lyun.user.im.session.fragment;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -65,7 +64,6 @@ public class TranslationAudioMessageFragment extends TFragment {
 
     @BindingAdapter("imageUrl")
     public static void setImageUrl(CircleImageView imageView, String url) {
-        Context context = imageView.getContext();
-        GlideUtils.showImage(context, imageView, url);
+        GlideUtils.showImage(imageView, url);
     }
 }

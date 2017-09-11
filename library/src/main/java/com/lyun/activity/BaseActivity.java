@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import com.bumptech.glide.Glide;
 import com.lyun.BaseApplication;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -25,6 +26,12 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Glide.with(this).resumeRequests();
     }
 
     @Override

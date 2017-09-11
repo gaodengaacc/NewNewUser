@@ -9,6 +9,8 @@ import com.lyun.library.mvvm.viewmodel.ViewModel;
 
 import java.util.List;
 
+import static com.lyun.user.Constants.API_BASE_URL;
+
 /**
  * Created by ZHAOWEIWEI on 2017/7/31.
  */
@@ -26,7 +28,7 @@ public class ServiceCardViewModel extends ViewModel {
         this.id = id;
         this.name.set(name);
         this.price.set(price);
-        this.image.set(image);
+        this.image.set(API_BASE_URL + "card-image?name=" + image);
         this.itemViewModels.addAll(itemViewModels);
     }
 
