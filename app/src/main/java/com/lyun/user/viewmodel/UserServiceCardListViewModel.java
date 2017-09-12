@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -33,6 +34,8 @@ import io.reactivex.schedulers.Schedulers;
 public class UserServiceCardListViewModel extends ViewModel {
     public final ObservableField<BaseRecyclerAdapter> adapter = new ObservableField<>();
     public final ObservableField<List<ServiceCardItemViewModel>> notifyData = new ObservableField<>();
+    public final ObservableInt bgNullVisible = new ObservableInt();
+    public final ObservableInt listVisible = new ObservableInt();
     //设置LayoutManager
     public RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(AppApplication.getInstance());
     public final ObservableInt footerLayout = new ObservableInt();
@@ -58,10 +61,15 @@ public class UserServiceCardListViewModel extends ViewModel {
         EventBus.getDefault().post(new EventProgressMessage(true));
         new ServiceCardModel().queryMyServiceCardList()
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(listAPIResult -> {
+                .filter(result -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
-                    responses = listAPIResult;
+                    return result != null && result.size() > 0;
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    bgNullVisible.set(View.GONE);
+                    listVisible.set(View.VISIBLE);
+                    responses = result;
                     setData();
                 }, throwable -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));

@@ -11,15 +11,37 @@
             type="UserServiceCardListViewModel"></variable>
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="#edf3f9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="@{mvvm.bgNullVisible}">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:src="@mipmap/bg_my_card_null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="您还没有购买服务卡哦~"
+                android:textColor="@color/tc14"
+                android:textSize="14sp" />
+        </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
+            android:visibility="@{mvvm.listVisible}"
             android:dividerHeight="0dp"
             android:scrollbars="none"
             app:adapter="@{mvvm.adapter}"
@@ -27,5 +49,5 @@
             app:layoutManager="@{mvvm.recyclerViewLayoutManager}"
             app:notifyData="@{mvvm.notifyData}"
            ></android.support.v7.widget.RecyclerView>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

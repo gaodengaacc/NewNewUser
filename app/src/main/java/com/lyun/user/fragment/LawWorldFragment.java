@@ -14,7 +14,6 @@ import com.lyun.user.databinding.FragmentLawWorldBinding;
 import com.lyun.user.viewmodel.LawWorldViewModel;
 import com.lyun.user.viewmodel.watchdog.ILawWorldViewModelCallbacks;
 import com.lyun.utils.DisplayUtil;
-import com.lyun.utils.L;
 
 import net.funol.databinding.watchdog.Watchdog;
 
