@@ -54,12 +54,15 @@ public class MsgViewHolderAVChat extends MsgViewHolderBase {
             statusLabel.setTextColor(context.getResources().getColor(R.color.color_grey_999999));
         } else {
             if (attachment.getType() == AVChatType.AUDIO) {
-                typeImage.setImageResource(R.drawable.avchat_right_type_audio);
+                //typeImage.setImageResource(R.drawable.avchat_right_type_audio);
+                typeImage.setImageResource(R.drawable.avchat_left_type_audio);
             } else {
-                typeImage.setImageResource(R.drawable.avchat_right_type_video);
+                //typeImage.setImageResource(R.drawable.avchat_right_type_video);
+                typeImage.setImageResource(R.drawable.avchat_left_type_video);
             }
             isReceive = true;
-            statusLabel.setTextColor(Color.WHITE);
+            //statusLabel.setTextColor(Color.WHITE);
+            statusLabel.setTextColor(context.getResources().getColor(R.color.color_grey_999999));
         }
     }
 

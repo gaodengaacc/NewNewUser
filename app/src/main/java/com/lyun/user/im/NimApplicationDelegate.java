@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
 
@@ -35,10 +34,8 @@ import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.msg.MsgService;
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.netease.nimlib.sdk.team.model.UpdateTeamAttachment;
-import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 
 import java.util.Map;
 
@@ -153,33 +150,7 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
         options.thumbnailSize = Screen.getWidthPixels(getApplication()) / 2;
 
         // 用户资料提供者, 目前主要用于提供用户资料，用于新消息通知栏中显示消息来源的头像和昵称
-        options.userInfoProvider = new UserInfoProvider() {
-            @Override
-            public UserInfoProvider.UserInfo getUserInfo(String account) {
-                return null;
-            }
-
-            @Override
-            public int getDefaultIconResId() {
-                return R.mipmap.user_default_avatar;
-            }
-
-            @Override
-            public Bitmap getTeamIcon(String tid) {
-                return null;
-            }
-
-            @Override
-            public Bitmap getAvatarForMessageNotifier(String account) {
-                return null;
-            }
-
-            @Override
-            public String getDisplayNameForMessageNotifier(String account, String sessionId,
-                                                           SessionTypeEnum sessionType) {
-                return null;
-            }
-        };
+        options.userInfoProvider = new NimUserInfoProvider(getApplication());
         return options;
     }
 
