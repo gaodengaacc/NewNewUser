@@ -296,6 +296,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
     public void wxLogin() {   //298ae2e8950b6c4ca83ddd4d17a3e97e
         if (!msgApi.isWXAppInstalled()) {
             Toast.makeText(this, "请先安装微信", Toast.LENGTH_LONG).show();
+            getActivityViewModel().clickFlag = false;
             if (dialogViewModel != null) dialogViewModel.dismiss();
             return;
         }

@@ -159,7 +159,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/bottom_text1"
-                android:layout_width="115dp"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
@@ -220,7 +220,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_below="@+id/bottom_text1"
-                android:layout_width="115dp"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
