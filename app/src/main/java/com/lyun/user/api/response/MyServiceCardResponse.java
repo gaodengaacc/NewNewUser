@@ -90,6 +90,52 @@ public class MyServiceCardResponse extends BaseResponse {
     private String userId;
     private String amount;
     private String cardNo;
+    /**
+     * 在线资深律师咨询次数
+     */
+    private int onlineSeniorCounselAdviceTimes;
+
+    public int getOnlineSeniorCounselAdviceTimes() {
+        return onlineSeniorCounselAdviceTimes;
+    }
+
+    public void setOnlineSeniorCounselAdviceTimes(int onlineSeniorCounselAdviceTimes) {
+        this.onlineSeniorCounselAdviceTimes = onlineSeniorCounselAdviceTimes;
+    }
+
+    public int getLegalInstrumentsDraftTimes() {
+        return legalInstrumentsDraftTimes;
+    }
+
+    public void setLegalInstrumentsDraftTimes(int legalInstrumentsDraftTimes) {
+        this.legalInstrumentsDraftTimes = legalInstrumentsDraftTimes;
+    }
+
+    public int getLegalLectureTimes() {
+        return legalLectureTimes;
+    }
+
+    public void setLegalLectureTimes(int legalLectureTimes) {
+        this.legalLectureTimes = legalLectureTimes;
+    }
+
+    /**
+     * 法律文书定制次数
+     */
+    private int legalInstrumentsDraftTimes;
+    /**
+     * 法律讲座次数
+     */
+    private int legalLectureTimes;
+    public String getLeftTime() {
+        return leftTime;
+    }
+
+    public void setLeftTime(String leftTime) {
+        this.leftTime = leftTime;
+    }
+
+    private String leftTime;
 
     public String getId() {
         return id;
