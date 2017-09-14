@@ -56,7 +56,7 @@ public class AddressManageViewModel extends ViewModel {
         addressModel = new AddressModel();
         queryAddress();
         listVisible.set(View.GONE);
-        nullBgVisible.set(View.VISIBLE);
+        nullBgVisible.set(View.GONE);
         itemData = new ArrayList<>();
         itemViewModelData = new ArrayList<>();
         itemAdapter = new AddressManageItemAdapter(itemViewModelData, R.layout.item_address_layout);
@@ -67,16 +67,19 @@ public class AddressManageViewModel extends ViewModel {
         EventBus.getDefault().post(new EventProgressMessage(true));
         addressModel.queryAddress(new BaseRequestBean())
                 .subscribeOn(Schedulers.newThread())
-                .filter(listAPIResult -> {
-                    EventBus.getDefault().post(new EventProgressMessage(false));
-                    return listAPIResult != null && listAPIResult.size() > 0;
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listAPIResult -> {
-                    itemData = listAPIResult;
-                    setData();
-                    listVisible.set(View.VISIBLE);
-                    nullBgVisible.set(View.GONE);
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    if (listAPIResult != null && listAPIResult.size() > 0) {
+                        itemData = listAPIResult;
+                        setData();
+                        listVisible.set(View.VISIBLE);
+                        nullBgVisible.set(View.GONE);
+                    } else {
+                        listVisible.set(View.GONE);
+                        nullBgVisible.set(View.VISIBLE);
+                    }
+
                 }, throwable -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));

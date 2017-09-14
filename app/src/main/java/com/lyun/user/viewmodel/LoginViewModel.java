@@ -188,6 +188,7 @@ public class LoginViewModel extends ViewModel {
     public void onThirdLogin(View view) {
         if (clickFlag || isFastDoubleClick()) return;
         EventBus.getDefault().post(new EventProgressMessage(true));
+        clickFlag = true;
         switch (view.getId()) {
             case R.id.third_login_wx:
                 EventBus.getDefault().post(new EventWxLoginMessage());
@@ -201,7 +202,6 @@ public class LoginViewModel extends ViewModel {
             default:
                 break;
         }
-        clickFlag = true;
     }
 
     //根据微信code 获取微信openId

@@ -46,6 +46,7 @@ public class UserServiceCardListViewModel extends ViewModel {
     }
 
     private void init() {
+        bgNullVisible.set(View.GONE);
         queryMyCard();
         responses = new ArrayList<>();
         data = new ArrayList<>();
@@ -61,16 +62,19 @@ public class UserServiceCardListViewModel extends ViewModel {
         EventBus.getDefault().post(new EventProgressMessage(true));
         new ServiceCardModel().queryMyServiceCardList()
                 .subscribeOn(Schedulers.newThread())
-                .filter(result -> {
-                    EventBus.getDefault().post(new EventProgressMessage(false));
-                    return result != null && result.size() > 0;
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
-                    bgNullVisible.set(View.GONE);
-                    listVisible.set(View.VISIBLE);
-                    responses = result;
-                    setData();
+                    EventBus.getDefault().post(new EventProgressMessage(false));
+                    if (result != null && result.size() > 0) {
+                        bgNullVisible.set(View.GONE);
+                        listVisible.set(View.VISIBLE);
+                        responses = result;
+                        setData();
+                    } else {
+                        bgNullVisible.set(View.VISIBLE);
+                        listVisible.set(View.GONE);
+                    }
+
                 }, throwable -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     EventBus.getDefault().post(new EventToastMessage(throwable.getMessage()));
