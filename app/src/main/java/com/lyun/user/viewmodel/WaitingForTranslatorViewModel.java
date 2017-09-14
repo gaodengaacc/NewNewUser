@@ -75,7 +75,7 @@ public class WaitingForTranslatorViewModel extends ViewModel {
 
     private void cancelOrderOnTimerOut() {
         cancelOrder();
-        ObservableNotifier.alwaysNotify(onOrderCanceled, "译员正忙，请稍后");
+        ObservableNotifier.alwaysNotify(onOrderCanceled, "律师正忙，请稍后");
     }
 
     @Override
