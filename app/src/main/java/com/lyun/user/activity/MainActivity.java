@@ -113,6 +113,7 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainActivity
             e.printStackTrace();
         }
     }
+
     @Subscribe
     public void finishActivity(EventFinishAllActivityMessage message){
         finish();
