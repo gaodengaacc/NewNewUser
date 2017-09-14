@@ -16,8 +16,6 @@
     <string name="card_online_senior_counsel_advice_prefix">含</string>
     <string name="card_online_senior_counsel_advice_suffix">次，每次15分钟专业律师在线沟通。</string>
     <string name="card_case_consign">案件委托</string>
-    <string name="card_case_consign_prefix">含</string>
-    <string name="card_case_consign_suffix">次，每次15分钟专业律师在线沟通。</string>
     <string name="card_legal_instruments_draft">法律文书定制</string>
     <string name="card_lawyer_letter_draft">定制律师函</string>
     <string name="card_legal_instruments_review">法律文书审核</string>

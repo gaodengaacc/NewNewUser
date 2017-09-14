@@ -160,7 +160,7 @@
                     android:drawablePadding="5dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text='@{mvvm.makeTitle(@string/card_case_consign,@string/card_case_consign_prefix + mvvm.caseConsignTimes + @string/card_case_consign_suffix)}'
+                    android:text='@{mvvm.makeTitle(@string/card_case_consign,mvvm.caseConsignTimes + @string/card_unit_zhe)}'
                     android:textColor="#485465"
                     android:textSize="15sp"
                     android:visibility="@{mvvm.visibilityCaseConsignTimes}"/>
