@@ -85,7 +85,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
             queryServiceCardList();
     }
 
-    protected void queryServiceCardList() {
+    public void queryServiceCardList() {
         new ServiceCardModel()
                 .queryServiceCardList()
                 .subscribeOn(Schedulers.io())
@@ -112,7 +112,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
 
                             // 案件委托
                             if (card.getCaseConsignTimes() > 0) {
-                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_legal_doc_customization, "案件委托", card.getLegalInstrumentsDraftTimes() + "折"));
+                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_case_commission, "案件委托", card.getCaseConsignTimes() + "折"));
                             }
 
                             //法律文书定制
@@ -152,7 +152,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
 
                             // 海外案件委托
                             if (card.getOverseasCaseConsignTimes() > 0) {
-                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_oversea_legal_advice, "海外案件委托", card.getOverseasLawyerServiceConsultationTimes() + "折"));
+                                itemViewModels.add(new ServiceCardServiceItemViewModel(R.mipmap.ic_service_item_oversea_case_commission, "海外案件委托", card.getOverseasCaseConsignTimes() + "折"));
                             }
 
                             serviceCardViewModels.add(new ServiceCardViewModel(card.getName(), card.getPrice(), card.getLogoImg(), card.getId(), itemViewModels));
