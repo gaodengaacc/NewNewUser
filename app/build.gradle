@@ -100,7 +100,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", "HOST", '"https://newlyt1.law-cloud.com.cn:8441"'
+            buildConfigField "String", "HOST", '"https://lyt.lyun.com:8441"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"user"'
             buildConfigField "String", "BAIDU_MAP_AK", '"I8mvwSd8WolPcyoTUCPf5QI1"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
@@ -122,7 +122,7 @@ android {
             versionNameSuffix = " alpha-${getGitCommitHash()}"
 //            applicationIdSuffix = 'alpha'
 
-            buildConfigField "String", "HOST", '"https://lyt2.lawper.com.cn:8441"'
+            buildConfigField "String", "HOST", '"https://lyt2.lyun.com:8441"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"alpha"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
