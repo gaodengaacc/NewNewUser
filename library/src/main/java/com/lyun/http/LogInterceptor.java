@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -21,6 +22,8 @@ import okio.Buffer;
  */
 
 public class LogInterceptor implements Interceptor {
+
+    private MediaType TYPE_APPLICATION_JSON = MediaType.parse("application/json");
 
     private Gson gson;
 
@@ -43,14 +46,13 @@ public class LogInterceptor implements Interceptor {
         Response response = chain.proceed(request);
 
         sb.append("-----------------= Response =-----------------\n");
-        String bodyString = response.body().string();
-        sb.append(prettyJson(bodyString) + "\n");
+        sb.append(prettyJson(bodyToString(response.body())) + "\n");
         sb.append("\n");
 
         Platform.get().log(Platform.INFO, sb.toString(), null);
 
         return response.newBuilder()
-                .body(ResponseBody.create(response.body().contentType(), bodyString))
+                .body(ResponseBody.create(response.body().contentType(), response.body().bytes()))
                 .build();
     }
 
@@ -69,7 +71,18 @@ public class LogInterceptor implements Interceptor {
         return "";
     }
 
+    private String bodyToString(ResponseBody body) throws IOException {
+        if (body != null && body.contentType() == TYPE_APPLICATION_JSON) {
+            return body.string();
+        }
+        return "";
+    }
+
     private String prettyJson(final String json) {
-        return gson.toJson(new JsonParser().parse(json));
+        try {
+            return gson.toJson(new JsonParser().parse(json));
+        } catch (Exception e) {
+            return "not json data";
+        }
     }
 }

@@ -46,6 +46,7 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding, 
     private final int IMAGE_HEADER = 10002;
     private boolean isFromResult;
     private String headerPath = AppApplication.getAppFileDirs().image().getAbsolutePath() + "/header/" + Account.preference().getCardNo() + "header.jpg";
+
     public UserCenterFragment() {
         // Required empty public constructor
     }
