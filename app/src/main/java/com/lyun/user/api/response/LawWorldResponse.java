@@ -172,7 +172,7 @@ public class LawWorldResponse extends BaseResponse {
     }
 
     public String getUserImg() {
-        if (userId != null)
+        if (userImg != null)
             return userImg.trim();
         else return "";
     }
