@@ -14,6 +14,7 @@ import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
@@ -113,18 +114,25 @@ public class HeadImageView extends CircleImageView {
              * 若使用网易云信云存储，这里可以设置下载图片的压缩尺寸，生成下载URL
              * 如果图片来源是非网易云信云存储，请不要使用NosThumbImageUtil
              */
-            final String thumbUrl = makeAvatarThumbNosUrl(url, thumbSize);
+            //final String thumbUrl = makeAvatarThumbNosUrl(url, thumbSize);
 
             // 异步从cache or NOS加载图片
-            ImageLoader.getInstance().displayImage(thumbUrl, new NonViewAware(new ImageSize(thumbSize, thumbSize),
-                    ViewScaleType.CROP), options, new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    if (getTag() != null && getTag().equals(tag)) {
-                        setImageBitmap(loadedImage);
-                    }
-                }
-            });
+            ImageLoader.getInstance().
+                    displayImage(url, new NonViewAware(new ImageSize(thumbSize, thumbSize),
+                            ViewScaleType.CROP), options, new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            if (getTag() != null && getTag().equals(tag)) {
+                                setImageBitmap(loadedImage);
+                            }
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            super.onLoadingFailed(imageUri, view, failReason);
+                            failReason.getCause().printStackTrace();
+                        }
+                    });
         } else {
             setTag(null);
         }

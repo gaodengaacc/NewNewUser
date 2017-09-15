@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import okhttp3.Headers;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -21,6 +22,8 @@ public abstract class AuthorizationInterceptor implements Interceptor {
     private final String TAG = getClass().getSimpleName();
 
     private final String STATUS_TOKEN_EXPIRED = APIResult.Status.STATUS_TOKEN_EXPIRED;
+
+    private MediaType TYPE_APPLICATION_JSON = MediaType.parse("application/json");
 
     protected JsonParser mJsonParser;
 
@@ -45,15 +48,18 @@ public abstract class AuthorizationInterceptor implements Interceptor {
 
         Response response = chain.proceed(request);
 
-        String result = response.body().string();
+        if (response.body() != null && response.body().contentType() == TYPE_APPLICATION_JSON) {
 
-        JsonObject object = mJsonParser.parse(result).getAsJsonObject();
-        if (STATUS_TOKEN_EXPIRED.equals(object.get("status").getAsString())) {
-            onAuthorizationFailed();
+            String result = response.body().string();
+
+            JsonObject object = mJsonParser.parse(result).getAsJsonObject();
+            if (STATUS_TOKEN_EXPIRED.equals(object.get("status").getAsString())) {
+                onAuthorizationFailed();
+            }
         }
 
         return response.newBuilder()
-                .body(ResponseBody.create(response.body().contentType(), result))
+                .body(ResponseBody.create(response.body().contentType(), response.body().bytes()))
                 .build();
     }
 

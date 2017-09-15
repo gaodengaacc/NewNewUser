@@ -108,6 +108,10 @@ public class APIClient {
         return mRetrofit;
     }
 
+    public OkHttpClient okHttpClient() {
+        return mOkHttpClient;
+    }
+
     public static X509TrustManager getTrustManager() {
         return new X509TrustManager() {
             @Override
