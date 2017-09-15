@@ -89,7 +89,9 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
         layoutParams.height = Screen.getStatusBarHeightByReflaction(getContext());
         getFragmentViewDataBinding().layoutHeightTop.setLayoutParams(layoutParams);
 
-        ViewPager mViewPager = (ViewPager) getFragmentViewDataBinding().getRoot().findViewById(R.id.service_card_viewpager);
+        getFragmentViewDataBinding().serviceCardRecycler.setNestedScrollingEnabled(false);
+
+        ViewPager mViewPager = getFragmentViewDataBinding().serviceCardViewpager;
 
         //mViewPager.setPageMargin(DisplayUtil.dip2px(getContext(), -20));
         mViewPager.setPageTransformer(true, new ServiceCardPageTransformer());
