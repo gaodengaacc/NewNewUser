@@ -11,7 +11,7 @@
             type="FragmentServiceCardViewModel"></variable>
     </data>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#f6f9fb"
@@ -28,6 +28,7 @@
                 android:layout_height="290dp"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@id/law_world_name"
+                android:background="@android:color/white"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 app:layout_scrollFlags="scroll|enterAlways">
@@ -142,8 +143,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/service_card_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#f6f9fb"
+                android:layout_height="wrap_content"
                 android:divider="@null"
                 android:dividerHeight="0dp"
                 android:scrollbars="none"
@@ -153,5 +153,5 @@
 
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </layout>
