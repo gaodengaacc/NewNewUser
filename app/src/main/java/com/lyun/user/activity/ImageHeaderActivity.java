@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,7 +26,6 @@ import com.lyun.user.dialog.SelectImageDialog;
 import com.lyun.user.eventbusmessage.EventSelectImageItemMessage;
 import com.lyun.user.viewmodel.ImageHeaderViewModel;
 import com.lyun.user.viewmodel.SelectImageDialogViewModel;
-import com.netease.nim.uikit.common.util.media.ImageUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -50,6 +50,7 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     public static final String IMAGE_PATH = "image_path";
     private String savePath;
     private Bitmap imageBitmap;
+    private String headerPath = AppApplication.getAppFileDirs().image().getAbsolutePath() + "/header/" + Account.preference().getCardNo() + "header.jpg";
 
     @Override
     protected int getBodyLayoutId() {
@@ -66,7 +67,11 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GlideApp.with(this)
+        File file = new File(headerPath);
+        if (file != null && file.exists())
+            getBodyViewDataBinding().headerImage.setImageBitmap(BitmapFactory.decodeFile(headerPath));
+        else {
+            GlideApp.with(this)
                 .asBitmap()
                 .load(Constants.IMAGE_BASE_URL + Account.preference().getUserHeader())
                 .skipMemoryCache(true)
@@ -75,10 +80,11 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
                     @Override
                     public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                         imageBitmap = resource;
-                        ImageUtil.rotateBitmapInNeeded(ImageCropActivity.SAVE_PATH, resource);
                         getBodyViewDataBinding().headerImage.setImageBitmap(resource);
+//                        ImageUtil.rotateBitmapInNeeded(ImageCropActivity.SAVE_PATH, resource);
                     }
                 });
+        }
         EventBus.getDefault().register(this);
     }
 
