@@ -42,11 +42,11 @@ public class ServiceCardDetailViewModel extends ViewModel {
     /**
      * 案件委托次数
      */
-    public final ObservableInt caseConsignTimes = new ObservableInt();
+    public final ObservableField<String> caseConsignTimes = new ObservableField();
     /**
      * 海外案件委托/线下次数
      */
-    public final ObservableInt overseasCaseConsignTimes = new ObservableInt();
+    public final ObservableField<String> overseasCaseConsignTimes = new ObservableField();
     /**
      * 法律文书定制次数
      */
@@ -116,7 +116,7 @@ public class ServiceCardDetailViewModel extends ViewModel {
         visibilityOnlineSeniorCounselAdviceTimes.set(onlineSeniorCounselAdviceTimes.get() > 0 ? VISIBLE : GONE);
 
         caseConsignTimes.set(card.getCaseConsignTimes());
-        visibilityCaseConsignTimes.set(caseConsignTimes.get() > 0 ? VISIBLE : GONE);
+        visibilityCaseConsignTimes.set(Double.parseDouble(caseConsignTimes.get()) > 0 ? VISIBLE : GONE);
 
         visibilityDomesticService.set(visibilityTotalTimes.get() == GONE &&
                 visibilityOnlineSeniorCounselAdviceTimes.get() == GONE &&
@@ -148,7 +148,7 @@ public class ServiceCardDetailViewModel extends ViewModel {
 
         // 海外服务
         overseasCaseConsignTimes.set(card.getOverseasCaseConsignTimes());
-        visibilityOverseasCaseConsignTimes.set(overseasCaseConsignTimes.get() > 0 ? VISIBLE : GONE);
+        visibilityOverseasCaseConsignTimes.set(Double.parseDouble(overseasCaseConsignTimes.get()) > 0 ? VISIBLE : GONE);
 
         overseasLawyerServiceConsultationTimes.set(card.getOverseasLawyerServiceConsultationTimes());
         visibilityOverseasLawyerServiceConsultationTimes.set(overseasLawyerServiceConsultationTimes.get() > 0 ? VISIBLE : GONE);

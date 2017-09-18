@@ -45,11 +45,11 @@ public class ServiceCardResponse extends BaseResponse {
     /**
      * 案件委托次数
      */
-    private int caseConsignTimes;
+    private String caseConsignTimes;
     /**
      * 海外案件委托/线下次数
      */
-    private int overseasCaseConsignTimes;
+    private String overseasCaseConsignTimes;
     /**
      * 法律文书定制次数
      */
@@ -132,19 +132,19 @@ public class ServiceCardResponse extends BaseResponse {
         this.onlineSeniorCounselAdviceTimes = onlineSeniorCounselAdviceTimes;
     }
 
-    public int getCaseConsignTimes() {
+    public String getCaseConsignTimes() {
         return caseConsignTimes;
     }
 
-    public void setCaseConsignTimes(int caseConsignTimes) {
+    public void setCaseConsignTimes(String caseConsignTimes) {
         this.caseConsignTimes = caseConsignTimes;
     }
 
-    public int getOverseasCaseConsignTimes() {
+    public String getOverseasCaseConsignTimes() {
         return overseasCaseConsignTimes;
     }
 
-    public void setOverseasCaseConsignTimes(int overseasCaseConsignTimes) {
+    public void setOverseasCaseConsignTimes(String overseasCaseConsignTimes) {
         this.overseasCaseConsignTimes = overseasCaseConsignTimes;
     }
 
