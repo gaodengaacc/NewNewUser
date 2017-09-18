@@ -113,38 +113,41 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_horizontal">
-                                <ImageView
-                                    android:id="@+id/imageView_model_change"
-                                    android:layout_width="170dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_centerInParent="true"
-                                    android:onClick="@{mvvm.modelChangeImageViewClick}"
-                                    app:imageSrc="@{mvvm.modelChange}" />
+                                <!--<ImageView-->
+                                    <!--android:id="@+id/imageView_model_change"-->
+                                    <!--android:layout_width="170dp"-->
+                                    <!--android:layout_height="match_parent"-->
+                                    <!--android:layout_centerInParent="true"-->
+                                    <!--android:onClick="@{mvvm.modelChangeImageViewClick}"-->
+                                    <!--app:imageSrc="@{mvvm.modelChange}" />-->
 
-                                <RelativeLayout
-                                    android:layout_width="160dp"
-                                    android:layout_height="32dp"
-                                    android:layout_centerInParent="true">
+                                <!--<RelativeLayout-->
+                                    <!--android:layout_width="160dp"-->
+                                    <!--android:layout_height="32dp"-->
+                                    <!--android:layout_centerInParent="true">-->
 
-                                    <TextView
+                                    <com.lyun.roundrectview.RoundRectTextView
                                         android:layout_width="85dp"
                                         android:layout_height="32dp"
                                         android:layout_centerVertical="true"
                                         android:gravity="center"
                                         android:text="语音服务"
-                                        android:textColor="@{mvvm.textViewColor1}"
-                                        android:textSize="12sp" />
+                                        android:layout_centerInParent="true"
+                                        android:textColor="@color/tcw"
+                                        android:textSize="12sp"
+                                        app:backgroundColor="@color/colorPrimary"
+                                        app:cornerRadius="16dp"/>
 
-                                    <TextView
-                                        android:layout_width="85dp"
-                                        android:layout_height="32dp"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_centerVertical="true"
-                                        android:gravity="center"
-                                        android:text="图文服务"
-                                        android:textColor="@{mvvm.textViewColor2}"
-                                        android:textSize="12sp" />
-                                </RelativeLayout>
+                                    <!--<TextView-->
+                                        <!--android:layout_width="85dp"-->
+                                        <!--android:layout_height="32dp"-->
+                                        <!--android:layout_alignParentRight="true"-->
+                                        <!--android:layout_centerVertical="true"-->
+                                        <!--android:gravity="center"-->
+                                        <!--android:text="图文服务"-->
+                                        <!--android:textColor="@{mvvm.textViewColor2}"-->
+                                        <!--android:textSize="12sp" />-->
+                                <!--</RelativeLayout>-->
                             </RelativeLayout>
                         </RelativeLayout>
 

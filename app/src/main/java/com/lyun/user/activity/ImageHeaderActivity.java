@@ -68,8 +68,11 @@ public class ImageHeaderActivity extends GeneralToolbarActivity<ImageHeaderLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         File file = new File(headerPath);
-        if (file != null && file.exists())
-            getBodyViewDataBinding().headerImage.setImageBitmap(BitmapFactory.decodeFile(headerPath));
+        if (file != null && file.exists()) {
+            imageBitmap = BitmapFactory.decodeFile(headerPath);
+            getBodyViewDataBinding().headerImage.setImageBitmap(imageBitmap);
+        }
+
         else {
             GlideApp.with(this)
                 .asBitmap()

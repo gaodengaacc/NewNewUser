@@ -19,12 +19,13 @@ public class SelectImageDialogViewModel extends DialogViewModel {
     public void onClickView(View view) {
       switch (view.getId()){
           case R.id.select_image:
-              EventBus.getDefault().post(new EventSelectImageItemMessage(0));
               dismiss();
+              EventBus.getDefault().post(new EventSelectImageItemMessage(0));
               break;
           case R.id.save_image:
-              EventBus.getDefault().post(new EventSelectImageItemMessage(1));
               dismiss();
+              EventBus.getDefault().post(new EventSelectImageItemMessage(1));
+
               break;
           default:
               break;
