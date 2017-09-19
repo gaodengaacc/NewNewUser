@@ -17,6 +17,7 @@ import com.lyun.user.model.LawWorldModel;
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import me.tatarka.bindingcollectionadapter.ItemView;
 
@@ -29,6 +30,10 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
 
     public final ObservableField<String> avatar = new ObservableField<>();
     public final ObservableField<String> name = new ObservableField<>();
+
+    private int currentPage = 0;
+    private int nextPage = 0;
+    private int totalPages = 1;
 
     @WatchThis
     public final ObservableField<LawWorldResponse> navigateDetail = new ObservableField<>();
@@ -44,15 +49,34 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
     public void onResume() {
         super.onResume();
         if (!dataReady)
-            queryLawyerList(0);
+            queryLawyerList(nextPage);
     }
 
+    private boolean inProcess = false;
+
     protected void queryLawyerList(int page) {
+
+        if (inProcess || nextPage >= totalPages) {
+            return;
+        }
+
+        inProcess = true;
+
         new LawWorldModel()
                 .queryLawyerList(page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(listAPIResult -> {
+                    if (page == 0) {
+                        items.clear();
+                    }
+
+                    currentPage = nextPage;
+                    nextPage++;
+                    totalPages = listAPIResult.getContent().getPagecount();
+
+                    inProcess = false;
+
                     if (listAPIResult.isSuccess()) {
                         for (LawWorldResponse response : listAPIResult.getContent().getData()) {
                             items.add(new LawWorldCardViewModel(this, response));
@@ -61,12 +85,16 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
                             currentItem.set(1);
                         dataReady = true;
                     }
-                });
+                }, throwable -> inProcess = false);
     }
 
     public final RelayCommand<Integer> onPageSelected = new RelayCommand<>(page -> {
         avatar.set(Constants.IMAGE_BASE_URL + items.get(page).data.get().getUserImg());
         name.set(items.get(page).data.get().getRealName());
+
+        if (page + 4 <= items.size()) {
+            queryLawyerList(nextPage);
+        }
     });
 
     @Override

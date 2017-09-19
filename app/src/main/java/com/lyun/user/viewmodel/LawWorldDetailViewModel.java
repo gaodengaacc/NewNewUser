@@ -47,6 +47,6 @@ public class LawWorldDetailViewModel extends ViewModel {
         this.data.notifyChange();
     }
 
-    public RelayCommand onBackClick = new RelayCommand(o -> ObservableNotifier.alwaysNotify(onTitleBackClick, null));
+    public RelayCommand onBackClick = new RelayCommand(() -> ObservableNotifier.alwaysNotify(onTitleBackClick, null));
 
 }
