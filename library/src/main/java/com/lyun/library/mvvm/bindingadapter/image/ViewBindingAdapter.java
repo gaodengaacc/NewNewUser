@@ -55,6 +55,7 @@ public final class ViewBindingAdapter {
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            e.printStackTrace();
                             if (onFailureCommand != null) {
                                 onFailureCommand.execute(imageView);
                             }

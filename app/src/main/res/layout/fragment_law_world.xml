@@ -24,7 +24,8 @@
             android:src="@mipmap/user_default_avatar"
             app:border_color="#209ced"
             app:border_width="1dp"
-            app:imageUrl="@{mvvm.avatar}"/>
+            app:placeholderImageRes="@mipmap/user_default_avatar"
+            app:uri="@{mvvm.avatar}"/>
 
         <TextView
             android:id="@+id/law_world_name"

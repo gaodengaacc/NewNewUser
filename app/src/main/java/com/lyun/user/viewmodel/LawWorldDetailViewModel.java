@@ -37,6 +37,7 @@ public class LawWorldDetailViewModel extends ViewModel {
                 domin3Visibility.set(View.VISIBLE);
             }
         }
+        this.data.notifyChange();
     }
 
 }
