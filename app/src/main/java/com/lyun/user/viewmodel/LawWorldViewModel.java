@@ -9,6 +9,7 @@ import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.BR;
+import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.api.response.LawWorldResponse;
 import com.lyun.user.model.LawWorldModel;
@@ -64,7 +65,7 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
     }
 
     public final RelayCommand<Integer> onPageSelected = new RelayCommand<>(page -> {
-        avatar.set(items.get(page).data.get().getUserImg());
+        avatar.set(Constants.IMAGE_BASE_URL + items.get(page).data.get().getUserImg());
         name.set(items.get(page).data.get().getRealName());
     });
 

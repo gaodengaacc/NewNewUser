@@ -90,9 +90,6 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 		options.setTitleString("相册");
 		setToolBar(R.id.toolbar, options);
 		centerToolbarTitle(getToolBar());
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			getToolBar().setPadding(0, ScreenUtil.getStatusBarHeight(this), 0, 0);
-		}
 	}
 
 	/**

@@ -2,9 +2,7 @@
 
     <style name="AppBaseTheme" parent="LibTheme"></style>
 
-    <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
-    </style>
+    <style name="AppTheme" parent="AppBaseTheme"></style>
 
     <style name="AppTheme.NoTitle" parent="LibTheme.NoTitle"></style>
 

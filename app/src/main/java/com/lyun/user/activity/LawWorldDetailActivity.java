@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
+import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.api.response.LawWorldResponse;
 import com.lyun.user.databinding.ActivityLawWorldDetailBinding;
@@ -25,6 +26,8 @@ public class LawWorldDetailActivity extends MvvmActivity<ActivityLawWorldDetailB
     @Override
     protected LawWorldDetailViewModel createViewModel() {
         LawWorldResponse data = (LawWorldResponse) getIntent().getSerializableExtra(EXTRA_DATA);
+        if (data != null)
+            data.setUserImg(Constants.IMAGE_BASE_URL + data.getUserImg());
         return new LawWorldDetailViewModel(data);
     }
 
