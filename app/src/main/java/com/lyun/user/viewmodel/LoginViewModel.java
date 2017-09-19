@@ -211,7 +211,11 @@ public class LoginViewModel extends ViewModel {
                 .subscribe(wxOpenIdResponse -> {
                     String openid = wxOpenIdResponse.getOpenid();
                     login(true, openid, LoginActivity.THIRD_WX);
-                }, throwable -> onLoginFailed.set(throwable));
+                        }, throwable -> {
+                            EventBus.getDefault().post(new EventProgressMessage(false));
+                            onLoginFailed.set(throwable);
+                        }
+                );
     }
 
     private long lastClickTime;

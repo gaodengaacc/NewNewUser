@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
+import com.lyun.library.mvvm.viewmodel.ProgressBarDialogViewModel;
 import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.AppApplication;
@@ -33,6 +34,7 @@ import com.lyun.user.im.config.preference.UserPreferences;
 import com.lyun.user.service.TranslationOrderService;
 import com.lyun.user.viewmodel.LoginViewModel;
 import com.lyun.user.viewmodel.watchdog.ILoginViewModelCallbacks;
+import com.lyun.widget.dialog.ProgressBarDialog;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.AuthService;
@@ -67,6 +69,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
     public static final String THIRD_QQ = "0";
     public static final String THIRD_WX = "1";
     public static final String THIRD_WB = "2";
+    private ProgressBarDialog progressBarDialog;
 
     public static void start(Context context, boolean kickOut) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -99,6 +102,13 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (progressBarDialog != null && progressBarDialog.isShowing())
+            progressBarDialog.dismiss();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
     }
@@ -108,6 +118,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         mTencent = ((AppApplication) AppApplication.getInstance()).getTencentApi();
         WbSdk.install(this, new AuthInfo(this, BuildConfig.WB_APPKEY, com.lyun.user.Constants.WB_REDIRECT_URL, com.lyun.user.Constants.WB_SCOPE));
         mSsoHandler = new SsoHandler(this);
+        progressBarDialog = new ProgressBarDialog(this, new ProgressBarDialogViewModel(this));
     }
 
     @Override
@@ -217,10 +228,12 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
     @Override
     public void progressDialogShow(ObservableBoolean observableField, int fieldId) {
-        if (observableField.get() && !dialogViewModel.isShow.get())
-            dialogViewModel.show();
+        if (observableField.get()) {
+            if (!progressBarDialog.isShowing())
+                progressBarDialog.show();
+        }
         else
-            dialogViewModel.dismiss();
+            progressBarDialog.dismiss();
     }
 
     private void initNotificationConfig() {
@@ -251,7 +264,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
     public void wxLoginFailed(EventWxLoginFailedMessage message) {
         Toast.makeText(this, message.getMessage(), Toast.LENGTH_LONG).show();
         getActivityViewModel().clickFlag = false;
-        dialogViewModel.dismiss();
+        progressBarDialog.dismiss();
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void thirdBindSuccess(EventThirdBindPhoneSuccessMessage message) {
@@ -290,6 +303,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
     @Subscribe
     public void onWxLoginSuccess(EventWxLoginSuccessMessage message) {
+        getActivityViewModel().clickFlag = false;
         getActivityViewModel().getWxOpenId(message.getMessage());
     }
 
@@ -297,7 +311,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         if (!msgApi.isWXAppInstalled()) {
             Toast.makeText(this, "请先安装微信", Toast.LENGTH_LONG).show();
             getActivityViewModel().clickFlag = false;
-            if (dialogViewModel != null) dialogViewModel.dismiss();
+            if (progressBarDialog != null) progressBarDialog.dismiss();
             return;
         }
 
@@ -309,10 +323,12 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
 
     @Subscribe
     public void showProgress(EventProgressMessage message) {
-        if (message.getMessage())
-            dialogViewModel.show();
+        if (message.getMessage()) {
+            if (!progressBarDialog.isShowing())
+                progressBarDialog.show();
+        }
         else
-            dialogViewModel.dismiss();
+            progressBarDialog.dismiss();
     }
 
     private void qqLogin() {
@@ -328,7 +344,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         @Override
         public void onComplete(Object o) {
             getActivityViewModel().clickFlag = false;
-            dialogViewModel.dismiss();
+            progressBarDialog.dismiss();
             JSONObject json = ((JSONObject) o);
             try {
                 String openId = (String) json.get("openid");//"access_token"
@@ -341,14 +357,14 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         @Override
         public void onError(UiError uiError) {
             getActivityViewModel().clickFlag = false;
-            dialogViewModel.dismiss();
+            progressBarDialog.dismiss();
             Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onCancel() {
             getActivityViewModel().clickFlag = false;
-            dialogViewModel.dismiss();
+            progressBarDialog.dismiss();
             Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
         }
     };
@@ -358,20 +374,20 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
             getActivityViewModel().login(true, oauth2AccessToken.getUid(), THIRD_WB);
             getActivityViewModel().clickFlag = false;
-            dialogViewModel.dismiss();
+            progressBarDialog.dismiss();
         }
 
         @Override
         public void cancel() {
             getActivityViewModel().clickFlag = false;
-            dialogViewModel.dismiss();
+            progressBarDialog.dismiss();
             Toast.makeText(getBaseContext(), "登录取消", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
             getActivityViewModel().clickFlag = false;
-            dialogViewModel.dismiss();
+            progressBarDialog.dismiss();
             Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
         }
     };
