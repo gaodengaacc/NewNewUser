@@ -60,7 +60,7 @@ public class ServiceCardItemViewModel extends ViewModel {
                 break;
         }
         orderId.set(data.getOrderNo());
-        tradeTime.set(TimeUtil.formatTime(data.getTradeTime(), "yyyy-MM-dd HH:mm"));
+        tradeTime.set(TimeUtil.formatTime(data.getTradeTime(), "yyyy-MM-dd"));
         userTime.set(TimeUtil.formatTime(data.getActiveStartTime(), "yyyy-MM-dd") + "至" + TimeUtil.formatTime(data.getActiveEndTime(), "yyyy-MM-dd"));
         onLineTime.set(data.getLeftTime() + "分钟");
         seniorTimes.set(data.getOnlineSeniorCounselAdviceTimes() + "次");
