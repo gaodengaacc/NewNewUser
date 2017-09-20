@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -14,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#f5f5f5"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -33,169 +33,167 @@
                 android:drawableLeft="@mipmap/ic_arrow_back_black"
                 android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
-                app:clickCommand="@{mvvm.onBackClick}"
                 android:paddingRight="30dp"
-                android:paddingTop="10dp"/>
+                android:paddingTop="10dp"
+                app:clickCommand="@{mvvm.onBackClick}"/>
 
         </RelativeLayout>
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="none">
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#f5f5f5"
-                tools:context="com.lyun.user.activity.LawWorldDetailActivity">
+                android:layout_height="92dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:background="#209ced"
+                android:elevation="0dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="92dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginTop="0dp"
-                    android:background="#209ced"
-                    android:elevation="0dp">
+            </RelativeLayout>
 
-                </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/law_world_detail_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="46dp"
+                android:background="@drawable/no_border_round_corner_white_bg"
+                android:elevation="5dp">
 
-                <RelativeLayout
-                    android:id="@+id/law_world_detail_top"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/law_world_detail_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="46dp"
-                    android:background="@drawable/no_border_round_corner_white_bg"
-                    android:elevation="5dp">
+                    android:layout_marginTop="65dp"
+                    android:text="@{mvvm.data.get().getRealName()}"
+                    android:textColor="#485465"
+                    android:textSize="18sp"/>
 
-                    <TextView
-                        android:id="@+id/law_world_detail_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="65dp"
-                        android:text="@{mvvm.data.get().getRealName()}"
-                        android:textColor="#485465"
-                        android:textSize="18sp"/>
+                <com.lyun.roundrectview.RoundRectTextView
+                    android:id="@+id/law_world_detail_years"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/law_world_detail_name"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="3dp"
+                    android:text="@{`从业年限 ` + mvvm.data.get().getEmpAge() + `年`}"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    app:backgroundColor="#8aa4c8"
+                    app:cornerRadius="50%"/>
+
+                <View
+                    android:id="@+id/law_world_detail_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_below="@id/law_world_detail_years"
+                    android:layout_marginTop="20dp"
+                    android:background="#dce2ee"/>
+
+                <TextView
+                    android:id="@+id/law_world_detail_good_at_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/law_world_detail_divider"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:text="擅长领域"
+                    android:textColor="#485465"
+                    android:textSize="14sp"/>
+
+                <com.lyun.widget.FlowLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/law_world_detail_good_at_label"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="15dp"
+                    app:childSpacing="5dp"
+                    app:childSpacingForLastRow="align"
+                    app:rowSpacing="8dp">
 
                     <com.lyun.roundrectview.RoundRectTextView
-                        android:id="@+id/law_world_detail_years"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/law_world_detail_name"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        android:paddingBottom="3dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="3dp"
-                        android:text="@{`从业年限 ` + mvvm.data.get().getEmpAge() + `年`}"
-                        android:textColor="#ffffff"
+                        android:gravity="center"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="@{mvvm.domin1}"
+                        android:textColor="#8aa4c8"
                         android:textSize="12sp"
-                        app:backgroundColor="#8aa4c8"
+                        android:visibility="@{mvvm.domin1Visibility}"
+                        app:backgroundColor="@android:color/white"
+                        app:borderColor="#8aa4c8"
+                        app:borderWidth="3px"
                         app:cornerRadius="50%"/>
 
-                    <View
-                        android:id="@+id/law_world_detail_divider"
-                        android:layout_width="match_parent"
-                        android:layout_height="2px"
-                        android:layout_below="@id/law_world_detail_years"
-                        android:layout_marginTop="20dp"
-                        android:background="#dce2ee"/>
-
-                    <TextView
-                        android:id="@+id/law_world_detail_good_at_label"
+                    <com.lyun.roundrectview.RoundRectTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/law_world_detail_divider"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        android:text="擅长领域"
-                        android:textColor="#485465"
-                        android:textSize="14sp"/>
+                        android:gravity="center"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="@{mvvm.domin2}"
+                        android:textColor="#8aa4c8"
+                        android:textSize="12sp"
+                        android:visibility="@{mvvm.domin2Visibility}"
+                        app:backgroundColor="@android:color/white"
+                        app:borderColor="#8aa4c8"
+                        app:borderWidth="3px"
+                        app:cornerRadius="50%"/>
 
-                    <com.lyun.widget.FlowLayout
+                    <com.lyun.roundrectview.RoundRectTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/law_world_detail_good_at_label"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="15dp"
-                        app:childSpacing="5dp"
-                        app:childSpacingForLastRow="align"
-                        app:rowSpacing="8dp">
+                        android:gravity="center"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="2dp"
+                        android:text="@{mvvm.domin3}"
+                        android:textColor="#8aa4c8"
+                        android:textSize="12sp"
+                        android:visibility="@{mvvm.domin3Visibility}"
+                        app:backgroundColor="@android:color/white"
+                        app:borderColor="#8aa4c8"
+                        app:borderWidth="3px"
+                        app:cornerRadius="50%"/>
 
-                        <com.lyun.roundrectview.RoundRectTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp"
-                            android:text="@{mvvm.domin1}"
-                            android:textColor="#8aa4c8"
-                            android:textSize="12sp"
-                            android:visibility="@{mvvm.domin1Visibility}"
-                            app:backgroundColor="@android:color/white"
-                            app:borderColor="#8aa4c8"
-                            app:borderWidth="3px"
-                            app:cornerRadius="50%"/>
+                </com.lyun.widget.FlowLayout>
+            </RelativeLayout>
 
-                        <com.lyun.roundrectview.RoundRectTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp"
-                            android:text="@{mvvm.domin2}"
-                            android:textColor="#8aa4c8"
-                            android:textSize="12sp"
-                            android:visibility="@{mvvm.domin2Visibility}"
-                            app:backgroundColor="@android:color/white"
-                            app:borderColor="#8aa4c8"
-                            app:borderWidth="3px"
-                            app:cornerRadius="50%"/>
+            <com.lyun.widget.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:elevation="10dp"
+                app:placeholderImageRes="@mipmap/user_default_avatar"
+                app:uri="@{mvvm.data.get().getUserImg()}"/>
 
-                        <com.lyun.roundrectview.RoundRectTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="2dp"
-                            android:text="@{mvvm.domin3}"
-                            android:textColor="#8aa4c8"
-                            android:textSize="12sp"
-                            android:visibility="@{mvvm.domin3Visibility}"
-                            app:backgroundColor="@android:color/white"
-                            app:borderColor="#8aa4c8"
-                            app:borderWidth="3px"
-                            app:cornerRadius="50%"/>
-
-                    </com.lyun.widget.FlowLayout>
-                </RelativeLayout>
-
-                <com.lyun.widget.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:elevation="10dp"
-                    app:placeholderImageRes="@mipmap/user_default_avatar"
-                    app:uri="@{mvvm.data.get().getUserImg()}"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/law_world_detail_top"
+                android:fillViewport="true"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/law_world_detail_top"
                     android:layout_margin="10dp"
                     android:background="@drawable/no_border_round_corner_white_bg"
                     android:elevation="10dp"
@@ -221,7 +219,7 @@
                         android:textSize="14sp"/>
 
                 </LinearLayout>
-            </RelativeLayout>
-        </ScrollView>
+            </ScrollView>
+        </RelativeLayout>
     </LinearLayout>
 </layout>

@@ -10,9 +10,14 @@
             type="com.lyun.user.viewmodel.ServiceCardViewModel"/>
     </data>
 
-    <ImageView
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleType="centerInside"
-        app:uri="@{mvvm.image}"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            app:uri="@{mvvm.image}"/>
+    </FrameLayout>
 </layout>
