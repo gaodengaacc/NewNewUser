@@ -3,6 +3,7 @@ package com.lyun.user.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
@@ -29,6 +30,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class AddAddressActivity extends GeneralToolbarActivity<ActivityAddAddressBinding, AddAddressViewModel> {
     private SimpleDialogViewModel simpleDialogViewModel;
+    private SimpleDialogViewModel simpleBackDialog;
     private AddressSelectDialog selectDialog;
     private String provinceBack;
     private String cityBack;
@@ -70,7 +72,7 @@ public class AddAddressActivity extends GeneralToolbarActivity<ActivityAddAddres
             });
         } else
             viewModel.title.set("新建收件地址");
-        viewModel.onBackClick.set(view -> finish());
+        viewModel.onBackClick.set(view -> showBackDialog());
         return viewModel;
     }
 
@@ -136,5 +138,36 @@ public class AddAddressActivity extends GeneralToolbarActivity<ActivityAddAddres
             });
         }
         simpleDialogViewModel.show();
+    }
+
+    public void showBackDialog() {
+        if (simpleBackDialog == null) {
+            simpleBackDialog = new SimpleDialogViewModel(this);
+            simpleBackDialog.setInfo("是否放弃本次编辑？");
+            simpleBackDialog.setCancelBtnText("是");
+            simpleBackDialog.setYesBtnText("否");
+            simpleBackDialog.setBtnCancelTextColor(Color.parseColor("#fe811c"));
+            simpleBackDialog.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
+                @Override
+                public void OnYesClick(View view) {
+
+                }
+
+                @Override
+                public void OnCancelClick(View view) {
+                    finish();
+                }
+            });
+        }
+        simpleBackDialog.show();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            showBackDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

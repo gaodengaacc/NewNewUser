@@ -141,6 +141,7 @@ public class AddAddressViewModel extends ViewModel {
     }
 
     private void check() {
+        if (isFastDoubleClick()) return;
         if (("".equals(username.get())) || (null == username.get())) {
             EventBus.getDefault().post(new EventToastMessage("请输入收件人"));
         } else if (("".equals(phoneNum.get())) || (null == phoneNum.get())) {
@@ -211,5 +212,17 @@ public class AddAddressViewModel extends ViewModel {
         bean.setStreet(response.getStreet());
         bean.setDetailAddress(response.getDetailAddress());
         bean.setId(response.getId());
+    }
+
+    private long lastClickTime;
+
+    public boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if (0 < timeD && timeD < 500) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
     }
 }
