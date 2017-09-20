@@ -29,4 +29,6 @@
     <string name="card_unit_ci">次</string>
     <string name="card_unit_fen">份</string>
     <string name="card_unit_zhe">折</string>
+
+    <string name="lawyer_location">所在地区 </string>
 </resources>

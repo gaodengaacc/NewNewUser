@@ -40,7 +40,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="2dp"
-                    android:text="@{`从业年限 ` + mvvm.data.get().getEmpAge() + `年`}"
+                    android:text="@{@string/lawyer_location + mvvm.data.get().getArea()}"
                     android:textColor="#209ced"
                     android:textSize="12sp"
                     app:backgroundColor="#ffffff"

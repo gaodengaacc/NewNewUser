@@ -20,7 +20,7 @@ public class LawWorldResponse extends BaseResponse {
      * idCard :
      * cardType :
      * cardNo : null
-     * empAge :
+     * area :
      * introduction :
      * yunXinToken : 307f0ebe0fdbc9413c359f5262b31f27
      * userType : 1
@@ -41,7 +41,7 @@ public class LawWorldResponse extends BaseResponse {
     private String idCard;
     private String cardType;
     private String cardNo;
-    private String empAge;
+    private String area;
     private String introduction;
     private String yunXinToken;
     private String userType;
@@ -139,12 +139,12 @@ public class LawWorldResponse extends BaseResponse {
         this.cardNo = cardNo;
     }
 
-    public String getEmpAge() {
-        return empAge;
+    public String getArea() {
+        return area;
     }
 
-    public void setEmpAge(String empAge) {
-        this.empAge = empAge;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getIntroduction() {
