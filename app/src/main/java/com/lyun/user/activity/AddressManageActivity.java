@@ -83,7 +83,7 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
                 tipsToast.show();
             } else {
                 if (toast == null)
-                    toast = Toast.makeText(getBaseContext(), message.getMessage(), Toast.LENGTH_LONG);
+                    toast = Toast.makeText(getBaseContext(), message.getMessage(), Toast.LENGTH_SHORT);
                 toast.setText(message.getMessage());
                 toast.show();
             }
