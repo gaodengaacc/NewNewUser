@@ -55,6 +55,12 @@ public class TranslationAudioMessageFragment extends TFragment {
         }
     }
 
+    public void setAvatar(String avatar) {
+        if (mViewModel != null) {
+            mViewModel.translatorAvatar.set(avatar);
+        }
+    }
+
     public void setTranslatorTargetLanguage(String targetLanguage) {
         this.targetLanguage = targetLanguage;
         if (mViewModel != null) {

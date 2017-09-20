@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.lyun.user.R"/>
+
         <variable
             name="mvvm"
             type="com.lyun.user.viewmodel.LawWorldViewModel"/>
@@ -24,7 +26,7 @@
             android:src="@mipmap/user_default_avatar"
             app:border_color="#209ced"
             app:border_width="1dp"
-            app:placeholderImageRes="@mipmap/user_default_avatar"
+            app:placeholderImageRes="@{R.mipmap.user_default_avatar}"
             app:uri="@{mvvm.avatar}"/>
 
         <TextView

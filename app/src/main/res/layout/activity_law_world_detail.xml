@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.lyun.user.R"/>
+
         <variable
             name="mvvm"
             type="com.lyun.user.viewmodel.LawWorldDetailViewModel"/>
@@ -181,7 +183,7 @@
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 android:elevation="10dp"
-                app:placeholderImageRes="@mipmap/user_default_avatar"
+                app:placeholderImageRes="@{R.mipmap.user_default_avatar}"
                 app:uri="@{mvvm.data.get().getUserImg()}"/>
 
             <ScrollView

@@ -48,29 +48,27 @@ public final class ViewBindingAdapter {
                                  @DrawableRes int placeholderImageRes,
                                  final RelayCommand<ImageView> onSuccessCommand,
                                  final RelayCommand<ImageView> onFailureCommand) {
-        if (!TextUtils.isEmpty(uri)) {
-            Glide.with(imageView)
-                    .load(uri)
-                    .apply(new RequestOptions().placeholder(placeholderImageRes))
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            e.printStackTrace();
-                            if (onFailureCommand != null) {
-                                onFailureCommand.execute(imageView);
-                            }
-                            return false;
+        Glide.with(imageView)
+                .load(uri)
+                .apply(new RequestOptions().placeholder(placeholderImageRes))
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        e.printStackTrace();
+                        if (onFailureCommand != null) {
+                            onFailureCommand.execute(imageView);
                         }
+                        return false;
+                    }
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            if (onSuccessCommand != null) {
-                                onSuccessCommand.execute(imageView);
-                            }
-                            return false;
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        if (onSuccessCommand != null) {
+                            onSuccessCommand.execute(imageView);
                         }
-                    }).into(imageView);
-        }
+                        return false;
+                    }
+                }).into(imageView);
     }
 }
 
