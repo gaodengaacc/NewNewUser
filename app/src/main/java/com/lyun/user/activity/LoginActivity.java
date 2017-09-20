@@ -31,10 +31,12 @@ import com.lyun.user.eventbusmessage.login.EventWxLoginMessage;
 import com.lyun.user.eventbusmessage.login.EventWxLoginSuccessMessage;
 import com.lyun.user.im.NimCache;
 import com.lyun.user.im.config.preference.UserPreferences;
+import com.lyun.user.im.login.NimLoginHelper;
 import com.lyun.user.service.TranslationOrderService;
 import com.lyun.user.viewmodel.LoginViewModel;
 import com.lyun.user.viewmodel.watchdog.ILoginViewModelCallbacks;
 import com.lyun.widget.dialog.ProgressBarDialog;
+import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.AuthService;
@@ -78,6 +80,8 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         context.startActivity(intent);
 //        if(kickOut)
         Account.preference().clear();
+        NimUserInfoCache.getInstance().clear();
+        NimLoginHelper.logout();
         TranslationOrderService.forceStop(context);
     }
 

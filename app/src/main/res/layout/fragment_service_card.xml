@@ -25,7 +25,7 @@
             <RelativeLayout
                 android:id="@+id/service_card_viewpager_container"
                 android:layout_width="match_parent"
-                android:layout_height="290dp"
+                android:layout_height="310dp"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@id/law_world_name"
                 android:background="@android:color/white"
@@ -112,11 +112,21 @@
                         app:cornerRadius="50%"/>
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/layout_height_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="true"
+                    android:visibility="@{mvvm.topVisible}">
+
+                </RelativeLayout>
+
                 <android.support.v4.view.ViewPager
                     android:id="@+id/service_card_viewpager"
                     android:layout_width="320dp"
                     android:layout_height="match_parent"
                     android:layout_above="@id/service_card_price"
+                    android:layout_below="@id/layout_height_top"
                     android:layout_centerHorizontal="true"
                     android:clipChildren="false"
                     android:clipToPadding="false"
@@ -127,16 +137,6 @@
                     app:onPageSelectedCommand="@{mvvm.onPageSelected}">
 
                 </android.support.v4.view.ViewPager>
-
-                <RelativeLayout
-                    android:id="@+id/layout_height_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_above="@id/service_card_viewpager"
-                    android:layout_alignParentTop="true"
-                    android:visibility="@{mvvm.topVisible}">
-
-                </RelativeLayout>
 
             </RelativeLayout>
 

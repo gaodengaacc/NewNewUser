@@ -1,5 +1,7 @@
 package com.lyun.user.im.login;
 
+import android.util.Log;
+
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
 import com.lyun.user.im.NimCache;
@@ -75,11 +77,12 @@ public class NimLoginHelper {
     }
 
     public static void logout() {
+        NIMClient.getService(AuthService.class).logout();
         // 清理缓存&注销监听&清除状态
         NimUIKit.clearCache();
         // ChatRoomHelper.navigateLogin();
         NimCache.clear();
         LoginSyncDataStatusObserver.getInstance().reset();
-        //DropManager.getInstance().destroy();
+        // DropManager.getInstance().destroy();
     }
 }
