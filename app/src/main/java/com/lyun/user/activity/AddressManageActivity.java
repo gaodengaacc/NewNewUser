@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 
 public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddressManageBinding, AddressManageViewModel> {
+    private Toast toast;
     private SimpleDialogViewModel simpleDialogViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +78,15 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
     public void showToast(EventToastMessage message) {
         if (message.getMessage() != null && !message.getMessage().equals(""))
             if (message.getMessage().equals("保存成功")) {
-                TipsToast tipsToast = TipsToast.makeText(getBaseContext(), message.getMessage(), TipsToast.LENGTH_LONG);
+                TipsToast tipsToast = TipsToast.makeText(getBaseContext(), message.getMessage(), TipsToast.LENGTH_SHORT);
                 tipsToast.setIcon(R.mipmap.icon_address_success);
                 tipsToast.show();
-            } else
-            Toast.makeText(getBaseContext(), message.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                if (toast == null)
+                    toast = Toast.makeText(getBaseContext(), message.getMessage(), Toast.LENGTH_LONG);
+                toast.setText(message.getMessage());
+                toast.show();
+            }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

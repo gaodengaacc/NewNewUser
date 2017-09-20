@@ -84,6 +84,7 @@ public class LoginViewModel extends ViewModel {
         } else if (!RegExMatcherUtils.matchPassword(password.get())) {
             ObservableNotifier.alwaysNotify(onLoginResult, "密码格式不正确,请重新输入");
         } else {
+            if (isFastDoubleClick()) return;
             login(false, username.get(), password.get());
         }
 
