@@ -33,7 +33,6 @@
                 android:scaleType="fitXY"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:src="@mipmap/bg_service_card_normal"
                 app:imageSrc="@{mvvm.cardBg}" />
 
             <LinearLayout
