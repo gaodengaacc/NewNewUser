@@ -11,7 +11,7 @@
             type="com.lyun.user.viewmodel.LawWorldViewModel"/>
     </data>
 
-    <RelativeLayout
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#f6f8fb"
@@ -19,13 +19,16 @@
 
         <com.lyun.widget.CircleImageView
             android:id="@+id/law_world_avatar"
-            android:layout_width="@dimen/law_world_avatar_width"
-            android:layout_height="@dimen/law_world_avatar_width"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/law_world_avatar_marginTop"
+            android:layout_marginTop="@dimen/dp20"
+            android:padding="@dimen/dp2"
             android:src="@mipmap/user_default_avatar"
             app:border_color="#209ced"
-            app:border_width="1dp"
+            app:border_width="@dimen/dp1"
+            app:layout_aspectRatio="100%"
+            app:layout_widthPercent="30%"
             app:placeholderImageRes="@{R.mipmap.user_default_avatar}"
             app:uri="@{mvvm.avatar}"/>
 
@@ -35,12 +38,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/law_world_avatar"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/dp15"
             android:text="@{mvvm.name}"
             android:textColor="#485465"
-            android:textSize="@dimen/law_world_name_textSize"/>
+            android:textSize="12sp"/>
 
-        <RelativeLayout
+        <android.support.percent.PercentRelativeLayout
             android:id="@+id/law_world_viewpager_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,12 +51,12 @@
             android:layout_below="@id/law_world_name"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/law_world_card_paddingBottom"
-            android:paddingTop="25dp">
+            android:paddingBottom="@dimen/dp40"
+            android:paddingTop="@dimen/dp25">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/law_world_viewpager"
-                android:layout_width="220dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:clipChildren="false"
@@ -61,12 +64,13 @@
                 app:currentItem="@{mvvm.currentItem}"
                 app:itemView="@{mvvm.itemView}"
                 app:items="@{mvvm.items}"
+                app:layout_widthPercent="60%"
                 app:offscreenPageLimit="4"
                 app:onPageSelectedCommand="@{mvvm.onPageSelected}">
 
             </android.support.v4.view.ViewPager>
-        </RelativeLayout>
+        </android.support.percent.PercentRelativeLayout>
 
-    </RelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
 
 </layout>
