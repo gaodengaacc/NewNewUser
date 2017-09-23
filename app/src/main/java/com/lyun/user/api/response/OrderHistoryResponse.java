@@ -4,27 +4,25 @@ import com.lyun.api.response.BaseResponse;
 
 public class OrderHistoryResponse extends BaseResponse {
 
-    private int id;
+    /**
+     * orderNo : 20170900000050
+     * name : VIP卡
+     * logoImg : card/vip.png
+     * tradeTime : 720
+     * price : 0.01
+     * addressId : null
+     * cardState : 1
+     * invoiceState : 0
+     */
+
     private String orderNo;
-    private long tradeTime;
-    private long activeStartTime;
-    private long activeEndTime;
-    private ServiceCardResponse card;
-    private String userId;
-    private double amount;
-    private String cardNo;
-    private long createTime;
+    private String name;
+    private String logoImg;
+    private String tradeTime;
+    private String price;
+    private Object addressId;
     private String cardState;
     private String invoiceState;
-    private String cardType;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getOrderNo() {
         return orderNo;
@@ -34,68 +32,44 @@ public class OrderHistoryResponse extends BaseResponse {
         this.orderNo = orderNo;
     }
 
-    public long getTradeTime() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLogoImg() {
+        return logoImg;
+    }
+
+    public void setLogoImg(String logoImg) {
+        this.logoImg = logoImg;
+    }
+
+    public String getTradeTime() {
         return tradeTime;
     }
 
-    public void setTradeTime(long tradeTime) {
+    public void setTradeTime(String tradeTime) {
         this.tradeTime = tradeTime;
     }
 
-    public long getActiveStartTime() {
-        return activeStartTime;
+    public String getPrice() {
+        return price;
     }
 
-    public void setActiveStartTime(long activeStartTime) {
-        this.activeStartTime = activeStartTime;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public long getActiveEndTime() {
-        return activeEndTime;
+    public Object getAddressId() {
+        return addressId;
     }
 
-    public void setActiveEndTime(long activeEndTime) {
-        this.activeEndTime = activeEndTime;
-    }
-
-    public ServiceCardResponse getCard() {
-        return card;
-    }
-
-    public void setCard(ServiceCardResponse card) {
-        this.card = card;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public String getCardNo() {
-        return cardNo;
-    }
-
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
-    }
-
-    public long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
+    public void setAddressId(Object addressId) {
+        this.addressId = addressId;
     }
 
     public String getCardState() {
@@ -112,13 +86,5 @@ public class OrderHistoryResponse extends BaseResponse {
 
     public void setInvoiceState(String invoiceState) {
         this.invoiceState = invoiceState;
-    }
-
-    public String getCardType() {
-        return cardType;
-    }
-
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
     }
 }
