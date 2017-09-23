@@ -20,6 +20,10 @@
         <item name="android:windowTitleStyle">@style/app_custom_title_style</item>
     </style>
 
+    <style name="AppTheme.NoTitle.TranslucentStatus.Splash" parent="AppTheme.NoTitle.TranslucentStatus">
+        <item name="android:windowBackground">@mipmap/bg_splash</item>
+    </style>
+
     <style name="app_custom_title_bg_style">
         <item name="android:background">@android:color/transparent</item>
     </style>
