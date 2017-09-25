@@ -92,6 +92,7 @@ public class HomeFragmentViewModel extends ViewModel {
     public ObservableBoolean onRequestTranslationClickable = new ObservableBoolean(true);
 
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
+        if(isFastDoubleClick()) return;
         EventMainProgressMessage message = new EventMainProgressMessage(true);
         if (unTime <= 0) {
             EventBus.getDefault().post(new EventMainToastMessage("您剩余的时间不足,请购买服务时间"));
@@ -142,5 +143,17 @@ public class HomeFragmentViewModel extends ViewModel {
         selectIcon.set(R.mipmap.icon_home_fragment_up);
         EventBus.getDefault().post(new EventPickMessage(true));
 
+    }
+
+    long lastClickTime;
+
+    public boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if (0 < timeD && timeD < 500) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
     }
 }
