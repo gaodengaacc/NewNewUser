@@ -15,4 +15,11 @@ public class FormatUtil {
         return phone;
     }
 
+    public static String formatPhone(@NonNull String phone) {
+        if (phone != null && RegExMatcherUtils.isMobileNO(phone)) {
+            return phone.substring(0, 3) + "*****" + phone.substring(8);
+        }
+        return phone;
+    }
+
 }

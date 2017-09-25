@@ -22,7 +22,7 @@ public class AfterSaleServiceOrderHistoryViewModel extends ViewModel {
     public final ObservableField<String> orderId = new ObservableField<>();
 
     @WatchThis
-    public final ObservableField navigateApplyForInvoice = new ObservableField();
+    public final ObservableField<String> navigateApplyForInvoice = new ObservableField();
 
     public AfterSaleServiceOrderHistoryViewModel(OrderHistoryResponse data) {
         this.data.set(data);
@@ -33,6 +33,6 @@ public class AfterSaleServiceOrderHistoryViewModel extends ViewModel {
         orderId.set("订单编号：" + data.getOrderNo());
     }
 
-    public final RelayCommand applyForInvoice = new RelayCommand(() -> ObservableNotifier.alwaysNotify(navigateApplyForInvoice, null));
+    public final RelayCommand applyForInvoice = new RelayCommand(() -> ObservableNotifier.alwaysNotify(navigateApplyForInvoice, orderId.get()));
 
 }

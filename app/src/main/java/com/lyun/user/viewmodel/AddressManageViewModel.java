@@ -37,6 +37,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class AddressManageViewModel extends ViewModel {
+
     public final ObservableField<BaseRecyclerAdapter> adapter = new ObservableField<>();
     public final ObservableField<List<AddressManageItemViewModel>> notifyData = new ObservableField<>();
     public final ObservableInt nullBgVisible = new ObservableInt();
@@ -88,7 +89,7 @@ public class AddressManageViewModel extends ViewModel {
     }
 
     public RelayCommand addAddressClick = new RelayCommand(() -> {
-             EventBus.getDefault().post(new EventIntentActivityMessage(new Intent()));
+        EventBus.getDefault().post(new EventIntentActivityMessage(new Intent()));
     });
 
     public void setDefaultAddress(int position) {
@@ -122,7 +123,7 @@ public class AddressManageViewModel extends ViewModel {
                             if (back)
                                 return Observable.just(new Object());
                             else
-                                return  addressModel.deleteAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()));
+                                return addressModel.deleteAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()));
                         }
                 )
                 .subscribeOn(Schedulers.newThread())
@@ -144,17 +145,18 @@ public class AddressManageViewModel extends ViewModel {
 
     }
 
-    public void updateAddress(int position,AddressItemResponse response) {
+    public void updateAddress(int position, AddressItemResponse response) {
         queryAddress();
     }
 
     public void AddAddress(AddressItemResponse response) {
         queryAddress();
     }
+
     public void setData() {
         itemViewModelData.clear();
         for (AddressItemResponse response : itemData)
-                    itemViewModelData.add(new AddressManageItemViewModel(response));
+            itemViewModelData.add(new AddressManageItemViewModel(response));
         itemAdapter.setListData(itemViewModelData);
     }
 

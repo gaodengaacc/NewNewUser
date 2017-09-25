@@ -11,25 +11,24 @@ import com.lyun.user.viewmodel.RecyclerViewViewModel;
 
 public class RecyclerViewFragment extends MvvmFragment<FragmentRecyclerViewListBinding, RecyclerViewViewModel> {
 
-    private RecyclerViewViewModel mViewModel;
+    private RecyclerViewViewModel.RecyclerViewAdapter mAdapter;
 
     public static RecyclerViewFragment newInstance(RecyclerViewViewModel.RecyclerViewAdapter adapter) {
         RecyclerViewFragment fragment = new RecyclerViewFragment();
-        fragment.setViewModel(new RecyclerViewViewModel(new LinearLayoutManager(fragment.getContext()), adapter));
+        fragment.setRecyclerViewAdapter(adapter);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public void setViewModel(RecyclerViewViewModel viewModel) {
-        this.mViewModel = viewModel;
+    public void setRecyclerViewAdapter(RecyclerViewViewModel.RecyclerViewAdapter adapter) {
+        this.mAdapter = adapter;
     }
 
     @NonNull
     @Override
     protected RecyclerViewViewModel createViewModel() {
-        mViewModel.setPropertyChangeListener(this);
-        return mViewModel;
+        return new RecyclerViewViewModel(new LinearLayoutManager(getActivity()), mAdapter).setPropertyChangeListener(this);
     }
 
     @Override

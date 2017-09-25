@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,51 +13,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bgc7">
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical"
-         android:visibility="@{mvvm.nullBgVisible}"
-         android:gravity="center_horizontal">
-         <ImageView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:src="@mipmap/bg_address_manege_null"
-             android:layout_marginTop="100dp"/>
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="你还没有收件地址哦~"
-             android:textColor="@color/tc14"
-             android:textSize="14sp"
-             android:layout_marginTop="30dp"
-             />
-         <com.lyun.roundrectview.RoundRectTextView
-             android:layout_width="108dp"
-             android:layout_height="32dp"
-             android:gravity="center"
-             android:text="添加地址"
-             android:textColor="#209ced"
-             android:textSize="13sp"
-             android:layout_marginTop="22dp"
-             app:cornerRadius="32dp"
-             app:borderWidth="1px"
-             app:backgroundColor="@color/bgcw"
-             app:borderColor="#bbdef0"
-             app:clickCommand="@{mvvm.addAddressClick}"
-             />
-     </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="@{mvvm.nullBgVisible}">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:src="@mipmap/bg_address_manege_null"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="你还没有收件地址哦~"
+                android:textColor="@color/tc14"
+                android:textSize="14sp"
+                />
+
+            <com.lyun.roundrectview.RoundRectTextView
+                android:layout_width="108dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="22dp"
+                android:gravity="center"
+                android:text="添加地址"
+                android:textColor="#209ced"
+                android:textSize="13sp"
+                app:backgroundColor="@color/bgcw"
+                app:borderColor="#bbdef0"
+                app:borderWidth="1px"
+                app:clickCommand="@{mvvm.addAddressClick}"
+                app:cornerRadius="32dp"
+                />
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/address_manager_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
             android:divider="@null"
             android:dividerHeight="0dp"
             android:scrollbars="none"
-            android:layout_marginBottom="60dp"
             android:visibility="@{mvvm.listVisible}"
             app:adapter="@{mvvm.adapter}"
             app:layoutManager="@{mvvm.recyclerViewLayoutManager}"
-            app:notifyData="@{mvvm.notifyData}"></android.support.v7.widget.RecyclerView>
+            app:notifyData="@{mvvm.notifyData}">
+
+        </android.support.v7.widget.RecyclerView>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="40dp"

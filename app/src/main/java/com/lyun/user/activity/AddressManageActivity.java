@@ -30,12 +30,22 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 
 public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddressManageBinding, AddressManageViewModel> {
+
+    public static final String EXTRA_ADDRESS = "address";
+    public static final String EXTRA_CHOOSE_ADDRESS = "chooseAddress";
+
+    private boolean isChooseAddress = false;
+
     private Toast toast;
     private SimpleDialogViewModel simpleDialogViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+
+        isChooseAddress = getIntent().getBooleanExtra(EXTRA_CHOOSE_ADDRESS, false);
+
     }
 
     @Override
@@ -91,15 +101,16 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setAddress(EventAddressSelectMessage message) {
-        switch (message.getAction()) {//0：设置默认地址 1：编辑 2：删除 3:更新 4:添加 5 :删除回调
+        Intent intent;
+        switch (message.getAction()) {//0：设置默认地址 1：编辑 2：删除 3:更新 4:添加 5:删除回调 6:选择地址
             case 0:
                 getBodyViewModel().setDefaultAddress(message.getMessage());
                 break;
             case 1:
                 Bundle bundle = new Bundle();
-                bundle.putInt("position",message.getMessage());
+                bundle.putInt("position", message.getMessage());
                 bundle.putSerializable("response", getBodyViewModel().itemViewModelData.get(message.getMessage()).response);
-                Intent intent = new Intent();
+                intent = new Intent();
                 intent.putExtra("isEditor", true);
                 intent.putExtras(bundle);
                 EventBus.getDefault().post(new EventIntentActivityMessage(intent));
@@ -109,13 +120,21 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
                 showDeleteDialog(message.getMessage());
                 break;
             case 3:
-                getBodyViewModel().updateAddress(message.getMessage(),message.getResponse());
+                getBodyViewModel().updateAddress(message.getMessage(), message.getResponse());
                 break;
             case 4:
                 getBodyViewModel().AddAddress(message.getResponse());
                 break;
             case 5:
                 getBodyViewModel().deleteAddress(message.getMessage(), true);
+                break;
+            case 6:
+                if(isChooseAddress) {
+                    intent = new Intent();
+                    intent.putExtra(EXTRA_ADDRESS, message.getResponse());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
                 break;
             default:
                 break;

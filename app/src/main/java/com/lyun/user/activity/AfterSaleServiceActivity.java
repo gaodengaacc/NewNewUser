@@ -43,6 +43,10 @@ import io.reactivex.Observable;
 public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAfterSaleServiceBinding,
         AfterSaleServiceViewModel> {
 
+    public final int REQUEST_CODE_APPLY_FOR_INVOICE = 0x001;
+
+    private ViewPager mViewPager;
+
     public static void start(Context context) {
         context.startActivity(new Intent(context, AfterSaleServiceActivity.class));
     }
@@ -52,19 +56,31 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
         super.onCreate(savedInstanceState);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.after_sale_service_tablayout);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.after_sale_service_viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.after_sale_service_viewpager);
 
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(mViewPager);
 
+        initPages();
+
+        setTabIndicatorWidth(tabLayout);
+    }
+
+    protected void initPages() {
         List<Fragment> pages = new ArrayList<>();
         pages.add(RecyclerViewFragment.newInstance(new OrderHistoryAdapter(this)));
         pages.add(RecyclerViewFragment.newInstance(new InvoiceHistoryAdapter()));
         List<CharSequence> titles = new ArrayList<>();
         titles.add("交易记录");
         titles.add("开票记录");
-        viewPager.setAdapter(new FragmentPagerBaseAdapter(this, getSupportFragmentManager(), pages, titles));
+        mViewPager.setAdapter(new FragmentPagerBaseAdapter(this, getSupportFragmentManager(), pages, titles));
+    }
 
-        setTabIndicatorWidth(tabLayout);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_APPLY_FOR_INVOICE && resultCode == RESULT_OK) {
+            initPages();
+        }
     }
 
     protected void setTabIndicatorWidth(TabLayout tabLayout) {
@@ -116,7 +132,7 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
             OrderHistoryResponse> implements IAfterSaleServiceOrderHistoryViewModelCallbacks {
 
         private AfterSaleServiceModel mModel;
-        private Context context;
+        private Activity context;
 
         public OrderHistoryAdapter(Activity context) {
             super();
@@ -145,8 +161,8 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
         }
 
         @Override
-        public void navigateApplyForInvoice(ObservableField observableField, int fieldId) {
-            ApplyForInvoiceActivity.start(context);
+        public void navigateApplyForInvoice(ObservableField<String> observableField, int fieldId) {
+            ApplyForInvoiceActivity.startForResult(context, observableField.get(), REQUEST_CODE_APPLY_FOR_INVOICE);
         }
 
     }

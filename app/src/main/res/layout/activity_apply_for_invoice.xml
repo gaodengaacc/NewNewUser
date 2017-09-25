@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.Gravity"/>
         <variable
             name="mvvm"
             type="com.lyun.user.viewmodel.ApplyForInvoiceViewModel"/>
@@ -61,7 +62,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:button="@null"
-                            android:checked="true"
+                            android:checked="@={mvvm.typePersonal}"
                             android:drawableLeft="@drawable/ic_rb_orange_selector"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
@@ -74,6 +75,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:button="@null"
+                            android:checked="@{!mvvm.typePersonal}"
                             android:drawableLeft="@drawable/ic_rb_orange_selector"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
@@ -97,6 +99,7 @@
                         android:background="@null"
                         android:hint="请填写单位名称"
                         android:padding="15dp"
+                        android:text="@={mvvm.name}"
                         android:textColor="#485463"
                         android:textColorHint="#a6b5c1"
                         android:textSize="13sp"/>
@@ -114,6 +117,7 @@
                         android:background="@null"
                         android:hint="请在此填写纳税人识别号"
                         android:padding="15dp"
+                        android:text="@={mvvm.invoiceCode}"
                         android:textColor="#485463"
                         android:textColorHint="#a6b5c1"
                         android:textSize="13sp"/>
@@ -134,9 +138,14 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
                     android:drawableRight="@mipmap/ic_more_gray"
+                    android:gravity="@{TextUtils.isEmpty(mvvm.address.get())?Gravity.CENTER:Gravity.LEFT}"
+                    android:hint="您还没有收件地址哦~"
                     android:padding="15dp"
-                    android:text="您还没有收件地址哦~"
+                    android:maxLines="3"
+                    android:text="@{mvvm.address}"
+                    app:clickCommand="@{mvvm.chooseAddress}"
                     android:textColor="#485463"
+                    android:textColorHint="#a6b5c1"
                     android:textSize="13sp"/>
 
                 <ImageView
@@ -177,6 +186,7 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             app:backgroundColor="#1f9eec"
+            app:clickCommand="@{mvvm.applyForInvoiceClick}"
             app:cornerRadius="50%"/>
     </RelativeLayout>
 </layout>

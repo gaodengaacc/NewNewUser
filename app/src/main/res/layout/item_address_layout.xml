@@ -1,107 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="mvvm"
             type="com.lyun.user.viewmodel.AddressManageItemViewModel"></variable>
     </data>
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="130dp"
-    android:background="@color/bgcw">
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="105dp"
-       android:orientation="vertical"
-       android:layout_marginLeft="20dp"
-       android:layout_marginRight="20dp"
-       android:layout_marginTop="15dp">
 
-       <android.support.percent.PercentRelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="65dp">
-           <TextView
-               android:id="@+id/address_name"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:ellipsize="end"
-               android:maxLines="1"
-               android:textColor="@color/tc14"
-               android:text="@{mvvm.userName}"
-               app:layout_widthPercent="60%"
-               android:textSize="14sp" />
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="@{mvvm.phoneNum}"
-               android:textColor="@color/tc14"
-               android:textSize="14sp"
-               android:layout_alignParentRight="true"/>
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_below="@+id/address_name"
-               android:text="@{mvvm.userAddress}"
-               android:maxLines="2"
-               android:ellipsize="end"
-               android:gravity="center_vertical"
-               android:textColor="@color/tc14"
-               android:textSize="14sp"/>
-           <View
-               android:layout_width="match_parent"
-               android:layout_height="1px"
-               android:background="#dce2ee"
-               android:layout_alignParentBottom="true">
-           </View>
-       </android.support.percent.PercentRelativeLayout>
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
-           <ImageView
-               android:id="@+id/address_select"
-               android:layout_width="wrap_content"
-               android:layout_height="match_parent"
-               android:layout_alignParentLeft="true"
-               android:layout_centerVertical="true"
-               android:paddingRight="5dp"
-               app:imageSrc="@{mvvm.selectBg}"
-               android:onClick="@{mvvm.onViewClick}"/>
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="设为默认"
-               android:layout_centerVertical="true"
-               android:layout_toRightOf="@+id/address_select" />
-           <TextView
-               android:id="@+id/address_delete"
-               android:layout_width="wrap_content"
-               android:layout_height="match_parent"
-               android:text="删除"
-               android:layout_centerVertical="true"
-               android:layout_alignParentRight="true"
-               android:drawableLeft="@mipmap/icon_address_delete"
-               android:gravity="center_vertical"
-               android:drawablePadding="5dp"
-               android:layout_marginLeft="20dp"
-               android:onClick="@{mvvm.onViewClick}"/>
-           <TextView
-               android:id="@+id/address_editor"
-               android:layout_width="wrap_content"
-               android:layout_height="match_parent"
-               android:text="编辑"
-               android:layout_centerVertical="true"
-               android:drawableLeft="@mipmap/icon_address_editor"
-               android:gravity="center_vertical"
-               android:drawablePadding="5dp"
-               android:layout_marginLeft="5dp"
-                android:layout_toLeftOf="@+id/address_delete"
-               android:onClick="@{mvvm.onViewClick}"/>
-       </RelativeLayout>
-   </LinearLayout>
-    <View
-        android:layout_height="10dp"
+    <LinearLayout
+        android:id="@+id/address_root"
         android:layout_width="match_parent"
-        android:background="@color/bgc7"></View>
-</LinearLayout></layout>
+        android:layout_height="130dp"
+        android:background="@color/bgcw"
+        android:onClick="@{mvvm.onViewClick}"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp">
+
+                <TextView
+                    android:id="@+id/address_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{mvvm.userName}"
+                    android:textColor="@color/tc14"
+                    android:textSize="14sp"
+                    app:layout_widthPercent="60%"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@{mvvm.phoneNum}"
+                    android:textColor="@color/tc14"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/address_name"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:text="@{mvvm.userAddress}"
+                    android:textColor="@color/tc14"
+                    android:textSize="14sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="#dce2ee">
+                </View>
+            </android.support.percent.PercentRelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/address_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{mvvm.onViewClick}"
+                    android:paddingRight="5dp"
+                    app:imageSrc="@{mvvm.selectBg}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/address_select"
+                    android:text="设为默认"/>
+
+                <TextView
+                    android:id="@+id/address_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@mipmap/icon_address_delete"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{mvvm.onViewClick}"
+                    android:text="删除"/>
+
+                <TextView
+                    android:id="@+id/address_editor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toLeftOf="@+id/address_delete"
+                    android:drawableLeft="@mipmap/icon_address_editor"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{mvvm.onViewClick}"
+                    android:text="编辑"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/bgc7"></View>
+    </LinearLayout>
+</layout>

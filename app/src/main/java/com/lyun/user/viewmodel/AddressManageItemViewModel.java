@@ -18,6 +18,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 
 public class AddressManageItemViewModel extends ViewModel {
+
     public final ObservableField<String> userName = new ObservableField<>();
     public final ObservableField<String> phoneNum = new ObservableField<>();
     public final ObservableField<String> userAddress = new ObservableField<>();
@@ -46,7 +47,7 @@ public class AddressManageItemViewModel extends ViewModel {
         else selectBg.set(R.mipmap.icon_address_unselect);
         userName.set(response.getRecipients());
         phoneNum.set(response.getPhoneNum());
-        userAddress.set(response.getProvince()+response.getCity()+response.getDistrict()+response.getStreet()+response.getDetailAddress());
+        userAddress.set(response.getProvince() + response.getCity() + response.getDistrict() + response.getStreet() + response.getDetailAddress());
     }
 
     public void onViewClick(View view) {
@@ -60,6 +61,11 @@ public class AddressManageItemViewModel extends ViewModel {
                 break;
             case R.id.address_delete:
                 EventBus.getDefault().post(new EventAddressSelectMessage(position, 2));
+                break;
+            case R.id.address_root:
+                EventAddressSelectMessage message = new EventAddressSelectMessage(position, 6);
+                message.setResponse(response);
+                EventBus.getDefault().post(message);
                 break;
             default:
                 break;
