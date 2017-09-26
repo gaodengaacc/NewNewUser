@@ -32,8 +32,8 @@ public class AddressManageItemViewModel extends ViewModel {
     }
 
     public void setSelectBg(boolean isDefault) {
-        response.setIsDefault(isDefault ? "1" : "0");
-        if (response.getIsDefault().equals("1")) selectBg.set(R.mipmap.icon_address_select);
+        response.setIsDefault(isDefault ? 1 : 0);
+        if (response.getIsDefault() == 1) selectBg.set(R.mipmap.icon_address_select);
         else selectBg.set(R.mipmap.icon_address_unselect);
     }
 
@@ -43,7 +43,7 @@ public class AddressManageItemViewModel extends ViewModel {
     }
 
     private void update() {
-        if (response.getIsDefault().equals("1")) selectBg.set(R.mipmap.icon_address_select);
+        if (response.getIsDefault() == 1) selectBg.set(R.mipmap.icon_address_select);
         else selectBg.set(R.mipmap.icon_address_unselect);
         userName.set(response.getRecipients());
         phoneNum.set(response.getPhoneNum());
@@ -53,7 +53,7 @@ public class AddressManageItemViewModel extends ViewModel {
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.address_select:
-                if (response.getIsDefault().equals("1")) return;
+                if (response.getIsDefault() == 1) return;
                 EventBus.getDefault().post(new EventAddressSelectMessage(position, 0));
                 break;
             case R.id.address_editor:

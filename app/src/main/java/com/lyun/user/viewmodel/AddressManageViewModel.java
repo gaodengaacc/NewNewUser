@@ -97,7 +97,7 @@ public class AddressManageViewModel extends ViewModel {
         addressModel.defaultAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()))
                 .flatMap(apiResult -> Observable.fromIterable(itemViewModelData))
                 .map(responseViewModel -> {
-                    if (responseViewModel.response.getIsDefault().equals("1"))
+                    if (responseViewModel.response.getIsDefault() == 1)
                         responseViewModel.setSelectBg(false);
                     return responseViewModel;
                 })

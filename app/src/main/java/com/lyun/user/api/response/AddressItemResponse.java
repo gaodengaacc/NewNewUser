@@ -17,13 +17,13 @@ public class AddressItemResponse extends BaseResponse {
     private String street = "";
     private String detailAddress;
     private String phoneNum;
-    private String isDefault = "0"; //是否为默认地址 0否 1是
+    private int isDefault = 0; //是否为默认地址 0否 1是
 
-    public String getIsDefault() {
+    public int getIsDefault() {
         return isDefault;
     }
 
-    public void setIsDefault(String isDefault) {
+    public void setIsDefault(int isDefault) {
         this.isDefault = isDefault;
     }
 
@@ -85,7 +85,7 @@ public class AddressItemResponse extends BaseResponse {
     }
 
 
-    public AddressItemResponse(String id, String recipients, String phoneNum, String province, String city, String district, String street, String detailAddress, String isDefault) {
+    public AddressItemResponse(String id, String recipients, String phoneNum, String province, String city, String district, String street, String detailAddress, int isDefault) {
         this.id = id;
         this.recipients = recipients;
         this.phoneNum = phoneNum;

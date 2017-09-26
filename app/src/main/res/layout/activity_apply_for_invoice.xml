@@ -7,6 +7,7 @@
     <data>
         <import type="android.text.TextUtils"/>
         <import type="android.view.Gravity"/>
+        <import type="android.view.View"/>
         <variable
             name="mvvm"
             type="com.lyun.user.viewmodel.ApplyForInvoiceViewModel"/>
@@ -90,6 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="2px"
                         android:layout_marginLeft="15dp"
+                        android:visibility="@{mvvm.typePersonal?View.GONE:View.VISIBLE}"
                         android:layout_marginRight="15dp"
                         android:background="#dce3ee"/>
 
@@ -99,6 +101,7 @@
                         android:background="@null"
                         android:hint="请填写单位名称"
                         android:padding="15dp"
+                        android:visibility="@{mvvm.typePersonal?View.GONE:View.VISIBLE}"
                         android:text="@={mvvm.name}"
                         android:textColor="#485463"
                         android:textColorHint="#a6b5c1"
@@ -108,6 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="2px"
                         android:layout_marginLeft="15dp"
+                        android:visibility="@{mvvm.typePersonal?View.GONE:View.VISIBLE}"
                         android:layout_marginRight="15dp"
                         android:background="#dce3ee"/>
 
@@ -115,6 +119,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
+                        android:visibility="@{mvvm.typePersonal?View.GONE:View.VISIBLE}"
                         android:hint="请在此填写纳税人识别号"
                         android:padding="15dp"
                         android:text="@={mvvm.invoiceCode}"
