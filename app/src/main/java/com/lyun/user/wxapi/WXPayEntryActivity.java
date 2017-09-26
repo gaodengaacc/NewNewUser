@@ -2,6 +2,8 @@ package com.lyun.user.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.lyun.activity.BaseActivity;
 import com.lyun.user.AppApplication;
@@ -24,6 +26,11 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         super.onCreate(savedInstanceState);
         api = ((AppApplication) AppApplication.getInstance()).getMsgApi();
         api.handleIntent(getIntent(), this);
+        Window window = getWindow();
+        WindowManager.LayoutParams windowLayoutParams = window.getAttributes();
+        windowLayoutParams.height = 1;
+        windowLayoutParams.width = 1;
+        window.setAttributes(windowLayoutParams);
     }
 
     @Override
@@ -62,5 +69,6 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             EventBus.getDefault().post(message);
             finish();
         }
+
     }
 }

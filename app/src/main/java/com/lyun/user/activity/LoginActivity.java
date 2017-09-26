@@ -369,7 +369,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         public void onCancel() {
             getActivityViewModel().clickFlag = false;
             progressBarDialog.dismiss();
-            Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "登录取消", Toast.LENGTH_LONG).show();
         }
     };
     WbAuthListener wbListener = new WbAuthListener() {

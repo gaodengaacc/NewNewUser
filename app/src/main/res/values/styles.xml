@@ -28,6 +28,12 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="Theme.FloatActivity" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowNoTitle">true</item>
+    </style>
     <style name="app_custom_title_style">
         <item name="android:background">@color/bgcB</item>
         <item name="android:layout_height">@dimen/title_height</item>
