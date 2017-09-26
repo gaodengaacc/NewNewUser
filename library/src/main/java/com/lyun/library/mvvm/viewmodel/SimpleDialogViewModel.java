@@ -48,8 +48,9 @@ public class SimpleDialogViewModel extends DialogViewModel {
         new SimpleMessageDialog(getContext(), this);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public SimpleDialogViewModel setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+        return this;
     }
 
     public void onCancelClick(View view) {
@@ -59,35 +60,41 @@ public class SimpleDialogViewModel extends DialogViewModel {
         }
     }
 
-    public void setInfo(String info) {
+    public SimpleDialogViewModel setInfo(String info) {
         this.contentText.set(info);
+        return this;
     }
 
-    public void setYesBtnText(String yes) {
+    public SimpleDialogViewModel setYesBtnText(String yes) {
         this.btnOkText.set(yes);
+        return this;
     }
 
-    public void setCancelBtnText(String cancel) {
+    public SimpleDialogViewModel setCancelBtnText(String cancel) {
         this.btnCancelText.set(cancel);
+        return this;
     }
 
-    public void setBtnYesTextColor(int color) {
+    public SimpleDialogViewModel setBtnYesTextColor(int color) {
         btnYesTextColor.set(color);
+        return this;
     }
 
     public void setBtnCancelTextColor(int color) {
         btnYesTextColor.set(color);
     }
-    public void setBtnYesVisibility(int visibility) {
+    public SimpleDialogViewModel setBtnYesVisibility(int visibility) {
         this.btnOkVisible.set(visibility);
         if(visibility == View.GONE)
             this.dividerVisible.set(visibility);
+        return this;
     }
 
-    public void setBtnCancelVisibility(int visibility) {
+    public SimpleDialogViewModel setBtnCancelVisibility(int visibility) {
         this.btnCancelVisible.set(visibility);
         if(visibility == View.GONE)
             this.dividerVisible.set(visibility);
+        return this;
     }
 
     public void onOkClick(View view) {

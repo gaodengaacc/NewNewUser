@@ -1,6 +1,8 @@
 package com.lyun.user.viewmodel;
 
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
+import android.view.View;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
@@ -21,8 +23,10 @@ public class AfterSaleServiceOrderHistoryViewModel extends ViewModel {
     public final ObservableField<String> tradeTime = new ObservableField<>();
     public final ObservableField<String> orderId = new ObservableField<>();
 
+    public final ObservableInt applyForInvoiceVisibility = new ObservableInt();
+
     @WatchThis
-    public final ObservableField<String> navigateApplyForInvoice = new ObservableField();
+    public final ObservableField<OrderHistoryResponse> navigateApplyForInvoice = new ObservableField();
 
     public AfterSaleServiceOrderHistoryViewModel(OrderHistoryResponse data) {
         this.data.set(data);
@@ -31,8 +35,10 @@ public class AfterSaleServiceOrderHistoryViewModel extends ViewModel {
         cardPrice.set("￥" + data.getPrice());
         tradeTime.set("成交日期：" + TimeUtil.formatTime(data.getTradeTime(), "yyyy-MM-dd HH:mm"));
         orderId.set("订单编号：" + data.getOrderNo());
+
+        applyForInvoiceVisibility.set("体验卡".equals(data.getCardType()) ? View.GONE : View.VISIBLE);
     }
 
-    public final RelayCommand applyForInvoice = new RelayCommand(() -> ObservableNotifier.alwaysNotify(navigateApplyForInvoice, orderId.get()));
+    public final RelayCommand applyForInvoice = new RelayCommand(() -> ObservableNotifier.alwaysNotify(navigateApplyForInvoice, data.get()));
 
 }

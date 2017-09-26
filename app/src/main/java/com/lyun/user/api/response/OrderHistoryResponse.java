@@ -21,8 +21,19 @@ public class OrderHistoryResponse extends BaseResponse {
     private String tradeTime;
     private String price;
     private Object addressId;
+    /**
+     * 服务卡状态
+     * -1 不可用
+     * 0 未使用
+     * 1 使用中
+     * 2 已使用完
+     * 3 已过期
+     * 4 退款中
+     * 5 已退款
+     */
     private String cardState;
     private String invoiceState;
+    private String cardType;
 
     public String getOrderNo() {
         return orderNo;
@@ -86,5 +97,13 @@ public class OrderHistoryResponse extends BaseResponse {
 
     public void setInvoiceState(String invoiceState) {
         this.invoiceState = invoiceState;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
     }
 }

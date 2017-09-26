@@ -91,6 +91,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="2dp"
+                android:visibility="@{mvvm.applyForInvoiceVisibility}"
                 android:text="申请发票"
                 android:textColor="#1f9eec"
                 app:backgroundColor="@android:color/transparent"

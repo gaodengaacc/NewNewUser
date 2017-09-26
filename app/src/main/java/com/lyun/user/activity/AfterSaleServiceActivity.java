@@ -17,6 +17,7 @@ import com.lyun.api.response.APIPageResult;
 import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
 import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
+import com.lyun.library.mvvm.viewmodel.SimpleDialogViewModel;
 import com.lyun.user.BR;
 import com.lyun.user.R;
 import com.lyun.user.api.response.InvoiceHistoryResponse;
@@ -161,8 +162,52 @@ public class AfterSaleServiceActivity extends GeneralToolbarActivity<ActivityAft
         }
 
         @Override
-        public void navigateApplyForInvoice(ObservableField<String> observableField, int fieldId) {
-            ApplyForInvoiceActivity.startForResult(context, observableField.get(), REQUEST_CODE_APPLY_FOR_INVOICE);
+        public void navigateApplyForInvoice(ObservableField<OrderHistoryResponse> observableField, int fieldId) {
+            OrderHistoryResponse data = observableField.get();
+            /**
+             * 服务卡状态
+             * -1 不可用
+             * 0 未使用
+             * 1 使用中
+             * 2 已使用完
+             * 3 已过期
+             * 4 退款中
+             * 5 已退款
+             */
+            boolean canApply = false;
+            String message = "";
+            switch (data.getCardState()) {
+                case "3":
+                    message = "此服务卡已过有效期，不能申请发票。";
+                    break;
+                case "4":
+                    message = "此服务卡已退款成功，不能申请发票。";
+                    break;
+                case "5":
+                    message = "此服务卡已退款成功，不能申请发票。";
+                    break;
+                default:
+                    canApply = true;
+                    break;
+            }
+            if (canApply) {
+                ApplyForInvoiceActivity.startForResult(context, data.getOrderNo(), REQUEST_CODE_APPLY_FOR_INVOICE);
+            } else {
+                SimpleDialogViewModel dialog = new SimpleDialogViewModel(context, message)
+                        .setBtnCancelVisibility(View.GONE);
+                dialog.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
+                    @Override
+                    public void OnYesClick(View view) {
+
+                    }
+
+                    @Override
+                    public void OnCancelClick(View view) {
+
+                    }
+                });
+                dialog.show();
+            }
         }
 
     }
