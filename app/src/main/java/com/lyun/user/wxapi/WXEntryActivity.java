@@ -3,6 +3,8 @@ package com.lyun.user.wxapi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.lyun.activity.BaseActivity;
 import com.lyun.user.BuildConfig;
@@ -28,6 +30,11 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 
         api = WXAPIFactory.createWXAPI(this, BuildConfig.WX_PAY_APPID);
         api.handleIntent(getIntent(), this);
+        Window window = getWindow();
+        WindowManager.LayoutParams windowLayoutParams = window.getAttributes();
+        windowLayoutParams.height = 1;
+        windowLayoutParams.width = 1;
+        window.setAttributes(windowLayoutParams);
     }
 
     // 微信发送请求到第三方应用时，会回调到该方法
