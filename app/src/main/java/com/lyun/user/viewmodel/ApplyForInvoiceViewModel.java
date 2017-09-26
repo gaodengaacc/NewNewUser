@@ -25,7 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ApplyForInvoiceViewModel extends ViewModel {
 
-    public final ObservableBoolean typePersonal = new ObservableBoolean(false);
+    public final ObservableBoolean typePersonal = new ObservableBoolean(true);
 
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> invoiceCode = new ObservableField<>();
@@ -58,9 +58,15 @@ public class ApplyForInvoiceViewModel extends ViewModel {
             if (TextUtils.isEmpty(name.get())) {
                 getToast().show("请填写单位名称");
                 return;
+            }else if(name.get().length()>50){
+                getToast().show("单位名称最多50个字");
+                return;
             }
             if (TextUtils.isEmpty(invoiceCode.get())) {
                 getToast().show("请填写纳税人识别号");
+                return;
+            }else if(invoiceCode.get().length()>20){
+                getToast().show("纳税人识别号最多20位");
                 return;
             }
         }

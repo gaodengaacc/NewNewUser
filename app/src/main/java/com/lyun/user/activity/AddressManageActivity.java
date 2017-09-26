@@ -45,7 +45,6 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
         EventBus.getDefault().register(this);
 
         isChooseAddress = getIntent().getBooleanExtra(EXTRA_CHOOSE_ADDRESS, false);
-
     }
 
     @Override
@@ -101,7 +100,11 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setAddress(EventAddressSelectMessage message) {
+
         Intent intent;
+
+        boolean addressSelected = false;
+
         switch (message.getAction()) {//0：设置默认地址 1：编辑 2：删除 3:更新 4:添加 5:删除回调 6:选择地址
             case 0:
                 getBodyViewModel().setDefaultAddress(message.getMessage());
@@ -121,24 +124,27 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
                 break;
             case 3:
                 getBodyViewModel().updateAddress(message.getMessage(), message.getResponse());
+                addressSelected = true;
                 break;
             case 4:
                 getBodyViewModel().AddAddress(message.getResponse());
+                addressSelected = true;
                 break;
             case 5:
                 getBodyViewModel().deleteAddress(message.getMessage(), true);
                 break;
             case 6:
-                if(isChooseAddress) {
-                    intent = new Intent();
-                    intent.putExtra(EXTRA_ADDRESS, message.getResponse());
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }
+                addressSelected = true;
                 break;
             default:
                 break;
+        }
 
+        if (isChooseAddress && addressSelected) {
+            intent = new Intent();
+            intent.putExtra(EXTRA_ADDRESS, message.getResponse());
+            setResult(RESULT_OK, intent);
+            finish();
         }
 
     }

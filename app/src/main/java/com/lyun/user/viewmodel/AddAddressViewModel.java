@@ -162,8 +162,10 @@ public class AddAddressViewModel extends ViewModel {
         doEdit();
         Observable.just(isEditor)
                 .flatMap(isEditor -> {
-                    if (isEditor) return new AddressModel().updateAddress(bean);
-                    else return new AddressModel().addAddress(bean);
+                    if (isEditor)
+                        return new AddressModel().updateAddress(bean);
+                    else
+                        return new AddressModel().addAddress(bean);
                 })
                 .subscribe(apiResult -> {
                             EventBus.getDefault().post(new EventProgressMessage(false));
