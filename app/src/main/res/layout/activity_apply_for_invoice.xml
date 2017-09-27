@@ -139,7 +139,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@android:color/white"
-                    android:padding="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp"
                     android:text="收件地址："
                     android:textColor="#485463"
                     android:textSize="13sp"/>
