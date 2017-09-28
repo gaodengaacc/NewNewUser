@@ -71,13 +71,14 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
                         items.clear();
                     }
 
-                    currentPage = nextPage;
-                    nextPage++;
-                    totalPages = listAPIResult.getContent().getPagecount();
-
                     inProcess = false;
 
                     if (listAPIResult.isSuccess()) {
+
+                        currentPage = nextPage;
+                        nextPage++;
+                        totalPages = listAPIResult.getContent().getPagecount();
+
                         for (LawWorldResponse response : listAPIResult.getContent().getData()) {
                             items.add(new LawWorldCardViewModel(this, response));
                         }
