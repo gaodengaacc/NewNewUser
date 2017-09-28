@@ -244,17 +244,19 @@ public abstract class UI extends AppCompatActivity {
 
     protected TFragment switchContent(TFragment fragment, boolean needAddToBackStack) {
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(fragment.getContainerId(), fragment);
-        if (needAddToBackStack) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        try {
-            fragmentTransaction.commitAllowingStateLoss();
-        } catch (Exception e) {
+        if(!fm.isDestroyed()) {
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(fragment.getContainerId(), fragment);
 
-        }
+            if (needAddToBackStack) {
+                fragmentTransaction.addToBackStack(null);
+            }
+            try {
+                fragmentTransaction.commitAllowingStateLoss();
+            } catch (Exception e) {
 
+            }
+        }
         return fragment;
     }
 

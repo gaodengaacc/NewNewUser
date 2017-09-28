@@ -4,28 +4,34 @@ import com.lyun.api.response.BaseResponse;
 
 public class InvoiceHistoryResponse extends BaseResponse {
 
-    private int id;
+    /**
+     * orderNo : 20170900000196
+     * name : 普通卡
+     * logoImg : card/ordinary.png
+     * tradeTime : 2017-09-26 15:49;06
+     * price : 0.01
+     * addressId : 128
+     * company : null
+     * registrationNumber : null
+     * invoiceRise : null
+     * cardState : 1
+     * invoiceState : 2
+     * cardType : 普通卡
+     */
+
     private String orderNo;
-    private long tradeTime;
-    private long filingTime;
-    private long activeStartTime;
-    private long activeEndTime;
-    private ServiceCardResponse card;
-    private String userId;
-    private double amount;
-    private String cardNo;
-    private long createTime;
+    private String name;
+    private String logoImg;
+    private String tradeTime;
+    private String filingTime;
+    private String price;
+    private String addressId;
+    private String company;
+    private String registrationNumber;
+    private String invoiceRise;
     private String cardState;
     private String invoiceState;
     private String cardType;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getOrderNo() {
         return orderNo;
@@ -35,76 +41,76 @@ public class InvoiceHistoryResponse extends BaseResponse {
         this.orderNo = orderNo;
     }
 
-    public long getTradeTime() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLogoImg() {
+        return logoImg;
+    }
+
+    public void setLogoImg(String logoImg) {
+        this.logoImg = logoImg;
+    }
+
+    public String getTradeTime() {
         return tradeTime;
     }
 
-    public void setTradeTime(long tradeTime) {
+    public void setTradeTime(String tradeTime) {
         this.tradeTime = tradeTime;
     }
 
-    public long getFilingTime() {
+    public String getFilingTime() {
         return filingTime;
     }
 
-    public void setFilingTime(long filingTime) {
+    public void setFilingTime(String filingTime) {
         this.filingTime = filingTime;
     }
 
-    public long getActiveStartTime() {
-        return activeStartTime;
+    public String getPrice() {
+        return price;
     }
 
-    public void setActiveStartTime(long activeStartTime) {
-        this.activeStartTime = activeStartTime;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public long getActiveEndTime() {
-        return activeEndTime;
+    public String getAddressId() {
+        return addressId;
     }
 
-    public void setActiveEndTime(long activeEndTime) {
-        this.activeEndTime = activeEndTime;
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 
-    public ServiceCardResponse getCard() {
-        return card;
+    public String getCompany() {
+        return company;
     }
 
-    public void setCard(ServiceCardResponse card) {
-        this.card = card;
+    public void setCompany(String company) {
+        this.company = company;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
-    public double getAmount() {
-        return amount;
+    public String getInvoiceRise() {
+        return invoiceRise;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public String getCardNo() {
-        return cardNo;
-    }
-
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
-    }
-
-    public long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
+    public void setInvoiceRise(String invoiceRise) {
+        this.invoiceRise = invoiceRise;
     }
 
     public String getCardState() {

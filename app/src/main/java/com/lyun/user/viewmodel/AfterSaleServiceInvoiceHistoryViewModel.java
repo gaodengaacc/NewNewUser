@@ -19,11 +19,11 @@ public class AfterSaleServiceInvoiceHistoryViewModel extends ViewModel {
 
     public AfterSaleServiceInvoiceHistoryViewModel(InvoiceHistoryResponse data) {
         this.data.set(data);
-        cardName.set(data.getCard().getName());
-        cardImg.set(data.getCard().getLogoImg());
-        cardPrice.set(data.getAmount() == 0 ? "免费" : "￥" + data.getAmount());
-        tradeTime.set("成交日期：" + TimeUtil.formatTime(data.getTradeTime(),"yyyy-MM-dd HH:mm"));
+        cardName.set(data.getName());
+        cardImg.set(data.getLogoImg());
+        cardPrice.set("￥"+data.getPrice());
+        tradeTime.set("成交日期：" + data.getTradeTime());
         orderId.set("订单编号：" + data.getOrderNo());
-        invoiceTime.set("开票日期：" + TimeUtil.formatTime(data.getFilingTime(),"yyyy-MM-dd HH:mm"));
+        invoiceTime.set("开票日期：" + data.getFilingTime());
     }
 }
