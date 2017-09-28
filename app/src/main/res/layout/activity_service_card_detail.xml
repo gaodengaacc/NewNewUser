@@ -487,10 +487,208 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="为持卡会员提供法律文案翻译服务，英语/日语/韩语/法律/俄文等等。法律文案专业性强，专业人士翻译安全/高效。5000字/次，带排版。"
+                    android:text="欢迎阅读北京盈科律云科技股份有限公司（以下简称“律云”）和其合作律所（以下简称“合作律所”）的服务协议（以下简称“本协议”）。本协议阐述之条款和条件适用于服务使用人（以下简称“用户”）使用律云和合作律所合作研发的法律服务产品。"
                     android:textColor="#4a5661"
                     android:textSize="14sp"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_1_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_1_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_2_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_2_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_3_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_3_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_4_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_4_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_5_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_5_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_6_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_6_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_7_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_7_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_8_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_8_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/ic_service_item_dot"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_9_title"
+                    android:textColor="#485465"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/card_agreement_9_content"
+                    android:textColor="#4a5661"
+                    android:textSize="14sp"/>
             </LinearLayout>
 
         </ScrollView>
