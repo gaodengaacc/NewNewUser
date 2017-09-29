@@ -174,8 +174,11 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showPayResult(EventPayResultMessage message) {
-        if (message.isSuccess())
-            if (dialog != null) dialog.dismiss();
+        if (message.isSuccess()) {
+            if (dialog != null)
+                dialog.dismiss();
+            getFragmentViewModel().paySuccess();
+        }
         Toast.makeText(AppApplication.getInstance(), message.getMessage(), Toast.LENGTH_LONG).show();
     }
 

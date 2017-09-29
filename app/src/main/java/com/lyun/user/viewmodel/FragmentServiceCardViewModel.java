@@ -76,7 +76,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
         serviceCardItemAdapter.set(adapter);
     }
 
-    private boolean dataReady = false;
+    public boolean dataReady = false;
 
     @Override
     public void onResume() {
@@ -156,13 +156,27 @@ public class FragmentServiceCardViewModel extends ViewModel {
                             }
 
                             serviceCardViewModels.add(new ServiceCardViewModel(card.getName(), card.getPrice(), card.getLogoImg(), card.getId(), itemViewModels));
-                            id = serviceCardViewModels.get(0).id;
-                            currentPage.set(0);
-                            onPageSelected.execute(0);
-                            dataReady = true;
+
                         }
+
+                        id = serviceCardViewModels.get(0).id;
+                        currentPage.set(0);
+                        onPageSelected.execute(0);
+                        dataReady = true;
+
+                        if (serviceCardItemViewModels.size() > 1)
+                            currentPage.set(1);
+                        onPageSelected.execute(1);
                     }
                 });
+    }
+
+    private int mBuyCardPosition;
+
+    public void paySuccess() {
+        mServiceCardList.remove(mBuyCardPosition);
+        serviceCardItemViewModels.remove(mBuyCardPosition);
+        queryServiceCardList();
     }
 
     public final RelayCommand<Integer> onPageSelected = new RelayCommand<>(page -> {
@@ -174,7 +188,8 @@ public class FragmentServiceCardViewModel extends ViewModel {
     });
 
     public final RelayCommand onBuyCard = new RelayCommand(() -> {
-        if (mServiceCardList != null && mServiceCardList.size() > currentPage.get()) {
+        mBuyCardPosition = currentPage.get();
+        if (mServiceCardList != null && mServiceCardList.size() > mBuyCardPosition) {
             ObservableNotifier.alwaysNotify(buyCard, cardPrice.get());
         }
     });
