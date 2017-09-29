@@ -124,6 +124,9 @@
             android:name=".activity.AddAddressActivity"
             android:theme="@style/GlobalTitleTheme"/>
         <activity
+            android:name=".activity.PaySuccessActivity"
+            android:theme="@style/GlobalTitleTheme" />
+        <activity
             android:name=".activity.WalletMainActivity"
             android:theme="@style/GlobalTitleTheme">
             <intent-filter>

@@ -67,4 +67,17 @@ public class TipsToast extends Toast {
 		}
 		tv.setText(s);
 	}
+
+	public void setTextColor(int color) {
+		if (getView() == null) {
+			throw new RuntimeException(
+					"This ObservableToast was not created with ObservableToast.makeText()");
+		}
+		TextView tv = (TextView) getView().findViewById(R.id.tips_msg);
+		if (tv == null) {
+			throw new RuntimeException(
+					"This ObservableToast was not created with ObservableToast.makeText()");
+		}
+		tv.setTextColor(color);
+	}
 }
