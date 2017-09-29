@@ -94,14 +94,14 @@ public interface AuthService {
 
     //地址管理
     @POST(APIConstants.ADD_ADDRESS)
-    Observable<APIResult> addAddress(@Body AddAddressRequestBean body);
+    Observable<APIResult<Integer>> addAddress(@Body AddAddressRequestBean body);
     @POST(APIConstants.QUERY_ADDRESS)
     Observable<APIResult<List<AddressItemResponse>>> queryAddress(@Body BaseRequestBean body);
     @POST(APIConstants.DEFAULT_ADDRESS)
-    Observable<APIResult> defaultAddress(@Body DoAddressRequestBean body);
+    Observable<APIResult<Object>> defaultAddress(@Body DoAddressRequestBean body);
     @POST(APIConstants.DELETE_ADDRESS)
-    Observable<APIResult> deleteAddress(@Body DoAddressRequestBean body);
+    Observable<APIResult<Object>> deleteAddress(@Body DoAddressRequestBean body);
     @POST(APIConstants.UPDATE_ADDRESS)
-    Observable<APIResult> updateAddress(@Body AddAddressRequestBean body);
+    Observable<APIResult<Integer>> updateAddress(@Body AddAddressRequestBean body);
 
 }

@@ -133,7 +133,7 @@
                     app:currentItem="@={mvvm.currentPage}"
                     app:itemView="@{mvvm.serviceCardView}"
                     app:items="@{mvvm.serviceCardViewModels}"
-                    app:offscreenPageLimit="2"
+                    app:offscreenPageLimit="4"
                     app:onPageSelectedCommand="@{mvvm.onPageSelected}">
 
                 </android.support.v4.view.ViewPager>

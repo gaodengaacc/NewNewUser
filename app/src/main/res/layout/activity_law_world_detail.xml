@@ -186,41 +186,41 @@
                 app:placeholderImageRes="@{R.mipmap.user_default_avatar}"
                 app:uri="@{mvvm.data.get().getUserImg()}"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/law_world_detail_top"
+                android:layout_margin="10dp"
+                android:background="@drawable/no_border_round_corner_white_bg"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/law_world_detail_top"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/no_border_round_corner_white_bg"
-                    android:elevation="10dp"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:text="律师简介"
+                    android:textColor="#485465"
+                    android:textSize="16sp"/>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center_horizontal"
-                        android:text="律师简介"
-                        android:textColor="#485465"
-                        android:textSize="16sp"/>
-
-                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
+                        android:text="@{mvvm.data.get().getIntroduction()}"
+                        android:textColor="#485465"
+                        android:textSize="14sp"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="15dp"
-                            android:text="@{mvvm.data.get().getIntroduction()}"
-                            android:textColor="#485465"
-                            android:textSize="14sp"/>
+                </ScrollView>
 
-                    </ScrollView>
-
-                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 </layout>

@@ -51,16 +51,16 @@ public class Model {
      * @param
      * @return
      */
-    public Observable parseNullObservable(Observable<APIResult> observable) {
-        return observable.flatMap(new Function<APIResult, ObservableSource<?>>() {
+    public <T> Observable<T> parseNullObservable(Observable<APIResult<T>> observable) {
+        return observable.flatMap(new Function<APIResult<T>, ObservableSource<T>>() {
             @Override
-            public ObservableSource<?> apply(final APIResult apiResult) throws Exception {
-                return Observable.create(new ObservableOnSubscribe<Object>() {
+            public ObservableSource<T> apply(final APIResult<T> apiResult) throws Exception {
+                return Observable.create(new ObservableOnSubscribe<T>() {
 
                     @Override
-                    public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                    public void subscribe(ObservableEmitter<T> e) throws Exception {
                         if (apiResult.isSuccess()) {
-                            e.onNext(apiResult);
+                            e.onNext(apiResult.getContent());
                             e.onComplete();
                         } else {
                             e.onError(new APINotSuccessException(apiResult));
