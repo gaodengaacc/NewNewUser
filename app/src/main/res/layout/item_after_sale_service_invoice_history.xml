@@ -70,27 +70,22 @@
             android:layout_height="2px"
             android:background="#dce3ee"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:text="@{mvvm.orderId}"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:textSize="9sp"
+            android:textColor="#485463"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:text="@{mvvm.orderId}"
-                android:textColor="#485463"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="@{mvvm.invoiceTime}"
-                android:textColor="#a9b5c4"
-                android:textSize="9sp"/>
-        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{mvvm.invoiceTime}"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:textColor="#a9b5c4"
+            android:textSize="9sp"/>
     </LinearLayout>
 </layout>
