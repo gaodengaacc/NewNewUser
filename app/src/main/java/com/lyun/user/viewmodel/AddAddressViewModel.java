@@ -170,6 +170,7 @@ public class AddAddressViewModel extends ViewModel {
                 .subscribe(apiResult -> {
                             EventBus.getDefault().post(new EventProgressMessage(false));
                             EventAddressSelectMessage message = new EventAddressSelectMessage(position, isEditor ? 3 : 4);
+                            response.setId(apiResult);
                             message.setResponse(response);
                             EventBus.getDefault().post(new EventToastMessage("保存成功"));
                             EventBus.getDefault().post(message);

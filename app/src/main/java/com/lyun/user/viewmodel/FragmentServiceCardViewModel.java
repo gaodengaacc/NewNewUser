@@ -43,7 +43,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
     public final ObservableField<String> cardName = new ObservableField<>();
     public final ObservableDouble cardPrice = new ObservableDouble();
 
-    public final ObservableInt currentPage = new ObservableInt();
+    public final ObservableInt currentPage = new ObservableInt(0);
 
     public final ObservableList<ServiceCardViewModel> serviceCardViewModels = new ObservableArrayList<>();
     public final ObservableField<ItemView> serviceCardView = new ObservableField<>();
@@ -156,17 +156,13 @@ public class FragmentServiceCardViewModel extends ViewModel {
                             }
 
                             serviceCardViewModels.add(new ServiceCardViewModel(card.getName(), card.getPrice(), card.getLogoImg(), card.getId(), itemViewModels));
-
                         }
 
-                        id = serviceCardViewModels.get(0).id;
-                        currentPage.set(0);
-                        onPageSelected.execute(0);
+                        int index = serviceCardViewModels.size() > 1 ? 1 : 0;
+                        id = serviceCardViewModels.get(index).id;
+                        currentPage.set(index);
+                        onPageSelected.execute(index);
                         dataReady = true;
-
-                        if (serviceCardItemViewModels.size() > 1)
-                            currentPage.set(1);
-                        onPageSelected.execute(1);
                     }
                 });
     }
