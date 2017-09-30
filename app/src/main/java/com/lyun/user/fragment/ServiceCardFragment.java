@@ -3,6 +3,7 @@ package com.lyun.user.fragment;
 import android.content.Intent;
 import android.databinding.ObservableDouble;
 import android.databinding.ObservableField;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
+import com.lyun.user.activity.PaySuccessActivity;
 import com.lyun.user.activity.ServiceCardDetailActivity;
 import com.lyun.user.api.response.ServiceCardListItemResponse;
 import com.lyun.user.api.response.ServiceCardResponse;
@@ -32,12 +34,15 @@ import com.lyun.user.viewmodel.FragmentServiceCardViewModel;
 import com.lyun.user.viewmodel.WalletChargeViewModel;
 import com.lyun.user.viewmodel.watchdog.IFragmentServiceCardViewModelCallbacks;
 import com.lyun.utils.Screen;
+import com.lyun.utils.TipsToast;
 
 import net.funol.databinding.watchdog.Watchdog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.Serializable;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,7 +56,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     private AliPayManager aliPayManager;
     private WXPayManager wxPayManager;
     private String action = "ServiceCardFragment";
-
+    private PaySuccessInfo paySuccessInfo;
     public ServiceCardFragment() {
     }
 
@@ -162,10 +167,14 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     dialogViewModel.dismiss();
-                    if (response instanceof WalletChargeAliPayResponse)
+                    if(paySuccessInfo == null)  paySuccessInfo = new PaySuccessInfo();
+                    if (response instanceof WalletChargeAliPayResponse){
                         aliPay(((WalletChargeAliPayResponse) response).getSign());
-                    else
+                    }
+                    else{
                         wxPay((WalletChargeWxPayResponse) response);
+                    }
+
                 }, throwable -> {
                     dialogViewModel.dismiss();
                     Toast.makeText(AppApplication.getInstance(), throwable.getMessage(), Toast.LENGTH_LONG).show();
@@ -178,8 +187,14 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
             if (dialog != null)
                 dialog.dismiss();
             getFragmentViewModel().paySuccess();
+            startActivity(new Intent(getActivity(), PaySuccessActivity.class).putExtra("paySuccessInfo",paySuccessInfo));
+            return;
         }
-        Toast.makeText(AppApplication.getInstance(), message.getMessage(), Toast.LENGTH_LONG).show();
+        TipsToast tipsToast = TipsToast.makeText(getContext(), message.getMessage(), TipsToast.LENGTH_SHORT);
+        tipsToast.setIcon(R.mipmap.icon_pay_failed);
+        tipsToast.setText(message.getMessage());
+        tipsToast.setTextColor(Color.parseColor("#ff5964"));
+        tipsToast.show();
     }
 
     public class ServiceCardPageTransformer implements ViewPager.PageTransformer {
@@ -220,5 +235,13 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
             wxPayManager = new WXPayManager();
         if (!wxPayManager.wxPay(response))
             Toast.makeText(AppApplication.getInstance(), "请安装微信客户端", Toast.LENGTH_LONG).show();
+    }
+
+   public  class PaySuccessInfo implements Serializable{
+        public String imageUrl;
+        public int money;
+        public String orderId;
+        public String orderTime;
+        public String orderUserTime;
     }
 }
