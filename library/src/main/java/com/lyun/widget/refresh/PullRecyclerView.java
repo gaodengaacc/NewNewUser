@@ -34,7 +34,7 @@ public class PullRecyclerView extends RecyclerView implements Pullable {
     @Override
     public boolean canPullDown() {
         init();
-        if (getLayoutManager().getChildCount() == 0) {
+        if (getLayoutManager() != null && getLayoutManager().getChildCount() == 0) {
             // 没有item的时候也可以下拉刷新
             return true;
         } else if (firstVisiblePosition == 0 && getChildAt(0).getTop() >= 0) {
@@ -47,7 +47,7 @@ public class PullRecyclerView extends RecyclerView implements Pullable {
     @Override
     public boolean canPullUp() {
         init();
-        int childCount = getLayoutManager().getItemCount();
+        int childCount = getLayoutManager() != null ? getLayoutManager().getItemCount() : 0;
         if (childCount== 0) {
             // 没有item的时候也可以上拉加载
             return true;
