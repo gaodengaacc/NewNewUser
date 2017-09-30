@@ -23,7 +23,7 @@ import okio.Buffer;
 
 public class LogInterceptor implements Interceptor {
 
-    private MediaType TYPE_APPLICATION_JSON = MediaType.parse("application/json");
+    private MediaType TYPE_APPLICATION_JSON = MediaType.parse("application/json;charset=UTF-8");
 
     private Gson gson;
 
@@ -46,13 +46,19 @@ public class LogInterceptor implements Interceptor {
         Response response = chain.proceed(request);
 
         sb.append("-----------------= Response =-----------------\n");
-        sb.append(prettyJson(bodyToString(response.body())) + "\n");
+        String bodyString = null;
+        if (response.body().contentType().equals(TYPE_APPLICATION_JSON)) {
+            bodyString = response.body().string();
+            sb.append(prettyJson(bodyString) + "\n");
+        } else {
+            sb.append("not json data");
+        }
         sb.append("\n");
 
         Platform.get().log(Platform.INFO, sb.toString(), null);
 
         return response.newBuilder()
-                .body(ResponseBody.create(response.body().contentType(), response.body().bytes()))
+                .body(ResponseBody.create(response.body().contentType(), bodyString == null ? response.body().bytes() : bodyString.getBytes()))
                 .build();
     }
 
@@ -72,7 +78,7 @@ public class LogInterceptor implements Interceptor {
     }
 
     private String bodyToString(ResponseBody body) throws IOException {
-        if (body != null && body.contentType() == TYPE_APPLICATION_JSON) {
+        if (body != null && body.contentType().equals(TYPE_APPLICATION_JSON)) {
             return body.string();
         }
         return "";

@@ -48,7 +48,7 @@ public abstract class AuthorizationInterceptor implements Interceptor {
 
         Response response = chain.proceed(request);
 
-        if (response.body() != null && response.body().contentType() == TYPE_APPLICATION_JSON) {
+        if (response.body() != null && response.body().contentType().equals(TYPE_APPLICATION_JSON)) {
 
             String result = response.body().string();
 
