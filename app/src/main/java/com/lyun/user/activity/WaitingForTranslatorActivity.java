@@ -8,15 +8,11 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lyun.library.mvvm.view.activity.MvvmActivity;
-import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.Account;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityWaittingForTranslatorBinding;
@@ -42,6 +38,8 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
     private String translatorId;
 
     private boolean isOrderStarted = false;
+
+    private boolean autoAcceptAudioCall = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +104,7 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
 
     @Override
     public void onOrderCanceled(ObservableField<String> observableField, int fieldId) {
+        autoAcceptAudioCall = false;
         runOnUiThread(() -> {
             if (observableField.get() != null && !TextUtils.isEmpty(observableField.get())) {
                 Toast.makeText(this, observableField.get(), Toast.LENGTH_LONG).show();
@@ -123,9 +122,11 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         @Override
         public void onEvent(AVChatData data) {
             L.d("AVChat", "接收到语音请求 -> " + new Gson().toJson(data));
-            translatorId = data.getAccount();
-            getActivityViewModel().stopTimer();
-            acceptAudioCall();
+            if (autoAcceptAudioCall) {
+                translatorId = data.getAccount();
+                getActivityViewModel().stopTimer();
+                acceptAudioCall();
+            }
         }
     };
 
