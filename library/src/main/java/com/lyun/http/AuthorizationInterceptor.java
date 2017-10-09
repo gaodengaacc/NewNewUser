@@ -48,18 +48,20 @@ public abstract class AuthorizationInterceptor implements Interceptor {
 
         Response response = chain.proceed(request);
 
+        String bodyString = null;
+
         if (response.body() != null && response.body().contentType().equals(TYPE_APPLICATION_JSON)) {
 
-            String result = response.body().string();
+            bodyString = response.body().string();
 
-            JsonObject object = mJsonParser.parse(result).getAsJsonObject();
+            JsonObject object = mJsonParser.parse(bodyString).getAsJsonObject();
             if (STATUS_TOKEN_EXPIRED.equals(object.get("status").getAsString())) {
                 onAuthorizationFailed();
             }
         }
 
         return response.newBuilder()
-                .body(ResponseBody.create(response.body().contentType(), response.body().bytes()))
+                .body(ResponseBody.create(response.body().contentType(), bodyString == null ? response.body().bytes() : bodyString.getBytes()))
                 .build();
     }
 
