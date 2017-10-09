@@ -2,6 +2,7 @@ package com.lyun.user.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
@@ -20,11 +21,13 @@ import com.lyun.user.eventbusmessage.cardpay.EventPayReadyMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventPayResultMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventShowPayDialogMessage;
 import com.lyun.user.model.WalletChargeModel;
+import com.lyun.user.pay.PaySuccessInfo;
 import com.lyun.user.pay.alipay.AliPayManager;
 import com.lyun.user.pay.wxpay.WXPayManager;
 import com.lyun.user.viewmodel.CardPayDialogViewModel;
 import com.lyun.user.viewmodel.ServiceCardDetailViewModel;
 import com.lyun.user.viewmodel.WalletChargeViewModel;
+import com.lyun.utils.TipsToast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -37,12 +40,13 @@ import io.reactivex.schedulers.Schedulers;
 public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivityServiceCardDetailBinding, ServiceCardDetailViewModel> {
 
     public static final String EXTRA_CARD = "extra_card";
-
+    private PaySuccessInfo paySuccessInfo;
     private CardPayDialog dialog;
     private CardPayDialogViewModel payViewModel;
     private AliPayManager aliPayManager;
     private WXPayManager wxPayManager;
     private String action = "ServiceCardDetailActivity";
+    private String actionSign;
     public static void start(Context context, ServiceCardResponse card) {
         Intent intent = new Intent(context, ServiceCardDetailActivity.class);
         intent.putExtra(EXTRA_CARD, card);
@@ -89,7 +93,8 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void payReadyClick(EventPayReadyMessage message) {
-        if (!message.getMessage().action.equals(action)) return;
+        actionSign = message.getMessage().action;
+        if (!actionSign.equals(action)) return;
         dialogViewModel.show();
         Observable.just(message.getMessage().type)
                 .flatMap(type -> {
@@ -102,10 +107,24 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     dialogViewModel.dismiss();
-                    if (response instanceof WalletChargeAliPayResponse)
+                    paySuccessInfo = new PaySuccessInfo();
+                    if (response instanceof WalletChargeAliPayResponse) {
                         aliPay(((WalletChargeAliPayResponse) response).getSign());
-                    else
+                        paySuccessInfo.imageUrl = ((WalletChargeAliPayResponse) response).getCardImgPath();
+                        paySuccessInfo.orderId = ((WalletChargeAliPayResponse) response).getUserOrderid();
+                        paySuccessInfo.tradeTime = ((WalletChargeAliPayResponse) response).getTradeTime();
+                        paySuccessInfo.money = ((WalletChargeAliPayResponse) response).getAmount();
+                        paySuccessInfo.activeStartTime = ((WalletChargeAliPayResponse) response).getActiveStartTime();
+                        paySuccessInfo.activeEndTime = ((WalletChargeAliPayResponse) response).getActiveEndTime();
+                    } else {
                         wxPay((WalletChargeWxPayResponse) response);
+                        paySuccessInfo.imageUrl = ((WalletChargeWxPayResponse) response).getCardImgPath();
+                        paySuccessInfo.orderId = ((WalletChargeWxPayResponse) response).getUserOrderid();
+                        paySuccessInfo.tradeTime = ((WalletChargeWxPayResponse) response).getTradeTime();
+                        paySuccessInfo.money = ((WalletChargeWxPayResponse) response).getAmount();
+                        paySuccessInfo.activeStartTime = ((WalletChargeWxPayResponse) response).getActiveStartTime();
+                        paySuccessInfo.activeEndTime = ((WalletChargeWxPayResponse) response).getActiveEndTime();
+                    }
                 }, throwable -> {
                     dialogViewModel.dismiss();
                     Toast.makeText(AppApplication.getInstance(), throwable.getMessage(), Toast.LENGTH_LONG).show();
@@ -114,8 +133,18 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showPayResult(EventPayResultMessage message) {
-        if (message.isSuccess())
+        if (!actionSign.equals(action)) return;
+        if (message.isSuccess()) {
             if (dialog != null) dialog.dismiss();
+            startActivity(new Intent(this, PaySuccessActivity.class).putExtra("paySuccessInfo", paySuccessInfo));
+            return;
+        }
+        TipsToast tipsToast = TipsToast.makeText(this, message.getMessage(), TipsToast.LENGTH_SHORT);
+        tipsToast.setIcon(R.mipmap.icon_pay_failed);
+        tipsToast.setText(message.getMessage());
+        tipsToast.setTextColor(Color.parseColor("#ff5964"));
+        tipsToast.show();
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

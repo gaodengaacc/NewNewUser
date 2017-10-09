@@ -49,7 +49,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="25dp"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 app:uri="@{mvvm.imageUrl}" />
 
             <View

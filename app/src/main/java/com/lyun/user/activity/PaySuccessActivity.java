@@ -3,9 +3,10 @@ package com.lyun.user.activity;
 import android.support.annotation.NonNull;
 
 import com.lyun.library.mvvm.view.activity.GeneralToolbarActivity;
+import com.lyun.library.mvvm.viewmodel.GeneralToolbarViewModel;
 import com.lyun.user.R;
 import com.lyun.user.databinding.ActivityPaySuccessBinding;
-import com.lyun.user.fragment.ServiceCardFragment;
+import com.lyun.user.pay.PaySuccessInfo;
 import com.lyun.user.viewmodel.PaySuccessViewModel;
 
 /**
@@ -23,6 +24,16 @@ public class PaySuccessActivity extends GeneralToolbarActivity<ActivityPaySucces
     @NonNull
     @Override
     protected PaySuccessViewModel createBodyViewModel() {
-        return new PaySuccessViewModel((ServiceCardFragment.PaySuccessInfo) getIntent().getSerializableExtra("paySuccessInfo"));
+        return new PaySuccessViewModel((PaySuccessInfo) getIntent().getSerializableExtra("paySuccessInfo"));
+    }
+
+    @NonNull
+    @Override
+    protected GeneralToolbarViewModel.ToolbarViewModel createTitleViewModel() {
+        GeneralToolbarViewModel.ToolbarViewModel viewModel = super.createTitleViewModel();
+        viewModel.setPropertyChangeListener(this);
+        viewModel.title.set("律云法律服务");
+        viewModel.onBackClick.set(view -> finish());
+        return viewModel;
     }
 }
