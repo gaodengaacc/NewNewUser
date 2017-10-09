@@ -23,7 +23,7 @@ public abstract class AuthorizationInterceptor implements Interceptor {
 
     private final String STATUS_TOKEN_EXPIRED = APIResult.Status.STATUS_TOKEN_EXPIRED;
 
-    private MediaType TYPE_APPLICATION_JSON = MediaType.parse("application/json");
+    private MediaType TYPE_APPLICATION_JSON = MediaType.parse("application/json;charset=UTF-8");
 
     protected JsonParser mJsonParser;
 
