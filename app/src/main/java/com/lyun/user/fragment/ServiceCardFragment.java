@@ -27,6 +27,7 @@ import com.lyun.user.eventbusmessage.cardpay.EventPayReadyMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventPayResultMessage;
 import com.lyun.user.eventbusmessage.homefragment.EventMainIntentActivityMessage;
 import com.lyun.user.model.WalletChargeModel;
+import com.lyun.user.pay.PaySuccessInfo;
 import com.lyun.user.pay.alipay.AliPayManager;
 import com.lyun.user.pay.wxpay.WXPayManager;
 import com.lyun.user.viewmodel.CardPayDialogViewModel;
@@ -42,8 +43,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.Serializable;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -57,6 +56,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     private WXPayManager wxPayManager;
     private String action = "ServiceCardFragment";
     private PaySuccessInfo paySuccessInfo;
+    private String actionSign;
     public ServiceCardFragment() {
     }
 
@@ -154,7 +154,8 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void payReadyClick(EventPayReadyMessage message) {
-        if (!message.getMessage().action.equals(action)) return;
+        actionSign = message.getMessage().action;
+        if (!actionSign.equals(action)) return;
         dialogViewModel.show();
         Observable.just(message.getMessage().type)
                 .flatMap(type -> {
@@ -167,12 +168,24 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     dialogViewModel.dismiss();
-                    if(paySuccessInfo == null)  paySuccessInfo = new PaySuccessInfo();
+                    paySuccessInfo = new PaySuccessInfo();
                     if (response instanceof WalletChargeAliPayResponse){
                         aliPay(((WalletChargeAliPayResponse) response).getSign());
+                        paySuccessInfo.imageUrl = ((WalletChargeAliPayResponse) response).getCardImgPath();
+                        paySuccessInfo.orderId = ((WalletChargeAliPayResponse) response).getUserOrderid();
+                        paySuccessInfo.tradeTime = ((WalletChargeAliPayResponse) response).getTradeTime();
+                        paySuccessInfo.money = ((WalletChargeAliPayResponse) response).getAmount();
+                        paySuccessInfo.activeStartTime = ((WalletChargeAliPayResponse) response).getActiveStartTime();
+                        paySuccessInfo.activeEndTime = ((WalletChargeAliPayResponse) response).getActiveEndTime();
                     }
                     else{
                         wxPay((WalletChargeWxPayResponse) response);
+                        paySuccessInfo.imageUrl = ((WalletChargeWxPayResponse) response).getCardImgPath();
+                        paySuccessInfo.orderId = ((WalletChargeWxPayResponse) response).getUserOrderid();
+                        paySuccessInfo.tradeTime = ((WalletChargeWxPayResponse) response).getTradeTime();
+                        paySuccessInfo.money = ((WalletChargeWxPayResponse) response).getAmount();
+                        paySuccessInfo.activeStartTime = ((WalletChargeWxPayResponse) response).getActiveStartTime();
+                        paySuccessInfo.activeEndTime = ((WalletChargeWxPayResponse) response).getActiveEndTime();
                     }
 
                 }, throwable -> {
@@ -183,6 +196,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showPayResult(EventPayResultMessage message) {
+        if (!actionSign.equals(action)) return;
         if (message.isSuccess()) {
             if (dialog != null)
                 dialog.dismiss();
@@ -235,13 +249,5 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
             wxPayManager = new WXPayManager();
         if (!wxPayManager.wxPay(response))
             Toast.makeText(AppApplication.getInstance(), "请安装微信客户端", Toast.LENGTH_LONG).show();
-    }
-
-   public  class PaySuccessInfo implements Serializable{
-        public String imageUrl;
-        public int money;
-        public String orderId;
-        public String orderTime;
-        public String orderUserTime;
     }
 }
