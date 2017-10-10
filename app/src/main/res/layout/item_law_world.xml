@@ -133,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="24dp"
                     android:layout_marginRight="15dp"
                     android:drawablePadding="5dp"
                     android:drawableRight="@mipmap/ic_more_blue"
@@ -141,15 +141,15 @@
                     android:textColor="#209ced"
                     android:textSize="12sp"/>
 
-                <TextView
+                <com.lyun.widget.TextViewEllipseEndFixed
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_above="@id/law_world_detail"
                     android:layout_alignParentTop="true"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="12dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="18dp"
                     android:ellipsize="end"
                     android:text="@{mvvm.data.get().getIntroduction()}"
                     android:textColor="#485465"
