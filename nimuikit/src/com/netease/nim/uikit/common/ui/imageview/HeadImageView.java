@@ -2,6 +2,7 @@ package com.netease.nim.uikit.common.ui.imageview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -28,13 +29,12 @@ public class HeadImageView extends CircleImageView {
     public static final int DEFAULT_AVATAR_THUMB_SIZE = (int) NimUIKit.getContext().getResources().getDimension(R.dimen.avatar_max_size);
     public static final int DEFAULT_AVATAR_NOTIFICATION_ICON_SIZE = (int) NimUIKit.getContext().getResources().getDimension(R.dimen.avatar_notification_size);
 
-    private DisplayImageOptions options = createImageOptions();
+    private DisplayImageOptions options = null;
 
-    private static final DisplayImageOptions createImageOptions() {
-        int defaultIcon = NimUIKit.getUserInfoProvider().getDefaultIconResId();
+    private static final DisplayImageOptions createImageOptions(@DrawableRes int defaultAvatar) {
         return new DisplayImageOptions.Builder()
-                .showImageOnLoading(defaultIcon)
-                .showImageOnFail(defaultIcon)
+                .showImageOnLoading(defaultAvatar)
+                .showImageOnFail(defaultAvatar)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
@@ -78,8 +78,13 @@ public class HeadImageView extends CircleImageView {
      * @param thumbSize 缩略图的宽、高
      */
     private void loadBuddyAvatar(final String account, final int thumbSize) {
+
+        int defaultAvatar = NimUIKit.getUserInfoProvider().getDefaultIconResId(account);
+
         // 先显示默认头像
-        setImageResource(NimUIKit.getUserInfoProvider().getDefaultIconResId());
+        setImageResource(defaultAvatar);
+
+        options = createImageOptions(defaultAvatar);
 
         // 判断是否需要ImageLoader加载
         final UserInfoProvider.UserInfo userInfo = NimUIKit.getUserInfoProvider().getUserInfo(account);

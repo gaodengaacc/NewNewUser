@@ -8,11 +8,11 @@ import android.text.TextUtils;
 
 import com.netease.nim.uikit.ImageLoaderKit;
 import com.netease.nim.uikit.R;
+import com.netease.nim.uikit.UserInfoProvider;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.cache.TeamDataCache;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
-import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 
 /**
  * UIKit默认的用户信息提供者
@@ -92,5 +92,10 @@ public class DefalutUserInfoProvider implements UserInfoProvider {
         }
 
         return null;
+    }
+
+    @Override
+    public int getDefaultIconResId(String account) {
+        return getDefaultIconResId();
     }
 }

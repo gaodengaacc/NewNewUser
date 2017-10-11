@@ -3,10 +3,12 @@ package com.lyun.user.viewmodel;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.R;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -20,6 +22,7 @@ public class TranslationAudioMessageViewModel extends ViewModel {
     public final ObservableField<String> translatorName = new ObservableField<>();
     public final ObservableField<String> translationTime = new ObservableField<>();
     public final ObservableField<String> translatorAvatar = new ObservableField<>();
+    public final ObservableInt avatarPlaceHolder = new ObservableInt(R.mipmap.ic_avatar_lawyer_male);
 
     @WatchThis
     public final BaseObservable switchMessageMode = new BaseObservable();
@@ -36,8 +39,6 @@ public class TranslationAudioMessageViewModel extends ViewModel {
 
     public final RelayCommand<Boolean> onHandFreeCheckCommand = new RelayCommand<>(isChecked -> ObservableNotifier.alwaysNotify(handFreeMode, isChecked));
 
-    public final RelayCommand onSwitchClicked = new RelayCommand(() -> {
-        switchMessageMode.notifyChange();
-    });
+    public final RelayCommand onSwitchClicked = new RelayCommand(() -> switchMessageMode.notifyChange());
 
 }

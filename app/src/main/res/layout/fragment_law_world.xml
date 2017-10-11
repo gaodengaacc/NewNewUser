@@ -29,7 +29,7 @@
             app:border_width="@dimen/dp1"
             app:layout_aspectRatio="100%"
             app:layout_widthPercent="30%"
-            app:placeholderImageRes="@{R.mipmap.user_default_avatar}"
+            app:placeholderImageRes="@{mvvm.avatarPlaceHolder}"
             app:uri="@{mvvm.avatar}"/>
 
         <TextView

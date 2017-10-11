@@ -139,7 +139,7 @@
                 android:layout_height="90dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dp20"
-                app:placeholderImageRes="@{R.mipmap.user_default_avatar}"
+                app:placeholderImageRes="@{mvvm.avatarPlaceHolder}"
                 app:uri="@{mvvm.translatorAvatar}"/>
 
             <TextView

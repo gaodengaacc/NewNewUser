@@ -8,11 +8,13 @@ import android.text.TextUtils;
 
 import com.lyun.user.R;
 import com.netease.nim.uikit.ImageLoaderKit;
+import com.netease.nim.uikit.UserInfoProvider;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.cache.TeamDataCache;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
-import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
+import com.netease.nimlib.sdk.uinfo.constant.GenderEnum;
+import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 public class NimUserInfoProvider implements UserInfoProvider {
 
@@ -23,8 +25,8 @@ public class NimUserInfoProvider implements UserInfoProvider {
     }
 
     @Override
-    public UserInfoProvider.UserInfo getUserInfo(String account) {
-        UserInfo user = NimUserInfoCache.getInstance().getUserInfo(account);
+    public NimUserInfo getUserInfo(String account) {
+        NimUserInfo user = NimUserInfoCache.getInstance().getUserInfo(account);
         if (user == null) {
             NimUserInfoCache.getInstance().getUserInfoFromRemote(account, null);
         }
@@ -34,6 +36,15 @@ public class NimUserInfoProvider implements UserInfoProvider {
     @Override
     public int getDefaultIconResId() {
         return R.mipmap.user_default_avatar;
+    }
+
+    @Override
+    public int getDefaultIconResId(String account) {
+        NimUserInfo user = getUserInfo(account);
+        if (user != null && user.getAccount().startsWith("l")) {
+            return user.getGenderEnum() == GenderEnum.FEMALE ? R.mipmap.ic_avatar_lawyer_female : R.mipmap.ic_avatar_lawyer_male;
+        }
+        return getDefaultIconResId();
     }
 
     @Override
@@ -81,4 +92,5 @@ public class NimUserInfoProvider implements UserInfoProvider {
 
         return nick;
     }
+
 }
