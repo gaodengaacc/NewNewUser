@@ -52,11 +52,12 @@ public class RegisterActivity extends GeneralToolbarActivity<ActivityRegisterBin
             EventBus.getDefault().
                     post(new EventThirdBindPhoneSuccessMessage(new EventThirdBindPhoneSuccessMessage.BindMessage(bundle.getString("openId"), bundle.getString("loginType"))));
         Toast.makeText(AppApplication.getInstance(), "注册成功", Toast.LENGTH_LONG).show();
-        finish();
+//        finish();
     }
 
     @Override
     public void onRegisterFailed(ObservableField<Throwable> observableField, int fieldId) {
+        dialogViewModel.dismiss();
         Toast.makeText(AppApplication.getInstance(), observableField.get().getMessage(), Toast.LENGTH_LONG).show();
     }
 

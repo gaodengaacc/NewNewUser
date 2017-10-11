@@ -100,11 +100,12 @@ public class RegisterViewModel extends ViewModel {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apiResult -> {
-                            progressDialogShow.set(false);
+//                            progressDialogShow.set(false);
                             if (apiResult.isSuccess()) {
                                 onRegisterSuccess.notifyChange();
                                 EventBus.getDefault().post(new EventRegisterSuccessMessage(username, password));
                             } else {
+                                progressDialogShow.set(false);
                                 ObservableNotifier.alwaysNotify(onRegisterResult, apiResult.getDescribe());
                             }
                         },
