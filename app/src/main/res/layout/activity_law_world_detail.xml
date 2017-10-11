@@ -183,7 +183,7 @@
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 android:elevation="10dp"
-                app:placeholderImageRes="@{R.mipmap.user_default_avatar}"
+                app:placeholderImageRes="@{mvvm.avatarPlaceHolder}"
                 app:uri="@{mvvm.data.get().getUserImg()}"/>
 
             <LinearLayout

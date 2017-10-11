@@ -1,6 +1,5 @@
 package com.lyun.user.im.session.viewholder;
 
-import android.graphics.Color;
 import android.widget.ImageView;
 import android.widget.TextView;
 

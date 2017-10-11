@@ -35,6 +35,7 @@ import com.lyun.user.viewmodel.watchdog.ITranslationAudioMessageViewModelCallbac
 import com.lyun.utils.FormatUtil;
 import com.lyun.utils.L;
 import com.lyun.utils.TimeUtil;
+import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.util.sys.ScreenUtil;
@@ -61,6 +62,8 @@ import com.netease.nimlib.sdk.avchat.model.AVChatVideoFrame;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
+import com.netease.nimlib.sdk.uinfo.constant.GenderEnum;
+import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -267,6 +270,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             currentNormalMode = false;
             mTranslationAudioMessageFragment.setTranslatorName(getTitle().toString());
             mTranslationAudioMessageFragment.setAvatar(getSessionAvatar());
+            mTranslationAudioMessageFragment.setAvatarPlaceHolder(getSessionAvatarPlaceHolder());
             switchContent(getTranslationAudioMessageFragment());
             getToolBar().setVisibility(View.GONE);
         } else {
@@ -306,6 +310,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             mTranslationAudioMessageFragment.setTranslatorTargetLanguage(targetLanguage);
             mTranslationAudioMessageFragment.setTranslatorName(getTitle().toString());
             mTranslationAudioMessageFragment.setAvatar(getSessionAvatar());
+            mTranslationAudioMessageFragment.setAvatarPlaceHolder(getSessionAvatarPlaceHolder());
         }
         return mTranslationAudioMessageFragment;
     }
@@ -336,6 +341,10 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
             return null;
         }
         return userInfo.getAvatar();
+    }
+
+    protected int getSessionAvatarPlaceHolder(){
+        return NimUIKit.getUserInfoProvider().getDefaultIconResId(sessionId);
     }
 
     private BroadcastReceiver mTranslationOrderStatusChangeReceiver = new BroadcastReceiver() {
@@ -484,6 +493,7 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         if (mTranslationAudioMessageFragment != null) {
             mTranslationAudioMessageFragment.setTranslatorName(title.toString());
             mTranslationAudioMessageFragment.setAvatar(getSessionAvatar());
+            mTranslationAudioMessageFragment.setAvatarPlaceHolder(getSessionAvatarPlaceHolder());
         }
     }
 

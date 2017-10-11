@@ -7,6 +7,7 @@ import android.view.View;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
+import com.lyun.user.R;
 import com.lyun.user.api.response.LawWorldResponse;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
@@ -16,6 +17,8 @@ import java.util.List;
 public class LawWorldDetailViewModel extends ViewModel {
 
     public final ObservableField<LawWorldResponse> data = new ObservableField<>();
+
+    public final ObservableInt avatarPlaceHolder = new ObservableInt(R.mipmap.ic_avatar_lawyer_male);
 
     public final ObservableField<String> domin1 = new ObservableField<>();
     public final ObservableInt domin1Visibility = new ObservableInt(View.GONE);
@@ -45,6 +48,8 @@ public class LawWorldDetailViewModel extends ViewModel {
             }
         }
         this.data.notifyChange();
+
+        avatarPlaceHolder.set("女".equals(data.getRealSex()) ? R.mipmap.ic_avatar_lawyer_female : R.mipmap.ic_avatar_lawyer_male);
     }
 
     public RelayCommand onBackClick = new RelayCommand(() -> ObservableNotifier.alwaysNotify(onTitleBackClick, null));

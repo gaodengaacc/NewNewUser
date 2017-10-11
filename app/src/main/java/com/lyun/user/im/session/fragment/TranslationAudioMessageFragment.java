@@ -1,9 +1,9 @@
 package com.lyun.user.im.session.fragment;
 
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +11,8 @@ import android.view.ViewGroup;
 import com.lyun.user.R;
 import com.lyun.user.databinding.FragmentTranslationAudioMessageBinding;
 import com.lyun.user.viewmodel.TranslationAudioMessageViewModel;
-import com.lyun.utils.GlideUtils;
 import com.netease.nim.uikit.common.fragment.TFragment;
-import com.netease.nim.uikit.common.ui.imageview.CircleImageView;
+import com.netease.nimlib.sdk.uinfo.constant.GenderEnum;
 
 /**
  * Created by ZHAOWEIWEI on 2017/3/3.
@@ -58,6 +57,12 @@ public class TranslationAudioMessageFragment extends TFragment {
     public void setAvatar(String avatar) {
         if (mViewModel != null) {
             mViewModel.translatorAvatar.set(avatar);
+        }
+    }
+
+    public void setAvatarPlaceHolder(@DrawableRes int avatarPlaceHolder) {
+        if (mViewModel != null) {
+            mViewModel.avatarPlaceHolder.set(avatarPlaceHolder);
         }
     }
 

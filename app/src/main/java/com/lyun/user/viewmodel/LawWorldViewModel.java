@@ -13,6 +13,7 @@ import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.api.response.LawWorldResponse;
 import com.lyun.user.model.LawWorldModel;
+import com.netease.nim.uikit.NimUIKit;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -28,6 +29,7 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
 
     public final ObservableInt currentItem = new ObservableInt(0);
 
+    public final ObservableInt avatarPlaceHolder = new ObservableInt(R.mipmap.ic_avatar_lawyer_male);
     public final ObservableField<String> avatar = new ObservableField<>();
     public final ObservableField<String> name = new ObservableField<>();
 
@@ -90,6 +92,8 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
     }
 
     public final RelayCommand<Integer> onPageSelected = new RelayCommand<>(page -> {
+
+        avatarPlaceHolder.set("女".equals(items.get(page).data.get().getRealSex()) ? R.mipmap.ic_avatar_lawyer_female : R.mipmap.ic_avatar_lawyer_male);
         avatar.set(Constants.IMAGE_BASE_URL + items.get(page).data.get().getUserImg());
         name.set(items.get(page).data.get().getRealName());
 

@@ -166,7 +166,7 @@ public class NimApplicationDelegate extends ApplicationDelegate<AppApplication> 
 
     private void initUIKit() {
         // 初始化，使用 uikit 默认的用户信息提供者
-        NimUIKit.init(getApplication());
+        NimUIKit.init(getApplication(), new NimUserInfoProvider(getApplication()), null);
 
         // 设置地理位置提供者。如果需要发送地理位置消息，该参数必须提供。如果不需要，可以忽略。
         // NimUIKit.setLocationProvider(new NimDemoLocationProvider());
