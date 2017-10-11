@@ -25,6 +25,7 @@ public class PaySuccessViewModel extends ViewModel {
     }
 
     private void init(PaySuccessInfo paySuccessInfo) {
+        if (paySuccessInfo == null) return;
         imageUrl.set(Constants.IMAGE_BASE_URL + paySuccessInfo.imageUrl);
         money.set("￥" + paySuccessInfo.money + "元");
         orderId.set(paySuccessInfo.orderId);

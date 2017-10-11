@@ -177,8 +177,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
                         paySuccessInfo.money = ((WalletChargeAliPayResponse) response).getAmount();
                         paySuccessInfo.activeStartTime = ((WalletChargeAliPayResponse) response).getActiveStartTime();
                         paySuccessInfo.activeEndTime = ((WalletChargeAliPayResponse) response).getActiveEndTime();
-                    }
-                    else{
+                    } else {
                         wxPay((WalletChargeWxPayResponse) response);
                         paySuccessInfo.imageUrl = ((WalletChargeWxPayResponse) response).getCardImgPath();
                         paySuccessInfo.orderId = ((WalletChargeWxPayResponse) response).getUserOrderid();
@@ -187,7 +186,6 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
                         paySuccessInfo.activeStartTime = ((WalletChargeWxPayResponse) response).getActiveStartTime();
                         paySuccessInfo.activeEndTime = ((WalletChargeWxPayResponse) response).getActiveEndTime();
                     }
-
                 }, throwable -> {
                     dialogViewModel.dismiss();
                     Toast.makeText(AppApplication.getInstance(), throwable.getMessage(), Toast.LENGTH_LONG).show();
