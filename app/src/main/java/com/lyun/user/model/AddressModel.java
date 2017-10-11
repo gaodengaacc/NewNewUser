@@ -21,9 +21,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class AddressModel extends Model {
-    public Observable<Integer> addAddress(AddAddressRequestBean bean) {
-        return parseNullObservable(API.auth.addAddress(bean)
-                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
+    public Observable<APIResult> addAddress(AddAddressRequestBean bean) {
+        return API.auth.addAddress(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
@@ -34,22 +34,22 @@ public class AddressModel extends Model {
                 .observeOn(Schedulers.io());
     }
 
-    public Observable<Object> deleteAddress(DoAddressRequestBean bean) {
-        return parseNullObservable(API.auth.deleteAddress(bean)
-                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
+    public Observable<APIResult> deleteAddress(DoAddressRequestBean bean) {
+        return API.auth.deleteAddress(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
 
-    public Observable<Object> defaultAddress(DoAddressRequestBean bean) {
-        return parseNullObservable(API.auth.defaultAddress(bean).onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
+    public Observable<APIResult> defaultAddress(DoAddressRequestBean bean) {
+        return API.auth.defaultAddress(bean).onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
 
-    public Observable<Integer> updateAddress(AddAddressRequestBean bean) {
-        return parseNullObservable(API.auth.updateAddress(bean)
-                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable)))
+    public Observable<APIResult> updateAddress(AddAddressRequestBean bean) {
+        return API.auth.updateAddress(bean)
+                .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
     }
