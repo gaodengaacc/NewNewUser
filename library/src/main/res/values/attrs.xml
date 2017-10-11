@@ -228,6 +228,10 @@
         <attr name="output" format="reference"></attr>
         <attr name="bitmap" format="reference"></attr>
     </declare-styleable>
+    <declare-styleable name="HeadImageView">
+        <attr name="tid" format="string"></attr>
+        <attr name="uid" format="string"></attr>
+    </declare-styleable>
 
 
 </resources>

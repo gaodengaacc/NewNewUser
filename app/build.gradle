@@ -203,7 +203,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':library')
-    compile project(':nimuikit')
     compile project(':wheel')
     compile project(':roundrectview')
     compile project(':citypick')
