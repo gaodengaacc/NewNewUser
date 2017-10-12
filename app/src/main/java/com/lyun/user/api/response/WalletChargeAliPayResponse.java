@@ -17,6 +17,16 @@ public class WalletChargeAliPayResponse extends BaseResponse {
     private String activeEndTime;//有效期结束
     private String amount;//购买卡金额
 
+    public String getCardOrderNo() {
+        return cardOrderNo;
+    }
+
+    public void setCardOrderNo(String cardOrderNo) {
+        this.cardOrderNo = cardOrderNo;
+    }
+
+    private String cardOrderNo;//服务卡订单编号
+
     public String getTradeTime() {
         return tradeTime;
     }

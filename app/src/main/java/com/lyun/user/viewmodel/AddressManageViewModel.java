@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
+import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.AppApplication;
@@ -128,6 +129,14 @@ public class AddressManageViewModel extends ViewModel {
                 )
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(result -> Observable.create(observable -> {
+                    if ((result instanceof APIResult) && !((APIResult) result).isSuccess()) {
+                        observable.onError(new Throwable(((APIResult) result).getDescribe()));
+                    } else {
+                        observable.onNext(result);
+                        observable.onComplete();
+                    }
+                }))
                 .subscribe(response -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     EventBus.getDefault().post(new EventToastMessage("删除成功"));

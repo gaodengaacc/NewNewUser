@@ -172,7 +172,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
                     if (response instanceof WalletChargeAliPayResponse){
                         aliPay(((WalletChargeAliPayResponse) response).getSign());
                         paySuccessInfo.imageUrl = ((WalletChargeAliPayResponse) response).getCardImgPath();
-                        paySuccessInfo.orderId = ((WalletChargeAliPayResponse) response).getUserOrderid();
+                        paySuccessInfo.orderId = ((WalletChargeAliPayResponse) response).getCardOrderNo();
                         paySuccessInfo.tradeTime = ((WalletChargeAliPayResponse) response).getTradeTime();
                         paySuccessInfo.money = ((WalletChargeAliPayResponse) response).getAmount();
                         paySuccessInfo.activeStartTime = ((WalletChargeAliPayResponse) response).getActiveStartTime();
@@ -180,7 +180,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
                     } else {
                         wxPay((WalletChargeWxPayResponse) response);
                         paySuccessInfo.imageUrl = ((WalletChargeWxPayResponse) response).getCardImgPath();
-                        paySuccessInfo.orderId = ((WalletChargeWxPayResponse) response).getUserOrderid();
+                        paySuccessInfo.orderId = ((WalletChargeWxPayResponse) response).getCardOrderNo();
                         paySuccessInfo.tradeTime = ((WalletChargeWxPayResponse) response).getTradeTime();
                         paySuccessInfo.money = ((WalletChargeWxPayResponse) response).getAmount();
                         paySuccessInfo.activeStartTime = ((WalletChargeWxPayResponse) response).getActiveStartTime();

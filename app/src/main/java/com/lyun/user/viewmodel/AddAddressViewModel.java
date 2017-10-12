@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.bindingadapter.edittext.ViewBindingAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -167,8 +168,17 @@ public class AddAddressViewModel extends ViewModel {
                     else
                         return new AddressModel().addAddress(bean);
                 })
+                .flatMap(result -> Observable.create(observable -> {
+                    if ((result instanceof APIResult) && !result.isSuccess()) {
+                        observable.onError(new Throwable(result.getDescribe()));
+                    } else {
+                        observable.onNext(result);
+                        observable.onComplete();
+                    }
+                }))
                 .subscribe(apiResult -> {
-                            EventBus.getDefault().post(new EventProgressMessage(false));
+
+                    EventBus.getDefault().post(new EventProgressMessage(false));
                             EventAddressSelectMessage message = new EventAddressSelectMessage(position, isEditor ? 3 : 4);
                     response.setId(apiResult.toString());
                             message.setResponse(response);
@@ -186,6 +196,14 @@ public class AddAddressViewModel extends ViewModel {
     public void deleteAddress() {
         EventBus.getDefault().post(new EventProgressMessage(true));
         new AddressModel().deleteAddress(new DoAddressRequestBean(response.getId()))
+                .flatMap(result -> Observable.create(observable -> {
+                    if ((result instanceof APIResult) && !result.isSuccess()) {
+                        observable.onError(new Throwable(result.getDescribe()));
+                    } else {
+                        observable.onNext(result);
+                        observable.onComplete();
+                    }
+                }))
                 .subscribe(apiResult -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                     EventAddressSelectMessage message = new EventAddressSelectMessage(position, 5);
