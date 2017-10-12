@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.utils.L;
 
 /**
  * Created by huangjun on 2015/11/13.
@@ -135,7 +136,8 @@ public class HeadImageView extends CircleImageView {
                         @Override
                         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                             super.onLoadingFailed(imageUri, view, failReason);
-                            failReason.getCause().printStackTrace();
+                            if (failReason != null)
+                                L.e("HeadImageView", "头像加载失败：" + failReason.getType() + failReason.getCause());
                         }
                     });
         } else {

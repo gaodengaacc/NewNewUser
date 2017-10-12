@@ -11,12 +11,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.util.log.LogUtil;
@@ -243,8 +241,8 @@ public abstract class UI extends AppCompatActivity {
     }
 
     protected TFragment switchContent(TFragment fragment, boolean needAddToBackStack) {
-        FragmentManager fm = getSupportFragmentManager();
-        if(!fm.isDestroyed()) {
+        if (!isDestroyedCompatible()) {
+            FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(fragment.getContainerId(), fragment);
 
