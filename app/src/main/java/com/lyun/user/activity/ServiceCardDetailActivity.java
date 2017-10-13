@@ -95,7 +95,7 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
     public void payReadyClick(EventPayReadyMessage message) {
         actionSign = message.getMessage().action;
         if (!actionSign.equals(action)) return;
-        dialogViewModel.show();
+        //dialogViewModel.show();
         Observable.just(message.getMessage().type)
                 .flatMap(type -> {
                     if (type == WalletChargeViewModel.PayType.ALI)
@@ -148,7 +148,7 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void showPayResult(EventShowPayDialogMessage message) {
+    public void showPayDialog(EventShowPayDialogMessage message) {
         showPayDialog(message.getMessage());
     }
 

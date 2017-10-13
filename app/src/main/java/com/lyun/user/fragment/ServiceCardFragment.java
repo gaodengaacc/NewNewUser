@@ -157,7 +157,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     public void payReadyClick(EventPayReadyMessage message) {
         actionSign = message.getMessage().action;
         if (!actionSign.equals(action)) return;
-        dialogViewModel.show();
+        //dialogViewModel.show();
         Observable.just(message.getMessage().type)
                 .flatMap(type -> {
                     if (type == WalletChargeViewModel.PayType.ALI)
