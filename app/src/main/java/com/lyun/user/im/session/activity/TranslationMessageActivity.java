@@ -153,6 +153,9 @@ public class TranslationMessageActivity extends P2PMessageActivity implements IT
         unregisterAVChatListeners();
         unregisterReceiver(mTranslationOrderStatusChangeReceiver);
         unregisterReceiver(mTranslationOrderFinishReceiver);
+
+        dismissProgress();
+        dismissInComing();
     }
 
     public static void start(Context context, String contactId, String orderId, TranslationOrderModel.OrderType orderType, String targetLanguage, SessionCustomization customization, IMMessage anchor) {

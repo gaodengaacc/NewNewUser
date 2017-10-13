@@ -8,4 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:text="版权所有\nCopyright ©2017 北京盈科律云科技股份有限公司"
+        android:layout_marginBottom="50dp"/>
+
 </RelativeLayout>
