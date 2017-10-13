@@ -96,6 +96,14 @@ public class AddressManageViewModel extends ViewModel {
     public void setDefaultAddress(int position) {
         EventBus.getDefault().post(new EventProgressMessage(true));
         addressModel.defaultAddress(new DoAddressRequestBean(itemViewModelData.get(position).response.getId()))
+                .flatMap(result -> Observable.create(observable -> {
+                    if (!result.isSuccess()) {
+                        observable.onError(new Throwable(result.getDescribe()));
+                    } else {
+                        observable.onNext(result);
+                        observable.onComplete();
+                    }
+                }))
                 .flatMap(apiResult -> Observable.fromIterable(itemViewModelData))
                 .map(responseViewModel -> {
                     if (responseViewModel.response.getIsDefault() == 1)
