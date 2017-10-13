@@ -110,6 +110,7 @@ public class LoginActivity extends MvvmActivity<ActivityLoginBinding, LoginViewM
         super.onResume();
         if (progressBarDialog != null && progressBarDialog.isShowing())
             progressBarDialog.dismiss();
+        getActivityViewModel().clickFlag = false;
     }
 
     @Override
