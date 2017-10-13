@@ -57,6 +57,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
     private String action = "ServiceCardFragment";
     private PaySuccessInfo paySuccessInfo;
     private String actionSign;
+
     public ServiceCardFragment() {
     }
 
@@ -169,7 +170,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
                 .subscribe(response -> {
                     dialogViewModel.dismiss();
                     paySuccessInfo = new PaySuccessInfo();
-                    if (response instanceof WalletChargeAliPayResponse){
+                    if (response instanceof WalletChargeAliPayResponse) {
                         aliPay(((WalletChargeAliPayResponse) response).getSign());
                         paySuccessInfo.imageUrl = ((WalletChargeAliPayResponse) response).getCardImgPath();
                         paySuccessInfo.orderId = ((WalletChargeAliPayResponse) response).getUserOrderid();
@@ -194,12 +195,17 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showPayResult(EventPayResultMessage message) {
+
+        if (message.isSuccess()) {
+            getFragmentViewModel().paySuccess();
+        }
+
         if (!actionSign.equals(action)) return;
+
         if (message.isSuccess()) {
             if (dialog != null)
                 dialog.dismiss();
-            getFragmentViewModel().paySuccess();
-            startActivity(new Intent(getActivity(), PaySuccessActivity.class).putExtra("paySuccessInfo",paySuccessInfo));
+            startActivity(new Intent(getActivity(), PaySuccessActivity.class).putExtra("paySuccessInfo", paySuccessInfo));
             return;
         }
         TipsToast tipsToast = TipsToast.makeText(getContext(), message.getMessage(), TipsToast.LENGTH_SHORT);
