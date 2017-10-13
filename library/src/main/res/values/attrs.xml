@@ -60,6 +60,7 @@
         <attr name="onFocusChangeCommand"/>
         <!-- require ReplyCommand<MotionEvent> -->
         <attr name="onTouchCommand"/>
+        <attr name="clickBind" format="reference"/>
     </declare-styleable>
 
 

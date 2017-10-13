@@ -21,6 +21,13 @@ public final class ViewBindingAdapter {
         });
     }
 
+    @BindingAdapter({"clickBind"})
+    public static void clickBind(View view, final RelayCommand<View> clickCommand) {
+        if (clickCommand != null) {
+            clickCommand.execute(view);
+        };
+    }
+
     @BindingAdapter({"requestFocus"})
     public static void requestFocusCommand(View view, final Boolean needRequestFocus) {
         if (needRequestFocus) {
