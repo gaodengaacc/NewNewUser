@@ -24,7 +24,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp20"
             android:padding="@dimen/dp2"
-            android:src="@mipmap/user_default_avatar"
             app:border_color="#209ced"
             app:border_width="@dimen/dp1"
             app:layout_aspectRatio="100%"

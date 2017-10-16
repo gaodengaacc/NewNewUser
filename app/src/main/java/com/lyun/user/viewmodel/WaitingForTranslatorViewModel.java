@@ -3,10 +3,12 @@ package com.lyun.user.viewmodel;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
+import com.google.gson.Gson;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
 import com.lyun.user.model.TranslationOrderModel;
+import com.lyun.utils.L;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
@@ -54,9 +56,17 @@ public class WaitingForTranslatorViewModel extends ViewModel {
 
     public RelayCommand<Boolean> onMuteCheckCommand = new RelayCommand<>(isChecked -> muteMode = isChecked);
 
+    public boolean canHangup = true;
+
     public RelayCommand<Boolean> onHangUpCheckCommand = new RelayCommand<>(isChecked -> {
-        cancelOrder();
-        ObservableNotifier.alwaysNotify(onOrderCanceled, null);
+        L.d("AVChat", "点击挂断 -> canHangup:" + canHangup);
+        synchronized (WaitingForTranslatorViewModel.this) {
+            L.d("AVChat", "执行取消订单 -> canHangup:" + canHangup);
+            if (canHangup) {
+                cancelOrder();
+                ObservableNotifier.alwaysNotify(onOrderCanceled, null);
+            }
+        }
     });
 
     public boolean handFreeMode = false;

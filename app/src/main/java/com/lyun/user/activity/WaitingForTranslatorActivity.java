@@ -104,7 +104,11 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
 
     @Override
     public void onOrderCanceled(ObservableField<String> observableField, int fieldId) {
-        autoAcceptAudioCall = false;
+        L.e("AVChat", "尝试取消订单,autoAcceptAudioCall:" + autoAcceptAudioCall);
+        synchronized (getActivityViewModel()) {
+            autoAcceptAudioCall = false;
+            L.e("AVChat", "取消自动接听,autoAcceptAudioCall:" + autoAcceptAudioCall);
+        }
         runOnUiThread(() -> {
             if (observableField.get() != null && !TextUtils.isEmpty(observableField.get())) {
                 Toast.makeText(this, observableField.get(), Toast.LENGTH_LONG).show();
@@ -122,10 +126,14 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
         @Override
         public void onEvent(AVChatData data) {
             L.d("AVChat", "接收到语音请求 -> " + new Gson().toJson(data));
-            if (autoAcceptAudioCall) {
-                translatorId = data.getAccount();
-                getActivityViewModel().stopTimer();
-                acceptAudioCall();
+            synchronized (getActivityViewModel()) {
+                getActivityViewModel().canHangup = false;
+                L.d("AVChat", "尝试自动接听 -> " + new Gson().toJson(data));
+                if (autoAcceptAudioCall) {
+                    translatorId = data.getAccount();
+                    getActivityViewModel().stopTimer();
+                    acceptAudioCall();
+                }
             }
         }
     };
@@ -154,11 +162,13 @@ public class WaitingForTranslatorActivity extends MvvmActivity<ActivityWaittingF
             @Override
             public void onFailed(int code) {
                 L.e("AVChat", "语音链接建立失败,Code:" + code);
+                getActivityViewModel().canHangup = true;
             }
 
             @Override
             public void onException(Throwable exception) {
                 L.e("AVChat", "语音链接建立失败", exception);
+                getActivityViewModel().canHangup = true;
             }
         });
     }
