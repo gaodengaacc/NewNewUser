@@ -60,6 +60,8 @@ public class HomeFragmentViewModel extends ViewModel {
                 .subscribe();
     }
 
+    private boolean dataReady = false;
+
     private void getRemainingTime(String userName) {
         new RemainingTimeModel().getRemainingTime(userName)
                 .subscribeOn(Schedulers.newThread())
@@ -67,6 +69,7 @@ public class HomeFragmentViewModel extends ViewModel {
                 .map(apiResult -> Integer.parseInt(apiResult.getContent().toString()))
                 .map(time -> {
                     unTime = time;
+                    dataReady = true;
                     return time <= 0;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -92,7 +95,16 @@ public class HomeFragmentViewModel extends ViewModel {
     public ObservableBoolean onRequestTranslationClickable = new ObservableBoolean(true);
 
     public RelayCommand onRequestTranslation = new RelayCommand(() -> {
-        if(isFastDoubleClick()) return;
+        if(isFastDoubleClick()) {
+            return;
+        }
+
+        if(!dataReady){
+            EventBus.getDefault().post(new EventMainToastMessage("连接失败"));
+            getRemainingTime(Account.preference().getPhone());
+            return;
+        }
+
         EventMainProgressMessage message = new EventMainProgressMessage(true);
         if (unTime <= 0) {
             EventBus.getDefault().post(new EventMainToastMessage("您剩余的时间不足,请购买服务时间"));
