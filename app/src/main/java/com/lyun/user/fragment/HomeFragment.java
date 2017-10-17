@@ -61,7 +61,9 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            getFragmentViewModel().onResume();
+            if (getFragmentViewModel() != null) {
+                getFragmentViewModel().onResume();
+            }
         }
     }
 
@@ -79,7 +81,7 @@ public class HomeFragment extends MvvmFragment<FragmentHomeBinding, HomeFragment
         List<FindLanguageResponse> languageResponses = new Gson().fromJson(languageStr == null ? WalletMainPopViewModel.defaultLanguageCache : languageStr, new TypeToken<List<FindLanguageResponse>>() {
         }.getType());
         mPopViewModel = new WalletMainPopViewModel(getContext(), languageResponses);
-        if (languageResponses != null && languageResponses.size() > 0){
+        if (languageResponses != null && languageResponses.size() > 0) {
             mHomeFragmentViewModel.selectText.set(languageResponses.get(0).getName());
             mHomeFragmentViewModel.mCurrentLanguage.set(languageResponses.get(0));
         }
