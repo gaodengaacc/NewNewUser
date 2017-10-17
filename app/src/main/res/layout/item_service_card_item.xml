@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:imageSrc="@{mvvm.image}"
-            android:src="@mipmap/ic_service_item_legal_doc_customization"/>
+            android:src="@mipmap/ic_service_item_legal_doc_customization"
+            app:imageSrc="@{mvvm.image}"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -33,20 +33,18 @@
             android:textColor="#465563"
             android:textSize="12sp"/>
 
-        <com.lyun.roundrectview.RoundRectTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:background="@drawable/no_border_round_corner_white_bg"
             android:gravity="center"
-            android:paddingBottom="3dp"
+            android:paddingBottom="1.5dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingTop="3dp"
+            android:paddingTop="1.5dp"
             android:text="@{mvvm.service}"
-            app:cornerRadius="50%"
             android:textColor="#fd811c"
-            android:textSize="9sp"
-            app:backgroundColor="@android:color/white"/>
-
+            android:textSize="9sp"/>
     </LinearLayout>
 </layout>

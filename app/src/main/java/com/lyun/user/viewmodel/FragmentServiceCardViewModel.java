@@ -81,9 +81,9 @@ public class FragmentServiceCardViewModel extends ViewModel {
     @Override
     public void onResume() {
         super.onResume();
-        serviceCardItemAdapter.get().notifyDataSetChanged();
-        if (!dataReady)
+        if (!dataReady) {
             queryServiceCardList();
+        }
     }
 
     public void queryServiceCardList() {
