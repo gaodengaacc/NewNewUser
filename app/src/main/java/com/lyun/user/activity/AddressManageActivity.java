@@ -153,7 +153,6 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
     public void toAddActivity(EventIntentActivityMessage message) {
         startActivity(message.getMessage().setClass(this, AddAddressActivity.class));
     }
-
     public void showDeleteDialog(final int position) {
         if (simpleDialogViewModel == null) {
             simpleDialogViewModel = new SimpleDialogViewModel(this);
@@ -161,6 +160,7 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
             simpleDialogViewModel.setCancelBtnText("是");
             simpleDialogViewModel.setYesBtnText("否");
             simpleDialogViewModel.setBtnCancelTextColor(Color.parseColor("#fe811c"));
+        }
             simpleDialogViewModel.setOnItemClickListener(new SimpleDialogViewModel.OnItemClickListener() {
                 @Override
                 public void OnYesClick(View view) {
@@ -172,7 +172,6 @@ public class AddressManageActivity extends GeneralToolbarActivity<ActivityAddres
                     getBodyViewModel().deleteAddress(position, false);
                 }
             });
-        }
         simpleDialogViewModel.show();
     }
 }
