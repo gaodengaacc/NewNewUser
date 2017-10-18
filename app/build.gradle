@@ -80,7 +80,7 @@ android {
             buildConfigField "String", "MIPUSH_CERT_NAME", '"userdebug"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
-            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+            buildConfigField "String", "WX_PAY_APPID", '"wx702f2d3dc2c89936"'
             buildConfigField "String", "QQ_APPID", '"1104650295"'
             buildConfigField "String", "WB_APPKEY", '"1107847230"'
 
@@ -104,7 +104,7 @@ android {
             buildConfigField "String", "MIPUSH_CERT_NAME", '"user"'
             buildConfigField "String", "BAIDU_MAP_AK", '"I8mvwSd8WolPcyoTUCPf5QI1"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
-            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+            buildConfigField "String", "WX_PAY_APPID", '"wx702f2d3dc2c89936"'
             buildConfigField "String", "QQ_APPID", '"1104650295"'
             buildConfigField "String", "WB_APPKEY", '"1107847230"'
 
@@ -126,7 +126,7 @@ android {
             buildConfigField "String", "MIPUSH_CERT_NAME", '"alpha"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
-            buildConfigField "String", "WX_PAY_APPID", '"wx32783f5b7b05f691"'
+            buildConfigField "String", "WX_PAY_APPID", '"wx702f2d3dc2c89936"'
             buildConfigField "String", "QQ_APPID", '"1104650295"'
             buildConfigField "String", "WB_APPKEY", '"1107847230"'
 
