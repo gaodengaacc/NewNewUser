@@ -183,7 +183,9 @@ public class PullToRefreshLayout extends RelativeLayout {
     }
 
     private void hide() {
-        timer.schedule(5);
+        if (timer != null) {
+            timer.schedule(5);
+        }
     }
 
     /**
@@ -193,8 +195,9 @@ public class PullToRefreshLayout extends RelativeLayout {
      * @param refreshResult PullToRefreshLayout.SUCCEED代表成功，PullToRefreshLayout.FAIL代表失败
      */
     public void refreshFinish(int refreshResult) {
-        if(!isLayout)
+        if (!isLayout) {
             return;
+        }
         refreshingView.clearAnimation();
         refreshingView.setVisibility(View.GONE);
         switch (refreshResult) {
@@ -233,7 +236,7 @@ public class PullToRefreshLayout extends RelativeLayout {
      * @param refreshResult PullToRefreshLayout.SUCCEED代表成功，PullToRefreshLayout.FAIL代表失败
      */
     public void loadmoreFinish(int refreshResult) {
-        if(!isLayout)
+        if (!isLayout)
             return;
         loadingView.clearAnimation();
         loadingView.setVisibility(View.GONE);
@@ -441,20 +444,21 @@ public class PullToRefreshLayout extends RelativeLayout {
         super.dispatchTouchEvent(ev);
         return true;
     }
+
     //view销毁的方法，处理内存泄露
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         if (timer != null) {
-                if(timer.mTask!=null){
-                    timer.mTask.cancel();
-                    timer.mTask = null;
-                }
-                if(updateHandler!=null){
-                    updateHandler.removeCallbacksAndMessages(null);
-                    updateHandler =null;
-                }
-            if(timer.timer!=null){
+            if (timer.mTask != null) {
+                timer.mTask.cancel();
+                timer.mTask = null;
+            }
+            if (updateHandler != null) {
+                updateHandler.removeCallbacksAndMessages(null);
+                updateHandler = null;
+            }
+            if (timer.timer != null) {
                 timer.timer.cancel();
                 timer.timer = null;
             }
@@ -504,14 +508,14 @@ public class PullToRefreshLayout extends RelativeLayout {
      * 自动刷新
      */
     public void autoRefresh() {
-        if(!isLayout)
+        if (!isLayout)
             return;
 //        AutoRefreshAndLoadTask task = new AutoRefreshAndLoadTask();
 //        task.execute(20);
         pullDownY = REFRESH_DIST;
         changeState(REFRESHING);
-        if(mListener!=null)
-        mListener.onRefresh(this);
+        if (mListener != null)
+            mListener.onRefresh(this);
     }
 
     /**
@@ -525,6 +529,7 @@ public class PullToRefreshLayout extends RelativeLayout {
         if (mListener != null)
             mListener.onLoadMore(this);
     }
+
     private void initView() {
         // 初始化下拉布局
         pullView = refreshView.findViewById(R.id.pull_icon);
