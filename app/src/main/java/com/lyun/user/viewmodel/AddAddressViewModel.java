@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.lyun.api.response.APIResult;
 import com.lyun.library.mvvm.bindingadapter.edittext.ViewBindingAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
@@ -24,6 +25,7 @@ import com.lyun.utils.RegExMatcherUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
 
 /**
  * @author Gordon
@@ -167,7 +169,7 @@ public class AddAddressViewModel extends ViewModel {
                     else
                         return new AddressModel().addAddress(bean);
                 })
-                .flatMap(result -> Observable.create(observable -> {
+                .flatMap(result -> Observable.create((ObservableEmitter<APIResult<Integer>> observable) -> {
                     if (!result.isSuccess()) {
                         observable.onError(new Throwable(result.getDescribe()));
                     } else {
@@ -178,7 +180,7 @@ public class AddAddressViewModel extends ViewModel {
                 .subscribe(apiResult -> {
                     EventBus.getDefault().post(new EventProgressMessage(false));
                             EventAddressSelectMessage message = new EventAddressSelectMessage(position, isEditor ? 3 : 4);
-                    response.setId(apiResult.toString());
+                            response.setId(apiResult.getContent().toString());
                             message.setResponse(response);
                             EventBus.getDefault().post(new EventToastMessage("保存成功"));
                             EventBus.getDefault().post(message);

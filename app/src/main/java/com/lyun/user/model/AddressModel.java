@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class AddressModel extends Model {
-    public Observable<APIResult> addAddress(AddAddressRequestBean bean) {
+    public Observable<APIResult<Integer>> addAddress(AddAddressRequestBean bean) {
         return API.auth.addAddress(bean)
                 .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
@@ -47,7 +47,7 @@ public class AddressModel extends Model {
                 .observeOn(Schedulers.io());
     }
 
-    public Observable<APIResult> updateAddress(AddAddressRequestBean bean) {
+    public Observable<APIResult<Integer>> updateAddress(AddAddressRequestBean bean) {
         return API.auth.updateAddress(bean)
                 .onErrorReturn(throwable -> ErrorParser.mockResult(throwable))
                 .subscribeOn(Schedulers.io())
