@@ -207,7 +207,7 @@ public class LoginViewModel extends ViewModel {
 
     //根据微信code 获取微信openId
     public void getWxOpenId(String code) {
-        new LoginModel().getWxOpenId(BuildConfig.WX_PAY_APPID, "5de0ead7e50b32a44e85ba30308b898e", code)
+        new LoginModel().getWxOpenId(BuildConfig.WX_PAY_APPID, "7af0b8d4ebe1c0918931b77d5168f758", code)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(wxOpenIdResponse -> {
                     String openid = wxOpenIdResponse.getOpenid();

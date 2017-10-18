@@ -183,6 +183,7 @@ public class PullToRefreshLayout extends RelativeLayout {
     }
 
     private void hide() {
+        if (timer != null)
         timer.schedule(5);
     }
 
