@@ -100,7 +100,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", "HOST", '"https://lyt.lyun.com:8441"'
+            buildConfigField "String", "HOST", '"https://lyt.lyun.com:8444"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"user"'
             buildConfigField "String", "BAIDU_MAP_AK", '"I8mvwSd8WolPcyoTUCPf5QI1"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "108200"
