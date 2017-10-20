@@ -7,7 +7,7 @@ def buildTime() {
 }
 
 def _versionCode() {
-    return Integer.parseInt(new Date(getGitCommitTime()).format("yyMMddhhmm", TimeZone.getTimeZone("GMT+8")));
+    return Integer.parseInt(new Date(getGitCommitTime()).format("yyMMddHHmm", TimeZone.getTimeZone("GMT+8")));
 }
 
 def getGitCommitHash() {
