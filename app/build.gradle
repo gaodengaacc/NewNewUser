@@ -91,7 +91,7 @@ android {
                     BaiduMobAd_STAT_ID: "ac161ce77e"])
         }
         release {
-            debuggable true
+            debuggable false
             signingConfig signingConfigs.release
             //是否清理无用资源
             shrinkResources false
@@ -110,7 +110,7 @@ android {
 
             manifestPlaceholders.putAll([
                     APPLICATION_ID    : defaultConfig.applicationId,
-                    NIM_APPKEY        : "124ec74d7185ba1c8f7ee5c5207490ff",
+                    NIM_APPKEY        : "2bbbb39221e2ea7d61904f61acc72d52",
                     MIPUSH_CERT_NAME  : "user",
                     UMENG_APP_KEY     : "55a45f2967e58e1f1400529a",
                     BaiduMobAd_STAT_ID: "dc2fb90b27"])
