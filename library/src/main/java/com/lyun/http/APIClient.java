@@ -38,15 +38,22 @@ public class APIClient {
     }
 
     private APIClient(String baseUrl, SSLSocketFactory sslSocketFactory, Interceptor tokenInterceptor, Interceptor interceptor) {
-        // 初始化OkHttpClient
-        mOkHttpClient = new OkHttpClient.Builder()
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 // 忽略SSL验证
                 // .sslSocketFactory(getSSLSocketFactory(), getTrustManager())
                 .sslSocketFactory(sslSocketFactory, getTrustManager())
-                .hostnameVerifier(getHostnameVerifier())
-                .addInterceptor(tokenInterceptor)
-                .addInterceptor(interceptor)
-                .build();
+                .hostnameVerifier(getHostnameVerifier());
+
+        if (tokenInterceptor != null) {
+            builder.addInterceptor(tokenInterceptor);
+        }
+
+        if (interceptor != null) {
+            builder.addInterceptor(interceptor);
+        }
+
+        mOkHttpClient = builder.build();
 
         // 初始化Retrofit
         mRetrofit = new Retrofit.Builder()
