@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.lyun.library.mvvm.view.fragment.MvvmFragment;
 import com.lyun.user.AppApplication;
 import com.lyun.user.R;
-import com.lyun.user.activity.PaySuccessActivity;
 import com.lyun.user.activity.ServiceCardDetailActivity;
 import com.lyun.user.api.response.ServiceCardListItemResponse;
 import com.lyun.user.api.response.ServiceCardResponse;
@@ -22,6 +21,7 @@ import com.lyun.user.api.response.WalletChargeAliPayResponse;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
 import com.lyun.user.databinding.FragmentServiceCardBinding;
 import com.lyun.user.dialog.CardPayDialog;
+import com.lyun.user.dialog.PaySuccessDialog;
 import com.lyun.user.eventbusmessage.EventListItemMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventPayReadyMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventPayResultMessage;
@@ -32,6 +32,7 @@ import com.lyun.user.pay.alipay.AliPayManager;
 import com.lyun.user.pay.wxpay.WXPayManager;
 import com.lyun.user.viewmodel.CardPayDialogViewModel;
 import com.lyun.user.viewmodel.FragmentServiceCardViewModel;
+import com.lyun.user.viewmodel.PaySuccessDialogViewModel;
 import com.lyun.user.viewmodel.WalletChargeViewModel;
 import com.lyun.user.viewmodel.watchdog.IFragmentServiceCardViewModelCallbacks;
 import com.lyun.utils.Screen;
@@ -51,6 +52,7 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
         implements IFragmentServiceCardViewModelCallbacks {
 
     private CardPayDialog dialog;
+    private PaySuccessDialog paySuccessDialog;
     private CardPayDialogViewModel payViewModel;
     private AliPayManager aliPayManager;
     private WXPayManager wxPayManager;
@@ -195,17 +197,15 @@ public class ServiceCardFragment extends MvvmFragment<FragmentServiceCardBinding
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showPayResult(EventPayResultMessage message) {
-
         if (message.isSuccess()) {
             getFragmentViewModel().paySuccess();
         }
-
         if (!actionSign.equals(action)) return;
-
         if (message.isSuccess()) {
             if (dialog != null)
                 dialog.dismiss();
-            startActivity(new Intent(getActivity(), PaySuccessActivity.class).putExtra("paySuccessInfo", paySuccessInfo));
+            paySuccessDialog = new PaySuccessDialog(getActivity(), new PaySuccessDialogViewModel(paySuccessInfo));
+            paySuccessDialog.show();
             return;
         }
         TipsToast tipsToast = TipsToast.makeText(getContext(), message.getMessage(), TipsToast.LENGTH_SHORT);

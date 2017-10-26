@@ -16,6 +16,7 @@ import com.lyun.user.api.response.WalletChargeAliPayResponse;
 import com.lyun.user.api.response.WalletChargeWxPayResponse;
 import com.lyun.user.databinding.ActivityServiceCardDetailBinding;
 import com.lyun.user.dialog.CardPayDialog;
+import com.lyun.user.dialog.PaySuccessDialog;
 import com.lyun.user.eventbusmessage.EventActivityFinishMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventPayReadyMessage;
 import com.lyun.user.eventbusmessage.cardpay.EventPayResultMessage;
@@ -25,6 +26,7 @@ import com.lyun.user.pay.PaySuccessInfo;
 import com.lyun.user.pay.alipay.AliPayManager;
 import com.lyun.user.pay.wxpay.WXPayManager;
 import com.lyun.user.viewmodel.CardPayDialogViewModel;
+import com.lyun.user.viewmodel.PaySuccessDialogViewModel;
 import com.lyun.user.viewmodel.ServiceCardDetailViewModel;
 import com.lyun.user.viewmodel.WalletChargeViewModel;
 import com.lyun.utils.TipsToast;
@@ -43,6 +45,8 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
     private PaySuccessInfo paySuccessInfo;
     private CardPayDialog dialog;
     private CardPayDialogViewModel payViewModel;
+    private PaySuccessDialogViewModel paySuccessDialogViewModel;
+    private PaySuccessDialog paySuccessDialog;
     private AliPayManager aliPayManager;
     private WXPayManager wxPayManager;
     private String action = "ServiceCardDetailActivity";
@@ -135,8 +139,12 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
     public void showPayResult(EventPayResultMessage message) {
         if (!actionSign.equals(action)) return;
         if (message.isSuccess()) {
+//            Intent intent = new Intent(message.getActivity(), PaySuccessActivity.class);
+//            intent.putExtra("paySuccessInfo", paySuccessInfo);
+//            startActivity(intent);
+            paySuccessDialog = new PaySuccessDialog(this, new PaySuccessDialogViewModel(paySuccessInfo));
+            paySuccessDialog.show();
             if (dialog != null) dialog.dismiss();
-            startActivity(new Intent(this, PaySuccessActivity.class).putExtra("paySuccessInfo", paySuccessInfo));
             return;
         }
         TipsToast tipsToast = TipsToast.makeText(this, message.getMessage(), TipsToast.LENGTH_SHORT);
@@ -150,6 +158,7 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showPayDialog(EventShowPayDialogMessage message) {
         showPayDialog(message.getMessage());
+        new PaySuccessDialog(this, new PaySuccessDialogViewModel(null)).show();
     }
 
     public void aliPay(String sign) {
