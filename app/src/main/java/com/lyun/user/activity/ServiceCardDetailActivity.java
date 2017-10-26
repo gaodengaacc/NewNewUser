@@ -158,7 +158,6 @@ public class ServiceCardDetailActivity extends GeneralToolbarActivity<ActivitySe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showPayDialog(EventShowPayDialogMessage message) {
         showPayDialog(message.getMessage());
-        new PaySuccessDialog(this, new PaySuccessDialogViewModel(null)).show();
     }
 
     public void aliPay(String sign) {
