@@ -5,8 +5,8 @@ buildscript {
         jcenter()
         mavenCentral()
         //添加fir maven源
+        maven { url "file:/maven" }
         maven { url "https://maven.google.com" }
-        maven { url "http://maven.bughd.com/public" }
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
     }
     dependencies {
@@ -17,6 +17,7 @@ buildscript {
 
         //添加fir插件依赖
         classpath 'im.fir:gradle-fir-publisher:1.0.7'
+        classpath 'im.fir:fir-http:0.0.7'
     }
 }
 
@@ -25,8 +26,8 @@ allprojects {
         jcenter()
         mavenCentral()
         //添加fir maven源
+        maven { url "file:/maven" }
         maven { url "https://maven.google.com" }
-        maven { url "http://maven.bughd.com/public" }
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
     }
 }
