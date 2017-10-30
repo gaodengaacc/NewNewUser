@@ -37,12 +37,6 @@
         <!-- require boolean value to decide whether requestFocus for view. -->
         <attr name="requestFocus" format="boolean"/>
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
-        <attr name="itemView" format="reference"/>
-        <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
-        <attr name="items" format="reference"/>
-        <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
-
-
         <attr name="onScrollChangeCommand" format="reference"/>
         <attr name="onScrollStateChangedCommand" format="reference"/>
         <attr name="uri" format="string"/>
@@ -52,7 +46,6 @@
         <attr name="onFocusChangeCommand" format="reference"/>
     </declare-styleable>
     <declare-styleable name="View">
-
         <!-- require ReplyCommand {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view click event. -->
         <attr name="clickCommand"/>
         <!-- require ReplyCommand<Boolean> {@link com.kelin.mvvmlight.command.ReplyCommand } to deal with view focus change event.
@@ -62,8 +55,6 @@
         <attr name="onTouchCommand"/>
         <attr name="clickBind" format="reference"/>
     </declare-styleable>
-
-
     <declare-styleable name="AdapterView">
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView"/>
@@ -80,10 +71,7 @@
         <attr name="onScrollChangeCommand"/>
         <!-- require ReplyCommand<Integer> count of list items-->
         <attr name="onLoadMoreCommand" format="reference"/>
-
-
     </declare-styleable>
-
     <declare-styleable name="TextView">
         <attr name="clickCommand"/>
         <!-- require boolean value to decide whether requestFocus for view. -->
@@ -101,7 +89,6 @@
         <attr name="drawableRight" format="reference"></attr>
         <attr name="drawableBottom" format="reference"></attr>
     </declare-styleable>
-
     <declare-styleable name="ImageView">
         <attr name="clickCommand" format="reference"/>
         <!--  load bitmap from uri(string type) -->
@@ -117,34 +104,23 @@
         <attr name="onSuccessCommand" format="reference"/>
         <!--require ReplyCommand<CloseableReference<CloseableImage>> See {@link com.kelin.mvvmlight.command.ReplyCommand} -->
         <attr name="onFailureCommand" format="reference"/>
-
     </declare-styleable>
-
     <declare-styleable name="CheckBox">
         <attr name="onCheckCommand" format="reference"/>
-
     </declare-styleable>
-
     <declare-styleable name="ViewGroup">
         <attr name="clickCommand"/>
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView"/>
         <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
-        <attr name="viewModels" format="reference"/>
+        <attr name="items" format="reference"/>
         <attr name="backGround" format="reference"/>
-
     </declare-styleable>
     <declare-styleable name="ListView" parent="AdapterView">
         <!--require ReplyCommand<Integer> integer mean to position where is clicked! -->
         <attr name="onItemClickCommand" format="reference"/>
     </declare-styleable>
-
     <declare-styleable name="ViewPager">
-        <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
-        <attr name="itemView"/>
-        <!-- require List<ViewModel> addPropertyChangeListener to ItemView to presentation.-->
-        <attr name="items"/>
-        <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
         <attr name="adapter"/>
         <!-- require PageTitles<T>-->
         <attr name="pageTitles" format="reference"/>

@@ -33,12 +33,12 @@ def getGitCommitTime() {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode _versionCode()
         versionName "${_version}"
 
@@ -54,35 +54,38 @@ android {
     dataBinding {
         enabled true
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(':nimuikit')
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:support-v4:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.android.support:multidex:1.0.0'
-    testCompile 'junit:junit:4.12'
-    compile 'com.github.bumptech.glide:glide:4.1.1'
+    api project(':nimuikit')
+    api "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    api "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+    api "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    api 'com.android.support:multidex:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    api 'com.github.bumptech.glide:glide:4.1.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
-    compile 'com.github.bumptech.glide:okhttp3-integration:4.1.1'
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.squareup.okhttp3:okhttp:3.5.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    compile 'com.facebook.fresco:fresco:1.0.0'
-    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter:1.1.0'
-    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.1.0'
-    provided 'com.squareup.leakcanary:leakcanary-android:1.5'
+    api 'com.github.bumptech.glide:okhttp3-integration:4.1.1'
+    api 'com.google.code.gson:gson:2.8.0'
+    api 'io.reactivex.rxjava2:rxjava:2.0.1'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'com.squareup.okhttp3:okhttp:3.5.0'
+    api 'com.squareup.retrofit2:retrofit:2.1.0'
+    api 'com.squareup.retrofit2:converter-gson:2.1.0'
+    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    api 'com.facebook.fresco:fresco:1.0.0'
+    api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0'
+    api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0'
+    compileOnly 'com.squareup.leakcanary:leakcanary-android:1.5'
     //watchdog
-    compile 'net.funol.databinding.watchdog:watchdog:1.0.1'
+    api 'net.funol.databinding.watchdog:watchdog:1.0.1'
     annotationProcessor 'net.funol.databinding.watchdog:compiler:1.0.1'
 }
 

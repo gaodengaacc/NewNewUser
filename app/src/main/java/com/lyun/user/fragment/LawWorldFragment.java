@@ -52,7 +52,7 @@ public class LawWorldFragment extends MvvmFragment<FragmentLawWorldBinding, LawW
     @Override
     protected LawWorldViewModel createViewModel() {
 
-        mViewPager = (ViewPager) getFragmentViewDataBinding().getRoot().findViewById(R.id.law_world_viewpager);
+        mViewPager = getFragmentViewDataBinding().getRoot().findViewById(R.id.law_world_viewpager);
 
         mViewPager.setPageMargin(DisplayUtil.dip2px(getContext(), 5));
         mViewPager.setPageTransformer(false, new LawWorldPageTransformer());

@@ -6,15 +6,12 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.databinding.ObservableList;
 import android.os.Build;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lyun.adapter.BaseRecyclerAdapter;
 import com.lyun.library.mvvm.command.RelayCommand;
 import com.lyun.library.mvvm.observable.util.ObservableNotifier;
 import com.lyun.library.mvvm.viewmodel.ViewModel;
-import com.lyun.user.AppApplication;
 import com.lyun.user.BR;
 import com.lyun.user.R;
 import com.lyun.user.adapter.ServiceCardListAdapter;
@@ -28,7 +25,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import me.tatarka.bindingcollectionadapter.ItemView;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
  * @author Gordon
@@ -46,7 +43,7 @@ public class FragmentServiceCardViewModel extends ViewModel {
     public final ObservableInt currentPage = new ObservableInt(0);
 
     public final ObservableList<ServiceCardViewModel> serviceCardViewModels = new ObservableArrayList<>();
-    public final ObservableField<ItemView> serviceCardView = new ObservableField<>();
+    public final ItemBinding<ServiceCardViewModel> serviceCardView = ItemBinding.of(BR.mvvm, R.layout.item_service_card);
 
     public final ObservableField<BaseRecyclerAdapter> serviceCardItemAdapter = new ObservableField<>();
     public final ObservableList<ViewModel> serviceCardItemViewModels = new ObservableArrayList<>();
@@ -59,9 +56,6 @@ public class FragmentServiceCardViewModel extends ViewModel {
     @WatchThis
     public final ObservableField<ServiceCardResponse> navigateCardDetail = new ObservableField();
 
-    //设置LayoutManager
-    public RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(AppApplication.getInstance(), 3);
-
     public FragmentServiceCardViewModel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -69,8 +63,6 @@ public class FragmentServiceCardViewModel extends ViewModel {
         } else {
             topVisible.set(View.GONE);
         }
-
-        serviceCardView.set(ItemView.of(BR.mvvm, R.layout.item_service_card));
 
         ServiceCardListAdapter adapter = new ServiceCardListAdapter(null, R.layout.item_service_card_item);
         serviceCardItemAdapter.set(adapter);

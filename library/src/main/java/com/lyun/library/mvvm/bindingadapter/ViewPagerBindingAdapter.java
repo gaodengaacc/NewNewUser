@@ -12,6 +12,7 @@ import com.lyun.library.R;
 import com.lyun.library.mvvm.command.RelayCommand;
 
 public class ViewPagerBindingAdapter {
+
     @BindingAdapter(value = {"onPageScrolledCommand", "onPageSelectedCommand", "onPageScrollStateChangedCommand"}, requireAll = false)
     public static void onScrollChangeCommand(final ViewPager viewPager,
                                              final RelayCommand<ViewPagerDataWrapper> onPageScrolledCommand,

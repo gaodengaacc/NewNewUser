@@ -4,7 +4,8 @@
 
     <data>
 
-        <import type="com.lyun.user.viewmodel.FragmentServiceCardViewModel"></import>
+        <import type="com.lyun.user.viewmodel.FragmentServiceCardViewModel"/>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
 
         <variable
             name="mvvm"
@@ -131,7 +132,7 @@
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     app:currentItem="@={mvvm.currentPage}"
-                    app:itemView="@{mvvm.serviceCardView}"
+                    app:itemBinding="@{mvvm.serviceCardView}"
                     app:items="@{mvvm.serviceCardViewModels}"
                     app:offscreenPageLimit="4"
                     app:onPageSelectedCommand="@{mvvm.onPageSelected}">
@@ -148,7 +149,7 @@
                 android:dividerHeight="0dp"
                 android:scrollbars="none"
                 app:adapter="@{mvvm.serviceCardItemAdapter}"
-                app:layoutManager="@{mvvm.recyclerViewLayoutManager}"
+                app:layoutManager="@{LayoutManagers.grid(3)}"
                 app:notifyData="@{mvvm.serviceCardItemViewModels}">
 
             </android.support.v7.widget.RecyclerView>

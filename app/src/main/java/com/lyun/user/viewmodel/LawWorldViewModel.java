@@ -13,19 +13,17 @@ import com.lyun.user.Constants;
 import com.lyun.user.R;
 import com.lyun.user.api.response.LawWorldResponse;
 import com.lyun.user.model.LawWorldModel;
-import com.netease.nim.uikit.NimUIKit;
 
 import net.funol.databinding.watchdog.annotations.WatchThis;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import me.tatarka.bindingcollectionadapter.ItemView;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 public class LawWorldViewModel extends ViewModel implements LawWorldCardViewModel.OnClickListener {
 
     public final ObservableList<LawWorldCardViewModel> items = new ObservableArrayList<>();
-    public final ObservableField<ItemView> itemView = new ObservableField<>();
+    public final ItemBinding<LawWorldCardViewModel> itemView = ItemBinding.of(BR.mvvm, R.layout.item_law_world);
 
     public final ObservableInt currentItem = new ObservableInt(0);
 
@@ -41,7 +39,6 @@ public class LawWorldViewModel extends ViewModel implements LawWorldCardViewMode
     public final ObservableField<LawWorldResponse> navigateDetail = new ObservableField<>();
 
     public LawWorldViewModel() {
-        itemView.set(ItemView.of(BR.mvvm, R.layout.item_law_world));
         queryLawyerList(0);
     }
 
