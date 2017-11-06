@@ -24,7 +24,7 @@ public class CardPayDialogViewModel extends DialogViewModel {
     public final ObservableInt aliSelect = new ObservableInt();//充值图标
     public final ObservableInt wxSelect = new ObservableInt();
     public final ObservableField<String> buyMoney = new ObservableField<>();
-    private WalletChargeViewModel.PayType PAY_WAY = WalletChargeViewModel.PayType.WX;
+    private WalletChargeViewModel.PayType PAY_WAY = WalletChargeViewModel.PayType.ALI;
     private long lastClickTime;
     private double money;
     private EventPayReadyMessage message;

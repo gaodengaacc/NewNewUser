@@ -58,8 +58,7 @@
             android:paddingLeft="15dp"
             android:text="选择支付方式"
             android:textColor="@color/tc14"
-            android:textSize="14sp"
-            android:visibility="gone"/>
+            android:textSize="14sp" />
 
 
         <RelativeLayout
@@ -70,8 +69,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/common_item_bg_selector"
-            android:onClick="@{mvvm.onClickView}"
-            android:visibility="gone">
+            android:onClick="@{mvvm.onClickView}">
 
             <TextView
                 android:layout_width="match_parent"
@@ -118,8 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                app:imageSrc="@{mvvm.wxSelect}"
-                android:visibility="gone"/>
+                app:imageSrc="@{mvvm.wxSelect}" />
 
         </RelativeLayout>
 

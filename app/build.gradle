@@ -74,7 +74,7 @@ android {
             versionNameSuffix = " debug-${buildTime()}"
 //            applicationIdSuffix = 'debug'
 
-            buildConfigField "String", "HOST", '"http://172.16.133.175:8080"'
+            buildConfigField "String", "HOST", '"https://lyt2.lyun.com:8441"'
             buildConfigField "String", "MIPUSH_CERT_NAME", '"userdebug"'
             buildConfigField "String", "BAIDU_MAP_AK", '"eqrUfj2oWMjy3pmQb8RRRjddu4Fc5zsF"'
             buildConfigField "int", "BAIDU_MAP_GEO_TABLE_ID", "138163"
